@@ -20,18 +20,19 @@ export class RegisterComponent implements OnInit {
     this.items = [
       {
         label: 'Cuenta',
+        routerLink: 'personal'
       },
       {
-        label: 'Contacto'
+        label: 'Contacto',
+        routerLink: 'contact'
       },
       {
-        label: 'Familia'
+        label: 'Familia',
+        routerLink: 'family'
       },
       {
-        label: 'Estatus'
-      },
-      {
-        label: 'Disponibilidad'
+        label: 'Estatus',
+        routerLink: 'status'
       }
     ];
   }

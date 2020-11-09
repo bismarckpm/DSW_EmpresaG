@@ -4,6 +4,8 @@ import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
 import { AccountComponent } from '../register/account/account.component';
 import { ContactComponent } from '../register/contact/contact.component';
+import { StatusComponent } from '../register/status/status.component';
+import { FamilyComponent } from '../register/family/family.component';
 
 export const routes: Routes = [
     { 
@@ -16,18 +18,31 @@ export const routes: Routes = [
       children: [
         {
           path: '',
+          redirectTo: 'personal',
+          pathMatch: 'full'
+        },
+        {
+          path: 'personal',
           component: AccountComponent
         },
         {
           path: 'contact',
           component: ContactComponent
+        },
+        {
+          path: 'family',
+          component: FamilyComponent
+        },
+        {
+          path: 'status',
+          component: StatusComponent
         }
       ]
     },
     /* REDIRECCIONAR A LA RUTA EN LA QUE SE ESTE TRABAJANDO MIENTRAS TANTO */
     { 
       path: '', 
-      redirectTo: '/register', 
+      redirectTo: '/register/personal', 
       pathMatch: 'full' 
     }
 ];

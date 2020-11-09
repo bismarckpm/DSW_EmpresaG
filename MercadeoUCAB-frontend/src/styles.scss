@@ -23,6 +23,11 @@ body .p-dropdown{
     padding: 0.225rem 0.225rem !important;
 }
 
+body .p-multiselect{
+    width: 95% !important;
+    padding: 0.225rem 0.225rem !important;
+}
+
 body .p-calendar{
     width: 95% !important;
 }
@@ -64,6 +69,10 @@ body .p-button-secondary{
     width: 95%;
 }
 
+.full-width{
+    width: 97%;
+}
+
 body .p-calendar .p-inputtext{
     font-size: 12px !important;
 }	
@@ -77,3 +86,6 @@ a{
     color: #4D80CA;
 }
 
+#mercadeoucab .p-button-icon{
+    color: floralwhite !important;
+}
