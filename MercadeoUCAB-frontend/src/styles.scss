@@ -3,3 +3,59 @@ html {
     font-size: 13px;
     font-family: 'Segoe UI', Arial, sans-serif;
 }
+
+.panel-img{
+    opacity: 0.9;
+}
+
+body .p-steps-number{
+    color: floralwhite !important;
+    background-color: #4D80CA !important;
+}
+
+body .p-disabled > a > .p-steps-number{
+    color: floralwhite !important;
+    background-color: #707070 !important;
+}
+
+body .p-dropdown{
+    width: 95% !important;
+    padding: 0.225rem 0.225rem !important;
+}
+
+body .p-calendar{
+    width: 95% !important;
+}
+
+span > .p-inputtext:enabled:focus{
+    border-color: #4D80CA !important;
+    box-shadow: 0 0 0 0.02rem #4D80CA !important;
+}
+
+
+span > .p-inputtext:hover{
+    box-shadow: 0 0 0 0.02rem #4D80CA !important;
+}
+
+
+.p-dropdown:not(.p-disabled).p-focus{
+    box-shadow: 0 0 0 0.05 rem #4D80CA !important;
+}
+
+.p-dropdown:not(.p-disabled):hover{
+    border-color: #4D80CA !important;
+    box-shadow: 0 0 0 0.05 rem #4D80CA !important;
+}
+
+body .p-button{
+    background-color: #4D80CA !important;
+}
+
+body .p-button-secondary{
+    background-color: #707070 !important;
+}
+
+.fill-width {
+    width: 95%;
+}
+
