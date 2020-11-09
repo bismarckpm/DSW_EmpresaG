@@ -1,0 +1,70 @@
+<div class="demo-container p-p-0 p-p-sm-4 p-p-md-6 p-p-lg-4">
+    <form novalidate [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+        <div class="p-grid p-mt-4">
+            <div class="p-col-12 p-md-6 p-mb-5">
+                <span class="p-float-label">
+                    <input id="correo_electronico" class="p-inputtext-lg fill-width" formControlName="correo_electronico" type="text" pInputText>
+                    <label for="float-input">Correo Electrónico *</label>
+                </span>
+            </div>
+
+            <div class="p-col-12 p-md-6 p-mb-5">
+                <span class="p-float-label">
+                    <input id="contraseña" class="p-inputtext-lg fill-width" formControlName="contraseña" type="password" pPassword weakLabel="Débil"
+                        mediumLabel="Normal" strongLabel="Fuerte" promptLabel="Ingrese una contraseña">
+                    <label for="float-input">Contraseña *</label>
+                </span>
+            </div>
+
+            <div class="p-col-12 p-md-6 p-mb-5">
+                <span class="p-float-label">
+                    <input id="confirmar_contraseña" class="p-inputtext-lg fill-width" formControlName="confirmar_contraseña"  type="password" pInputText>
+                    <label for="float-input">Confirmar Contraseña *</label>
+                </span>
+            </div>
+
+            <div class="p-col-12 p-md-6 p-mb-5">
+                <span class="p-float-label">
+                    <input id="primer_nombre" class="p-inputtext-lg fill-width" formControlName="primer_nombre"  type="text" pInputText>
+                    <label for="float-input">Primer Nombre *</label>
+                </span>
+            </div>
+
+            <div class="p-col-12 p-md-6 p-mb-5">
+                <span class="p-float-label">
+                    <input id="primer_apellido" class="p-inputtext-lg fill-width" formControlName="primer_apellido"  type="text" pInputText>
+                    <label for="float-input">Primer Apellido *</label>
+                </span>
+            </div>
+
+            <div class="p-col-12 p-md-6 p-mb-5">
+                <span class="p-float-label">
+                    <input id="documento" class="p-inputtext-lg fill-width" formControlName="documento_de_identificacion"  type="text" pInputText>
+                    <label for="float-input">Documento de Identificación *</label>
+                </span>
+            </div>
+
+            <div class="p-col-12 p-md-6 p-mb-5">
+                <p-dropdown [options]="generos" placeholder="Género" formControlName="genero" ></p-dropdown>
+            </div>
+
+            <div class="p-col-12 p-md-6 p-mb-5">
+                <p-dropdown [options]="estados_civiles" placeholder="Estado Civil" formControlName="estado_civil" ></p-dropdown>
+            </div>
+
+            <div class="p-col-12 p-md-6 p-mb-5">
+                <p-calendar placeholder="Fecha de Nacimiento *" dataType="string" dateFormat="dd/mm/yy" formControlName="fecha_de_nacimiento" class="p-inputtext-lg"></p-calendar>
+            </div>
+        </div>
+
+        <div class="p-grid p-jc-end p-mt-1 p-mr-4">
+            <div class="p-grid p-formgrid p-fluid">
+                <div class="p-mb-2 p-col-12 p-mb-lg-0">
+                    <button pButton pRipple type="submit" label="Siguiente"></button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>

@@ -1,0 +1,43 @@
+<div class="demo-container p-p-0 p-p-sm-4 p-p-md-6 p-p-lg-4">
+    <form novalidate [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+        <div class="p-grid p-mt-4">
+            <div class="p-col-12 p-md-6 p-mb-5">
+                <p-dropdown [options]="paises" placeholder="País" formControlName="pais"></p-dropdown>
+            </div>
+
+            <div class="p-col-12 p-md-6 p-mb-5">
+                <p-dropdown [options]="estados" placeholder="Estado" formControlName="estado"></p-dropdown>
+            </div>
+
+            <div class="p-col-12 p-md-6 p-mb-5">
+                <p-dropdown [options]="ciudades" placeholder="Ciudad" formControlName="ciudad"></p-dropdown>
+            </div>
+
+            <div class="p-col-12 p-md-6 p-mb-5">
+                <p-dropdown [options]="parroquias" placeholder="Parroquia" formControlName="parroquia"></p-dropdown>
+            </div>
+
+            <div class="p-col-12 p-md-3 p-mb-5">
+                <p-dropdown [options]="paises" placeholder="Código de país" formControlName="codigo_pais"></p-dropdown>
+            </div>
+
+            <div class="p-col-12 p-md-9 p-mb-5">
+                <span class="p-float-label">
+                    <input id="telefono" class="p-inputtext-lg full-width" type="text" pInputText formControlName="telefono">
+                    <label for="float-input">Teléfono</label>
+                </span>
+            </div>
+        </div>
+        <div class="p-grid p-jc-end p-mt-1 p-mr-4">
+            <div class="p-grid p-formgrid p-fluid">
+                <div class="p-mb-2 p-col-6 p-mb-lg-0">
+                    <button pButton pRipple type="button" label="Anterior" class="p-button-secondary" (click)="previousPage()"></button>
+                </div>
+                <div class="p-mb-2 p-col-6 p-mb-lg-0">
+                    <button pButton pRipple type="submit" label="Siguiente"></button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
