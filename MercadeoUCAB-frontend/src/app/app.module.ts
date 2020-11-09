@@ -13,17 +13,20 @@ import { CalendarModule } from 'primeng/calendar';
 
 /* Modules */
 import { AppRoutingModule } from './app-routing/app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 
 /* My components */
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AccountComponent } from './register/account/account.component';
+import { ContactComponent } from './register/contact/contact.component';
 
+/* Constants */
+import { baseURL } from './constants/baseURL';
 
 /* Scripts */
 import 'hammerjs';
-import { ContactComponent } from './register/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +40,7 @@ import { ContactComponent } from './register/contact/contact.component';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    HttpClientModule,
     CardModule,
     ButtonModule,
     StepsModule,
@@ -45,7 +49,7 @@ import { ContactComponent } from './register/contact/contact.component';
     DropdownModule,
     CalendarModule
   ],
-  providers: [],
+  providers: [{provide: 'BaseURL', useValue: baseURL}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

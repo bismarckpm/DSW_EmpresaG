@@ -27,6 +27,10 @@ body .p-calendar{
     width: 95% !important;
 }
 
+body .p-steps-item{
+    background-color: transparent !important
+}
+
 span > .p-inputtext:enabled:focus{
     border-color: #4D80CA !important;
     box-shadow: 0 0 0 0.02rem #4D80CA !important;
@@ -39,11 +43,12 @@ span > .p-inputtext:hover{
 
 
 .p-dropdown:not(.p-disabled).p-focus{
-    box-shadow: 0 0 0 0.05 rem #4D80CA !important;
-}
+    box-shadow: 0 0 0 0.05rem #4D80CA !important;
+    border-color: #4D80CA !important;
+} 
 
 .p-dropdown:not(.p-disabled):hover{
-    border-color: #4D80CA !important;
+    border-color:  #4D80CA !important;
     box-shadow: 0 0 0 0.05 rem #4D80CA !important;
 }
 
@@ -57,5 +62,18 @@ body .p-button-secondary{
 
 .fill-width {
     width: 95%;
+}
+
+body .p-calendar .p-inputtext{
+    font-size: 12px !important;
+}	
+
+span.p-highlight.ng-star-inserted{
+    background-color: #4D80CA !important;
+    color: floralwhite !important;
+}
+
+a{
+    color: #4D80CA;
 }
 
