@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import { MessageService, SelectItem } from 'primeng/api';
 import { GENDERS } from '../../constants/gender';
 import { CIVIL_STATUSES } from '../../constants/civil_status';
 import { Router } from '@angular/router'
@@ -12,7 +12,8 @@ import { RxwebValidators } from '@rxweb/reactive-form-validators'
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
-  styleUrls: ['./account.component.scss']
+  styleUrls: ['./account.component.scss'],
+  providers: [MessageService]
 })
 export class AccountComponent implements OnInit {
   generos: SelectItem[];
@@ -65,7 +66,8 @@ export class AccountComponent implements OnInit {
 
   constructor(private router: Router,
     private fb: FormBuilder,
-    private registerService: RegisterService) { 
+    private registerService: RegisterService,
+    private messageService: MessageService) { 
     this.generos = GENDERS;
     this.estados_civiles = CIVIL_STATUSES;
     this.createForm();
@@ -167,6 +169,8 @@ export class AccountComponent implements OnInit {
     }
   }
 
+
+
   onSubmit(){
     this.registerService.user.correo_electronico = this.accountForm.value.correo_electronico;
     this.registerService.user.clave = this.accountForm.value.clave;
@@ -180,6 +184,9 @@ export class AccountComponent implements OnInit {
 
     if (this.accountForm.valid){
       this.nextPage();
+    }
+    else{
+      this.messageService.add({severity:'error', summary: 'Error', detail: 'Hubo datos inválidos o incompletos en el formulario'});
     }
   }
 
