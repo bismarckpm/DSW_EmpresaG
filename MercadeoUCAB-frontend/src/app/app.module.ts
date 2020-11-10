@@ -17,16 +17,21 @@ import { MultiSelectModule } from 'primeng/multiselect';
 /* Modules */
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 
 /* Constants */
 import { baseURL } from './constants/baseURL';
+import { serverURL } from './constants/serverURL';
 
 /* Scripts */
 import 'hammerjs';
 
 /* Services */
 import { RegisterService } from './services/register.service';
+import { PlaceService } from './services/place.service';
+import { PhoneService } from './services/phone.service';
+import { ProcessHttpMessageService } from './services/process-http-message.service';
 
 /* My components */
 import { AppComponent } from './app.component';
@@ -52,7 +57,9 @@ import { FamilyComponent } from './register/family/family.component';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
     ReactiveFormsModule,
+    RxReactiveFormsModule,
     CardModule,
     ButtonModule,
     StepsModule,
@@ -66,7 +73,11 @@ import { FamilyComponent } from './register/family/family.component';
   ],
   providers: [
     RegisterService,
-    {provide: 'BaseURL', useValue: baseURL}
+    PlaceService,
+    PhoneService,
+    ProcessHttpMessageService,
+    {provide: 'BaseURL', useValue: baseURL},
+    {provide: 'ServerURL', useValue: serverURL}
   ],
   bootstrap: [AppComponent]
 })

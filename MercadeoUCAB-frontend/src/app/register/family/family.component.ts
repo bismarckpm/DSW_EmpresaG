@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SelectItem } from 'primeng/api';
 import { GENDERS } from '../../constants/gender';
@@ -20,6 +20,41 @@ export class FamilyComponent implements OnInit {
   
   /* Form */
   familyForm: FormGroup;
+  @ViewChild('fform') familyFormDirective;
+
+  formErrors = {
+    'personas_hogar': '',
+    'tiene_hijos': '',
+    'nombre_hijo': '',
+    'apellido_hijo': '',
+    'genero_hijo': '',
+    'fecha_de_nacimiento_hijo': ''
+  }
+
+  validationMessages = {
+    'personas_hogar':{
+      'min': 'El número de personas con la que vive no puede ser cero',
+      'pattern': 'Personas en hogar debe ser numérico'
+    },
+    'nombre_hijo': {
+      'required': 'El nombre del hijo es requerido',
+      'minlength': 'El nombre del hijo debe tener al menos 2 caracteres',
+      'maxlength': 'El nombre del hijo no debe exceder los 50 caracteres'
+    },
+    'apellido_hijo': {
+      'required': 'El apellido del hijo es requerido',
+      'minlength': 'El apellido del hijo debe tener al menos 2 caracteres',
+      'maxlength': 'El apellido del hijo no debe exceder los 50 caracteres'
+    },
+    'genero_hijo': {
+      'required': 'El género del hijo es requerido'
+    },
+    'fecha_de_nacimiento_hijo': {
+      'required': 'La fecha de nacimiento del hijo es requerida'
+    }
+  }
+
+  familyErrorMessages: string;
 
   /* Interactive Form */
   showKidsForm = false;
@@ -46,13 +81,83 @@ export class FamilyComponent implements OnInit {
 
   createForm(){
     this.familyForm = this.fb.group({
-      personas_hogar: this.registerService.user.personas_hogar,
+      personas_hogar: [
+        this.registerService.user.personas_hogar,
+        [
+          Validators.min(1),
+          Validators.pattern('^[0-9]*$')
+        ]
+      ],
       tiene_hijos: this.registerService.user.tiene_hijos,
-      nombre_hijo: '',
-      apellido_hijo: '',
-      genero_hijo: null,
-      fecha_de_nacimiento_hijo: null,
+      nombre_hijo: ['',
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(50)
+        ]
+      ],
+      apellido_hijo: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(50)
+        ]
+      ],
+      genero_hijo: [
+        null,
+        [
+          Validators.required
+        ]
+      ],
+      fecha_de_nacimiento_hijo: [
+        null,
+        [
+          Validators.required
+        ]
+      ],
     });
+
+    this.familyForm.valueChanges
+    .subscribe(data => {
+      this.onValueChange(data);
+    });
+
+  }
+
+  onValueChange(data?: any){
+    /* If form hasn't been created */
+    if (!this.familyForm){
+      return;
+    }
+
+    const form = this.familyForm;
+    for (const field in this.formErrors){
+      if (this.formErrors.hasOwnProperty(field)){
+        // clear previous error message if any
+        this.formErrors[field] = '';
+        const control = form.get(field);
+
+        // if field is modified by user
+        if (control && control.dirty && !control.valid){
+          const messages = this.validationMessages[field];
+
+          // check if i'm adding the error message to the field
+          for (const key in control.errors){
+            if (control.errors.hasOwnProperty(key)){
+              this.formErrors[field] += messages[key] + ' ';
+            }
+          }
+        }
+      }
+    }
+  }
+
+  userHasKids(event){
+    if (event.value == false){
+      this.hijos = [];
+      this.showKidsForm = false;
+    } 
   }
 
   showAddKidForm(){
@@ -64,14 +169,25 @@ export class FamilyComponent implements OnInit {
   }
 
   validateAddKidForm(){
-    // TODO: Append kid to kid's array
-    /*this.hijos.push({
-      primer_nombre: 'xd',
-      primer_apellido: 'xd',
-      genero: 'xd',
-      fecha_de_nacimiento: 'xd'
-    })*/
-    this.hideAddKidForm();
+    if (this.familyForm.valid){
+      this.hijos.push({
+        primer_nombre: this.familyForm.value.nombre_hijo,
+        primer_apellido: this.familyForm.value.apellido_hijo,
+        genero: this.familyForm.value.genero_hijo,
+        fecha_de_nacimiento: this.familyForm.value.fecha_de_nacimiento_hijo
+    });
+
+    /*this.familyForm.value.nombre_hijo = '';
+    this.familyForm.value.apellido_hijo = '';
+    this.familyForm.value.genero_hijo = null;
+    this.familyForm.value.fecha_de_nacimiento_hijo = null;*/
+    }
+  }
+
+  deleteChild(kid){
+    let index = this.hijos.indexOf(kid)
+    if (index > -1)
+      this.hijos.splice(index, 1)
   }
 
   onSubmit(){
@@ -79,9 +195,10 @@ export class FamilyComponent implements OnInit {
     this.registerService.user.tiene_hijos = this.familyForm.value.tiene_hijos;
     this.registerService.user.hijos = this.hijos;
 
-    //console.log(this.registerService.user);
+    if (this.formErrors.personas_hogar == ''){
+      this.nextPage();
 
-    this.nextPage();
+    }
   }
 
   previousPage(): void {

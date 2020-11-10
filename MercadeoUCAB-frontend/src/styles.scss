@@ -74,7 +74,7 @@ body .p-button-secondary{
 }
 
 body .p-calendar .p-inputtext{
-    font-size: 12px !important;
+    font-size: 13px !important;
 }	
 
 span.p-highlight.ng-star-inserted{
@@ -88,4 +88,16 @@ a{
 
 #mercadeoucab .p-button-icon{
     color: floralwhite !important;
+}
+
+.error-msg{
+    color: red;
+}
+
+div.p-checkbox-box{
+    border-color: #4D80CA !important;
+}
+
+span.p-checkbox-icon{
+    background-color: #4D80CA !important;
 }

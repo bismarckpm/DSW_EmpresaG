@@ -1,3 +1,108 @@
 {
-
+  "countries": [
+    {
+      "value": 1,
+      "label": "Estados Unidos"
+    }
+  ],
+  "states": [
+    {
+      "value": 1,
+      "label": "Lousiana",
+      "country_id": 1
+    },
+    {
+      "value": 2,
+      "label": "California",
+      "country_id": 1
+    },
+    {
+      "value": 3,
+      "label": "Florida",
+      "country_id": 1
+    }
+  ],
+  "cities": [
+    {
+      "value": 1,
+      "label": "New Orleans",
+      "state_id": 1
+    },
+    {
+      "value": 2,
+      "label": "Lacombe",
+      "state_id": 1
+    },
+    {
+      "value": 3,
+      "label": "San Diego",
+      "state_id": 2
+    },
+    {
+      "value": 4,
+      "label": "Miami",
+      "state_id": 3
+    }
+  ],
+  "counties": [
+    {
+      "value": 1,
+      "label": "Carrolton",
+      "city_id": 1
+    },
+    {
+      "value": 2,
+      "label": "Fort Lauderale",
+      "city_id": 4
+    }
+  ],
+  "phonecodes": [
+    {
+      "value": 1,
+      "label": "Estados Unidos (+1)"
+    },
+    {
+      "value": 2,
+      "label": "Chile (+56)"
+    }
+  ],
+  "register": [
+    {
+      "correo_electronico": "odiovivir@gmail.com",
+      "clave": "odiovivir!1",
+      "hijos": [
+        {
+          "primer_nombre": "odio",
+          "primer_apellido": "vivir",
+          "genero": 1,
+          "fecha_de_nacimiento": "09/11/2020"
+        }
+      ],
+      "confirmar_clave": "odiovivir!1",
+      "primer_nombre": "odio",
+      "primer_apellido": "vivir",
+      "documento_de_identificacion": "odiovivir",
+      "genero": 1,
+      "estado_civil": 1,
+      "fecha_de_nacimiento": "09/11/2020",
+      "id_pais": 1,
+      "id_estado": 1,
+      "id_ciudad": 1,
+      "id_parroquia": 1,
+      "codigo_pais": 2,
+      "telefono": "3223",
+      "personas_hogar": "14",
+      "tiene_hijos": true,
+      "ocupacion": "gei",
+      "id_nivel_academico": 6,
+      "id_nivel_socioeconomico": 1,
+      "dispositivos": [
+        2,
+        3
+      ],
+      "id_horario_inicial": 2,
+      "id_horario_final": 2,
+      "id": 1
+    }
+  ]
 }

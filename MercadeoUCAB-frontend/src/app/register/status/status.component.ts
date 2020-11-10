@@ -55,8 +55,28 @@ export class StatusComponent implements OnInit {
     this.registerService.user.dispositivos = this.statusForm.value.dispositivos;
     this.registerService.user.id_horario_inicial = this.statusForm.value.horario_inicial;
     this.registerService.user.id_horario_final = this.statusForm.value.horario_final;
-    console.log("Submitted!");
-    console.log(this.registerService.user);
+
+    /* SUBMIT FORM */
+    this.registerService.postRegister(this.registerService.user)
+      .subscribe(person => {
+
+        /* Limpiar servicio
+        for (var member in this.registerService.user) {
+          delete this.registerService.user[member];
+        };
+
+        this.registerService.user.correo_electronico = '';
+        this.registerService.user.clave = '';*/
+
+        // TODO: Redireccion a la ruta apropiada cuando el auth este listo
+        console.log("REGISTERED")
+        //console.log(person)
+      },
+      errorMessage => {
+
+      })
+
+    //console.log(this.registerService.user);
   }
 
   previousPage(): void {

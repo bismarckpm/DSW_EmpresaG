@@ -1,16 +1,16 @@
 <div class="demo-container p-p-0 p-p-sm-4 p-p-md-6 p-p-lg-4">
-    <form novalidate [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+    <form novalidate [formGroup]="contactForm" #cform="ngForm" (ngSubmit)="onSubmit()">
         <div class="p-grid p-mt-4">
             <div class="p-col-12 p-md-6 p-mb-5">
-                <p-dropdown [options]="paises" placeholder="País" formControlName="pais"></p-dropdown>
+                <p-dropdown [options]="paises" placeholder="País" (onChange)="getStates($event)" formControlName="pais"></p-dropdown>
             </div>
 
             <div class="p-col-12 p-md-6 p-mb-5">
-                <p-dropdown [options]="estados" placeholder="Estado" formControlName="estado"></p-dropdown>
+                <p-dropdown [options]="estados" placeholder="Estado" (onChange)="getCities($event)" formControlName="estado"></p-dropdown>
             </div>
 
             <div class="p-col-12 p-md-6 p-mb-5">
-                <p-dropdown [options]="ciudades" placeholder="Ciudad" formControlName="ciudad"></p-dropdown>
+                <p-dropdown [options]="ciudades" placeholder="Ciudad" (onChange)="getCounties($event)" formControlName="ciudad"></p-dropdown>
             </div>
 
             <div class="p-col-12 p-md-6 p-mb-5">
@@ -18,7 +18,7 @@
             </div>
 
             <div class="p-col-12 p-md-3 p-mb-5">
-                <p-dropdown [options]="paises" placeholder="Código de país" formControlName="codigo_pais"></p-dropdown>
+                <p-dropdown [options]="codigos" placeholder="Código de país" formControlName="codigo_pais"></p-dropdown>
             </div>
 
             <div class="p-col-12 p-md-9 p-mb-5">
@@ -26,6 +26,8 @@
                     <input id="telefono" class="p-inputtext-lg full-width" type="text" pInputText formControlName="telefono">
                     <label for="float-input">Teléfono</label>
                 </span>
+                <span class="error-msg" *ngIf="formErrors.telefono"><small>{{formErrors.telefono}}</small></span>
+
             </div>
         </div>
         <div class="p-grid p-jc-end p-mt-1 p-mr-4">

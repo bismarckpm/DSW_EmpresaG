@@ -1,4 +1,4 @@
-export class Place {
+export class PhoneCode {
     label: string;
     value: number;
 }
