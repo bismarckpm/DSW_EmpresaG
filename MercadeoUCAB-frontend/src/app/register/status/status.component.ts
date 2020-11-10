@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import { MessageService, SelectItem } from 'primeng/api';
 import { ACADEMICS } from '../../constants/academics';
 import { SOCIAL_STATUSES } from '../../constants/social_status';
 import { DEVICES } from '../../constants/device';
@@ -13,7 +13,8 @@ import { RegisterService } from '../../services/register.service';
 @Component({
   selector: 'app-status',
   templateUrl: './status.component.html',
-  styleUrls: ['./status.component.scss']
+  styleUrls: ['./status.component.scss'],
+  providers: [MessageService]
 })
 export class StatusComponent implements OnInit {
   niveles_academicos: SelectItem[];
@@ -25,7 +26,10 @@ export class StatusComponent implements OnInit {
   /* Form */
   statusForm: FormGroup;
   
-  constructor(private router: Router, private registerService: RegisterService, private fb: FormBuilder) {
+  constructor(private router: Router, 
+    private registerService: RegisterService, 
+    private fb: FormBuilder,
+    private messageService: MessageService) {
     this.niveles_academicos = ACADEMICS;
     this.niveles_socioeconomicos = SOCIAL_STATUSES;
     this.dispositivos = DEVICES;
@@ -57,27 +61,39 @@ export class StatusComponent implements OnInit {
     this.registerService.user.id_horario_inicial = this.statusForm.value.horario_inicial;
     this.registerService.user.id_horario_final = this.statusForm.value.horario_final;
 
-    /* SUBMIT FORM */
-    this.registerService.postRegister(this.registerService.user)
-      .subscribe(person => {
+    if (this.registerService.user.correo_electronico && this.registerService.user.clave
+      && this.registerService.user.confirmar_clave && this.registerService.user.primer_nombre
+      && this.registerService.user.primer_apellido && this.registerService.user.documento_de_identificacion
+      && this.registerService.user.fecha_de_nacimiento){
 
-        /* Limpiar servicio
-        for (var member in this.registerService.user) {
-          delete this.registerService.user[member];
-        };
+      /* SUBMIT FORM */
+      this.registerService.postRegister(this.registerService.user)
+        .subscribe(person => {
 
-        this.registerService.user.correo_electronico = '';
-        this.registerService.user.clave = '';*/
+          /* Limpiar servicio
+          for (var member in this.registerService.user) {
+            delete this.registerService.user[member];
+          };
 
-        // TODO: Redireccion a la ruta apropiada cuando el auth este listo
-        console.log("REGISTERED")
-        //console.log(person)
-      },
-      errorMessage => {
+          this.registerService.user.correo_electronico = '';
+          this.registerService.user.clave = '';*/
 
-      })
+          // TODO: Redireccion a la ruta apropiada cuando el auth este listo
+          console.log("REGISTERED")
+          //console.log(person)
+        },
+        errorMessage => {
 
+        })
+    }
+    else {
+      this.showError()
+    }
     //console.log(this.registerService.user);
+  }
+
+  showError() {
+    this.messageService.add({severity:'error', summary: 'Error', detail: 'Faltan campos requeridos'});
   }
 
   previousPage(): void {

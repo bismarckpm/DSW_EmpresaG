@@ -13,6 +13,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { TooltipModule } from 'primeng/tooltip';
 import { TableModule } from 'primeng/table';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { ToastModule } from 'primeng/toast';
 
 /* Modules */
 import { AppRoutingModule } from './app-routing/app-routing.module';
@@ -73,7 +74,9 @@ import { RecoveryComponent } from './recovery/recovery.component';
     CalendarModule,
     TooltipModule,
     TableModule,
-    MultiSelectModule
+    MultiSelectModule,
+    ToastModule,
+
   ],
   providers: [
     RegisterService,

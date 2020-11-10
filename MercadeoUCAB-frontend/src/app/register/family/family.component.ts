@@ -188,6 +188,7 @@ export class FamilyComponent implements OnInit {
         genero: this.familyForm.value.genero_hijo,
         fecha_de_nacimiento: this.familyForm.value.fecha_de_nacimiento_hijo
     });
+    this.hideAddKidForm();
     }
   }
 
