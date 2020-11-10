@@ -54,8 +54,6 @@ export class FamilyComponent implements OnInit {
     }
   }
 
-  familyErrorMessages: string;
-
   /* Interactive Form */
   showKidsForm = false;
 
@@ -176,11 +174,6 @@ export class FamilyComponent implements OnInit {
         genero: this.familyForm.value.genero_hijo,
         fecha_de_nacimiento: this.familyForm.value.fecha_de_nacimiento_hijo
     });
-
-    /*this.familyForm.value.nombre_hijo = '';
-    this.familyForm.value.apellido_hijo = '';
-    this.familyForm.value.genero_hijo = null;
-    this.familyForm.value.fecha_de_nacimiento_hijo = null;*/
     }
   }
 

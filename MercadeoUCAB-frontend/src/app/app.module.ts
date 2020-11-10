@@ -31,6 +31,8 @@ import 'hammerjs';
 import { RegisterService } from './services/register.service';
 import { PlaceService } from './services/place.service';
 import { PhoneService } from './services/phone.service';
+import { LoginService } from './services/login.service';
+import { RecoveryService } from './services/recovery.service';
 import { ProcessHttpMessageService } from './services/process-http-message.service';
 
 /* My components */
@@ -41,6 +43,7 @@ import { AccountComponent } from './register/account/account.component';
 import { ContactComponent } from './register/contact/contact.component';
 import { StatusComponent } from './register/status/status.component';
 import { FamilyComponent } from './register/family/family.component';
+import { RecoveryComponent } from './recovery/recovery.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +53,8 @@ import { FamilyComponent } from './register/family/family.component';
     AccountComponent,
     ContactComponent,
     StatusComponent,
-    FamilyComponent
+    FamilyComponent,
+    RecoveryComponent
   ],
   imports: [
     BrowserModule,
@@ -73,6 +77,8 @@ import { FamilyComponent } from './register/family/family.component';
   ],
   providers: [
     RegisterService,
+    LoginService,
+    RecoveryService,
     PlaceService,
     PhoneService,
     ProcessHttpMessageService,

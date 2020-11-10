@@ -33,8 +33,6 @@ export class ContactComponent implements OnInit {
       'pattern': 'Teléfono debe ser un campo numérico'
     }
   }
-
-  contactErrorMessages: string;
   
   constructor(private router: Router, 
     private registerService: RegisterService, 

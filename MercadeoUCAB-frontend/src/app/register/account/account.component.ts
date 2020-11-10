@@ -61,8 +61,6 @@ export class AccountComponent implements OnInit {
     }
   };
 
-  accountErrorMessages: string;
-
   constructor(private router: Router,
     private fb: FormBuilder,
     private registerService: RegisterService) { 
