@@ -24,7 +24,7 @@
                     <input id="confirmar_clave" class="p-inputtext-lg fill-width" formControlName="confirmar_clave"  type="password" pInputText>
                     <label for="float-input">Confirmar Contraseña *</label>
                 </span>
-                <span class="error-msg" *ngIf="formErrors.confirmar_clave || accountForm.controls.confirmar_clave.errors?.compare?.message"><small>{{formErrors.confirmar_clave}} {{accountForm.controls.confirmar_clave.errors?.compare?.message}}</small></span>
+                <span class="error-msg" *ngIf="formErrors.confirmar_clave"><small>{{formErrors.confirmar_clave}}</small></span>
 
             </div>
 
@@ -64,7 +64,7 @@
             </div>
 
             <div class="p-col-12 p-md-6 p-mb-5">
-                <p-calendar placeholder="Fecha de Nacimiento *" dataType="string" dateFormat="dd/mm/yy" formControlName="fecha_de_nacimiento" class="p-inputtext-lg"></p-calendar>
+                <p-calendar placeholder="Fecha de Nacimiento *" [locale]="es" [yearNavigator]="true" yearRange="1900:2030" dataType="string" dateFormat="dd/mm/yy" formControlName="fecha_de_nacimiento" class="p-inputtext-lg"></p-calendar>
             </div>
         </div>
 

@@ -57,6 +57,9 @@ export class FamilyComponent implements OnInit {
   /* Interactive Form */
   showKidsForm = false;
 
+  es: any;
+
+
   constructor(private router: Router, private registerService: RegisterService, private fb: FormBuilder) { 
     this.generos = GENDERS;
     this.tieneHijos = [
@@ -75,6 +78,17 @@ export class FamilyComponent implements OnInit {
   ngOnInit(): void {
     if (this.registerService.user.hijos)
       this.hijos = this.registerService.user.hijos;
+
+    this.es = {
+        firstDayOfWeek: 1,
+        dayNames: [ "Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado" ],
+        dayNamesShort: [ "dom","lun","mar","mié","jue","vie","sáb" ],
+        dayNamesMin: [ "D","L","M","X","J","V","S" ],
+        monthNames: [ "Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre" ],
+        monthNamesShort: [ "ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic" ],
+        today: 'Hoy',
+        clear: 'Borrar'
+    }
   }
 
   createForm(){

@@ -103,6 +103,42 @@
       "id_horario_inicial": 2,
       "id_horario_final": 2,
       "id": 1
+    },
+    {
+      "correo_electronico": "odiovivir@gmail.com",
+      "clave": "odiovivir!1",
+      "hijos": [
+        {
+          "primer_nombre": "hijo1",
+          "primer_apellido": "xd",
+          "genero": 1,
+          "fecha_de_nacimiento": "09/11/2020"
+        }
+      ],
+      "confirmar_clave": "odiovivir!1",
+      "primer_nombre": "odio",
+      "primer_apellido": "vivir",
+      "documento_de_identificacion": "32135498",
+      "genero": 1,
+      "estado_civil": 1,
+      "fecha_de_nacimiento": "02/10/2017",
+      "id_pais": 1,
+      "id_estado": 1,
+      "id_ciudad": 1,
+      "id_parroquia": 1,
+      "codigo_pais": 1,
+      "telefono": "3432423423",
+      "personas_hogar": "14",
+      "tiene_hijos": true,
+      "ocupacion": "gei",
+      "id_nivel_academico": 3,
+      "id_nivel_socioeconomico": 2,
+      "dispositivos": [
+        3
+      ],
+      "id_horario_inicial": 2,
+      "id_horario_final": 19,
+      "id": 2
     }
   ]
 }

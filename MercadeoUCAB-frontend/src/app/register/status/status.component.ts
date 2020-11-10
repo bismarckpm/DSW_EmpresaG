@@ -24,7 +24,7 @@ export class StatusComponent implements OnInit {
 
   /* Form */
   statusForm: FormGroup;
-
+  
   constructor(private router: Router, private registerService: RegisterService, private fb: FormBuilder) {
     this.niveles_academicos = ACADEMICS;
     this.niveles_socioeconomicos = SOCIAL_STATUSES;
@@ -35,6 +35,7 @@ export class StatusComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   createForm(){
