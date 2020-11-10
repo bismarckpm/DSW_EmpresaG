@@ -69,21 +69,10 @@ export class StatusComponent implements OnInit {
       /* SUBMIT FORM */
       this.registerService.postRegister(this.registerService.user)
         .subscribe(person => {
-
-          /* Limpiar servicio
-          for (var member in this.registerService.user) {
-            delete this.registerService.user[member];
-          };
-
-          this.registerService.user.correo_electronico = '';
-          this.registerService.user.clave = '';*/
-
-          // TODO: Redireccion a la ruta apropiada cuando el auth este listo
           console.log("REGISTERED")
-          //console.log(person)
         },
         errorMessage => {
-
+          this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
         })
     }
     else {
