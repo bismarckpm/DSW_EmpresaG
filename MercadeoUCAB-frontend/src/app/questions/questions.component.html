@@ -10,7 +10,7 @@
             <div class="p-col-12 p-lg-6">
                 <div class="p-grid p-jc-end p-mt-1 p-mr-4">
                     <button pButton pRipple type="button" pTooltip="Crear pregunta" tooltipPosition="bottom"
-                        icon="pi pi-plus" class="p-button-rounded p-button-text"></button>
+                        icon="pi pi-plus" routerLink="/questions/add" class="p-button-rounded p-button-text"></button>
                 </div>
             </div>
         </div>
@@ -93,10 +93,10 @@
                             </div>
                         </td>
                         <td class="p-text-center">
-                            <button type="button" pButton pRipple icon="pi pi-eye" class="p-button-rounded p-mr-2"
+                            <button type="button"  [routerLink]="['view']" [queryParams]="{qid:pregunta.id}" pButton pRipple icon="pi pi-eye" class="p-button-rounded p-mr-2"
                                 pTooltip="Vista previa" tooltipPosition="bottom"></button>
                             <button type="button" pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-mr-2"
-                                pTooltip="Editar pregunta" tooltipPosition="bottom"></button>
+                                pTooltip="Editar pregunta" [routerLink]="['edit']" [queryParams]="{qid:pregunta.id}" tooltipPosition="bottom"></button>
                             <button type="button" pButton pRipple icon="pi pi-trash" class="p-button-rounded"
                                 pTooltip="Eliminar pregunta" tooltipPosition="bottom"
                                 (click)="deleteQuestion(pregunta)"></button>
@@ -120,4 +120,5 @@
     </p-card>
 
     <p-confirmDialog></p-confirmDialog>
+    <p-toast></p-toast>
 </div>

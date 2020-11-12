@@ -56,6 +56,8 @@ import { NavigationComponent } from './common/navigation/navigation.component';
 import { FooterComponent } from './common/footer/footer.component';
 import { AddQuestionComponent } from './questions/add-question/add-question.component';
 import { EditQuestionComponent } from './questions/edit-question/edit-question.component';
+import { PreviewQuestionComponent } from './questions/preview-question/preview-question.component';
+import { NotFoundComponent } from './errors/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +74,8 @@ import { EditQuestionComponent } from './questions/edit-question/edit-question.c
     FooterComponent,
     AddQuestionComponent,
     EditQuestionComponent,
+    PreviewQuestionComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

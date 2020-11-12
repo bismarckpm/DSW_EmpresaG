@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { Table } from 'primeng/table'
-import { MenuItem, PrimeNGConfig } from 'primeng/api';
+import { MenuItem, MessageService, PrimeNGConfig } from 'primeng/api';
 import { Question } from '../classes/question';
 import { QUESTION_TYPES_FOR_TABLE_FILTER } from '../constants/question_types';
 import { QuestionService } from '../services/question.service';
@@ -11,7 +11,7 @@ import { ConfirmationService } from 'primeng/api';
   selector: 'app-questions',
   templateUrl: './questions.component.html',
   styleUrls: ['./questions.component.scss'],
-  providers: [ConfirmationService]
+  providers: [ConfirmationService, MessageService]
 })
 export class QuestionsComponent implements OnInit {
   preguntas: Question[];
@@ -27,6 +27,7 @@ export class QuestionsComponent implements OnInit {
     private questionService: QuestionService,
     private categoryService: CategoryService,
     private confirmationService: ConfirmationService,
+    private messageService: MessageService,
     private primeNgConfig: PrimeNGConfig) {
 
     }
@@ -68,12 +69,21 @@ export class QuestionsComponent implements OnInit {
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-          //
+          this.questionService.deleteQuestion(question).subscribe((q) => {
+
+            let index = this.preguntas.indexOf(question)
+            if (index > -1)
+              this.preguntas.splice(index, 1);
+
+            this.messageService.add({severity:'success', summary: 'Success', detail: 'Pregunta eliminada con éxito'});
+            
+          }, errorMessage => {
+            this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
+          })
       },
       reject: () => {
           //
       }
   });
-  }
-
+}
 }

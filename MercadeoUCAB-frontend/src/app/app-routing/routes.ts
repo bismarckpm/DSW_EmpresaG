@@ -8,6 +8,10 @@ import { StatusComponent } from '../register/status/status.component';
 import { FamilyComponent } from '../register/family/family.component';
 import { RecoveryComponent } from '../recovery/recovery.component';
 import { QuestionsComponent } from '../questions/questions.component'
+import { AddQuestionComponent } from '../questions/add-question/add-question.component'
+import { EditQuestionComponent } from '../questions/edit-question/edit-question.component';
+import { PreviewQuestionComponent } from '../questions/preview-question/preview-question.component';
+import { NotFoundComponent } from '../errors/not-found/not-found.component';
 
 export const routes: Routes = [
     { 
@@ -47,7 +51,25 @@ export const routes: Routes = [
     },
     {
       path: 'questions',
-      component: QuestionsComponent
+      component: QuestionsComponent,
+    },
+    {
+      path: 'questions/add',
+      component: AddQuestionComponent 
+    },
+    {
+      path: 'questions/edit',
+      component: EditQuestionComponent
+    },
+    {
+      path: 'questions/view',
+      component: PreviewQuestionComponent
+    },
+
+    /* ERROR PAGES */
+    {
+      path: '404',
+      component: NotFoundComponent
     },
     
     /* REDIRECCIONAR A LA RUTA EN LA QUE SE ESTE TRABAJANDO MIENTRAS TANTO */

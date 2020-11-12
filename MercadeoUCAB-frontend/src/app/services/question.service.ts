@@ -20,11 +20,7 @@ export class QuestionService {
   }
 
   deleteQuestion(question): Observable<Question>{
-    return this.http.delete<Question>(baseURL + 'questions', {
-      params: {
-        id: question.id
-      }
-    })
+    return this.http.delete<Question>(baseURL + 'questions/' + question.id)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 }
