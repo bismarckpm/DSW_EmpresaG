@@ -14,6 +14,9 @@ import { TooltipModule } from 'primeng/tooltip';
 import { TableModule } from 'primeng/table';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ToastModule } from 'primeng/toast';
+import { MenubarModule } from 'primeng/menubar';
+import { MenuModule } from 'primeng/menu';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 /* Modules */
 import { AppRoutingModule } from './app-routing/app-routing.module';
@@ -34,6 +37,9 @@ import { PlaceService } from './services/place.service';
 import { PhoneService } from './services/phone.service';
 import { LoginService } from './services/login.service';
 import { RecoveryService } from './services/recovery.service';
+import { QuestionService } from './services/question.service';
+import { CategoryService } from './services/category.service';
+import { SubcategoryService } from './services/subcategory.service';
 import { ProcessHttpMessageService } from './services/process-http-message.service';
 
 /* My components */
@@ -45,6 +51,13 @@ import { ContactComponent } from './register/contact/contact.component';
 import { StatusComponent } from './register/status/status.component';
 import { FamilyComponent } from './register/family/family.component';
 import { RecoveryComponent } from './recovery/recovery.component';
+import { QuestionsComponent } from './questions/questions.component';
+import { NavigationComponent } from './common/navigation/navigation.component';
+import { FooterComponent } from './common/footer/footer.component';
+import { AddQuestionComponent } from './questions/add-question/add-question.component';
+import { EditQuestionComponent } from './questions/edit-question/edit-question.component';
+import { PreviewQuestionComponent } from './questions/preview-question/preview-question.component';
+import { NotFoundComponent } from './errors/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +68,14 @@ import { RecoveryComponent } from './recovery/recovery.component';
     ContactComponent,
     StatusComponent,
     FamilyComponent,
-    RecoveryComponent
+    RecoveryComponent,
+    QuestionsComponent,
+    NavigationComponent,
+    FooterComponent,
+    AddQuestionComponent,
+    EditQuestionComponent,
+    PreviewQuestionComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,7 +96,9 @@ import { RecoveryComponent } from './recovery/recovery.component';
     TableModule,
     MultiSelectModule,
     ToastModule,
-
+    MenubarModule,
+    MenuModule,
+    ConfirmDialogModule
   ],
   providers: [
     RegisterService,
@@ -84,6 +106,9 @@ import { RecoveryComponent } from './recovery/recovery.component';
     RecoveryService,
     PlaceService,
     PhoneService,
+    QuestionService,
+    CategoryService,
+    SubcategoryService,
     ProcessHttpMessageService,
     {provide: 'BaseURL', useValue: baseURL},
     {provide: 'ServerURL', useValue: serverURL}

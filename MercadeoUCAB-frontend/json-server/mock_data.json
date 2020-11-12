@@ -68,5 +68,177 @@
   ],
   "register": [
    
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "tipo": "Selección simple",
+      "pregunta": "¿Alguna vez has montado en un Skate?",
+      "categoria": "Ropa",
+      "subcategoria": "Streetwear",
+      "filtros_adicionales": [
+        {
+          "tipo": "Nivel Socioeconómico",
+          "nombre": "Medio"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "tipo": "Selección múltiple",
+      "pregunta": "Seleccione los shooter que ha jugado",
+      "categoria": "Videojuegos",
+      "subcategoria": "Shooter",
+      "filtros_adicionales": null
+    },
+    {
+      "id": 3,
+      "tipo": "Selección simple",
+      "pregunta": "¿Cuál es tu categoría favorita de videojuegos?",
+      "categoria": "Videojuegos",
+      "subcategoria": "",
+      "filtros_adicionales": null
+    },
+    {
+      "id": 4,
+      "tipo": "Selección simple",
+      "pregunta": "¿Cuál es tu lenguaje de programación favorito?",
+      "categoria": "Tecnología",
+      "subcategoria": "Programación",
+      "filtros_adicionales": [
+        {
+          "tipo": "Ocupación",
+          "nombre": "Estudiante"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "tipo": "Selección simple",
+      "pregunta": "¿Cuál es tu género favorito de anime?",
+      "categoria": "TV",
+      "subcategoria": "Anime",
+      "filtros_adicionales": [
+        {
+          "tipo": "Ocupación",
+          "nombre": "Estudiante"
+        },
+        {
+          "tipo": "Género",
+          "nombre": "Femenino"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "tipo": "Selección simple",
+      "pregunta": "¿Prefieres los headsets o los earbuds?",
+      "categoria": "Tecnología",
+      "subcategoria": "Hardware",
+      "filtros_adicionales": null
+    },
+    {
+      "id": 7,
+      "tipo": "Selección simple",
+      "pregunta": "¿Prefieres Intel o NVIDIA?",
+      "categoria": "Tecnología",
+      "subcategoria": "Hardware",
+      "filtros_adicionales": null
+    },
+    {
+      "id": 8,
+      "tipo": "Selección simple",
+      "pregunta": "¿Cuál es tu velocidad de internet?",
+      "categoria": "Tecnología",
+      "subcategoria": "Hardware",
+      "filtros_adicionales": null
+    },
+    {
+      "id": 9,
+      "tipo": "Texto abierto",
+      "pregunta": "¿Qué opinas del servicio de internet de tu país?",
+      "categoria": "Tecnología",
+      "subcategoria": "Hardware",
+      "filtros_adicionales": null
+    },
+    {
+      "id": 10,
+      "tipo": "Selección simple",
+      "pregunta": "¿Utilizas automovil eléctrico o mecánico?",
+      "categoria": "Transporte",
+      "subcategoria": "Automoviles",
+      "filtros_adicionales": [
+        {
+          "tipo": "Nivel Socioeconómico",
+          "nombre": "Medio"
+        },
+        {
+          "tipo": "Nivel Socioeconómico",
+          "nombre": "Medio-bajo"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "tipo": "Texto abierto",
+      "pregunta": "Si usted sabe qué es el Net Neutrality ¿Qué opina de el?",
+      "categoria": "Tecnología",
+      "subcategoria": "",
+      "filtros_adicionales": null
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "nombre": "Ropa"
+    },
+    {
+      "id": 2,
+      "nombre": "Videojuegos"
+    },
+    {
+      "id": 3,
+      "nombre": "Tecnología"
+    },
+    {
+      "id": 4,
+      "nombre": "TV"
+    },
+    {
+      "id": 5,
+      "nombre": "Transporte"
+    }
+  ],
+  "subcategories": [
+    {
+      "id": 1,
+      "nombre": "Streetwear",
+      "id_categoria": 1
+    },
+    {
+      "id": 2,
+      "nombre": "Shooter",
+      "id_categoria": 2
+    },
+    {
+      "id": 3,
+      "nombre": "Programación",
+      "id_categoria": 3
+    },
+    {
+      "id": 4,
+      "nombre": "Anime",
+      "id_categoria": 4 
+    },
+    {
+      "id": 5,
+      "nombre": "Hardware",
+      "id_categoria": 3
+    },
+    {
+      "id": 6,
+      "nombre": "Automoviles",
+      "id_categoria": 5
+    }
   ]
 }
