@@ -67,6 +67,7 @@ span > .p-inputtext:hover{
 
 body .p-button{
     background-color: #4D80CA !important;
+    border: hidden !important;
 }
 
 body .p-button-secondary{
@@ -189,10 +190,3 @@ span.p-checkbox-icon{
     background: white !important;
     color: #707070 !important;
 }
-
-/*
-#mercadeoucab .p-sidebar{
-    -webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	box-shadow: none;
-}*/

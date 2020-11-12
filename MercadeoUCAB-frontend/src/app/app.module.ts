@@ -15,7 +15,6 @@ import { TableModule } from 'primeng/table';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ToastModule } from 'primeng/toast';
 import { MenubarModule } from 'primeng/menubar';
-import { SidebarModule } from 'primeng/sidebar';
 import { MenuModule } from 'primeng/menu';
 
 /* Modules */
@@ -51,7 +50,6 @@ import { RecoveryComponent } from './recovery/recovery.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { NavigationComponent } from './common/navigation/navigation.component';
 import { FooterComponent } from './common/footer/footer.component';
-import { SidebarComponent } from './common/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +64,6 @@ import { SidebarComponent } from './common/sidebar/sidebar.component';
     QuestionsComponent,
     NavigationComponent,
     FooterComponent,
-    SidebarComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,7 +85,6 @@ import { SidebarComponent } from './common/sidebar/sidebar.component';
     MultiSelectModule,
     ToastModule,
     MenubarModule,
-    SidebarModule,
     MenuModule
   ],
   providers: [

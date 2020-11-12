@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.scss']
+  styleUrls: ['./navigation.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class NavigationComponent implements OnInit {
   items: MenuItem[];
-  display: boolean = false;
+  items_guest: MenuItem[];
 
   constructor() { }
 
@@ -53,20 +54,24 @@ export class NavigationComponent implements OnInit {
         icon: 'pi pi-fw pi-clock'
       },
       {
-        label: 'FrankHesse',
+        label: 'Perfil',
         icon: 'pi pi-fw pi-user',
-        items: [
-          {
-            label: 'Perfil',
-            icon: 'pi pi-fw pi-user'
-          },
-          {
-            label: 'Salir',
-            icon: 'pi pi-fw pi-power-off'
-          }
-        ]
-      }
+      },
     ];
+
+    
+    this.items_guest = [
+      {
+        label: 'Login',
+        icon: 'pi pi-fw pi-user'
+      },
+     
+      {
+        label: 'Registro',
+        icon: 'pi pi-fw pi-user-plus'
+      },
+    ];
+
   }
 
 
