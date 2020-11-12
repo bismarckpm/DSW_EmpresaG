@@ -2,6 +2,14 @@
 html {
     font-size: 13px;
     font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #f6f6f6;
+    overflow-x: hidden;
+}
+
+body{
+    display: flex;
+    flex-flow: column;
+    height: 100%;
 }
 
 .panel-img{
@@ -101,3 +109,90 @@ div.p-checkbox-box{
 span.p-checkbox-icon{
     background-color: #4D80CA !important;
 }
+
+#mercadeoucab .p-menubar{
+    margin-left: -0.6%;
+    margin-right: -0.6%;
+    margin-top: -0.6%;
+    background: #4D80CA;
+    border: 0px;
+    font-size: 13px;
+}
+
+/* MENUBAR */
+
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:focus
+{
+    background:white !important;
+    color: #707070 !important;
+}
+
+@media(min-width:960px){
+    .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link > .p-menuitem-text
+    {
+        color: white !important;
+    }
+
+    .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link > .p-menuitem-icon
+    {
+        color: white !important;
+    }
+
+    .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link > .p-submenu-icon	
+    {
+        color: white !important;
+    }
+}
+
+#mercadeoucab .p-menubar-button{
+    color: white;
+}
+
+/* Text */
+
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:focus > .p-menuitem-text
+{
+    color: #707070 !important;
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:hover > .p-menuitem-text
+{
+    color: #707070 !important;
+}
+
+/* Icons */
+
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:focus > .p-menuitem-icon
+{
+    color: #707070 !important;
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:hover > .p-menuitem-icon
+{
+    color: #707070 !important;
+}
+
+/* Arrow */
+
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:focus > .p-submenu-icon	
+{
+    color: #707070 !important;
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:hover > .p-submenu-icon	
+{
+    color: #707070 !important;
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:hover
+{
+    background: white !important;
+    color: #707070 !important;
+}
+
+/*
+#mercadeoucab .p-sidebar{
+    -webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}*/

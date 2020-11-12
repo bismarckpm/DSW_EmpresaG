@@ -7,6 +7,7 @@ import { ContactComponent } from '../register/contact/contact.component';
 import { StatusComponent } from '../register/status/status.component';
 import { FamilyComponent } from '../register/family/family.component';
 import { RecoveryComponent } from '../recovery/recovery.component';
+import { QuestionsComponent } from '../questions/questions.component'
 
 export const routes: Routes = [
     { 
@@ -44,11 +45,15 @@ export const routes: Routes = [
       path: 'recovery',
       component: RecoveryComponent
     },
+    {
+      path: 'questions',
+      component: QuestionsComponent
+    },
     
     /* REDIRECCIONAR A LA RUTA EN LA QUE SE ESTE TRABAJANDO MIENTRAS TANTO */
     { 
       path: '', 
-      redirectTo: '/register/personal', 
+      redirectTo: '/questions', 
       pathMatch: 'full' 
     }
 ];

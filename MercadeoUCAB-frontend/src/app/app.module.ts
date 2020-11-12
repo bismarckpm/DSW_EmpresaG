@@ -14,6 +14,9 @@ import { TooltipModule } from 'primeng/tooltip';
 import { TableModule } from 'primeng/table';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ToastModule } from 'primeng/toast';
+import { MenubarModule } from 'primeng/menubar';
+import { SidebarModule } from 'primeng/sidebar';
+import { MenuModule } from 'primeng/menu';
 
 /* Modules */
 import { AppRoutingModule } from './app-routing/app-routing.module';
@@ -45,6 +48,10 @@ import { ContactComponent } from './register/contact/contact.component';
 import { StatusComponent } from './register/status/status.component';
 import { FamilyComponent } from './register/family/family.component';
 import { RecoveryComponent } from './recovery/recovery.component';
+import { QuestionsComponent } from './questions/questions.component';
+import { NavigationComponent } from './common/navigation/navigation.component';
+import { FooterComponent } from './common/footer/footer.component';
+import { SidebarComponent } from './common/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +62,11 @@ import { RecoveryComponent } from './recovery/recovery.component';
     ContactComponent,
     StatusComponent,
     FamilyComponent,
-    RecoveryComponent
+    RecoveryComponent,
+    QuestionsComponent,
+    NavigationComponent,
+    FooterComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,7 +87,9 @@ import { RecoveryComponent } from './recovery/recovery.component';
     TableModule,
     MultiSelectModule,
     ToastModule,
-
+    MenubarModule,
+    SidebarModule,
+    MenuModule
   ],
   providers: [
     RegisterService,
