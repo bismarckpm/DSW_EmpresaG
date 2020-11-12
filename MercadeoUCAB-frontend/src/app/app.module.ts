@@ -16,6 +16,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { ToastModule } from 'primeng/toast';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuModule } from 'primeng/menu';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 /* Modules */
 import { AppRoutingModule } from './app-routing/app-routing.module';
@@ -36,6 +37,9 @@ import { PlaceService } from './services/place.service';
 import { PhoneService } from './services/phone.service';
 import { LoginService } from './services/login.service';
 import { RecoveryService } from './services/recovery.service';
+import { QuestionService } from './services/question.service';
+import { CategoryService } from './services/category.service';
+import { SubcategoryService } from './services/subcategory.service';
 import { ProcessHttpMessageService } from './services/process-http-message.service';
 
 /* My components */
@@ -50,6 +54,8 @@ import { RecoveryComponent } from './recovery/recovery.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { NavigationComponent } from './common/navigation/navigation.component';
 import { FooterComponent } from './common/footer/footer.component';
+import { AddQuestionComponent } from './questions/add-question/add-question.component';
+import { EditQuestionComponent } from './questions/edit-question/edit-question.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +70,8 @@ import { FooterComponent } from './common/footer/footer.component';
     QuestionsComponent,
     NavigationComponent,
     FooterComponent,
+    AddQuestionComponent,
+    EditQuestionComponent,
   ],
   imports: [
     BrowserModule,
@@ -85,7 +93,8 @@ import { FooterComponent } from './common/footer/footer.component';
     MultiSelectModule,
     ToastModule,
     MenubarModule,
-    MenuModule
+    MenuModule,
+    ConfirmDialogModule
   ],
   providers: [
     RegisterService,
@@ -93,6 +102,9 @@ import { FooterComponent } from './common/footer/footer.component';
     RecoveryService,
     PlaceService,
     PhoneService,
+    QuestionService,
+    CategoryService,
+    SubcategoryService,
     ProcessHttpMessageService,
     {provide: 'BaseURL', useValue: baseURL},
     {provide: 'ServerURL', useValue: serverURL}
