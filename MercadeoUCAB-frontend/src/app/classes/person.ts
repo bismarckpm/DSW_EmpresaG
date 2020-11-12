@@ -3,14 +3,14 @@ import { Device } from '../constants/device';
 
 export class Person {
     correo_electronico: string;
-    contraseña: string;
-    confirmar_contraseña: string;
-    primer_nombre: string;
-    primer_apellido: string;
-    documento_de_identificacion: string;
+    clave: string;
+    confirmar_clave?: string;
+    primer_nombre?: string;
+    primer_apellido?: string;
+    documento_de_identificacion?: string;
     genero?: string;
     estado_civil?: string;
-    fecha_de_nacimiento: string;
+    fecha_de_nacimiento?: string;
     id_pais?: number;
     id_estado?: number;
     id_ciudad?: number;

@@ -1,3 +1,72 @@
 {
-
+  "countries": [
+    {
+      "value": 1,
+      "label": "Estados Unidos"
+    }
+  ],
+  "states": [
+    {
+      "value": 1,
+      "label": "Lousiana",
+      "country_id": 1
+    },
+    {
+      "value": 2,
+      "label": "California",
+      "country_id": 1
+    },
+    {
+      "value": 3,
+      "label": "Florida",
+      "country_id": 1
+    }
+  ],
+  "cities": [
+    {
+      "value": 1,
+      "label": "New Orleans",
+      "state_id": 1
+    },
+    {
+      "value": 2,
+      "label": "Lacombe",
+      "state_id": 1
+    },
+    {
+      "value": 3,
+      "label": "San Diego",
+      "state_id": 2
+    },
+    {
+      "value": 4,
+      "label": "Miami",
+      "state_id": 3
+    }
+  ],
+  "counties": [
+    {
+      "value": 1,
+      "label": "Carrolton",
+      "city_id": 1
+    },
+    {
+      "value": 2,
+      "label": "Fort Lauderale",
+      "city_id": 4
+    }
+  ],
+  "phonecodes": [
+    {
+      "value": 1,
+      "label": "Estados Unidos (+1)"
+    },
+    {
+      "value": 2,
+      "label": "Chile (+56)"
+    }
+  ],
+  "register": [
+   
+  ]
 }

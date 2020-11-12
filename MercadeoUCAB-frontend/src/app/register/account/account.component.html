@@ -1,26 +1,31 @@
 <div class="demo-container p-p-0 p-p-sm-4 p-p-md-6 p-p-lg-4">
-    <form novalidate [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+    <form novalidate [formGroup]="accountForm" #aform="ngForm" (ngSubmit)="onSubmit()">
         <div class="p-grid p-mt-4">
             <div class="p-col-12 p-md-6 p-mb-5">
                 <span class="p-float-label">
                     <input id="correo_electronico" class="p-inputtext-lg fill-width" formControlName="correo_electronico" type="text" pInputText>
                     <label for="float-input">Correo Electrónico *</label>
                 </span>
+                <span class="error-msg" *ngIf="formErrors.correo_electronico"><small>{{formErrors.correo_electronico}}</small></span>
             </div>
 
             <div class="p-col-12 p-md-6 p-mb-5">
                 <span class="p-float-label">
-                    <input id="contraseña" class="p-inputtext-lg fill-width" formControlName="contraseña" type="password" pPassword weakLabel="Débil"
-                        mediumLabel="Normal" strongLabel="Fuerte" promptLabel="Ingrese una contraseña">
+                    <input id="contraseña" class="p-inputtext-lg fill-width" formControlName="clave" type="password" pPassword weakLabel="Débil"
+                        mediumLabel="Normal" strongLabel="Fuerte" promptLabel="Ingrese una clave">
                     <label for="float-input">Contraseña *</label>
                 </span>
+                <span class="error-msg" *ngIf="formErrors.clave"><small>{{formErrors.clave}}</small></span>
+
             </div>
 
             <div class="p-col-12 p-md-6 p-mb-5">
                 <span class="p-float-label">
-                    <input id="confirmar_contraseña" class="p-inputtext-lg fill-width" formControlName="confirmar_contraseña"  type="password" pInputText>
+                    <input id="confirmar_clave" class="p-inputtext-lg fill-width" formControlName="confirmar_clave"  type="password" pInputText>
                     <label for="float-input">Confirmar Contraseña *</label>
                 </span>
+                <span class="error-msg" *ngIf="formErrors.confirmar_clave"><small>{{formErrors.confirmar_clave}}</small></span>
+
             </div>
 
             <div class="p-col-12 p-md-6 p-mb-5">
@@ -28,6 +33,8 @@
                     <input id="primer_nombre" class="p-inputtext-lg fill-width" formControlName="primer_nombre"  type="text" pInputText>
                     <label for="float-input">Primer Nombre *</label>
                 </span>
+                <span class="error-msg" *ngIf="formErrors.primer_nombre"><small>{{formErrors.primer_nombre}}</small></span>
+
             </div>
 
             <div class="p-col-12 p-md-6 p-mb-5">
@@ -35,6 +42,8 @@
                     <input id="primer_apellido" class="p-inputtext-lg fill-width" formControlName="primer_apellido"  type="text" pInputText>
                     <label for="float-input">Primer Apellido *</label>
                 </span>
+                <span class="error-msg" *ngIf="formErrors.primer_apellido"><small>{{formErrors.primer_apellido}}</small></span>
+
             </div>
 
             <div class="p-col-12 p-md-6 p-mb-5">
@@ -42,6 +51,8 @@
                     <input id="documento" class="p-inputtext-lg fill-width" formControlName="documento_de_identificacion"  type="text" pInputText>
                     <label for="float-input">Documento de Identificación *</label>
                 </span>
+                <span class="error-msg" *ngIf="formErrors.documento_de_identificacion"><small>{{formErrors.documento_de_identificacion}}</small></span>
+
             </div>
 
             <div class="p-col-12 p-md-6 p-mb-5">
@@ -53,7 +64,7 @@
             </div>
 
             <div class="p-col-12 p-md-6 p-mb-5">
-                <p-calendar placeholder="Fecha de Nacimiento *" dataType="string" dateFormat="dd/mm/yy" formControlName="fecha_de_nacimiento" class="p-inputtext-lg"></p-calendar>
+                <p-calendar placeholder="Fecha de Nacimiento *" [locale]="es" [yearNavigator]="true" yearRange="1900:2030" dataType="string" dateFormat="dd/mm/yy" formControlName="fecha_de_nacimiento" class="p-inputtext-lg"></p-calendar>
             </div>
         </div>
 
@@ -64,6 +75,7 @@
                 </div>
             </div>
         </div>
+        <p-toast></p-toast>
 
     </form>
 
