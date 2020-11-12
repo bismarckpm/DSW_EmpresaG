@@ -16,7 +16,7 @@ export class ProcessHttpMessageService {
       errorMsg = error.error.message
     }
     else {
-      errorMsg = `${error.status} - ${error.statusText || ''}`
+      errorMsg = `${error.status} - ${error.statusText || ''}: ${error.error}`
       console.log(error.error)
     }
 
