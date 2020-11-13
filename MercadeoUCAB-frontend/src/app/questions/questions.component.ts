@@ -66,7 +66,7 @@ export class QuestionsComponent implements OnInit {
   deleteQuestion(question){
     this.confirmationService.confirm({
       message: 'La siguiente pregunta: <code>' + question.pregunta + '</code> está apunto de ser eliminada, ¿Desea continuar?',
-      header: 'Confirmation',
+      header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
           this.questionService.deleteQuestion(question).subscribe((q) => {
@@ -75,7 +75,7 @@ export class QuestionsComponent implements OnInit {
             if (index > -1)
               this.preguntas.splice(index, 1);
 
-            this.messageService.add({severity:'success', summary: 'Success', detail: 'Pregunta eliminada con éxito'});
+            this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Pregunta eliminada con éxito'});
             
           }, errorMessage => {
             this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});

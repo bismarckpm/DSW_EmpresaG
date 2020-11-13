@@ -67,22 +67,9 @@
     }
   ],
   "register": [
-   
+
   ],
   "questions": [
-    {
-      "id": 1,
-      "tipo": "Selección simple",
-      "pregunta": "¿Alguna vez has montado en un Skate?",
-      "categoria": "Ropa",
-      "subcategoria": "Streetwear",
-      "filtros_adicionales": [
-        {
-          "tipo": "Nivel Socioeconómico",
-          "nombre": "Medio"
-        }
-      ]
-    },
     {
       "id": 2,
       "tipo": "Selección múltiple",
@@ -98,19 +85,6 @@
       "categoria": "Videojuegos",
       "subcategoria": "",
       "filtros_adicionales": null
-    },
-    {
-      "id": 4,
-      "tipo": "Selección simple",
-      "pregunta": "¿Cuál es tu lenguaje de programación favorito?",
-      "categoria": "Tecnología",
-      "subcategoria": "Programación",
-      "filtros_adicionales": [
-        {
-          "tipo": "Ocupación",
-          "nombre": "Estudiante"
-        }
-      ]
     },
     {
       "id": 5,
@@ -147,7 +121,7 @@
     },
     {
       "id": 8,
-      "tipo": "Selección simple",
+      "tipo": "Rango",
       "pregunta": "¿Cuál es tu velocidad de internet?",
       "categoria": "Tecnología",
       "subcategoria": "Hardware",
@@ -228,7 +202,7 @@
     {
       "id": 4,
       "nombre": "Anime",
-      "id_categoria": 4 
+      "id_categoria": 4
     },
     {
       "id": 5,
