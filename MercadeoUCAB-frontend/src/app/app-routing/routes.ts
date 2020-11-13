@@ -75,7 +75,7 @@ export const routes: Routes = [
     /* REDIRECCIONAR A LA RUTA EN LA QUE SE ESTE TRABAJANDO MIENTRAS TANTO */
     { 
       path: '', 
-      redirectTo: '/questions', 
+      redirectTo: '/questions/add', 
       pathMatch: 'full' 
     }
 ];

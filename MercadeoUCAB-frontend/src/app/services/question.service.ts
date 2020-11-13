@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Question } from '../classes/question';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { baseURL } from '../constants/baseURL';
 import { catchError } from 'rxjs/operators';
 import { ProcessHttpMessageService } from '../services/process-http-message.service';
@@ -17,6 +17,16 @@ export class QuestionService {
   getQuestions(): Observable<Question[]>{
     return this.http.get<Question[]>(baseURL + 'questions')
       .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
+  postQuestion(question): Observable<Question>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    return this.http.post<Question>(baseURL + 'questions', question, httpOptions)
   }
 
   deleteQuestion(question): Observable<Question>{

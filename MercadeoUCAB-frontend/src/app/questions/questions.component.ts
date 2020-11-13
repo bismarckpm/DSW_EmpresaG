@@ -6,6 +6,7 @@ import { QUESTION_TYPES_FOR_TABLE_FILTER } from '../constants/question_types';
 import { QuestionService } from '../services/question.service';
 import { CategoryService } from '../services/category.service';
 import { ConfirmationService } from 'primeng/api';
+import { replaceKey } from '../functions/common_functions';
 
 @Component({
   selector: 'app-questions',
@@ -44,15 +45,11 @@ export class QuestionsComponent implements OnInit {
       })
 
     this.categoryService.getCategories().subscribe((categories) => {
-      this.categorias = this.replaceKey(categories);
+      this.categorias = replaceKey(categories);
     },
     errorMessage => {
       this.categoryErrorMessage = errorMessage;
     })
-  }
-
-  replaceKey(obj){
-    return obj.map(({ nombre: value, nombre: label, ...rest }) => ({ value, label, ...rest }));
   }
 
   onQuestionTypeChange(event){

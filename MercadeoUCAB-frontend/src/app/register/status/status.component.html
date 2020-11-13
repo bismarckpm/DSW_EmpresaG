@@ -40,7 +40,7 @@
                     <button pButton pRipple type="button" label="Anterior" class="p-button-secondary" (click)="previousPage()"></button>
                 </div>
                 <div class="p-mb-2 p-col-6 p-mb-lg-0">
-                    <button pButton pRipple type="submit" label="Finalizar"></button>
+                    <button pButton pRipple type="submit" [disabled]="sent_form" label="Finalizar"></button>
                 </div>
             </div>
         </div>

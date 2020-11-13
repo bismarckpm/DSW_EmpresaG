@@ -22,6 +22,7 @@ export class StatusComponent implements OnInit {
   dispositivos: SelectItem[];
   horario_inicial: SelectItem[];
   horario_final: SelectItem[];
+  sent_form: boolean = false;
 
   /* Form */
   statusForm: FormGroup;
@@ -69,6 +70,7 @@ export class StatusComponent implements OnInit {
       /* SUBMIT FORM */
       this.registerService.postRegister(this.registerService.user)
         .subscribe(person => {
+          this.sent_form = true;
           console.log("REGISTERED")
         },
         errorMessage => {

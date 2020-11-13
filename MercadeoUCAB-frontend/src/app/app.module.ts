@@ -17,6 +17,8 @@ import { ToastModule } from 'primeng/toast';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuModule } from 'primeng/menu';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 /* Modules */
 import { AppRoutingModule } from './app-routing/app-routing.module';
@@ -98,7 +100,9 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
     ToastModule,
     MenubarModule,
     MenuModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    RadioButtonModule,
+    InputTextareaModule
   ],
   providers: [
     RegisterService,

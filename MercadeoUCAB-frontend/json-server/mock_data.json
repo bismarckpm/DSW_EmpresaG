@@ -75,90 +75,63 @@
       "tipo": "Selección múltiple",
       "pregunta": "Seleccione los shooter que ha jugado",
       "categoria": "Videojuegos",
-      "subcategoria": "Shooter",
-      "filtros_adicionales": null
+      "subcategoria": "Shooter"
     },
     {
       "id": 3,
       "tipo": "Selección simple",
       "pregunta": "¿Cuál es tu categoría favorita de videojuegos?",
       "categoria": "Videojuegos",
-      "subcategoria": "",
-      "filtros_adicionales": null
+      "subcategoria": ""
     },
     {
       "id": 5,
       "tipo": "Selección simple",
       "pregunta": "¿Cuál es tu género favorito de anime?",
       "categoria": "TV",
-      "subcategoria": "Anime",
-      "filtros_adicionales": [
-        {
-          "tipo": "Ocupación",
-          "nombre": "Estudiante"
-        },
-        {
-          "tipo": "Género",
-          "nombre": "Femenino"
-        }
-      ]
+      "subcategoria": "Anime"
     },
     {
       "id": 6,
       "tipo": "Selección simple",
       "pregunta": "¿Prefieres los headsets o los earbuds?",
       "categoria": "Tecnología",
-      "subcategoria": "Hardware",
-      "filtros_adicionales": null
+      "subcategoria": "Hardware"
     },
     {
       "id": 7,
       "tipo": "Selección simple",
       "pregunta": "¿Prefieres Intel o NVIDIA?",
       "categoria": "Tecnología",
-      "subcategoria": "Hardware",
-      "filtros_adicionales": null
+      "subcategoria": "Hardware"
     },
     {
       "id": 8,
       "tipo": "Rango",
       "pregunta": "¿Cuál es tu velocidad de internet?",
       "categoria": "Tecnología",
-      "subcategoria": "Hardware",
-      "filtros_adicionales": null
+      "subcategoria": "Hardware"
     },
     {
       "id": 9,
       "tipo": "Texto abierto",
       "pregunta": "¿Qué opinas del servicio de internet de tu país?",
       "categoria": "Tecnología",
-      "subcategoria": "Hardware",
-      "filtros_adicionales": null
+      "subcategoria": "Hardware"
     },
     {
       "id": 10,
       "tipo": "Selección simple",
       "pregunta": "¿Utilizas automovil eléctrico o mecánico?",
       "categoria": "Transporte",
-      "subcategoria": "Automoviles",
-      "filtros_adicionales": [
-        {
-          "tipo": "Nivel Socioeconómico",
-          "nombre": "Medio"
-        },
-        {
-          "tipo": "Nivel Socioeconómico",
-          "nombre": "Medio-bajo"
-        }
-      ]
+      "subcategoria": "Automoviles"
     },
     {
       "id": 11,
       "tipo": "Texto abierto",
       "pregunta": "Si usted sabe qué es el Net Neutrality ¿Qué opina de el?",
       "categoria": "Tecnología",
-      "subcategoria": "",
-      "filtros_adicionales": null
+      "subcategoria": ""
     }
   ],
   "categories": [
