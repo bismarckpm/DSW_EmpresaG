@@ -58,8 +58,6 @@
                                 field="subcategoria">
                             </p-sortIcon>
                         </th>
-                        <th class="p-text-center">Filtros adicionales
-                        </th>
                         <th style="width: 11rem"></th>
                     </tr>
 
@@ -83,15 +81,7 @@
                             <span class="image-text">{{pregunta.subcategoria}}</span>
                             <span class="image-text" *ngIf="!pregunta.subcategoria">N/A</span>
                         </td>
-                        <td class="p-text-center">
-                            <span class="p-column-title">Filtros adicionales</span>
-                            <div *ngFor="let filtro of pregunta.filtros_adicionales">
-                                {{filtro.tipo}} - {{filtro.nombre}}
-                            </div>
-                            <div *ngIf="!pregunta.filtros_adicionales">
-                                Ninguno
-                            </div>
-                        </td>
+
                         <td class="p-text-center">
                             <button type="button"  [routerLink]="['view']" [queryParams]="{qid:pregunta.id}" pButton pRipple icon="pi pi-eye" class="p-button-rounded p-mr-2"
                                 pTooltip="Vista previa" tooltipPosition="bottom"></button>
@@ -112,10 +102,7 @@
         </div>
     </div>
     <div *ngIf="!preguntas && !loading && questionsErrorMessage">
-        <div class="p-text-center">
-            <h2>ERROR :(</h2>
-            <p>No se pudo conectar con el servidor. Nuestro equipo está trabajando para solucionarlo</p>
-        </div>
+        <app-server-disconnected></app-server-disconnected>
     </div>
     </p-card>
 

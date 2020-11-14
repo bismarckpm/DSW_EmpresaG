@@ -22,7 +22,7 @@ export class SubcategoryService {
   getSubcategories(category_id): Observable<Subcategory[]> {
     return this.http.get<Subcategory[]>(baseURL + 'subcategories', {
       params: {
-        category_id: category_id
+        id_categoria: category_id
       }}).pipe(catchError(this.processHTTPMessageService.handleError))
   }
 }
