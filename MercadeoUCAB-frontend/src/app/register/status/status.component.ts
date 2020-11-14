@@ -55,6 +55,7 @@ export class StatusComponent implements OnInit {
   }
 
   onSubmit(){
+    this.sent_form = true;
     this.registerService.user.ocupacion = this.statusForm.value.ocupacion;
     this.registerService.user.id_nivel_academico = this.statusForm.value.nivel_academico;
     this.registerService.user.id_nivel_socioeconomico = this.statusForm.value.nivel_socioeconomico;
@@ -70,15 +71,16 @@ export class StatusComponent implements OnInit {
       /* SUBMIT FORM */
       this.registerService.postRegister(this.registerService.user)
         .subscribe(person => {
-          this.sent_form = true;
           console.log("REGISTERED")
         },
         errorMessage => {
+          this.sent_form = false;
           this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
         })
     }
     else {
       this.showError()
+      this.sent_form = false;
     }
     //console.log(this.registerService.user);
   }

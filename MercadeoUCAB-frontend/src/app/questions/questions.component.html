@@ -102,10 +102,7 @@
         </div>
     </div>
     <div *ngIf="!preguntas && !loading && questionsErrorMessage">
-        <div class="p-text-center">
-            <h2>ERROR :(</h2>
-            <p>No se pudo conectar con el servidor. Nuestro equipo está trabajando para solucionarlo</p>
-        </div>
+        <app-server-disconnected></app-server-disconnected>
     </div>
     </p-card>
 

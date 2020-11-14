@@ -8,6 +8,7 @@ import { QuestionService } from '../../services/question.service';
 import { replaceKeyWithValue } from '../../functions/common_functions';
 import { Question } from '../../classes/question';
 import { Option } from '../../classes/options';
+import { NgxSpinnerService } from "ngx-spinner";
 
 /* Form */
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
@@ -27,6 +28,7 @@ export class AddQuestionComponent implements OnInit {
   categoriesErrorMessage: string;
   subcategoriesErrorMessage: string;
   sent_form: boolean = false;
+  loading: boolean = true;
 
   /* Form */
   questionForm: FormGroup;
@@ -70,16 +72,21 @@ export class AddQuestionComponent implements OnInit {
     private messageService: MessageService,
     private subcategoryService: SubcategoryService,
     private questionService: QuestionService,
-    private fb: FormBuilder) { 
+    private fb: FormBuilder,
+    private spinner: NgxSpinnerService) { 
       this.createForm();
-
+      this.spinner.show();
   }
 
   ngOnInit(): void {
     this.categoryService.getCategories().subscribe((categories) => {
+      this.loading = false;
       this.categorias = replaceKeyWithValue(categories);
+      this.spinner.hide();
     }, errorMessage => {
+      this.loading = false;
       this.categoriesErrorMessage = errorMessage;
+      this.spinner.hide();
     })
   }
 
@@ -212,13 +219,14 @@ export class AddQuestionComponent implements OnInit {
     
     /* 3 = No es ninguno de los anteriores */
     this.questionService.postQuestion(this.pregunta).subscribe((res)=>{
-      this.sent_form = true;
     }, errorMessage => {
       this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
+      this.sent_form = false;
     });
   }
 
   onSubmit(){
+    this.sent_form = true;
     /* CASOS VALIDOS */
     if (this.questionForm.value.tipo_de_pregunta == 5 && this.questionForm.value.rango_inicial && this.questionForm.value.rango_final && this.questionForm.valid){
       this.postQuestion(2)
@@ -237,15 +245,17 @@ export class AddQuestionComponent implements OnInit {
 
     else if (this.questionForm.valid && (!this.questionForm.value.rango_inicial || !this.questionForm.value.rango_final) && this.questionForm.value.tipo_de_pregunta == 5){
       this.messageService.add({severity:'error', summary: 'Error', detail: 'Debe completar ambos campos de rango con datos válidos'});
+      this.sent_form = false;    
     }
 
     else if (this.questionForm.valid && this.questionForm.value.opciones.length < 2 && (this.questionForm.value.tipo_de_pregunta == 3 || this.questionForm.value.tipo_de_pregunta == 2 )){
       this.messageService.add({severity:'error', summary: 'Error', detail: 'Debe añadir al menos dos opciones'});
+      this.sent_form = false;    
     }
     
     else {
       this.messageService.add({severity:'error', summary: 'Error', detail: 'Debe completar los campos requeridos con datos validos'});
+      this.sent_form = false;    
     }
-    
   }
 }

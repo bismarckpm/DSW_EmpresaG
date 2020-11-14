@@ -19,6 +19,8 @@ import { MenuModule } from 'primeng/menu';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 /* Modules */
 import { AppRoutingModule } from './app-routing/app-routing.module';
@@ -60,6 +62,9 @@ import { AddQuestionComponent } from './questions/add-question/add-question.comp
 import { EditQuestionComponent } from './questions/edit-question/edit-question.component';
 import { PreviewQuestionComponent } from './questions/preview-question/preview-question.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { ServerDisconnectedComponent } from './errors/server-disconnected/server-disconnected.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { AddCategoryComponent } from './categories/add-category/add-category.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +83,9 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
     EditQuestionComponent,
     PreviewQuestionComponent,
     NotFoundComponent,
+    ServerDisconnectedComponent,
+    CategoriesComponent,
+    AddCategoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -102,7 +110,9 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
     MenuModule,
     ConfirmDialogModule,
     RadioButtonModule,
-    InputTextareaModule
+    InputTextareaModule,
+    ProgressSpinnerModule,
+    NgxSpinnerModule,
   ],
   providers: [
     RegisterService,

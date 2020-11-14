@@ -11,6 +11,8 @@ import { QuestionsComponent } from '../questions/questions.component'
 import { AddQuestionComponent } from '../questions/add-question/add-question.component'
 import { EditQuestionComponent } from '../questions/edit-question/edit-question.component';
 import { PreviewQuestionComponent } from '../questions/preview-question/preview-question.component';
+import { CategoriesComponent } from '../categories/categories.component';
+import { AddCategoryComponent } from '../categories/add-category/add-category.component';
 import { NotFoundComponent } from '../errors/not-found/not-found.component';
 
 export const routes: Routes = [
@@ -64,6 +66,14 @@ export const routes: Routes = [
     {
       path: 'questions/view',
       component: PreviewQuestionComponent
+    },
+    {
+      path: 'categories',
+      component: CategoriesComponent
+    },
+    {
+      path: 'categories/add',
+      component: AddCategoryComponent
     },
 
     /* ERROR PAGES */
