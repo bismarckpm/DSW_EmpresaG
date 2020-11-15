@@ -52,7 +52,8 @@ export class NavigationComponent implements OnInit {
         items: [
           {
             label: 'Estudios existentes',
-            icon: 'pi pi-fw pi-chart-bar'
+            icon: 'pi pi-fw pi-chart-bar',
+            command: e => this.router.navigate(["studies/existing"]) 
           },
           {
             label: 'Preguntas',

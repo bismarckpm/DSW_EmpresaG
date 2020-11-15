@@ -7,51 +7,51 @@
   ],
   "states": [
     {
-      "value": 1,
+      "value": 2,
       "label": "Lousiana",
       "country_id": 1
     },
     {
-      "value": 2,
+      "value": 3,
       "label": "California",
       "country_id": 1
     },
     {
-      "value": 3,
+      "value": 4,
       "label": "Florida",
       "country_id": 1
     }
   ],
   "cities": [
     {
-      "value": 1,
+      "value": 5,
       "label": "New Orleans",
       "state_id": 1
     },
     {
-      "value": 2,
+      "value": 6,
       "label": "Lacombe",
       "state_id": 1
     },
     {
-      "value": 3,
+      "value": 7,
       "label": "San Diego",
       "state_id": 2
     },
     {
-      "value": 4,
+      "value": 8,
       "label": "Miami",
       "state_id": 3
     }
   ],
   "counties": [
     {
-      "value": 1,
+      "value": 9,
       "label": "Carrolton",
       "city_id": 1
     },
     {
-      "value": 2,
+      "value": 10,
       "label": "Fort Lauderale",
       "city_id": 4
     }
@@ -313,6 +313,51 @@
       "id": 6,
       "nombre": "Automoviles",
       "id_categoria": 5
+    }
+  ],
+  "studies":[
+    {
+      "id": 1,
+      "categoria": "Ropa",
+      "id_categoria": 1,
+      "subcategoria": "Streetwear",
+      "id_subcategoria": 2,
+      "hijos": false,
+      "genero": "Masculino",
+      "id_genero": 1,
+      "nivel_academico": "Primaria, Secundaria",
+      "id_nivel_academico": [1, 2],
+      "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
+      "id_nivel_socioeconomico": [2,3,4],
+      "lugares": "New Orleans, Lacombe, San Diego",
+      "id_lugares": [5, 6, 7]
+    },
+    {
+      "id": 2,
+      "categoria": "Videojuegos",
+      "id_categoria": 2,
+      "subcategoria": "Shooter",
+      "id_subcategoria": 2,
+      "hijos": false,
+      "genero": "Masculino",
+      "id_genero": 1,
+      "nivel_academico": "Primaria, Secundaria",
+      "id_nivel_academico": [1, 2],
+      "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
+      "id_nivel_socioeconomico": [2,3,4],
+      "lugares": "Estados Unidos",
+      "id_lugares": [1]
+    },
+    {
+      "id": 3,
+      "categoria": "Programación",
+      "id_categoria": 3,
+      "nivel_academico": "Primaria, Secundaria",
+      "id_nivel_academico": [1, 2],
+      "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
+      "id_nivel_socioeconomico": [2,3,4],
+      "lugares": "Lousiana, California",
+      "id_lugares": [2,3]
     }
   ]
 }
