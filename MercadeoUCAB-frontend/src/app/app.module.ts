@@ -18,6 +18,7 @@ import { MenubarModule } from 'primeng/menubar';
 import { MenuModule } from 'primeng/menu';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { NgxSpinnerModule } from "ngx-spinner";
@@ -112,6 +113,7 @@ import { AddCategoryComponent } from './categories/add-category/add-category.com
     RadioButtonModule,
     InputTextareaModule,
     ProgressSpinnerModule,
+    CheckboxModule,
     NgxSpinnerModule,
   ],
   providers: [

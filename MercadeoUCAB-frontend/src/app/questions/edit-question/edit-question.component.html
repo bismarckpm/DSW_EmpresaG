@@ -3,7 +3,7 @@
 <!-- Add question -->
 <div class="demo-container p-mx-6 p-p-0 p-p-sm-1 p-p-md-2 p-p-lg-6">
     <p-card>
-        <div *ngIf="!loading && categorias.length >= 1">
+        <div *ngIf="!loading && categorias && categorias.length >= 1">
             <div class="p-grid p-mx-5">
                 <div class="p-col-12">
                     <h3 class="table-title">EDITAR PREGUNTA</h3>
@@ -112,7 +112,7 @@
                 <div class="p-grid p-jc-end p-mt-6 p-mx-5">
                     <div class="p-grid p-formgrid p-fluid">
                         <div class="p-mb-2 p-col-12 p-mb-lg-0">
-                            <button pButton pRipple type="submit" [disabled]="sent_form" label="Crear"></button>
+                            <button pButton pRipple type="submit" [disabled]="sent_form" label="Guardar"></button>
                         </div>
                     </div>
                 </div>
@@ -132,10 +132,10 @@
             <app-server-disconnected></app-server-disconnected>
         </div>
 
-        <div *ngIf="!loading && categorias.length < 1">
+        <div *ngIf="!loading && categorias && categorias.length < 1">
             <div class="p-text-center">
                 <h2>ERROR :(</h2>
-                <p>No puede agregar ninguna pregunta sin categorías agregadas, click <a routerLink="/categories/add">aquí</a> para añadir una
+                <p>No puede modificar ninguna pregunta sin categorías agregadas, click <a routerLink="/categories/add">aquí</a> para añadir una
                     categoría</p>
             </div>
         </div>

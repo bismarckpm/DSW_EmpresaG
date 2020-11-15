@@ -16,10 +16,10 @@ export class ProcessHttpMessageService {
       errorMsg = error.error.message
     }
     else {
-      errorMsg = `${error.status} - ${error.statusText || ''}: ${error.error}`
-      console.log(error.error)
+      errorMsg = `${error.status} - ${error.statusText || ''}: `
     }
 
+    // TODO: Cambiar esto para manejar los errores desde el servidor Java EE
     return throwError(errorMsg)
   }
 }

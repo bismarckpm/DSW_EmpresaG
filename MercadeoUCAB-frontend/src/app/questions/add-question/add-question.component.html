@@ -3,7 +3,7 @@
 <!-- Add question -->
 <div class="demo-container p-mx-6 p-p-0 p-p-sm-1 p-p-md-2 p-p-lg-6">
     <p-card>
-        <div *ngIf="!loading && categorias.length >= 1">
+        <div *ngIf="!loading && categorias && categorias.length >= 1">
             <div class="p-grid p-mx-5">
                 <div class="p-col-12">
                     <h3 class="table-title">AÑADIR PREGUNTA</h3>
@@ -132,7 +132,7 @@
             <app-server-disconnected></app-server-disconnected>
         </div>
 
-        <div *ngIf="!loading && categorias.length < 1">
+        <div *ngIf="!loading && categorias && categorias.length < 1">
             <div class="p-text-center">
                 <h2>ERROR :(</h2>
                 <p>No puede agregar ninguna pregunta sin categorías agregadas, click <a routerLink="/categories/add">aquí</a> para añadir una

@@ -84,18 +84,24 @@ export class EditQuestionComponent implements OnInit {
 
       /* Get current question */
       else {
+        this.spinner.show();
         this.current_question = parseInt(this.Activatedroute.snapshot.queryParamMap.get('qid'));
         this.questionService.getQuestion(this.current_question).subscribe((question) => {
           this.pregunta = question;
-          this.createForm();
+          if (this.pregunta){
+            this.createForm();
 
-          // Only add to form array if there are options
-          if (this.pregunta.opciones && this.pregunta.opciones.length>0)
-            this.setFormArray();
+            // Only add to form array if there are options
+            if (this.pregunta.opciones && this.pregunta.opciones.length>0)
+              this.setFormArray();
 
 
-          this.getSubcategories(); // Get subcategories according to the category selected
-          this.spinner.show();
+            this.getSubcategories(); // Get subcategories according to the category selected
+          }
+
+          else {
+            this.router.navigate(['404']);
+          }
         });
       }
   }
@@ -241,10 +247,18 @@ export class EditQuestionComponent implements OnInit {
 
     /* Es una pregunta de rango */
     else if (type_of_option == 2){
-      let qoption: Option[];
-      qoption[0].rango_inicial = this.questionForm.value.rango_inicial;
-      qoption[0].rango_final = this.questionForm.value.rango_final;
+      let qoption: Option[] = [];
+      qoption.push({
+        rango_inicial: this.questionForm.value.rango_inicial,
+        rango_final: this.questionForm.value.rango_final
+      });
       this.pregunta.opciones = qoption;
+    }
+
+    else {
+      if (this.pregunta.opciones){
+        delete this.pregunta["opciones"];
+      }
     }
     
     /* 3 = No es ninguno de los anteriores */

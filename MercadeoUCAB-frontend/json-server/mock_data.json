@@ -66,28 +66,21 @@
       "label": "Chile (+56)"
     }
   ],
-  "register": [
-
-  ],
+  "register": [],
   "questions": [
     {
       "id": 2,
-      "tipo": "Selección múltiple",
-      "pregunta": "Seleccione los shooter que ha jugado",
-      "categoria": "Videojuegos",
-      "subcategoria": "Shooter",
-      "id_categoria": 2,
-      "id_subcategoria": 2,
-      "id_tipo": 3,
+      "tipo": "Rango",
+      "pregunta": "¿Qué talla de zapatos suele usar usted?",
+      "categoria": "Ropa",
+      "subcategoria": "Streetwear",
+      "id_categoria": 1,
+      "id_subcategoria": 1,
+      "id_tipo": 5,
       "opciones": [
         {
-          "valor": "Halo" 
-        },
-        {
-          "valor": "Call of Duty"
-        },
-        {
-          "valor": "Valorant"
+          "rango_inicial": "35",
+          "rango_final": "46"
         }
       ]
     },
@@ -99,19 +92,20 @@
       "subcategoria": "",
       "id_categoria": 2,
       "id_tipo": 2,
-      "opciones":[{
-        "valor": "Shooter"
-      },
-      {
-        "valor": "Deportes"   
-      },
-      {
-        "valor": "Estrategia"
-      },
-      {
-        "valor": "RPG"
-      }
-    ]
+      "opciones": [
+        {
+          "valor": "Shooter"
+        },
+        {
+          "valor": "Deportes"
+        },
+        {
+          "valor": "Estrategia"
+        },
+        {
+          "valor": "RPG"
+        }
+      ]
     },
     {
       "id": 5,
@@ -215,7 +209,6 @@
           "valor": "Mecánico"
         }
       ]
-
     },
     {
       "id": 11,
@@ -225,6 +218,47 @@
       "subcategoria": "",
       "id_tipo": 1,
       "id_categoria": 3
+    },
+    {
+      "id_categoria": 5,
+      "id_subcategoria": 6,
+      "pregunta": "Seleccione el rango de precio mínimo y máximo por el cuál usted pagaría para un carro ($)",
+      "id_tipo": 5,
+      "opciones": [
+        {
+          "rango_inicial": "500",
+          "rango_final": "200000"
+        }
+      ],
+      "id": 12
+    },
+    {
+      "id_categoria": 4,
+      "id_subcategoria": 4,
+      "pregunta": "Seleccione qué animes de los siguientes se le hace familiar/lo ha visto",
+      "id_tipo": 3,
+      "opciones": [
+        {
+          "valor": "Full Metal Alchemist"
+        },
+        {
+          "valor": "Naruto"
+        },
+        {
+          "valor": "Dragon Ball"
+        },
+        {
+          "valor": "Death Note"
+        }
+      ],
+      "id": 13
+    },
+    {
+      "id_categoria": 3,
+      "id_subcategoria": 3,
+      "pregunta": "¿Está usted familiarizado con el lenguaje de programación Python?",
+      "id_tipo": 4,
+      "id": 14
     }
   ],
   "categories": [

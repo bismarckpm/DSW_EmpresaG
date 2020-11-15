@@ -211,9 +211,11 @@ export class AddQuestionComponent implements OnInit {
 
     /* Es una pregunta de rango */
     else if (type_of_option == 2){
-      let qoption: Option[];
-      qoption[0].rango_inicial = this.questionForm.value.rango_inicial;
-      qoption[0].rango_final = this.questionForm.value.rango_final;
+      let qoption: Option[] = [];
+      qoption.push({
+        rango_inicial: this.questionForm.value.rango_inicial,
+        rango_final: this.questionForm.value.rango_final
+      });
       this.pregunta.opciones = qoption;
     }
     
