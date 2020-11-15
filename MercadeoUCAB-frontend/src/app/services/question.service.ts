@@ -3,7 +3,7 @@ import { Question } from '../classes/question';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { baseURL } from '../constants/baseURL';
-import { catchError } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { ProcessHttpMessageService } from '../services/process-http-message.service';
 
 @Injectable({
@@ -19,6 +19,14 @@ export class QuestionService {
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
+  getQuestion(qid): Observable<Question>{
+    return this.http.get<Question>(baseURL + 'questions', {params: {
+      id: qid
+    }})
+      .pipe(map(question => question[0]))
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
   postQuestion(question): Observable<Question>{
     const httpOptions = {
       headers: new HttpHeaders({
@@ -27,6 +35,17 @@ export class QuestionService {
     };
 
     return this.http.post<Question>(baseURL + 'questions', question, httpOptions)
+  }
+
+  putQuestion(question): Observable<Question>{
+    console.log(question);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+    };
+
+    return this.http.put<Question>(baseURL + 'questions/' + question.id, question, httpOptions)
   }
 
   deleteQuestion(question): Observable<Question>{

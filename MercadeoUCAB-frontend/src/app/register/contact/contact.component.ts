@@ -75,12 +75,15 @@ export class ContactComponent implements OnInit {
   }
 
   getStates(event){
+    this.ciudades = [];
+    this.parroquias = [];
     this.placeService.getStates(event.value).subscribe((states) => {
       this.estados = states;
     })
   }
 
   getCities(event){
+    this.parroquias = [];
     this.placeService.getCities(event.value).subscribe((cities) => {
       this.ciudades = cities;
     })
