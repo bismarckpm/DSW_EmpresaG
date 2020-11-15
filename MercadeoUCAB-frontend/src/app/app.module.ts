@@ -66,6 +66,11 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerDisconnectedComponent } from './errors/server-disconnected/server-disconnected.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { AddCategoryComponent } from './categories/add-category/add-category.component';
+import { ExistingStudiesComponent } from './studies/existing-studies/existing-studies.component';
+import { ViewStudyComponent } from './studies/view-study/view-study.component';
+import { EditStudyComponent } from './studies/edit-study/edit-study.component';
+import { CreateStudyComponent } from './studies/create-study/create-study.component';
+import { StudyRequestsComponent } from './studies/study-requests/study-requests.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +92,11 @@ import { AddCategoryComponent } from './categories/add-category/add-category.com
     ServerDisconnectedComponent,
     CategoriesComponent,
     AddCategoryComponent,
+    ExistingStudiesComponent,
+    ViewStudyComponent,
+    EditStudyComponent,
+    CreateStudyComponent,
+    StudyRequestsComponent,
   ],
   imports: [
     BrowserModule,
