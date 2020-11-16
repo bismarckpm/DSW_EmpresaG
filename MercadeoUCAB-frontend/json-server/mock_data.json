@@ -7,51 +7,51 @@
   ],
   "states": [
     {
-      "value": 1,
+      "value": 2,
       "label": "Lousiana",
       "country_id": 1
     },
     {
-      "value": 2,
+      "value": 3,
       "label": "California",
       "country_id": 1
     },
     {
-      "value": 3,
+      "value": 4,
       "label": "Florida",
       "country_id": 1
     }
   ],
   "cities": [
     {
-      "value": 1,
+      "value": 5,
       "label": "New Orleans",
       "state_id": 1
     },
     {
-      "value": 2,
+      "value": 6,
       "label": "Lacombe",
       "state_id": 1
     },
     {
-      "value": 3,
+      "value": 7,
       "label": "San Diego",
       "state_id": 2
     },
     {
-      "value": 4,
+      "value": 8,
       "label": "Miami",
       "state_id": 3
     }
   ],
   "counties": [
     {
-      "value": 1,
+      "value": 9,
       "label": "Carrolton",
       "city_id": 1
     },
     {
-      "value": 2,
+      "value": 10,
       "label": "Fort Lauderale",
       "city_id": 4
     }
@@ -66,72 +66,199 @@
       "label": "Chile (+56)"
     }
   ],
-  "register": [
-
-  ],
+  "register": [],
   "questions": [
     {
       "id": 2,
-      "tipo": "Selección múltiple",
-      "pregunta": "Seleccione los shooter que ha jugado",
-      "categoria": "Videojuegos",
-      "subcategoria": "Shooter"
+      "tipo": "Rango",
+      "pregunta": "¿Qué talla de zapatos suele usar usted?",
+      "categoria": "Ropa",
+      "subcategoria": "Streetwear",
+      "id_categoria": 1,
+      "id_subcategoria": 1,
+      "id_tipo": 5,
+      "opciones": [
+        {
+          "rango_inicial": "35",
+          "rango_final": "46"
+        }
+      ]
     },
     {
       "id": 3,
       "tipo": "Selección simple",
       "pregunta": "¿Cuál es tu categoría favorita de videojuegos?",
       "categoria": "Videojuegos",
-      "subcategoria": ""
+      "subcategoria": "",
+      "id_categoria": 2,
+      "id_tipo": 2,
+      "opciones": [
+        {
+          "valor": "Shooter"
+        },
+        {
+          "valor": "Deportes"
+        },
+        {
+          "valor": "Estrategia"
+        },
+        {
+          "valor": "RPG"
+        }
+      ]
     },
     {
       "id": 5,
       "tipo": "Selección simple",
       "pregunta": "¿Cuál es tu género favorito de anime?",
       "categoria": "TV",
-      "subcategoria": "Anime"
+      "id_categoria": 4,
+      "id_subcategoria": 4,
+      "id_tipo": 2,
+      "subcategoria": "Anime",
+      "opciones": [
+        {
+          "valor": "Shonen"
+        },
+        {
+          "valor": "Seinen"
+        },
+        {
+          "valor": "Romcon"
+        },
+        {
+          "valor": "Isekai"
+        },
+        {
+          "valor": "Ecchi"
+        }
+      ]
     },
     {
       "id": 6,
       "tipo": "Selección simple",
       "pregunta": "¿Prefieres los headsets o los earbuds?",
       "categoria": "Tecnología",
-      "subcategoria": "Hardware"
+      "id_categoria": 3,
+      "id_subcategoria": 5,
+      "id_tipo": 2,
+      "subcategoria": "Hardware",
+      "opciones": [
+        {
+          "valor": "Headsets"
+        },
+        {
+          "valor": "Earbuds"
+        }
+      ]
     },
     {
       "id": 7,
       "tipo": "Selección simple",
+      "id_tipo": 2,
       "pregunta": "¿Prefieres Intel o NVIDIA?",
       "categoria": "Tecnología",
-      "subcategoria": "Hardware"
+      "subcategoria": "Hardware",
+      "id_categoria": 3,
+      "id_subcategoria": 5,
+      "opciones": [
+        {
+          "valor": "Intel"
+        },
+        {
+          "valor": "NVIDIA"
+        }
+      ]
     },
     {
       "id": 8,
       "tipo": "Rango",
-      "pregunta": "¿Cuál es tu velocidad de internet?",
+      "pregunta": "¿Cuál es tu velocidad de internet? (Mb/s)",
       "categoria": "Tecnología",
-      "subcategoria": "Hardware"
+      "subcategoria": "Hardware",
+      "id_categoria": 3,
+      "id_subcategoria": 5,
+      "id_tipo": 5,
+      "rango_inicial": 10,
+      "rango_final": 300
     },
     {
       "id": 9,
       "tipo": "Texto abierto",
       "pregunta": "¿Qué opinas del servicio de internet de tu país?",
       "categoria": "Tecnología",
-      "subcategoria": "Hardware"
+      "subcategoria": "Hardware",
+      "id_categoria": 3,
+      "id_tipo": 1,
+      "id_subcategoria": 5
     },
     {
       "id": 10,
       "tipo": "Selección simple",
       "pregunta": "¿Utilizas automovil eléctrico o mecánico?",
       "categoria": "Transporte",
-      "subcategoria": "Automoviles"
+      "subcategoria": "Automoviles",
+      "id_subcategoria": 6,
+      "id_categoria": 5,
+      "id_tipo": 2,
+      "opciones": [
+        {
+          "valor": "Eléctrico"
+        },
+        {
+          "valor": "Mecánico"
+        }
+      ]
     },
     {
       "id": 11,
       "tipo": "Texto abierto",
       "pregunta": "Si usted sabe qué es el Net Neutrality ¿Qué opina de el?",
       "categoria": "Tecnología",
-      "subcategoria": ""
+      "subcategoria": "",
+      "id_tipo": 1,
+      "id_categoria": 3
+    },
+    {
+      "id_categoria": 5,
+      "id_subcategoria": 6,
+      "pregunta": "Seleccione el rango de precio mínimo y máximo por el cuál usted pagaría para un carro ($)",
+      "id_tipo": 5,
+      "opciones": [
+        {
+          "rango_inicial": "500",
+          "rango_final": "200000"
+        }
+      ],
+      "id": 12
+    },
+    {
+      "id_categoria": 4,
+      "id_subcategoria": 4,
+      "pregunta": "Seleccione qué animes de los siguientes se le hace familiar/lo ha visto",
+      "id_tipo": 3,
+      "opciones": [
+        {
+          "valor": "Full Metal Alchemist"
+        },
+        {
+          "valor": "Naruto"
+        },
+        {
+          "valor": "Dragon Ball"
+        },
+        {
+          "valor": "Death Note"
+        }
+      ],
+      "id": 13
+    },
+    {
+      "id_categoria": 3,
+      "id_subcategoria": 3,
+      "pregunta": "¿Está usted familiarizado con el lenguaje de programación Python?",
+      "id_tipo": 4,
+      "id": 14
     }
   ],
   "categories": [
@@ -186,6 +313,55 @@
       "id": 6,
       "nombre": "Automoviles",
       "id_categoria": 5
+    }
+  ],
+  "studies":[
+    {
+      "id": 1,
+      "categoria": "Ropa",
+      "id_categoria": 1,
+      "subcategoria": "Streetwear",
+      "id_subcategoria": 2,
+      "genero": "Masculino",
+      "id_genero": 1,
+      "nivel_academico": "Primaria, Secundaria",
+      "id_nivel_academico": [1, 2],
+      "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
+      "id_nivel_socioeconomico": [2,3,4],
+      "lugares": "New Orleans, Lacombe, San Diego",
+      "id_lugares": [5, 6, 7],
+      "estado": "Terminado",
+      "id_estado": 3
+    },
+    {
+      "id": 2,
+      "categoria": "Videojuegos",
+      "id_categoria": 2,
+      "subcategoria": "Shooter",
+      "id_subcategoria": 2,
+      "genero": "Masculino",
+      "id_genero": 1,
+      "nivel_academico": "Primaria, Secundaria",
+      "id_nivel_academico": [1, 2],
+      "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
+      "id_nivel_socioeconomico": [2,3,4],
+      "lugares": "Estados Unidos",
+      "id_lugares": [1],
+      "estado": "Sin culminar",
+      "id_estado": 1
+    },
+    {
+      "id": 3,
+      "categoria": "Programación",
+      "id_categoria": 3,
+      "nivel_academico": "Primaria, Secundaria",
+      "id_nivel_academico": [1, 2],
+      "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
+      "id_nivel_socioeconomico": [2,3,4],
+      "lugares": "Lousiana, California",
+      "id_lugares": [2,3],
+      "estado": "En proceso",
+      "id_estado": 2
     }
   ]
 }

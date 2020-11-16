@@ -11,6 +11,14 @@ import { QuestionsComponent } from '../questions/questions.component'
 import { AddQuestionComponent } from '../questions/add-question/add-question.component'
 import { EditQuestionComponent } from '../questions/edit-question/edit-question.component';
 import { PreviewQuestionComponent } from '../questions/preview-question/preview-question.component';
+
+/* STUDIES */
+import { CreateStudyComponent } from '../studies/create-study/create-study.component';
+import { EditStudyComponent } from '../studies/edit-study/edit-study.component';
+import { ExistingStudiesComponent } from '../studies/existing-studies/existing-studies.component';
+import { StudyRequestsComponent } from '../studies/study-requests/study-requests.component';
+import { ViewStudyComponent } from '../studies/view-study/view-study.component';
+
 import { CategoriesComponent } from '../categories/categories.component';
 import { AddCategoryComponent } from '../categories/add-category/add-category.component';
 import { NotFoundComponent } from '../errors/not-found/not-found.component';
@@ -51,6 +59,7 @@ export const routes: Routes = [
       path: 'recovery',
       component: RecoveryComponent
     },
+    /* QUESTIONS */
     {
       path: 'questions',
       component: QuestionsComponent,
@@ -76,6 +85,28 @@ export const routes: Routes = [
       component: AddCategoryComponent
     },
 
+    /* STUDIES */
+    {
+      path: 'studies/existing',
+      component: ExistingStudiesComponent
+    },
+    {
+      path: 'studies/create',
+      component: CreateStudyComponent
+    },
+    {
+      path: 'studies/edit',
+      component: EditStudyComponent
+    },
+    {
+      path: 'studies/view',
+      component: ViewStudyComponent
+    },
+    {
+      path: 'studies/requests',
+      component: StudyRequestsComponent
+    },
+
     /* ERROR PAGES */
     {
       path: '404',
@@ -85,7 +116,7 @@ export const routes: Routes = [
     /* REDIRECCIONAR A LA RUTA EN LA QUE SE ESTE TRABAJANDO MIENTRAS TANTO */
     { 
       path: '', 
-      redirectTo: '/questions/add', 
+      redirectTo: '/studies/existing', 
       pathMatch: 'full' 
     }
 ];

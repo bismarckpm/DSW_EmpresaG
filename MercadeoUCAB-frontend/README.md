@@ -10,3 +10,8 @@
  ```json-server --watch mock_data.json```
  
  Esto inicializará el servidor de pruebas en `localhost:3000`
+
+## TODO
+1. Cuando se integre el backend, en la parte de mostrar preguntas usara los atributos: tipo, subcategoria, categoria, en la parte de agregar y editar usara los atributos: id_tipo, id_subcategoria, id_categoria
+
+2. El error handler del process http service message debe mostrar los errores que salgan del backend, por ahora solo muestra [Object object]

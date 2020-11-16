@@ -18,6 +18,7 @@ import { MenubarModule } from 'primeng/menubar';
 import { MenuModule } from 'primeng/menu';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { NgxSpinnerModule } from "ngx-spinner";
@@ -44,6 +45,7 @@ import { RecoveryService } from './services/recovery.service';
 import { QuestionService } from './services/question.service';
 import { CategoryService } from './services/category.service';
 import { SubcategoryService } from './services/subcategory.service';
+import { StudiesService } from './services/studies.service';
 import { ProcessHttpMessageService } from './services/process-http-message.service';
 
 /* My components */
@@ -65,6 +67,11 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerDisconnectedComponent } from './errors/server-disconnected/server-disconnected.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { AddCategoryComponent } from './categories/add-category/add-category.component';
+import { ExistingStudiesComponent } from './studies/existing-studies/existing-studies.component';
+import { ViewStudyComponent } from './studies/view-study/view-study.component';
+import { EditStudyComponent } from './studies/edit-study/edit-study.component';
+import { CreateStudyComponent } from './studies/create-study/create-study.component';
+import { StudyRequestsComponent } from './studies/study-requests/study-requests.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +93,11 @@ import { AddCategoryComponent } from './categories/add-category/add-category.com
     ServerDisconnectedComponent,
     CategoriesComponent,
     AddCategoryComponent,
+    ExistingStudiesComponent,
+    ViewStudyComponent,
+    EditStudyComponent,
+    CreateStudyComponent,
+    StudyRequestsComponent,
   ],
   imports: [
     BrowserModule,
@@ -112,6 +124,7 @@ import { AddCategoryComponent } from './categories/add-category/add-category.com
     RadioButtonModule,
     InputTextareaModule,
     ProgressSpinnerModule,
+    CheckboxModule,
     NgxSpinnerModule,
   ],
   providers: [
@@ -123,6 +136,7 @@ import { AddCategoryComponent } from './categories/add-category/add-category.com
     QuestionService,
     CategoryService,
     SubcategoryService,
+    StudiesService,
     ProcessHttpMessageService,
     {provide: 'BaseURL', useValue: baseURL},
     {provide: 'ServerURL', useValue: serverURL}

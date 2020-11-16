@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -11,7 +12,7 @@ export class NavigationComponent implements OnInit {
   items: MenuItem[];
   items_guest: MenuItem[];
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.items = [
@@ -47,7 +48,19 @@ export class NavigationComponent implements OnInit {
       },
       {
         label: 'Estudios',
-        icon: 'pi pi-fw pi-chart-bar'
+        icon: 'pi pi-fw pi-chart-bar',
+        items: [
+          {
+            label: 'Estudios existentes',
+            icon: 'pi pi-fw pi-chart-bar',
+            command: e => this.router.navigate(["studies/existing"]) 
+          },
+          {
+            label: 'Preguntas',
+            icon: 'pi pi-fw pi-question',
+            command: q => this.router.navigate(["questions"]) 
+          }
+        ],
       },
       {
         label: 'Solicitudes (5)',
