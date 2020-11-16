@@ -6,7 +6,6 @@ export class Study {
     id_categoria?: number;
     subcategoria?: string;
     id_subcategoria?: string;
-    hijos?: boolean;
     genero?: string;
     id_genero?: number;
     nivel_academico?: string[];
