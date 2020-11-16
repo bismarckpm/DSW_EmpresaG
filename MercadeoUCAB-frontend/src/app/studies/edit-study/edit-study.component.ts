@@ -28,6 +28,7 @@ export class EditStudyComponent implements OnInit {
   current_study: number;
   estudio: Study;
   display: boolean = false;
+  has_to_clear_questions: boolean = false // If category changes questions are no longer valid
   display_modify_study_features: boolean = false;
   niveles_academicos: MenuItem[] = ACADEMICS;
   generos: MenuItem[] = GENDERS;
@@ -40,7 +41,14 @@ export class EditStudyComponent implements OnInit {
   categorias: MenuItem[];
   subcategorias: MenuItem[];
   temporal_state_id: number;
+
+  /* States */
+  loading: boolean = false;
+  studyErrorMessage: string;
   subcategoriesErrorMessage: string;
+  categoriesErrorMessage: string;
+  placesErrorMessage: string;
+  sent_form: boolean = false;
 
   /* Form */
   studyForm: FormGroup;
@@ -64,20 +72,25 @@ export class EditStudyComponent implements OnInit {
 
     /* Get current study */
     else {
+      this.loading = true;
       this.spinner.show();
+
       this.current_study = parseInt(this.Activatedroute.snapshot.queryParamMap.get('sid'));
       this.studiesService.getStudy(this.current_study).subscribe((study) => {
         this.estudio = study;
+        // IF STUDY EXISTS
         if (this.estudio) {
           /* If study is finished it can't be modified */
           if (this.estudio.id_estado == 3) {
             this.router.navigate(['404']);
           }
 
-          console.log(this.estudio)
+          //console.log(this.estudio)
 
           subcategoryService.getSubcategories(this.estudio.id_categoria).subscribe((subcategories) => {
             this.subcategorias = replaceKeyWithValue(subcategories);
+          }, errorMessage => {
+            this.subcategoriesErrorMessage = errorMessage;
           })
 
           this.createForm();
@@ -100,22 +113,35 @@ export class EditStudyComponent implements OnInit {
                 pais: stateresult.country_id,
                 estado: this.estudio.id_lugares
               })
+            }, errorMessage => {
+              this.placesErrorMessage = errorMessage;
             })
           }
-        }
+
+          this.spinner.hide();
+          this.loading = false;
+        } // END IF STUDY EXISTS
 
         else {
           this.router.navigate(['404']);
         }
+      }, errorMessage => {
+        this.loading = false;
+        this.spinner.hide();
+        this.studyErrorMessage = errorMessage;
       });
     }
 
     placeService.getCountries().subscribe((countries) => {
       this.paises = countries;
+    }, errorMessage => {
+      this.placesErrorMessage = errorMessage;
     })
 
     categoryService.getCategories().subscribe((categories) => {
       this.categorias = replaceKeyWithValue(categories);
+    }, errorMessage => {
+      this.categoriesErrorMessage = errorMessage;
     })
   }
 
@@ -155,6 +181,8 @@ export class EditStudyComponent implements OnInit {
   getStates(country_id) {
     this.placeService.getStates(country_id).subscribe((states) => {
       this.estados = states;
+    }, errorMessage => {
+      this.placesErrorMessage = errorMessage;
     })
   }
 
@@ -165,6 +193,15 @@ export class EditStudyComponent implements OnInit {
       ciudad: null
     })
     this.estudio.id_lugares = [];
+  }
+
+  clearQuestions(id_categoria){
+    if (id_categoria != this.studyForm.value.categoria){
+      this.has_to_clear_questions = true;
+    }
+    else{
+      this.has_to_clear_questions = false;
+    }
   }
 
   deleteQuestion(question) {
@@ -198,12 +235,17 @@ export class EditStudyComponent implements OnInit {
   }
 
   onSubmit(){
+    this.sent_form = true;
     this.estudio.id_categoria = this.studyForm.value.categoria
     this.estudio.id_subcategoria = this.studyForm.value.subcategoria
     this.estudio.id_nivel_academico = this.studyForm.value.nivel_academico
     this.estudio.id_nivel_socioeconomico = this.studyForm.value.nivel_socioeconomico
     this.estudio.id_genero = this.studyForm.value.genero 
     this.estudio.tipo_filtro_geografico = this.studyForm.value.tipo_de_filtro
+
+    if (this.has_to_clear_questions){
+      this.estudio.preguntas = [];
+    }
 
     if (this.estudio.tipo_filtro_geografico == 'paises'){
       this.estudio.id_lugares = this.studyForm.value.pais
@@ -213,7 +255,12 @@ export class EditStudyComponent implements OnInit {
     }
 
     this.studiesService.putStudy(this.estudio).subscribe((study)=>{
-
+      this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Características modificadas con éxito' });
+      this.display_modify_study_features = false;
+      this.sent_form = false;
+    }, errorMessage => {
+      this.sent_form = false;
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
     })
   }
 

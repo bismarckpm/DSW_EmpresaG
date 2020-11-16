@@ -6,6 +6,7 @@
         <div class="p-grid p-mx-5">
             <div class="p-col-6 p-lg-6">
                 <h3 class="table-title">EDITAR ESTUDIO</h3>
+                <small>Los cambios realizados a las preguntas se guardan automáticamente</small>
             </div>
             <div class="p-col-6 p-lg-6">
                 <div class="p-grid p-jc-end p-mt-1 p-mr-4">
@@ -15,7 +16,7 @@
             </div>
         </div>
         <hr>
-        <div class="p-grid p-mx-5 p-mt-3">
+        <div class="p-grid p-mx-5 p-mt-3" *ngIf="estudio && !loading">
             <button pButton pRipple type="button" (click)="showOrHideModifyStudyFeatures()" tooltipPosition="bottom" icon="pi pi-pencil"
                 class="p-button-rounded p-button-text"></button>
             <div class="p-mt-2 p-ml-3" >
@@ -26,9 +27,10 @@
         <div *ngIf="display_modify_study_features">
             <form novalidate [formGroup]="studyForm" (ngSubmit)="onSubmit()">
                 <h4 class="p-mx-5">Filtros de producto</h4>
+                <small class="error-msg p-mx-5">ADVERTENCIA: Si cambia la categoría y guarda los cambios las preguntas se eliminarán pues ya no serán válidas para este tipo de estudio</small>
                 <div class="p-grid p-mx-5 p-mt-2">
                     <div class="p-col-12 p-md-6 p-lg-4">
-                        <p-dropdown [options]="categorias" (onChange)="getSubcategories()" formControlName="categoria" placeholder="Categoría"></p-dropdown>
+                        <p-dropdown [options]="categorias" (onChange)="getSubcategories(); clearQuestions(estudio.id_categoria)" formControlName="categoria" placeholder="Categoría"></p-dropdown>
                     </div>
 
                     <div class="p-col-12 p-md-6 p-lg-4">
@@ -104,7 +106,7 @@
                             <button pButton pRipple type="button" label="Cerrar" class="p-button-secondary" (click)="showOrHideModifyStudyFeatures()"></button>
                         </div>
                         <div class="p-mb-2 p-col-6 p-mb-lg-0">
-                            <button pButton pRipple type="submit" label="Guardar"></button>
+                            <button pButton pRipple type="submit" [disabled]="sent_form" label="Guardar"></button>
                         </div>
                     </div>
                 </div>
@@ -177,6 +179,13 @@
 
                 </div>
             </div>
+            <div class="p-grid p-jc-end p-mt-1 p-mr-4">
+                <div class="p-grid p-formgrid p-fluid">
+                    <div class="p-mb-2 p-col-12 p-mb-lg-0">
+                        <button pButton pRipple type="button" routerLink="../../studies/existing" label="Atrás" class="p-button-secondary"></button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <p-dialog header="Agregar pregunta" [(visible)]="display">
@@ -196,10 +205,16 @@
             </form>
         </p-dialog>
 
-        <!--
-    <div *ngIf="!preguntas && !loading && questionsErrorMessage">
+    <div *ngIf="!estudio && !loading && studyErrorMessage">
         <app-server-disconnected></app-server-disconnected>
-    </div>-->
+    </div>
+
+    <div>
+        <div class="p-grid p-jc-center">
+            <ngx-spinner></ngx-spinner>
+        </div>
+    </div>
+
     </p-card>
     <p-confirmDialog></p-confirmDialog>
     <p-toast></p-toast>
