@@ -30,6 +30,10 @@ export class EditStudyComponent implements OnInit {
         this.studiesService.getStudy(this.current_study).subscribe((study) => {
           this.estudio = study;
           if (this.estudio){
+            /* If study is finished it can't be modified */
+            if (this.estudio.id_estado == 3) {
+              this.router.navigate(['404']);
+            }
             //console.log(this.estudio);
             //this.createForm();
 

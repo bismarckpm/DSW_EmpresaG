@@ -406,8 +406,8 @@
         6,
         7
       ],
-      "estado": "Terminado",
-      "id_estado": 3,
+      "estado": "En progreso",
+      "id_estado": 2,
       "preguntas": [
         {
           "id": 2,
@@ -460,8 +460,8 @@
       "id_lugares": [
         1
       ],
-      "estado": "Sin culminar",
-      "id_estado": 1
+      "estado": "En progreso",
+      "id_estado": 2
     },
     {
       "id": 3,
@@ -483,8 +483,8 @@
         2,
         3
       ],
-      "estado": "En proceso",
-      "id_estado": 2
+      "estado": "Terminado",
+      "id_estado": 3
     }
   ]
 }
