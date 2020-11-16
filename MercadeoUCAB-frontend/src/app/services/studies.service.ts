@@ -27,7 +27,14 @@ export class StudiesService {
     .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  appendQuestionToStudy(sid, study, qid): Observable<Study>{
-    return null;
+  putStudy(study): Observable<Study>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+    };
+
+    return this.http.put<Study>(baseURL + 'studies/' + study.id, study, httpOptions)
+      .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 }

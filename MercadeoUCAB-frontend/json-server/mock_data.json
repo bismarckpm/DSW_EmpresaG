@@ -26,34 +26,34 @@
     {
       "value": 5,
       "label": "New Orleans",
-      "state_id": 1
+      "state_id": 2
     },
     {
       "value": 6,
       "label": "Lacombe",
-      "state_id": 1
+      "state_id": 2
     },
     {
       "value": 7,
       "label": "San Diego",
-      "state_id": 2
+      "state_id": 3
     },
     {
       "value": 8,
       "label": "Miami",
-      "state_id": 3
+      "state_id": 4
     }
   ],
   "counties": [
     {
       "value": 9,
       "label": "Carrolton",
-      "city_id": 1
+      "city_id": 5
     },
     {
       "value": 10,
       "label": "Fort Lauderale",
-      "city_id": 4
+      "city_id": 8
     }
   ],
   "phonecodes": [
@@ -261,16 +261,6 @@
       "id": 14
     },
     {
-      "id": 100,
-      "tipo": "Verdadero y Falso",
-      "id_tipo": 4,
-      "pregunta": "¿Alguna vez usted ha montado en Skate?",
-      "categoria": "Ropa",
-      "subcategoria": "Streetwear",
-      "id_categoria": 1,
-      "id_subcategoria": 1
-    },
-    {
       "id_categoria": 1,
       "id_subcategoria": 1,
       "pregunta": "¿De qué precio fue la pieza más cara que ha comprado? ($)",
@@ -386,7 +376,7 @@
       "categoria": "Ropa",
       "id_categoria": 1,
       "subcategoria": "Streetwear",
-      "id_subcategoria": 2,
+      "id_subcategoria": 1,
       "genero": "Masculino",
       "id_genero": 1,
       "nivel_academico": "Primaria, Secundaria",
@@ -399,12 +389,6 @@
         2,
         3,
         4
-      ],
-      "lugares": "New Orleans, Lacombe, San Diego",
-      "id_lugares": [
-        5,
-        6,
-        7
       ],
       "estado": "En progreso",
       "id_estado": 2,
@@ -426,16 +410,17 @@
           ]
         },
         {
-          "id": 100,
-          "tipo": "Verdadero y Falso",
-          "id_tipo": 4,
-          "pregunta": "¿Alguna vez usted ha montado en Skate?",
-          "categoria": "Ropa",
-          "subcategoria": "Streetwear",
           "id_categoria": 1,
-          "id_subcategoria": 1
+          "id_subcategoria": 1,
+          "pregunta": "¿De qué precio fue la pieza más cara que ha comprado? ($)",
+          "id_tipo": 1,
+          "id": 101
         }
-      ]
+      ],
+      "id_lugares": [
+        1
+      ],
+      "tipo_filtro_geografico": "paises"
     },
     {
       "id": 2,
@@ -456,6 +441,7 @@
         3,
         4
       ],
+      "tipo_filtro_geografico": "paises",
       "lugares": "Estados Unidos",
       "id_lugares": [
         1
@@ -465,7 +451,7 @@
     },
     {
       "id": 3,
-      "categoria": "Programación",
+      "categoria": "Tecnología",
       "id_categoria": 3,
       "nivel_academico": "Primaria, Secundaria",
       "id_nivel_academico": [
@@ -478,13 +464,14 @@
         3,
         4
       ],
+      "tipo_filtro_geografico": "estados",
       "lugares": "Lousiana, California",
       "id_lugares": [
         2,
         3
       ],
-      "estado": "Terminado",
-      "id_estado": 3
+      "estado": "En progreso",
+      "id_estado": 2
     }
   ]
 }

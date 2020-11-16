@@ -17,4 +17,5 @@ export class Study {
     lugares?: string[];
     id_lugares?: number[];
     preguntas?: Question[];
+    tipo_filtro_geografico?: string;
 }

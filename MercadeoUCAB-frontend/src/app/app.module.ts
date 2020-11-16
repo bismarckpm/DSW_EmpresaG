@@ -73,6 +73,8 @@ import { ViewStudyComponent } from './studies/view-study/view-study.component';
 import { EditStudyComponent } from './studies/edit-study/edit-study.component';
 import { CreateStudyComponent } from './studies/create-study/create-study.component';
 import { StudyRequestsComponent } from './studies/study-requests/study-requests.component';
+import { AddQuestionFromPoolComponent } from './studies/add-question-from-pool/add-question-from-pool.component';
+import { CreateNewQuestionComponent } from './studies/create-new-question/create-new-question.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +101,8 @@ import { StudyRequestsComponent } from './studies/study-requests/study-requests.
     EditStudyComponent,
     CreateStudyComponent,
     StudyRequestsComponent,
+    AddQuestionFromPoolComponent,
+    CreateNewQuestionComponent,
   ],
   imports: [
     BrowserModule,
