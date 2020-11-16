@@ -1,5 +1,7 @@
 export class Study {
     id: number;
+    id_estado?: number;
+    estado?: string;
     categoria?: string;
     id_categoria?: number;
     subcategoria?: string;

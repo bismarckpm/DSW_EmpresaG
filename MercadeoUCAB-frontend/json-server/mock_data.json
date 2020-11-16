@@ -330,7 +330,9 @@
       "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
       "id_nivel_socioeconomico": [2,3,4],
       "lugares": "New Orleans, Lacombe, San Diego",
-      "id_lugares": [5, 6, 7]
+      "id_lugares": [5, 6, 7],
+      "estado": "Terminado",
+      "id_estado": 3
     },
     {
       "id": 2,
@@ -346,7 +348,9 @@
       "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
       "id_nivel_socioeconomico": [2,3,4],
       "lugares": "Estados Unidos",
-      "id_lugares": [1]
+      "id_lugares": [1],
+      "estado": "Sin culminar",
+      "id_estado": 1
     },
     {
       "id": 3,
@@ -357,7 +361,9 @@
       "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
       "id_nivel_socioeconomico": [2,3,4],
       "lugares": "Lousiana, California",
-      "id_lugares": [2,3]
+      "id_lugares": [2,3],
+      "estado": "En proceso",
+      "id_estado": 2
     }
   ]
 }
