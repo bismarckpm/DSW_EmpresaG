@@ -86,7 +86,7 @@
                             <button type="button"  [routerLink]="['view']" [queryParams]="{qid:pregunta.id}" pButton pRipple icon="pi pi-eye" class="p-button-rounded p-mr-2"
                                 pTooltip="Vista previa" tooltipPosition="bottom"></button>
                             <button type="button" pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-mr-2"
-                                pTooltip="Editar pregunta" [routerLink]="['edit']" [queryParams]="{qid:pregunta.id}" tooltipPosition="bottom"></button>
+                                pTooltip="Editar pregunta" [routerLink]="['edit']" [queryParams]="{qid:pregunta.id , origin: 'questions'}" tooltipPosition="bottom"></button>
                             <button type="button" pButton pRipple icon="pi pi-trash" class="p-button-rounded"
                                 pTooltip="Eliminar pregunta" tooltipPosition="bottom"
                                 (click)="deleteQuestion(pregunta)"></button>

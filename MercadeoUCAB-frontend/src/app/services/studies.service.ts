@@ -18,4 +18,16 @@ export class StudiesService {
     return this.http.get<Study[]>(baseURL + 'studies')
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
+
+  getStudy(sid): Observable<Study>{
+    return this.http.get<Study>(baseURL + 'studies', {params: {
+      id: sid
+    }})
+    .pipe(map(study => study[0]))
+    .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
+  appendQuestionToStudy(sid, study, qid): Observable<Study>{
+    return null;
+  }
 }

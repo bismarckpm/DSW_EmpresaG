@@ -1,3 +1,5 @@
+import { Question } from '../classes/question';
+
 export class Study {
     id: number;
     id_estado?: number;
@@ -14,4 +16,5 @@ export class Study {
     id_nivel_socioeconomico?: number[];
     lugares?: string[];
     id_lugares?: number[];
+    preguntas?: Question[];
 }

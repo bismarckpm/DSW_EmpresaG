@@ -1,1 +1,115 @@
-<p>edit-study works!</p>
+<app-navigation></app-navigation>
+
+<!-- Study -->
+<div class="demo-container p-mx-6 p-p-0 p-p-sm-1 p-p-md-2 p-p-lg-6">
+    <p-card>
+        <div class="p-grid p-mx-5">
+            <div class="p-col-6 p-lg-6">
+                <h3 class="table-title">EDITAR ESTUDIO</h3>
+            </div>
+            <div class="p-col-6 p-lg-6">
+                <div class="p-grid p-jc-end p-mt-1 p-mr-4">
+                    <button pButton pRipple type="button" pTooltip="Crear pregunta" tooltipPosition="bottom"
+                        icon="pi pi-plus" (click)="showAddOptions()" class="p-button-rounded p-button-text"></button>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="p-grid p-mx-5 p-mt-3">
+            <button pButton pRipple type="button" tooltipPosition="bottom" icon="pi pi-pencil"
+                class="p-button-rounded p-button-text"></button>
+            <div class="p-mt-2 p-ml-3">
+                Modificar características del estudio
+            </div>
+        </div>
+
+        <div *ngIf="estudio && estudio.preguntas">
+            <div class="p-mx-5 p-mt-3" *ngFor="let pregunta of estudio.preguntas">
+                <div class="p-grid">
+                    <div class="p-col-12 p-lg-10">
+                        <p>{{pregunta.pregunta}}</p>
+                        <small *ngIf="pregunta.id_tipo == 5">Valores permitidos: Desde
+                            {{pregunta.opciones[0].rango_inicial}} hasta {{pregunta.opciones[0].rango_final}}</small>
+                        <!-- RESPONSES OPEN TEXT -->
+                        <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.id_tipo == 1">
+                            <div class="p-col-12 p-lg-6">
+                                <label for="float-input">Respuesta</label>
+                                <input [disabled]="true" class="p-inputtext-lg fill-width" type="text" pInputText>
+                            </div>
+                        </div>
+
+                        <!-- RESPONSES SIMPLE SELECTION -->
+                        <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.id_tipo == 2">
+                            <div class="p-col-12" *ngFor="let opcion of pregunta.opciones">
+                                <p-radioButton [label]="opcion.valor" [disabled]="true" class="p-mb-3"></p-radioButton>
+                            </div>
+                        </div>
+
+                        <!-- RESPONSES MULTIPLE SELECTION -->
+                        <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.id_tipo == 3">
+                            <div class="p-col-12" *ngFor="let opcion of pregunta.opciones">
+                                <p-checkbox [label]="opcion.valor" [disabled]="true" class="p-mb-3"></p-checkbox>
+                            </div>
+                        </div>
+
+                        <!-- RESPONSES TRUE/FALSE -->
+                        <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.id_tipo == 4">
+                            <div class="p-col-12">
+                                <p-radioButton label="Verdadero" [disabled]="true" class="p-mb-3"></p-radioButton>
+                            </div>
+                            <div class="p-col-12">
+                                <p-radioButton label="Falso" [disabled]="true" class="p-mb-3"></p-radioButton>
+                            </div>
+                        </div>
+
+                        <!-- RESPONSES RANGE -->
+                        <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.id_tipo == 5">
+                            <div class="p-col-12 p-lg-6">
+                                <label for="float-input">Desde</label>
+                                <input [disabled]="true" class="p-inputtext-lg fill-width" type="text" pInputText>
+                            </div>
+                            <div class="p-col-12 p-lg-6">
+                                <label for="float-input">Hasta</label>
+                                <input [disabled]="true" class="p-inputtext-lg fill-width" type="text" pInputText>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- OPTIONS -->
+                    <div class="p-col p-lg-2">
+                        <div class="p-grid p-jc-end p-mr-5">
+                            <i class="pi pi-fw pi-pencil p-mr-2" routerLink="../../questions/edit"
+                                [queryParams]="{qid: pregunta.id, origin: 'study', sid: estudio.id}"
+                                style="cursor: pointer;"></i>
+                            <i class="pi pi-fw pi-trash" style="cursor: pointer;"></i>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <p-dialog header="Agregar pregunta" [(visible)]="display">
+            <form action="">
+                <div>
+                    <p-radioButton label="Quiero crear una nueva pregunta" class="p-mb-3"></p-radioButton>
+                </div>
+                <div>
+                    <p-radioButton label="Quiero seleccionar una pregunta del pool" class="p-mb-3"></p-radioButton>
+                </div>
+
+                <div class="p-grid p-jc-end p-mt-1 p-mr-4">
+                    <div class="p-grid p-formgrid p-fluid">
+                        <button pButton pRipple type="submit" label="Continuar"></button>
+                    </div>
+                </div>
+            </form>
+        </p-dialog>
+
+        <!--
+    <div *ngIf="!preguntas && !loading && questionsErrorMessage">
+        <app-server-disconnected></app-server-disconnected>
+    </div>-->
+    </p-card>
+
+</div>

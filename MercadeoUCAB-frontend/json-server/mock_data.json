@@ -76,13 +76,7 @@
       "subcategoria": "Streetwear",
       "id_categoria": 1,
       "id_subcategoria": 1,
-      "id_tipo": 5,
-      "opciones": [
-        {
-          "rango_inicial": "35",
-          "rango_final": "46"
-        }
-      ]
+      "id_tipo": 1
     },
     {
       "id": 3,
@@ -189,8 +183,14 @@
       "categoria": "Tecnología",
       "subcategoria": "Hardware",
       "id_categoria": 3,
-      "id_tipo": 1,
-      "id_subcategoria": 5
+      "id_tipo": 5,
+      "id_subcategoria": 5,
+      "opciones": [
+        {
+          "rango_inicial": "13",
+          "rango_final": "20"
+        }
+      ]
     },
     {
       "id": 10,
@@ -259,6 +259,71 @@
       "pregunta": "¿Está usted familiarizado con el lenguaje de programación Python?",
       "id_tipo": 4,
       "id": 14
+    },
+    {
+      "id": 100,
+      "tipo": "Verdadero y Falso",
+      "id_tipo": 4,
+      "pregunta": "¿Alguna vez usted ha montado en Skate?",
+      "categoria": "Ropa",
+      "subcategoria": "Streetwear",
+      "id_categoria": 1,
+      "id_subcategoria": 1
+    },
+    {
+      "id_categoria": 1,
+      "id_subcategoria": 1,
+      "pregunta": "¿De qué precio fue la pieza más cara que ha comprado? ($)",
+      "id_tipo": 1,
+      "id": 101
+    },
+    {
+      "id_categoria": 2,
+      "id_subcategoria": 2,
+      "pregunta": "¿Prefiere usted FPS o TPS?",
+      "id_tipo": 2,
+      "opciones": [
+        {
+          "valor": "FPS"
+        },
+        {
+          "valor": "TPS"
+        }
+      ],
+      "id": 102
+    },
+    {
+      "id_categoria": 3,
+      "id_subcategoria": 3,
+      "pregunta": "¿Qué procesador tiene?",
+      "id_tipo": 2,
+      "opciones": [
+        {
+          "valor": "Intel"
+        },
+        {
+          "valor": "AMD"
+        },
+        {
+          "valor": "Otro"
+        }
+      ],
+      "id": 104
+    },
+    {
+      "id_categoria": 5,
+      "id_subcategoria": 6,
+      "pregunta": "¿Maneja automovil automatico o sincrónico?",
+      "id_tipo": 2,
+      "opciones": [
+        {
+          "valor": "Automático"
+        },
+        {
+          "valor": "Sincrónico"
+        }
+      ],
+      "id": 105
     }
   ],
   "categories": [
@@ -315,7 +380,7 @@
       "id_categoria": 5
     }
   ],
-  "studies":[
+  "studies": [
     {
       "id": 1,
       "categoria": "Ropa",
@@ -325,13 +390,52 @@
       "genero": "Masculino",
       "id_genero": 1,
       "nivel_academico": "Primaria, Secundaria",
-      "id_nivel_academico": [1, 2],
+      "id_nivel_academico": [
+        1,
+        2
+      ],
       "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
-      "id_nivel_socioeconomico": [2,3,4],
+      "id_nivel_socioeconomico": [
+        2,
+        3,
+        4
+      ],
       "lugares": "New Orleans, Lacombe, San Diego",
-      "id_lugares": [5, 6, 7],
+      "id_lugares": [
+        5,
+        6,
+        7
+      ],
       "estado": "Terminado",
-      "id_estado": 3
+      "id_estado": 3,
+      "preguntas": [
+        {
+          "id": 2,
+          "tipo": "Rango",
+          "pregunta": "¿Qué talla de zapatos suele usar usted?",
+          "categoria": "Ropa",
+          "subcategoria": "Streetwear",
+          "id_categoria": 1,
+          "id_subcategoria": 1,
+          "id_tipo": 5,
+          "opciones": [
+            {
+              "rango_inicial": "35",
+              "rango_final": "46"
+            }
+          ]
+        },
+        {
+          "id": 100,
+          "tipo": "Verdadero y Falso",
+          "id_tipo": 4,
+          "pregunta": "¿Alguna vez usted ha montado en Skate?",
+          "categoria": "Ropa",
+          "subcategoria": "Streetwear",
+          "id_categoria": 1,
+          "id_subcategoria": 1
+        }
+      ]
     },
     {
       "id": 2,
@@ -342,11 +446,20 @@
       "genero": "Masculino",
       "id_genero": 1,
       "nivel_academico": "Primaria, Secundaria",
-      "id_nivel_academico": [1, 2],
+      "id_nivel_academico": [
+        1,
+        2
+      ],
       "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
-      "id_nivel_socioeconomico": [2,3,4],
+      "id_nivel_socioeconomico": [
+        2,
+        3,
+        4
+      ],
       "lugares": "Estados Unidos",
-      "id_lugares": [1],
+      "id_lugares": [
+        1
+      ],
       "estado": "Sin culminar",
       "id_estado": 1
     },
@@ -355,11 +468,21 @@
       "categoria": "Programación",
       "id_categoria": 3,
       "nivel_academico": "Primaria, Secundaria",
-      "id_nivel_academico": [1, 2],
+      "id_nivel_academico": [
+        1,
+        2
+      ],
       "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
-      "id_nivel_socioeconomico": [2,3,4],
+      "id_nivel_socioeconomico": [
+        2,
+        3,
+        4
+      ],
       "lugares": "Lousiana, California",
-      "id_lugares": [2,3],
+      "id_lugares": [
+        2,
+        3
+      ],
       "estado": "En proceso",
       "id_estado": 2
     }

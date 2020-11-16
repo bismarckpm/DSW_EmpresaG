@@ -92,9 +92,16 @@ export class EditQuestionComponent implements OnInit {
             this.createForm();
 
             // Only add to form array if there are options
-            if (this.pregunta.opciones && this.pregunta.opciones.length>0)
+            if (this.pregunta.opciones && this.pregunta.opciones.length>0 && (this.pregunta.id_tipo == 2 || this.pregunta.id_tipo == 3))
               this.setFormArray();
 
+            // Add range 
+            if (this.pregunta.opciones && this.pregunta.opciones.length > 0 && this.pregunta.id_tipo == 5){
+              this.questionForm.patchValue({
+                rango_inicial: this.pregunta.opciones[0].rango_inicial,
+                rango_final: this.pregunta.opciones[0].rango_final
+              })
+            }
 
             this.getSubcategories(); // Get subcategories according to the category selected
           }
@@ -263,6 +270,17 @@ export class EditQuestionComponent implements OnInit {
     
     /* 3 = No es ninguno de los anteriores */
     this.questionService.putQuestion(this.pregunta).subscribe((res)=>{
+      let redirect_to = this.Activatedroute.snapshot.queryParamMap.get('origin')||0
+      let study_origin = this.Activatedroute.snapshot.queryParamMap.get('sid')||0
+      /* If it comes from questions go to questions table */
+      if (redirect_to == 'questions' || redirect_to == 0){
+        this.router.navigate(['questions'])
+      }
+
+      /* If it comes from a study edit, go back to editing the study */
+      if (redirect_to == 'study'){
+        this.router.navigate(['studies/edit'], {queryParams: {sid: study_origin}})
+      }
     }, errorMessage => {
       this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
       this.sent_form = false;

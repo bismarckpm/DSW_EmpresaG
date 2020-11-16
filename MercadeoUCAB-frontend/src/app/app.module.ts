@@ -22,6 +22,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { DialogModule } from 'primeng/dialog';
 
 /* Modules */
 import { AppRoutingModule } from './app-routing/app-routing.module';
@@ -126,6 +127,7 @@ import { StudyRequestsComponent } from './studies/study-requests/study-requests.
     ProgressSpinnerModule,
     CheckboxModule,
     NgxSpinnerModule,
+    DialogModule
   ],
   providers: [
     RegisterService,
