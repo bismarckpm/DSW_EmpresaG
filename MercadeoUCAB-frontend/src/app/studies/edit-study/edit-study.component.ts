@@ -17,6 +17,7 @@ import { replaceKeyWithValue } from '../../functions/common_functions';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RxwebValidators } from '@rxweb/reactive-form-validators'
 
 @Component({
   selector: 'app-edit-study',
@@ -53,6 +54,22 @@ export class EditStudyComponent implements OnInit {
   /* Form */
   studyForm: FormGroup;
   @ViewChild('sform') studyFormDirective;
+
+  formErrors = {
+    'edad_minima': '',
+    'edad_maxima': '',
+  };
+
+  validationMessages = {
+    'edad_minima': {
+      'pattern': 'Rango debe ser numérico',
+      'lessThan': 'Rango inicial debe ser menor que rango final'
+    },
+    'edad_maxima': {
+      'pattern': 'Rango debe ser numérico',
+      'greaterThan': 'Rango final debe ser mayor que rango inicial'
+    }
+  }
 
   constructor(private Activatedroute: ActivatedRoute,
     private router: Router,
@@ -170,11 +187,26 @@ export class EditStudyComponent implements OnInit {
       'tipo_de_filtro': this.estudio.tipo_filtro_geografico,
       'pais': null,
       'estado': null,
+      'edad_minima': [
+        this.estudio.edad_minima,
+        [
+          Validators.pattern('^[0-9]*$'),
+          RxwebValidators.lessThan({fieldName: 'edad_maxima'})
+        ]
+      ],
+      'edad_maxima': [
+        this.estudio.edad_maxima,
+        [
+          Validators.pattern('^[0-9]*$'),
+          RxwebValidators.greaterThan({fieldName: 'edad_minima'})
+        ]
+      ]
     });
 
     this.studyForm.valueChanges
       .subscribe(data => {
         this.studyForm.setValue(data, { emitEvent: false });
+        this.onValueChange(data);
       });
   }
 
@@ -228,6 +260,34 @@ export class EditStudyComponent implements OnInit {
     });
   }
 
+  onValueChange(data?: any){
+    /* If form hasn't been created */
+    if (!this.studyForm){
+      return;
+    }
+
+    const form = this.studyForm;
+    for (const field in this.formErrors){
+      if (this.formErrors.hasOwnProperty(field)){
+        // clear previous error message if any
+        this.formErrors[field] = '';
+        const control = form.get(field);
+
+        // if field is modified by user
+        if (control && control.dirty && !control.valid){
+          const messages = this.validationMessages[field];
+
+          // check if i'm adding the error message to the field
+          for (const key in control.errors){
+            if (control.errors.hasOwnProperty(key)){
+              this.formErrors[field] += messages[key] + ' ';
+            }
+          }
+        }
+      }
+    }
+  }
+
 
   showOrHideModifyStudyFeatures() {
     this.display_modify_study_features = !this.display_modify_study_features;
@@ -242,6 +302,8 @@ export class EditStudyComponent implements OnInit {
     this.estudio.id_nivel_socioeconomico = this.studyForm.value.nivel_socioeconomico
     this.estudio.id_genero = this.studyForm.value.genero 
     this.estudio.tipo_filtro_geografico = this.studyForm.value.tipo_de_filtro
+    this.estudio.edad_minima = parseInt(this.studyForm.value.edad_minima)
+    this.estudio.edad_maxima = parseInt(this.studyForm.value.edad_maxima)
 
     if (this.has_to_clear_questions){
       this.estudio.preguntas = [];
@@ -254,14 +316,23 @@ export class EditStudyComponent implements OnInit {
       this.estudio.id_lugares = this.studyForm.value.estado
     }
 
-    this.studiesService.putStudy(this.estudio).subscribe((study)=>{
-      this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Características modificadas con éxito' });
-      this.display_modify_study_features = false;
+    if (this.studyForm.valid){
+      this.studiesService.putStudy(this.estudio).subscribe((study)=>{
+        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Características modificadas con éxito' });
+        this.display_modify_study_features = false;
+        this.sent_form = false;
+      }, errorMessage => {
+        this.sent_form = false;
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
+      })
+    }
+
+    else {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Existen campos inválidos en este formulario' });
       this.sent_form = false;
-    }, errorMessage => {
-      this.sent_form = false;
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
-    })
+    }
+
+
   }
 
 }

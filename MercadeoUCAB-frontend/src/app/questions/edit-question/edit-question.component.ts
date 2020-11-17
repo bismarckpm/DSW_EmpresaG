@@ -62,7 +62,8 @@ export class EditQuestionComponent implements OnInit {
       'required': 'Opción es requerida'
     },
     'rango_inicial': {
-      'pattern': 'Rango debe ser numérico'
+      'pattern': 'Rango debe ser numérico',
+      'lessThan': 'Rango inicial debe ser menor que rango final'
     },
     'rango_final': {
       'pattern': 'Rango debe ser numérico',
@@ -154,7 +155,8 @@ export class EditQuestionComponent implements OnInit {
       [
         '',
         [
-          Validators.pattern('^[0-9]*$')
+          Validators.pattern('^[0-9]*$'),
+          RxwebValidators.lessThan({fieldName: 'rango_final'})
         ]
       ],
       rango_final: [
@@ -256,8 +258,8 @@ export class EditQuestionComponent implements OnInit {
     else if (type_of_option == 2){
       let qoption: Option[] = [];
       qoption.push({
-        rango_inicial: this.questionForm.value.rango_inicial,
-        rango_final: this.questionForm.value.rango_final
+        rango_inicial: parseInt(this.questionForm.value.rango_inicial),
+        rango_final: parseInt(this.questionForm.value.rango_final)
       });
       this.pregunta.opciones = qoption;
     }

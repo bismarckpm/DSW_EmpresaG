@@ -226,8 +226,8 @@
       "id_tipo": 5,
       "opciones": [
         {
-          "rango_inicial": "500",
-          "rango_final": "200000"
+          "rango_inicial": 500,
+          "rango_final": 700000
         }
       ],
       "id": 12
@@ -391,6 +391,8 @@
         4
       ],
       "estado": "En progreso",
+      "edad_minima": 15,
+      "edad_maxima": "45",
       "id_estado": 2,
       "preguntas": [
         {
@@ -453,6 +455,8 @@
       "id": 3,
       "categoria": "Tecnología",
       "id_categoria": 3,
+      "id_subcategoria": 3,
+      "subcategoria": "Programación",
       "nivel_academico": "Primaria, Secundaria",
       "id_nivel_academico": [
         1,
@@ -471,7 +475,10 @@
         3
       ],
       "estado": "En progreso",
-      "id_estado": 2
+      "id_estado": 2,
+      "id_genero": null,
+      "edad_minima": 14,
+      "edad_maxima": 19
     }
   ]
 }

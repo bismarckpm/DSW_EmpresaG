@@ -25,7 +25,7 @@
         </div>
 
         <div *ngIf="display_modify_study_features">
-            <form novalidate [formGroup]="studyForm" (ngSubmit)="onSubmit()">
+            <form novalidate [formGroup]="studyForm" #sform="ngForm" (ngSubmit)="onSubmit()">
                 <h4 class="p-mx-5">Filtros de producto</h4>
                 <small class="error-msg p-mx-5">ADVERTENCIA: Si cambia la categoría y guarda los cambios las preguntas se eliminarán pues ya no serán válidas para este tipo de estudio</small>
                 <div class="p-grid p-mx-5 p-mt-2">
@@ -37,6 +37,24 @@
                         <p-dropdown [options]="subcategorias" formControlName="subcategoria" placeholder="Subcategoría"></p-dropdown>
                     </div>
                 </div>
+
+                <h4 class="p-mx-5">Filtro de edad</h4>
+                <div class="p-grid p-mx-5 p-mt-2">
+                    <div class="p-col-12 p-md-6 p-lg-4">
+                        <input class="p-inputtext-lg full-width" formControlName="edad_minima" type="text"
+                        pInputText placeholder="Edad mínima">
+                    <span class="error-msg"
+                        *ngIf="formErrors.edad_minima"><small>{{formErrors.edad_minima}}</small></span>
+                    </div>
+
+                    <div class="p-col-12 p-md-6 p-lg-4">
+                        <input class="p-inputtext-lg full-width" formControlName="edad_maxima" type="text"
+                        pInputText placeholder="Edad máxima">
+                    <span class="error-msg"
+                        *ngIf="formErrors.edad_maxima"><small>{{formErrors.edad_maxima}}</small></span>
+                    </div>
+                </div>
+
 
                 <h4 class="p-mx-5">Filtros de población</h4>
                 <div class="p-grid p-mx-5 p-mt-2">
@@ -106,7 +124,7 @@
                             <button pButton pRipple type="button" label="Cerrar" class="p-button-secondary" (click)="showOrHideModifyStudyFeatures()"></button>
                         </div>
                         <div class="p-mb-2 p-col-6 p-mb-lg-0">
-                            <button pButton pRipple type="submit" [disabled]="sent_form" label="Guardar"></button>
+                            <button pButton pRipple type="submit" [disabled]="sent_form" label="Enviar"></button>
                         </div>
                     </div>
                 </div>

@@ -216,8 +216,8 @@ export class AddQuestionComponent implements OnInit {
     else if (type_of_option == 2){
       let qoption: Option[] = [];
       qoption.push({
-        rango_inicial: this.questionForm.value.rango_inicial,
-        rango_final: this.questionForm.value.rango_final
+        rango_inicial: parseInt(this.questionForm.value.rango_inicial),
+        rango_final: parseInt(this.questionForm.value.rango_final)
       });
       this.pregunta.opciones = qoption;
     }
