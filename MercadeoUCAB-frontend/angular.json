@@ -134,6 +134,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "MercadeoUCAB-frontend"
+    }
+  },
+  "defaultProject": "MercadeoUCAB-frontend",
+  "cli": {
+    "analytics": false
+  }
 }
