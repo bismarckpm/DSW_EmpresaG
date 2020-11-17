@@ -22,6 +22,7 @@ import { ViewStudyComponent } from '../studies/view-study/view-study.component';
 import { CategoriesComponent } from '../categories/categories.component';
 import { AddCategoryComponent } from '../categories/add-category/add-category.component';
 import { NotFoundComponent } from '../errors/not-found/not-found.component';
+import { ProfileComponent } from '../profile/profile.component';
 
 export const routes: Routes = [
     { 
@@ -105,6 +106,10 @@ export const routes: Routes = [
     {
       path: 'studies/requests',
       component: StudyRequestsComponent
+    },
+    {
+      path: 'profile',
+      component: ProfileComponent
     },
 
     /* ERROR PAGES */

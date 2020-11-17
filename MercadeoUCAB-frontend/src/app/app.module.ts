@@ -75,6 +75,7 @@ import { CreateStudyComponent } from './studies/create-study/create-study.compon
 import { StudyRequestsComponent } from './studies/study-requests/study-requests.component';
 import { AddQuestionFromPoolComponent } from './studies/add-question-from-pool/add-question-from-pool.component';
 import { CreateNewQuestionComponent } from './studies/create-new-question/create-new-question.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -103,6 +104,7 @@ import { CreateNewQuestionComponent } from './studies/create-new-question/create
     StudyRequestsComponent,
     AddQuestionFromPoolComponent,
     CreateNewQuestionComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
