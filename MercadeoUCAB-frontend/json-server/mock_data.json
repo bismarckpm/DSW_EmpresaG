@@ -417,6 +417,27 @@
           "pregunta": "¿De qué precio fue la pieza más cara que ha comprado? ($)",
           "id_tipo": 1,
           "id": 101
+        },
+        {
+          "id_categoria": 4,
+          "id_subcategoria": 4,
+          "pregunta": "Seleccione qué animes de los siguientes se le hace familiar/lo ha visto",
+          "id_tipo": 3,
+          "opciones": [
+            {
+              "valor": "Full Metal Alchemist"
+            },
+            {
+              "valor": "Naruto"
+            },
+            {
+              "valor": "Dragon Ball"
+            },
+            {
+              "valor": "Death Note"
+            }
+          ],
+          "id": 13
         }
       ],
       "id_lugares": [
@@ -478,7 +499,27 @@
       "id_estado": 2,
       "id_genero": null,
       "edad_minima": 14,
-      "edad_maxima": 19
+      "edad_maxima": 28,
+      "preguntas": [
+        {
+          "id": 6,
+          "tipo": "Selección simple",
+          "pregunta": "¿Prefieres los headsets o los earbuds?",
+          "categoria": "Tecnología",
+          "id_categoria": 3,
+          "id_subcategoria": 5,
+          "id_tipo": 2,
+          "subcategoria": "Hardware",
+          "opciones": [
+            {
+              "valor": "Headsets"
+            },
+            {
+              "valor": "Earbuds"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

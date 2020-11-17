@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
 import { StudiesService } from '../../services/studies.service';
 import { PlaceService } from '../../services/place.service';
 import { Study } from '../../classes/study';
+import { Question } from '../../classes/question';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { QuestionService } from '../../services/question.service';
@@ -47,6 +48,9 @@ export class EditStudyComponent implements OnInit {
   style: string;
   display_new: boolean = false;
   display_pool: boolean = false;
+
+  /* Object for question appending */
+  new_question: Question;
 
   /* States */
   loading: boolean = false;
@@ -174,7 +178,7 @@ export class EditStudyComponent implements OnInit {
     this.display = true;
   }
 
-  getSubcategories(){
+  getSubcategories() {
     this.subcategoryService.getSubcategories(this.studyForm.value.categoria).subscribe((subcategories) => {
       this.subcategorias = replaceKeyWithValue(subcategories);
     }, errorMessage => {
@@ -196,14 +200,14 @@ export class EditStudyComponent implements OnInit {
         this.estudio.edad_minima,
         [
           Validators.pattern('^[0-9]*$'),
-          RxwebValidators.lessThan({fieldName: 'edad_maxima'})
+          RxwebValidators.lessThan({ fieldName: 'edad_maxima' })
         ]
       ],
       'edad_maxima': [
         this.estudio.edad_maxima,
         [
           Validators.pattern('^[0-9]*$'),
-          RxwebValidators.greaterThan({fieldName: 'edad_minima'})
+          RxwebValidators.greaterThan({ fieldName: 'edad_minima' })
         ]
       ]
     });
@@ -232,11 +236,11 @@ export class EditStudyComponent implements OnInit {
     this.estudio.id_lugares = [];
   }
 
-  clearQuestions(id_categoria){
-    if (id_categoria != this.studyForm.value.categoria){
+  clearQuestions(id_categoria) {
+    if (id_categoria != this.studyForm.value.categoria) {
       this.has_to_clear_questions = true;
     }
-    else{
+    else {
       this.has_to_clear_questions = false;
     }
   }
@@ -265,26 +269,26 @@ export class EditStudyComponent implements OnInit {
     });
   }
 
-  onValueChange(data?: any){
+  onValueChange(data?: any) {
     /* If form hasn't been created */
-    if (!this.studyForm){
+    if (!this.studyForm) {
       return;
     }
 
     const form = this.studyForm;
-    for (const field in this.formErrors){
-      if (this.formErrors.hasOwnProperty(field)){
+    for (const field in this.formErrors) {
+      if (this.formErrors.hasOwnProperty(field)) {
         // clear previous error message if any
         this.formErrors[field] = '';
         const control = form.get(field);
 
         // if field is modified by user
-        if (control && control.dirty && !control.valid){
+        if (control && control.dirty && !control.valid) {
           const messages = this.validationMessages[field];
 
           // check if i'm adding the error message to the field
-          for (const key in control.errors){
-            if (control.errors.hasOwnProperty(key)){
+          for (const key in control.errors) {
+            if (control.errors.hasOwnProperty(key)) {
               this.formErrors[field] += messages[key] + ' ';
             }
           }
@@ -299,55 +303,72 @@ export class EditStudyComponent implements OnInit {
     //TODO: clear modify form if false
   }
 
-  addQuestion(){
-    if (this.style == 'new'){
+  addQuestion() {
+    if (this.style == 'new') {
       this.display_new = true;
     }
-    else if (this.style == 'pool'){
+    else if (this.style == 'pool') {
       this.display_pool = true;
     }
     this.display = false;
   }
 
-  onSubmit(){
+  putStudy() {
+    this.studiesService.putStudy(this.estudio).subscribe((study) => {
+      this.display_pool = false;
+      this.display_modify_study_features = false;
+      this.sent_form = false;
+      this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Pregunta añadida con éxito' });
+    }, errorMessage => {
+      this.display_modify_study_features = false;
+      this.sent_form = false;
+      this.display_pool = false;
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
+    })
+  }
+
+  getSelectedQuestion(question) {
+    if (!this.estudio.preguntas) {
+      this.estudio.preguntas = [];
+      this.estudio.preguntas.push(question);
+    }
+
+    else
+      this.estudio.preguntas.push(question);
+
+    this.putStudy();
+  }
+
+  onSubmit() {
     this.sent_form = true;
     this.estudio.id_categoria = this.studyForm.value.categoria
     this.estudio.id_subcategoria = this.studyForm.value.subcategoria
     this.estudio.id_nivel_academico = this.studyForm.value.nivel_academico
     this.estudio.id_nivel_socioeconomico = this.studyForm.value.nivel_socioeconomico
-    this.estudio.id_genero = this.studyForm.value.genero 
+    this.estudio.id_genero = this.studyForm.value.genero
     this.estudio.tipo_filtro_geografico = this.studyForm.value.tipo_de_filtro
     this.estudio.edad_minima = parseInt(this.studyForm.value.edad_minima)
     this.estudio.edad_maxima = parseInt(this.studyForm.value.edad_maxima)
 
-    if (this.has_to_clear_questions){
+    if (this.has_to_clear_questions) {
       this.estudio.preguntas = [];
     }
 
-    if (this.estudio.tipo_filtro_geografico == 'paises'){
+    if (this.estudio.tipo_filtro_geografico == 'paises') {
       this.estudio.id_lugares = this.studyForm.value.pais
     }
-    else if (this.estudio.tipo_filtro_geografico == 'estados'){
+    else if (this.estudio.tipo_filtro_geografico == 'estados') {
       this.estudio.id_lugares = this.studyForm.value.estado
     }
 
-    if (this.studyForm.valid){
-      this.studiesService.putStudy(this.estudio).subscribe((study)=>{
-        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Características modificadas con éxito' });
-        this.display_modify_study_features = false;
-        this.sent_form = false;
-      }, errorMessage => {
-        this.sent_form = false;
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
-      })
+    if (this.studyForm.valid) {
+      this.putStudy();
     }
 
     else {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Existen campos inválidos en este formulario' });
       this.sent_form = false;
     }
-
-
   }
 
 }

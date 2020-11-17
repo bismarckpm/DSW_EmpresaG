@@ -221,7 +221,7 @@
 
         <!-- ADD QUESTION -->
         <div *ngIf="display_pool" class="p-mx-5 p-mt-2">
-            <app-add-question-from-pool></app-add-question-from-pool>
+            <app-add-question-from-pool [category_id]="estudio.id_categoria" (onQuestionSelect)="getSelectedQuestion($event)"></app-add-question-from-pool>
         </div>
 
         <div *ngIf="display_new" class="p-mx-5 p-mt-2">

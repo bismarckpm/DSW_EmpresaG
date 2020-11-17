@@ -19,6 +19,13 @@ export class QuestionService {
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
+  getQuestionsByCategory(category_id): Observable<Question[]>{
+    return this.http.get<Question[]>(baseURL + 'questions', {params: {
+      id_categoria: category_id
+    }})
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
   getQuestion(qid): Observable<Question>{
     return this.http.get<Question>(baseURL + 'questions', {params: {
       id: qid
