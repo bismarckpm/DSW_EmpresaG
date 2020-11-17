@@ -43,6 +43,11 @@ export class EditStudyComponent implements OnInit {
   subcategorias: MenuItem[];
   temporal_state_id: number;
 
+  /* Style of question adding */
+  style: string;
+  display_new: boolean = false;
+  display_pool: boolean = false;
+
   /* States */
   loading: boolean = false;
   studyErrorMessage: string;
@@ -292,6 +297,16 @@ export class EditStudyComponent implements OnInit {
   showOrHideModifyStudyFeatures() {
     this.display_modify_study_features = !this.display_modify_study_features;
     //TODO: clear modify form if false
+  }
+
+  addQuestion(){
+    if (this.style == 'new'){
+      this.display_new = true;
+    }
+    else if (this.style == 'pool'){
+      this.display_pool = true;
+    }
+    this.display = false;
   }
 
   onSubmit(){
