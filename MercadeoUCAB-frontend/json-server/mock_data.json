@@ -314,6 +314,51 @@
         }
       ],
       "id": 105
+    },
+    {
+      "id_categoria": 2,
+      "id_subcategoria": 2,
+      "pregunta": "¿Cuál es tu arma favorita?",
+      "id_tipo": 2,
+      "opciones": [
+        {
+          "valor": "Sniper"
+        },
+        {
+          "valor": "Glock"
+        },
+        {
+          "valor": "Escopeta"
+        },
+        {
+          "valor": "AK-47"
+        },
+        {
+          "valor": "Otro"
+        }
+      ],
+      "id": 106
+    },
+    {
+      "id_categoria": 2,
+      "id_subcategoria": 2,
+      "pregunta": "¿Qué mejoraría del juego VALORANT?",
+      "id_tipo": 1,
+      "id": 107
+    },
+    {
+      "id_categoria": 2,
+      "id_subcategoria": 2,
+      "pregunta": "¿Usted suele ser campero?",
+      "id_tipo": 4,
+      "id": 108
+    },
+    {
+      "id_categoria": 3,
+      "id_subcategoria": 3,
+      "pregunta": "¿De cuántas lineas fue el codigo mas largo que has escrito?",
+      "id_tipo": 1,
+      "id": 109
     }
   ],
   "categories": [
@@ -470,7 +515,21 @@
         1
       ],
       "estado": "En progreso",
-      "id_estado": 2
+      "id_estado": 2,
+      "preguntas": [
+        {
+          "id_categoria": 2,
+          "id_subcategoria": 2,
+          "pregunta": "¿Qué mejoraría del juego VALORANT?",
+          "id_tipo": 1
+        },
+        {
+          "id_categoria": 2,
+          "id_subcategoria": 2,
+          "pregunta": "¿Usted suele ser campero?",
+          "id_tipo": 4
+        }
+      ]
     },
     {
       "id": 3,
@@ -518,6 +577,12 @@
               "valor": "Earbuds"
             }
           ]
+        },
+        {
+          "id_categoria": 3,
+          "id_subcategoria": 3,
+          "pregunta": "¿De cuántas lineas fue el codigo mas largo que has escrito?",
+          "id_tipo": 1
         }
       ]
     }

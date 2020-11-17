@@ -306,9 +306,11 @@ export class EditStudyComponent implements OnInit {
   addQuestion() {
     if (this.style == 'new') {
       this.display_new = true;
+      this.display_pool = false;
     }
     else if (this.style == 'pool') {
       this.display_pool = true;
+      this.display_new = false;
     }
     this.display = false;
   }
@@ -318,11 +320,13 @@ export class EditStudyComponent implements OnInit {
       this.display_pool = false;
       this.display_modify_study_features = false;
       this.sent_form = false;
+      this.display_new = false;
       this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Pregunta añadida con éxito' });
     }, errorMessage => {
       this.display_modify_study_features = false;
       this.sent_form = false;
       this.display_pool = false;
+      this.display_new = false;
       this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
     })
   }
