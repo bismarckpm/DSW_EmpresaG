@@ -91,8 +91,8 @@
                                 <button type="button" routerLink="../view" [queryParams]="{sid:estudio.id}" pButton
                                     pRipple icon="pi pi-eye" class="p-button-rounded p-mr-2" pTooltip="Vista previa"
                                     tooltipPosition="bottom"></button>
-                                <button type="button" pButton pRipple icon="pi pi-pencil"
-                                    class="p-button-rounded p-mr-2" pTooltip="Editar pregunta" routerLink="../edit"
+                                <button *ngIf="estudio.id_estado != 3" type="button" pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-mr-2" pTooltip="Editar estudio" routerLink="../edit"
                                     [queryParams]="{sid:estudio.id}" tooltipPosition="bottom"></button>
                             </td>
                         </tr>

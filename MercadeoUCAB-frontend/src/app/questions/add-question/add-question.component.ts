@@ -13,6 +13,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 /* Form */
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { RxwebValidators } from '@rxweb/reactive-form-validators'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-question',
@@ -68,7 +69,9 @@ export class AddQuestionComponent implements OnInit {
     }
   }
 
-  constructor(private categoryService: CategoryService,
+  constructor(
+    private router: Router,
+    private categoryService: CategoryService,
     private messageService: MessageService,
     private subcategoryService: SubcategoryService,
     private questionService: QuestionService,
@@ -213,14 +216,15 @@ export class AddQuestionComponent implements OnInit {
     else if (type_of_option == 2){
       let qoption: Option[] = [];
       qoption.push({
-        rango_inicial: this.questionForm.value.rango_inicial,
-        rango_final: this.questionForm.value.rango_final
+        rango_inicial: parseInt(this.questionForm.value.rango_inicial),
+        rango_final: parseInt(this.questionForm.value.rango_final)
       });
       this.pregunta.opciones = qoption;
     }
     
     /* 3 = No es ninguno de los anteriores */
     this.questionService.postQuestion(this.pregunta).subscribe((res)=>{
+      this.router.navigate(["/questions"])
     }, errorMessage => {
       this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
       this.sent_form = false;

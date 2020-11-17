@@ -26,34 +26,34 @@
     {
       "value": 5,
       "label": "New Orleans",
-      "state_id": 1
+      "state_id": 2
     },
     {
       "value": 6,
       "label": "Lacombe",
-      "state_id": 1
+      "state_id": 2
     },
     {
       "value": 7,
       "label": "San Diego",
-      "state_id": 2
+      "state_id": 3
     },
     {
       "value": 8,
       "label": "Miami",
-      "state_id": 3
+      "state_id": 4
     }
   ],
   "counties": [
     {
       "value": 9,
       "label": "Carrolton",
-      "city_id": 1
+      "city_id": 5
     },
     {
       "value": 10,
       "label": "Fort Lauderale",
-      "city_id": 4
+      "city_id": 8
     }
   ],
   "phonecodes": [
@@ -76,13 +76,7 @@
       "subcategoria": "Streetwear",
       "id_categoria": 1,
       "id_subcategoria": 1,
-      "id_tipo": 5,
-      "opciones": [
-        {
-          "rango_inicial": "35",
-          "rango_final": "46"
-        }
-      ]
+      "id_tipo": 1
     },
     {
       "id": 3,
@@ -189,8 +183,14 @@
       "categoria": "Tecnología",
       "subcategoria": "Hardware",
       "id_categoria": 3,
-      "id_tipo": 1,
-      "id_subcategoria": 5
+      "id_tipo": 5,
+      "id_subcategoria": 5,
+      "opciones": [
+        {
+          "rango_inicial": "13",
+          "rango_final": "20"
+        }
+      ]
     },
     {
       "id": 10,
@@ -226,8 +226,8 @@
       "id_tipo": 5,
       "opciones": [
         {
-          "rango_inicial": "500",
-          "rango_final": "200000"
+          "rango_inicial": 500,
+          "rango_final": 700000
         }
       ],
       "id": 12
@@ -259,6 +259,61 @@
       "pregunta": "¿Está usted familiarizado con el lenguaje de programación Python?",
       "id_tipo": 4,
       "id": 14
+    },
+    {
+      "id_categoria": 1,
+      "id_subcategoria": 1,
+      "pregunta": "¿De qué precio fue la pieza más cara que ha comprado? ($)",
+      "id_tipo": 1,
+      "id": 101
+    },
+    {
+      "id_categoria": 2,
+      "id_subcategoria": 2,
+      "pregunta": "¿Prefiere usted FPS o TPS?",
+      "id_tipo": 2,
+      "opciones": [
+        {
+          "valor": "FPS"
+        },
+        {
+          "valor": "TPS"
+        }
+      ],
+      "id": 102
+    },
+    {
+      "id_categoria": 3,
+      "id_subcategoria": 3,
+      "pregunta": "¿Qué procesador tiene?",
+      "id_tipo": 2,
+      "opciones": [
+        {
+          "valor": "Intel"
+        },
+        {
+          "valor": "AMD"
+        },
+        {
+          "valor": "Otro"
+        }
+      ],
+      "id": 104
+    },
+    {
+      "id_categoria": 5,
+      "id_subcategoria": 6,
+      "pregunta": "¿Maneja automovil automatico o sincrónico?",
+      "id_tipo": 2,
+      "opciones": [
+        {
+          "valor": "Automático"
+        },
+        {
+          "valor": "Sincrónico"
+        }
+      ],
+      "id": 105
     }
   ],
   "categories": [
@@ -315,23 +370,59 @@
       "id_categoria": 5
     }
   ],
-  "studies":[
+  "studies": [
     {
       "id": 1,
       "categoria": "Ropa",
       "id_categoria": 1,
       "subcategoria": "Streetwear",
-      "id_subcategoria": 2,
+      "id_subcategoria": 1,
       "genero": "Masculino",
       "id_genero": 1,
       "nivel_academico": "Primaria, Secundaria",
-      "id_nivel_academico": [1, 2],
+      "id_nivel_academico": [
+        1,
+        2
+      ],
       "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
-      "id_nivel_socioeconomico": [2,3,4],
-      "lugares": "New Orleans, Lacombe, San Diego",
-      "id_lugares": [5, 6, 7],
-      "estado": "Terminado",
-      "id_estado": 3
+      "id_nivel_socioeconomico": [
+        2,
+        3,
+        4
+      ],
+      "estado": "En progreso",
+      "edad_minima": 15,
+      "edad_maxima": "45",
+      "id_estado": 2,
+      "preguntas": [
+        {
+          "id": 2,
+          "tipo": "Rango",
+          "pregunta": "¿Qué talla de zapatos suele usar usted?",
+          "categoria": "Ropa",
+          "subcategoria": "Streetwear",
+          "id_categoria": 1,
+          "id_subcategoria": 1,
+          "id_tipo": 5,
+          "opciones": [
+            {
+              "rango_inicial": "35",
+              "rango_final": "46"
+            }
+          ]
+        },
+        {
+          "id_categoria": 1,
+          "id_subcategoria": 1,
+          "pregunta": "¿De qué precio fue la pieza más cara que ha comprado? ($)",
+          "id_tipo": 1,
+          "id": 101
+        }
+      ],
+      "id_lugares": [
+        1
+      ],
+      "tipo_filtro_geografico": "paises"
     },
     {
       "id": 2,
@@ -342,26 +433,52 @@
       "genero": "Masculino",
       "id_genero": 1,
       "nivel_academico": "Primaria, Secundaria",
-      "id_nivel_academico": [1, 2],
+      "id_nivel_academico": [
+        1,
+        2
+      ],
       "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
-      "id_nivel_socioeconomico": [2,3,4],
+      "id_nivel_socioeconomico": [
+        2,
+        3,
+        4
+      ],
+      "tipo_filtro_geografico": "paises",
       "lugares": "Estados Unidos",
-      "id_lugares": [1],
-      "estado": "Sin culminar",
-      "id_estado": 1
+      "id_lugares": [
+        1
+      ],
+      "estado": "En progreso",
+      "id_estado": 2
     },
     {
       "id": 3,
-      "categoria": "Programación",
+      "categoria": "Tecnología",
       "id_categoria": 3,
+      "id_subcategoria": 3,
+      "subcategoria": "Programación",
       "nivel_academico": "Primaria, Secundaria",
-      "id_nivel_academico": [1, 2],
+      "id_nivel_academico": [
+        1,
+        2
+      ],
       "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
-      "id_nivel_socioeconomico": [2,3,4],
+      "id_nivel_socioeconomico": [
+        2,
+        3,
+        4
+      ],
+      "tipo_filtro_geografico": "estados",
       "lugares": "Lousiana, California",
-      "id_lugares": [2,3],
-      "estado": "En proceso",
-      "id_estado": 2
+      "id_lugares": [
+        2,
+        3
+      ],
+      "estado": "En progreso",
+      "id_estado": 2,
+      "id_genero": null,
+      "edad_minima": 14,
+      "edad_maxima": 19
     }
   ]
 }

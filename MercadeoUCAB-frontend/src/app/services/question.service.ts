@@ -38,7 +38,7 @@ export class QuestionService {
   }
 
   putQuestion(question): Observable<Question>{
-    console.log(question);
+    //console.log(question);
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

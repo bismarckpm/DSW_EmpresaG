@@ -5,12 +5,8 @@ export class StudyStates {
 
 export const STUDY_STATES = [
   {
-    label: 'Sin culminar',
-    value: 'Sin culminar'
-  },
-  {
-    label: 'En proceso',
-    value: 'En proceso'
+    label: 'En progreso',
+    value: 'En progreso'
   },
   {
     label: 'Terminado',
