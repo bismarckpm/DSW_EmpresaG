@@ -13,15 +13,13 @@
                 </div>
                 
                 <form novalidate [formGroup]="recoveryForm" #rform="ngForm" (ngSubmit)="onSubmit()">
+                    <br>
                     <div class="p-grid p-jc-center p-mt-4">  
-
-                        <i class="pi pi-envelope" style="font-size: 2rem"></i>
-
                         <div class="p-col-12 p-md-8 p-mb-8">
-                            <span class="p-float-label">
-                                <input id="correo_electronico" class="p-inputtext-lg fill-width" formControlName="correo_electronico" type="text" pInputText>
-                                <label for="float-input">Correo Electrónico *</label>
-                            </span>
+                                <div class="p-inputgroup">
+                                    <span class="p-inputgroup-addon"><i class="pi pi-envelope"></i></span>
+                                    <input id="correo_electronico" formControlName="correo_electronico" type="text" pInputText placeholder="Correo Electrónico *">         
+                                </div>
                             <span class="error-msg" *ngIf="formErrors.correo_electronico"><small>{{formErrors.correo_electronico}}</small></span>
                         </div>
                     </div>
