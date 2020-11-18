@@ -359,6 +359,13 @@
       "pregunta": "¿De cuántas lineas fue el codigo mas largo que has escrito?",
       "id_tipo": 1,
       "id": 109
+    },
+    {
+      "id_categoria": 2,
+      "id_subcategoria": 2,
+      "pregunta": "¿Tiene un grupo predeterminado para jugar?",
+      "id_tipo": 4,
+      "id": 110
     }
   ],
   "categories": [
@@ -528,6 +535,12 @@
           "id_subcategoria": 2,
           "pregunta": "¿Usted suele ser campero?",
           "id_tipo": 4
+        },
+        {
+          "id_categoria": 2,
+          "id_subcategoria": 2,
+          "pregunta": "¿Tiene un grupo predeterminado para jugar?",
+          "id_tipo": 4
         }
       ]
     },
@@ -583,6 +596,15 @@
           "id_subcategoria": 3,
           "pregunta": "¿De cuántas lineas fue el codigo mas largo que has escrito?",
           "id_tipo": 1
+        },
+        {
+          "tipo": "Texto abierto",
+          "pregunta": "Si usted sabe qué es el Net Neutrality ¿Qué opina de el?",
+          "categoria": "Tecnología",
+          "subcategoria": "",
+          "id_tipo": 1,
+          "id_categoria": 3,
+          "id": 111
         }
       ]
     }

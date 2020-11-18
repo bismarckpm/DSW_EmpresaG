@@ -61,7 +61,11 @@ export class AddQuestionFromPoolComponent implements OnInit {
   }
 
   selectQuestion(question){
-    this.onQuestionSelect.emit(question);
+    delete question['id'];
+    /* Clone question so the modification doesn't affect other studies */
+    this.questionService.postQuestion(question).subscribe((q) => {
+      this.onQuestionSelect.emit(q);
+    })
   }
 
 }

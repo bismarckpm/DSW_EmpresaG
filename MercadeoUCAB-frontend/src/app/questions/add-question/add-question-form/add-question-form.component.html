@@ -99,9 +99,21 @@
 
         <div class="p-grid p-jc-end p-mt-6 p-mx-5">
             <div class="p-grid p-formgrid p-fluid">
-                <div class="p-mb-2 p-col-12 p-mb-lg-0">
+                <!-- SINGLE -->
+                <div class="p-mb-2 p-col-12 p-mb-lg-0" *ngIf="!show_close_button">
                     <button pButton pRipple type="submit" [disabled]="sent_form" label="Crear"></button>
                 </div>
+
+                <!-- DUAL -->
+                <div class="p-grid" *ngIf="show_close_button">
+                    <div class="p-mb-2 p-col-6 p-mb-lg-0" >
+                        <button pButton pRipple type="button" (click)="closeView()" class="p-button-secondary" label="Cerrar"></button>
+                    </div>
+                    <div class="p-mb-2 p-col-6 p-mb-lg-0">
+                        <button pButton pRipple type="submit" [disabled]="sent_form" label="Crear"></button>
+                    </div>
+                </div>
+
             </div>
         </div>
 

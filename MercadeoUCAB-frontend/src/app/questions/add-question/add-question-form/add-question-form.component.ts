@@ -30,7 +30,10 @@ export class AddQuestionFormComponent implements OnInit {
   subcategoriesErrorMessage: string;
   sent_form: boolean = false;
   loading: boolean = true;
+
+  /* States */
   disable_category_select: boolean = false;
+  show_close_button: boolean = false;
 
   /* Form */
   questionForm: FormGroup;
@@ -38,6 +41,7 @@ export class AddQuestionFormComponent implements OnInit {
 
   /* Emitter */
   @Output() onQuestionCreate = new EventEmitter<any>();
+  @Output() onViewClose = new EventEmitter<any>();
   @Input() category_id: number;
   @Input() subcategory_id: number;
 
@@ -107,6 +111,7 @@ export class AddQuestionFormComponent implements OnInit {
         })
   
         this.disable_category_select = true;
+        this.show_close_button = true;
       })
     }
   }
@@ -251,6 +256,10 @@ export class AddQuestionFormComponent implements OnInit {
 
   nextForm(){
     this.onQuestionCreate.emit(this.pregunta);
+  }
+
+  closeView(){
+    this.onViewClose.emit(1);
   }
 
   onSubmit(){
