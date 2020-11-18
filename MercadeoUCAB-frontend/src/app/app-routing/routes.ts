@@ -23,6 +23,8 @@ import { CategoriesComponent } from '../categories/categories.component';
 import { AddCategoryComponent } from '../categories/add-category/add-category.component';
 import { NotFoundComponent } from '../errors/not-found/not-found.component';
 import { ProfileComponent } from '../profile/profile.component';
+import { componentFactoryName } from '@angular/compiler';
+import { ChangeComponent } from '../recovery/change/change.component';
 
 export const routes: Routes = [
     { 
@@ -59,6 +61,10 @@ export const routes: Routes = [
     {
       path: 'recovery',
       component: RecoveryComponent
+    },
+    {
+      path: 'change',
+      component: ChangeComponent
     },
     /* QUESTIONS */
     {
