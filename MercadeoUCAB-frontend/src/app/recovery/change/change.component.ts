@@ -1,10 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { MessageService, SelectItem } from 'primeng/api';
-import { MenuItem } from 'primeng/api';
-import {ButtonModule} from 'primeng/button';
+import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
-import {PasswordModule} from 'primeng/password';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
