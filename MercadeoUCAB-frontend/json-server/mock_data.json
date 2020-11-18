@@ -314,6 +314,58 @@
         }
       ],
       "id": 105
+    },
+    {
+      "id_categoria": 2,
+      "id_subcategoria": 2,
+      "pregunta": "¿Cuál es tu arma favorita?",
+      "id_tipo": 2,
+      "opciones": [
+        {
+          "valor": "Sniper"
+        },
+        {
+          "valor": "Glock"
+        },
+        {
+          "valor": "Escopeta"
+        },
+        {
+          "valor": "AK-47"
+        },
+        {
+          "valor": "Otro"
+        }
+      ],
+      "id": 106
+    },
+    {
+      "id_categoria": 2,
+      "id_subcategoria": 2,
+      "pregunta": "¿Qué mejoraría del juego VALORANT?",
+      "id_tipo": 1,
+      "id": 107
+    },
+    {
+      "id_categoria": 2,
+      "id_subcategoria": 2,
+      "pregunta": "¿Usted suele ser campero?",
+      "id_tipo": 4,
+      "id": 108
+    },
+    {
+      "id_categoria": 3,
+      "id_subcategoria": 3,
+      "pregunta": "¿De cuántas lineas fue el codigo mas largo que has escrito?",
+      "id_tipo": 1,
+      "id": 109
+    },
+    {
+      "id_categoria": 2,
+      "id_subcategoria": 2,
+      "pregunta": "¿Tiene un grupo predeterminado para jugar?",
+      "id_tipo": 4,
+      "id": 110
     }
   ],
   "categories": [
@@ -417,6 +469,27 @@
           "pregunta": "¿De qué precio fue la pieza más cara que ha comprado? ($)",
           "id_tipo": 1,
           "id": 101
+        },
+        {
+          "id_categoria": 4,
+          "id_subcategoria": 4,
+          "pregunta": "Seleccione qué animes de los siguientes se le hace familiar/lo ha visto",
+          "id_tipo": 3,
+          "opciones": [
+            {
+              "valor": "Full Metal Alchemist"
+            },
+            {
+              "valor": "Naruto"
+            },
+            {
+              "valor": "Dragon Ball"
+            },
+            {
+              "valor": "Death Note"
+            }
+          ],
+          "id": 13
         }
       ],
       "id_lugares": [
@@ -449,7 +522,27 @@
         1
       ],
       "estado": "En progreso",
-      "id_estado": 2
+      "id_estado": 2,
+      "preguntas": [
+        {
+          "id_categoria": 2,
+          "id_subcategoria": 2,
+          "pregunta": "¿Qué mejoraría del juego VALORANT?",
+          "id_tipo": 1
+        },
+        {
+          "id_categoria": 2,
+          "id_subcategoria": 2,
+          "pregunta": "¿Usted suele ser campero?",
+          "id_tipo": 4
+        },
+        {
+          "id_categoria": 2,
+          "id_subcategoria": 2,
+          "pregunta": "¿Tiene un grupo predeterminado para jugar?",
+          "id_tipo": 4
+        }
+      ]
     },
     {
       "id": 3,
@@ -478,7 +571,42 @@
       "id_estado": 2,
       "id_genero": null,
       "edad_minima": 14,
-      "edad_maxima": 19
+      "edad_maxima": 28,
+      "preguntas": [
+        {
+          "id": 6,
+          "tipo": "Selección simple",
+          "pregunta": "¿Prefieres los headsets o los earbuds?",
+          "categoria": "Tecnología",
+          "id_categoria": 3,
+          "id_subcategoria": 5,
+          "id_tipo": 2,
+          "subcategoria": "Hardware",
+          "opciones": [
+            {
+              "valor": "Headsets"
+            },
+            {
+              "valor": "Earbuds"
+            }
+          ]
+        },
+        {
+          "id_categoria": 3,
+          "id_subcategoria": 3,
+          "pregunta": "¿De cuántas lineas fue el codigo mas largo que has escrito?",
+          "id_tipo": 1
+        },
+        {
+          "tipo": "Texto abierto",
+          "pregunta": "Si usted sabe qué es el Net Neutrality ¿Qué opina de el?",
+          "categoria": "Tecnología",
+          "subcategoria": "",
+          "id_tipo": 1,
+          "id_categoria": 3,
+          "id": 111
+        }
+      ]
     }
   ]
 }

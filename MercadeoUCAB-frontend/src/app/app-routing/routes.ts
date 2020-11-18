@@ -121,7 +121,7 @@ export const routes: Routes = [
     /* REDIRECCIONAR A LA RUTA EN LA QUE SE ESTE TRABAJANDO MIENTRAS TANTO */
     { 
       path: '', 
-      redirectTo: '/studies/existing', 
+      redirectTo: '/studies/edit?sid=1', 
       pathMatch: 'full' 
     }
 ];

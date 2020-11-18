@@ -17,9 +17,9 @@
         </div>
         <hr>
         <div class="p-grid p-mx-5 p-mt-3" *ngIf="estudio && !loading">
-            <button pButton pRipple type="button" (click)="showOrHideModifyStudyFeatures()" tooltipPosition="bottom" icon="pi pi-pencil"
-                class="p-button-rounded p-button-text"></button>
-            <div class="p-mt-2 p-ml-3" >
+            <button pButton pRipple type="button" (click)="showOrHideModifyStudyFeatures()" tooltipPosition="bottom"
+                icon="pi pi-pencil" class="p-button-rounded p-button-text"></button>
+            <div class="p-mt-2 p-ml-3">
                 Modificar características del estudio
             </div>
         </div>
@@ -27,31 +27,35 @@
         <div *ngIf="display_modify_study_features">
             <form novalidate [formGroup]="studyForm" #sform="ngForm" (ngSubmit)="onSubmit()">
                 <h4 class="p-mx-5">Filtros de producto</h4>
-                <small class="error-msg p-mx-5">ADVERTENCIA: Si cambia la categoría y guarda los cambios las preguntas se eliminarán pues ya no serán válidas para este tipo de estudio</small>
+                <small class="error-msg p-mx-5">ADVERTENCIA: Si cambia la categoría y guarda los cambios las preguntas
+                    se eliminarán pues ya no serán válidas para este tipo de estudio</small>
                 <div class="p-grid p-mx-5 p-mt-2">
                     <div class="p-col-12 p-md-6 p-lg-4">
-                        <p-dropdown [options]="categorias" (onChange)="getSubcategories(); clearQuestions(estudio.id_categoria)" formControlName="categoria" placeholder="Categoría"></p-dropdown>
+                        <p-dropdown [options]="categorias"
+                            (onChange)="getSubcategories(); clearQuestions(estudio.id_categoria)"
+                            formControlName="categoria" placeholder="Categoría"></p-dropdown>
                     </div>
 
                     <div class="p-col-12 p-md-6 p-lg-4">
-                        <p-dropdown [options]="subcategorias" formControlName="subcategoria" placeholder="Subcategoría"></p-dropdown>
+                        <p-dropdown [options]="subcategorias" formControlName="subcategoria" placeholder="Subcategoría">
+                        </p-dropdown>
                     </div>
                 </div>
 
                 <h4 class="p-mx-5">Filtro de edad</h4>
                 <div class="p-grid p-mx-5 p-mt-2">
                     <div class="p-col-12 p-md-6 p-lg-4">
-                        <input class="p-inputtext-lg full-width" formControlName="edad_minima" type="text"
-                        pInputText placeholder="Edad mínima">
-                    <span class="error-msg"
-                        *ngIf="formErrors.edad_minima"><small>{{formErrors.edad_minima}}</small></span>
+                        <input class="p-inputtext-lg full-width" formControlName="edad_minima" type="text" pInputText
+                            placeholder="Edad mínima">
+                        <span class="error-msg"
+                            *ngIf="formErrors.edad_minima"><small>{{formErrors.edad_minima}}</small></span>
                     </div>
 
                     <div class="p-col-12 p-md-6 p-lg-4">
-                        <input class="p-inputtext-lg full-width" formControlName="edad_maxima" type="text"
-                        pInputText placeholder="Edad máxima">
-                    <span class="error-msg"
-                        *ngIf="formErrors.edad_maxima"><small>{{formErrors.edad_maxima}}</small></span>
+                        <input class="p-inputtext-lg full-width" formControlName="edad_maxima" type="text" pInputText
+                            placeholder="Edad máxima">
+                        <span class="error-msg"
+                            *ngIf="formErrors.edad_maxima"><small>{{formErrors.edad_maxima}}</small></span>
                     </div>
                 </div>
 
@@ -59,14 +63,14 @@
                 <h4 class="p-mx-5">Filtros de población</h4>
                 <div class="p-grid p-mx-5 p-mt-2">
                     <div class="p-col-12 p-md-6 p-lg-4">
-                        <p-multiSelect [options]="niveles_academicos" formControlName="nivel_academico" defaultLabel="Nivel académico"
-                            emptyFilterMessage="No se encontraron resultados"
+                        <p-multiSelect [options]="niveles_academicos" formControlName="nivel_academico"
+                            defaultLabel="Nivel académico" emptyFilterMessage="No se encontraron resultados"
                             selectedItemsLabel="{} items seleccionados"></p-multiSelect>
                     </div>
 
                     <div class="p-col-12 p-md-6 p-lg-4">
-                        <p-multiSelect [options]="niveles_socioeconomicos" formControlName="nivel_socioeconomico" defaultLabel="Nivel socioeconómico"
-                            emptyFilterMessage="No se encontraron resultados"
+                        <p-multiSelect [options]="niveles_socioeconomicos" formControlName="nivel_socioeconomico"
+                            defaultLabel="Nivel socioeconómico" emptyFilterMessage="No se encontraron resultados"
                             selectedItemsLabel="{} items seleccionados"></p-multiSelect>
                     </div>
 
@@ -77,13 +81,16 @@
 
                 <h4 class="p-mx-5">Filtros geográficos</h4>
                 <div class="p-grid p-mx-5 p-mt-2">
-                    <p-radioButton value="paises" (onClick)="clearPlaces()" formControlName="tipo_de_filtro" label="Filtrar por países" class="p-mb-3"></p-radioButton>
+                    <p-radioButton value="paises" (onClick)="clearPlaces()" formControlName="tipo_de_filtro"
+                        label="Filtrar por países" class="p-mb-3"></p-radioButton>
                 </div>
                 <div class="p-grid p-mx-5 p-mt-2">
-                    <p-radioButton value="estados" (onClick)="clearPlaces()"  label="Filtrar por estados" formControlName="tipo_de_filtro" class="p-mb-3"></p-radioButton>
+                    <p-radioButton value="estados" (onClick)="clearPlaces()" label="Filtrar por estados"
+                        formControlName="tipo_de_filtro" class="p-mb-3"></p-radioButton>
                 </div>
                 <div class="p-grid p-mx-5 p-mt-2">
-                    <p-radioButton [value]="null" (onClick)="clearPlaces()"  label="Ninguno" formControlName="tipo_de_filtro" class="p-mb-3"></p-radioButton>
+                    <p-radioButton [value]="null" (onClick)="clearPlaces()" label="Ninguno"
+                        formControlName="tipo_de_filtro" class="p-mb-3"></p-radioButton>
                 </div>
 
                 <!-- FILTRO GEOGRÁFICO -->
@@ -91,24 +98,28 @@
                 <div>
                     <div class="p-grid p-mx-5 p-mt-2">
                         <div class="p-col-12 p-md-6 p-lg-4">
-                            <p-multiSelect *ngIf="studyForm.value.tipo_de_filtro == 'paises'" [options]="paises" defaultLabel="Países"
-                                emptyFilterMessage="No se encontraron resultados"
+                            <p-multiSelect *ngIf="studyForm.value.tipo_de_filtro == 'paises'" [options]="paises"
+                                defaultLabel="Países" emptyFilterMessage="No se encontraron resultados"
                                 selectedItemsLabel="{} items seleccionados" formControlName="pais"></p-multiSelect>
-    
-                            <p-dropdown [options]="paises" formControlName="pais" *ngIf="studyForm.value.tipo_de_filtro == 'estados' || studyForm.value.tipo_de_filtro == 'ciudades'" placeholder="País"></p-dropdown>
+
+                            <p-dropdown [options]="paises" formControlName="pais"
+                                *ngIf="studyForm.value.tipo_de_filtro == 'estados' || studyForm.value.tipo_de_filtro == 'ciudades'"
+                                placeholder="País"></p-dropdown>
                         </div>
-    
+
                         <div class="p-col-12 p-md-6 p-lg-4">
-                            <p-multiSelect *ngIf="studyForm.value.tipo_de_filtro == 'estados'" [options]="estados" defaultLabel="Estados"
-                                emptyFilterMessage="No se encontraron resultados" formControlName="estado"
-                                selectedItemsLabel="{} items seleccionados"></p-multiSelect>
-    
-                            <p-dropdown [options]="estados" formControlName="estado" *ngIf="studyForm.value.tipo_de_filtro == 'ciudades'" placeholder="Estado"></p-dropdown>
-    
+                            <p-multiSelect *ngIf="studyForm.value.tipo_de_filtro == 'estados'" [options]="estados"
+                                defaultLabel="Estados" emptyFilterMessage="No se encontraron resultados"
+                                formControlName="estado" selectedItemsLabel="{} items seleccionados"></p-multiSelect>
+
+                            <p-dropdown [options]="estados" formControlName="estado"
+                                *ngIf="studyForm.value.tipo_de_filtro == 'ciudades'" placeholder="Estado"></p-dropdown>
+
                         </div>
-    
+
                         <div class="p-col-12 p-md-6 p-lg-4">
-                            <p-multiSelect *ngIf="studyForm.value.tipo_de_filtro == 'ciudades'" formControlName="ciudad" [options]="ciudades" defaultLabel="Ciudades"
+                            <p-multiSelect *ngIf="studyForm.value.tipo_de_filtro == 'ciudades'" formControlName="ciudad"
+                                [options]="ciudades" defaultLabel="Ciudades"
                                 emptyFilterMessage="No se encontraron resultados"
                                 selectedItemsLabel="{} items seleccionados"></p-multiSelect>
                         </div>
@@ -121,7 +132,8 @@
                 <div class="p-grid p-jc-end p-mt-3 p-mb-6 p-mr-4">
                     <div class="p-grid p-formgrid p-fluid">
                         <div class="p-mb-2 p-col-6 p-mb-lg-0">
-                            <button pButton pRipple type="button" label="Cerrar" class="p-button-secondary" (click)="showOrHideModifyStudyFeatures()"></button>
+                            <button pButton pRipple type="button" label="Cerrar" class="p-button-secondary"
+                                (click)="showOrHideModifyStudyFeatures()"></button>
                         </div>
                         <div class="p-mb-2 p-col-6 p-mb-lg-0">
                             <button pButton pRipple type="submit" [disabled]="sent_form" label="Enviar"></button>
@@ -132,7 +144,7 @@
             </form>
         </div>
 
-        <div *ngIf="estudio && estudio.preguntas">
+        <div *ngIf="estudio && estudio.preguntas && !display_new && !display_pool">
             <div class="p-mx-5 p-mt-5" *ngFor="let pregunta of estudio.preguntas">
                 <div class="p-grid">
                     <div class="p-col-12 p-lg-10">
@@ -200,38 +212,46 @@
             <div class="p-grid p-jc-end p-mt-1 p-mr-4">
                 <div class="p-grid p-formgrid p-fluid">
                     <div class="p-mb-2 p-col-12 p-mb-lg-0">
-                        <button pButton pRipple type="button" routerLink="../../studies/existing" label="Atrás" class="p-button-secondary"></button>
+                        <button pButton pRipple type="button" routerLink="../../studies/existing" label="Atrás"
+                            class="p-button-secondary"></button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <p-dialog header="Agregar pregunta" [(visible)]="display">
-            <form action="">
-                <div>
-                    <p-radioButton label="Quiero crear una nueva pregunta" class="p-mb-3"></p-radioButton>
-                </div>
-                <div>
-                    <p-radioButton label="Quiero seleccionar una pregunta del pool" class="p-mb-3"></p-radioButton>
-                </div>
+        <!-- ADD QUESTION -->
+        <div *ngIf="display_pool" class="p-mx-5 p-mt-2">
+            <app-add-question-from-pool [category_id]="estudio.id_categoria" (onQuestionSelect)="getSelectedQuestion($event)"></app-add-question-from-pool>
+        </div>
 
-                <div class="p-grid p-jc-end p-mt-1 p-mr-4">
-                    <div class="p-grid p-formgrid p-fluid">
-                        <button pButton pRipple type="submit" label="Continuar"></button>
-                    </div>
+        <div *ngIf="display_new" class="p-mx-5 p-mt-2"> 
+            <app-add-question-form [category_id]="estudio.id_categoria" [subcategory_id]="estudio.id_subcategoria" (onViewClose)="display_new = false" (onQuestionCreate)="getSelectedQuestion($event)"></app-add-question-form>
+        </div>
+
+        <p-dialog header="Agregar pregunta" [(visible)]="display">
+            <div>
+                <p-radioButton label="Quiero crear una nueva pregunta" [(ngModel)]="style" value="new" class="p-mb-3"></p-radioButton>
+            </div>
+            <div>
+                <p-radioButton label="Quiero seleccionar una pregunta del pool" value="pool" [(ngModel)]="style" class="p-mb-3"></p-radioButton>
+            </div>
+
+            <div class="p-grid p-jc-end p-mt-1 p-mr-4">
+                <div class="p-grid p-formgrid p-fluid">
+                    <button pButton pRipple type="submit" label="Continuar" (click)="addQuestion()"></button>
                 </div>
-            </form>
+            </div>
         </p-dialog>
 
-    <div *ngIf="!estudio && !loading && studyErrorMessage">
-        <app-server-disconnected></app-server-disconnected>
-    </div>
-
-    <div>
-        <div class="p-grid p-jc-center">
-            <ngx-spinner></ngx-spinner>
+        <div *ngIf="!estudio && !loading && studyErrorMessage">
+            <app-server-disconnected></app-server-disconnected>
         </div>
-    </div>
+
+        <div>
+            <div class="p-grid p-jc-center">
+                <ngx-spinner></ngx-spinner>
+            </div>
+        </div>
 
     </p-card>
     <p-confirmDialog></p-confirmDialog>
