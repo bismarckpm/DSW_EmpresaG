@@ -1,6 +1,6 @@
 <app-navigation></app-navigation>
 
-<!-- Questions -->
+<!-- Existing studies -->
 <div class="demo-container p-mx-6 p-p-0 p-p-sm-1 p-p-md-2 p-p-lg-6">
     <p-card>
         <div class="p-grid p-mx-5">
@@ -47,6 +47,9 @@
                                 Filtros adicionales
                             </th>
                             <th class="p-text-center">
+                                Rango de edades
+                            </th>
+                            <th class="p-text-center">
                                 Lugares de aplicación
                             </th>
                             <th pSortableColumn="estado" class="p-text-center">Estado<p-sortIcon
@@ -77,6 +80,10 @@
                                 <span class="image-text" *ngIf="estudio.genero"><strong>Género: </strong>
                                     {{estudio.genero}}&nbsp;</span>
 
+                            </td>
+                            <td class="p-text-center">
+                                <span class="p-column-title">Rango de edades</span>
+                                <span class="image-text" *ngIf="estudio.edad_minima && estudio.edad_maxima">De {{estudio.edad_minima}} hasta {{estudio.edad_maxima}}</span>
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Lugares</span>

@@ -424,6 +424,75 @@
       "id_categoria": 5
     }
   ],
+  "requests": [
+    {
+      "id": 1,
+      "categoria": "TV",
+      "id_categoria": 4,
+      "subcategoria": "Anime",
+      "id_subcategoria": 4,
+      "nivel_academico": "Primaria",
+      "id_nivel_academico": [
+        1
+      ],
+      "nivel_socioeconomico": "Medio-bajo",
+      "id_nivel_socioeconomico": [
+        2
+      ],
+      "edad_minima": 15,
+      "edad_maxima": 20,
+      "id_autor": 2,
+      "autor": "Tate Langdon"
+    },
+    {
+      "id": 2,
+      "categoria": "Videojuegos",
+      "id_categoria": 2,
+      "subcategoria": "Shooter",
+      "id_subcategoria": 2,
+      "genero": "Masculino",
+      "id_genero": 1,
+      "nivel_academico": "Primaria, Secundaria",
+      "id_nivel_academico": [
+        1,
+        2
+      ],
+      "nivel_socioeconomico": "Medio-alto",
+      "id_nivel_socioeconomico": [
+        4
+      ],
+      "tipo_filtro_geografico": "paises",
+      "lugares": "Estados Unidos",
+      "id_lugares": [
+        1
+      ],
+      "autor": "Clarke Hent",
+      "id_autor": 3
+    },
+    {
+      "id": 3,
+      "categoria": "Transporte",
+      "id_categoria": 5,
+      "id_subcategoria": 6,
+      "subcategoria": "Automoviles",
+      "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
+      "id_nivel_socioeconomico": [
+        2,
+        3,
+        4
+      ],
+      "tipo_filtro_geografico": "estados",
+      "lugares": "Florida, California",
+      "id_lugares": [
+        4,
+        3
+      ],
+      "edad_minima": 14,
+      "edad_maxima": 28,
+      "autor": "Julian Brandt",
+      "id_autor": 7
+    }
+  ],
   "studies": [
     {
       "id": 1,
