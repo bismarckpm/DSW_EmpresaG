@@ -6,22 +6,29 @@
                 <img src="../../assets/img/recovery.jpg" class="panel-img" width="100%" height="550px" alt="Oops">
             </div>
             
-            <!-- Correo -->
+            <!-- Password and Confirm Pass -->
             <div class="p-col-12 p-lg-7">
                 <div class="p-grid p-jc-center p-d-lg-2">
                     <img src="../../assets/img/Logo.png" width="150px" height="150px"  alt="Oops">
                 </div>
                 
-                <form novalidate [formGroup]="recoveryForm" #rform="ngForm" (ngSubmit)="onSubmit()">
+                <form novalidate [formGroup]="changeForm" #cform="ngForm" (ngSubmit)="onSubmit()">
                     <br>
                     <div class="p-grid p-jc-center p-mt-4">  
                         <div class="p-col-12 p-md-8 p-mb-8">
                                 <div class="p-inputgroup">
-                                    <span class="p-inputgroup-addon"><i class="pi pi-envelope"></i></span>
-                                    <input id="correo_electronico" formControlName="correo_electronico" type="text" pInputText placeholder="Correo Electrónico *">         
+                                    <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
+                                    <input id="clave" formControlName="clave" type="password" pPassword  placeholder="Contraseña *">         
                                 </div>
-                            <span class="error-msg" *ngIf="formErrors.correo_electronico"><small>{{formErrors.correo_electronico}}</small></span>
+                            <span class="error-msg" *ngIf="formErrors.clave"><small>{{formErrors.clave}}</small></span>
                         </div>
+                        <div class="p-col-12 p-md-8 p-mb-8">
+                            <div class="p-inputgroup">
+                                <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
+                                <input id="confirmar_clave" formControlName="confirmar_clave" type="password" pPassword  placeholder="Confirmar contraseña *">         
+                            </div>
+                        <span class="error-msg" *ngIf="formErrors.confirmar_clave"><small>{{formErrors.confirmar_clave}}</small></span>
+                    </div>
                     </div>
             
                     <div class="p-grid p-jc-center p-mt-1 p-mr-4">
@@ -37,4 +44,3 @@
         </div>
     </p-card>
 </div>
-

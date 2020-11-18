@@ -76,6 +76,7 @@ import { StudyRequestsComponent } from './studies/study-requests/study-requests.
 import { AddQuestionFromPoolComponent } from './studies/add-question-from-pool/add-question-from-pool.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AddQuestionFormComponent } from './questions/add-question/add-question-form/add-question-form.component';
+import { ChangeComponent } from './recovery/change/change.component';
 
 @NgModule({
   declarations: [
@@ -105,6 +106,7 @@ import { AddQuestionFormComponent } from './questions/add-question/add-question-
     AddQuestionFromPoolComponent,
     ProfileComponent,
     AddQuestionFormComponent,
+    ChangeComponent
   ],
   imports: [
     BrowserModule,
