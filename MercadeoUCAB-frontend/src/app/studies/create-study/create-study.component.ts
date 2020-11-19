@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
 import { StudiesService } from '../../services/studies.service';
@@ -15,11 +15,9 @@ import { ACADEMICS } from '../../constants/academics';
 import { SOCIAL_STATUSES } from '../../constants/social_status';
 import { GENDERS } from '../../constants/gender';
 import { MenuItem } from 'primeng/api';
-import { replaceKeyWithValue } from '../../functions/common_functions';
 
 /* Form */
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RxwebValidators } from '@rxweb/reactive-form-validators'
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-create-study',
@@ -57,27 +55,6 @@ export class CreateStudyComponent implements OnInit {
   loading: boolean = false;
   studyErrorMessage: string;
   requestErrorMessage: string;
-  sent_form: boolean = false;
-
-  /* Form */
-  studyForm: FormGroup;
-  @ViewChild('sform') studyFormDirective;
-
-  formErrors = {
-    'edad_minima': '',
-    'edad_maxima': '',
-  };
-
-  validationMessages = {
-    'edad_minima': {
-      'pattern': 'Rango debe ser numérico',
-      'lessThan': 'Rango inicial debe ser menor que rango final'
-    },
-    'edad_maxima': {
-      'pattern': 'Rango debe ser numérico',
-      'greaterThan': 'Rango final debe ser mayor que rango inicial'
-    }
-  }
 
   constructor(private Activatedroute: ActivatedRoute,
     private router: Router,
@@ -183,12 +160,10 @@ export class CreateStudyComponent implements OnInit {
     this.studiesService.putStudy(this.estudio).subscribe((study) => {
       this.display_pool = false;
       this.display_modify_study_features = false;
-      this.sent_form = false;
       this.display_new = false;
       this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Pregunta añadida con éxito' });
     }, errorMessage => {
       this.display_modify_study_features = false;
-      this.sent_form = false;
       this.display_pool = false;
       this.display_new = false;
       this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
