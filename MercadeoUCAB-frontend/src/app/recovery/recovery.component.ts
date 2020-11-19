@@ -1,15 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { MessageService, SelectItem } from 'primeng/api';
-import { MenuItem } from 'primeng/api';
-import {ButtonModule} from 'primeng/button';
 import { Router } from '@angular/router'
-
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisterService } from '../services/register.service';
-import { RxwebValidators } from '@rxweb/reactive-form-validators'
 
 @Component({
   selector: 'app-recovery',

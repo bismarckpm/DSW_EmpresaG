@@ -15,26 +15,26 @@
                 <form novalidate [formGroup]="changeForm" #cform="ngForm" (ngSubmit)="onSubmit()">
                     <br>
                     <div class="p-grid p-jc-center p-mt-4">  
-                        <div class="p-col-12 p-md-8 p-mb-8">
+                        <div class="p-col-12 p-md-10 p-mb-2">
                                 <div class="p-inputgroup">
                                     <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
                                     <input id="clave" formControlName="clave" type="password" pPassword  placeholder="Contraseña *">         
                                 </div>
                             <span class="error-msg" *ngIf="formErrors.clave"><small>{{formErrors.clave}}</small></span>
                         </div>
-                        <div class="p-col-12 p-md-8 p-mb-8">
+                        <div class="p-col-12 p-md-10 p-mb-2">
                             <div class="p-inputgroup">
                                 <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
-                                <input id="confirmar_clave" formControlName="confirmar_clave" type="password" pPassword  placeholder="Confirmar contraseña *">         
+                                <input id="confirmar_clave" formControlName="confirmar_clave" type="password" pInputText placeholder="Confirmar contraseña *">         
                             </div>
                         <span class="error-msg" *ngIf="formErrors.confirmar_clave"><small>{{formErrors.confirmar_clave}}</small></span>
                     </div>
                     </div>
             
-                    <div class="p-grid p-jc-center p-mt-1 p-mr-4">
+                    <div class="p-grid p-jc-center p-mt-1">
                         <div class="p-grid p-formgrid p-fluid">
                             <div class="p-mb-2 p-col-12 p-mb-lg-0">
-                                <button pButton type="submit" class="p-button-raised p-button-rounded p-button-lg" label="Continuar"></button>
+                                <button pButton type="submit" class="p-button-raised p-button-lg" label="Continuar"></button>
                             </div>
                         </div>
                     </div>
