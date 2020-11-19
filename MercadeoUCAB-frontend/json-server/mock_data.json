@@ -66,7 +66,38 @@
       "label": "Chile (+56)"
     }
   ],
-  "register": [],
+  "register": [
+    {
+      "correo_electronico": "cverde22@gmail.com",
+      "clave": "Caracas1.",
+      "hijos": [],
+      "confirmar_clave": "Caracas1.",
+      "primer_nombre": "Carlos",
+      "primer_apellido": "Verde",
+      "documento_de_identificacion": "A58469874",
+      "genero": 1,
+      "estado_civil": 4,
+      "fecha_de_nacimiento": "03/03/1997",
+      "id_pais": 1,
+      "id_estado": 2,
+      "id_ciudad": 5,
+      "id_parroquia": 9,
+      "codigo_pais": 1,
+      "telefono": "04241458802",
+      "personas_hogar": "2",
+      "tiene_hijos": true,
+      "ocupacion": "Mesonero",
+      "id_nivel_academico": 6,
+      "id_nivel_socioeconomico": 2,
+      "dispositivos": [
+        4,
+        2
+      ],
+      "id_horario_inicial": 6,
+      "id_horario_final": 16,
+      "id": 1
+    }
+  ],
   "recovery": [
     {
       "correo": "ale@gm.com",
