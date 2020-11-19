@@ -71,9 +71,19 @@
     {
       "correo": "ale@gm.com",
       "id": 1
+    },
+    {
+      "correo": "cverde22@gmail.com",
+      "id": 2
     }
   ],
-  "reset": [],
+  "reset": [
+    {
+      "token": "holacocacola",
+      "clave": "Caracas1.",
+      "id": 1
+    }
+  ],
   "questions": [
     {
       "id": 2,
