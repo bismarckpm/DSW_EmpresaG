@@ -67,7 +67,12 @@
     }
   ],
   "register": [],
-  "recovery": [],
+  "recovery": [
+    {
+      "correo": "ale@gm.com",
+      "id": 1
+    }
+  ],
   "reset": [],
   "questions": [
     {

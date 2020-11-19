@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MessageService, SelectItem } from 'primeng/api';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+import { Recovery } from '../classes/recovery';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegisterService } from '../services/register.service';
+import { RecoveryService } from '../services/recovery.service';
+import { ReorderableColumn } from 'primeng/table';
 
 @Component({
   selector: 'app-recovery',
@@ -17,7 +19,9 @@ export class RecoveryComponent implements OnInit {
 
    /* Form */
    recoveryForm: FormGroup;
-   @ViewChild('rform') recoveryFormDirective;
+   @ViewChild('aform') recoveryFormDirective;
+
+   recovery: Recovery;
  
    formErrors = {
      'correo_electronico': ''
@@ -34,7 +38,7 @@ export class RecoveryComponent implements OnInit {
 
     constructor(private router: Router,
       private fb: FormBuilder,
-      private registerService: RegisterService,
+      private recoveryService: RecoveryService,
       private messageService: MessageService) { 
       this.createForm();
     }
@@ -46,7 +50,7 @@ export class RecoveryComponent implements OnInit {
   createForm(){
     this.recoveryForm = this.fb.group({
       correo_electronico: [
-        this.registerService.user.correo_electronico,
+        this.recoveryService.correo,
         [
           Validators.required,
           Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
@@ -89,19 +93,26 @@ export class RecoveryComponent implements OnInit {
   }
 
   onSubmit(){
-    this.registerService.user.correo_electronico = this.recoveryForm.value.correo_electronico;
+    this.recoveryService.correo = this.recoveryForm.value.correo_electronico;
 
     if (this.recoveryForm.valid){
-      this.sendEmail();
+      this.postRecovery();
     }
     else{
       this.messageService.add({severity:'error', summary: 'Error', detail: 'Correo electrónico no válido'});
     }
   }
 
-  sendEmail(): void {
-    // Validar correo existente
-    // Enviar correo con enlace de cambio de clave.
+  postRecovery(): void {
+
+    this.recovery = new Recovery();
+    this.recovery.correo = this.recoveryForm.value.correo_electronico;
+
+    this.recoveryService.postRecovery(this.recovery).subscribe((res)=>{
+      this.messageService.add({severity:'success', summary: 'Success', detail: "Correo de recuperación enviado."});
+    }, errorMessage => {
+      this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
+    });
   }
 
 }

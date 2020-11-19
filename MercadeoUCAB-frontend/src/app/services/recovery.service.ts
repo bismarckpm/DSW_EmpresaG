@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Recovery } from '../classes/recovery';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ProcessHttpMessageService } from '../services/process-http-message.service';
 import { Observable } from 'rxjs';
@@ -10,16 +11,18 @@ import { baseURL } from '../constants/baseURL';
 })
 export class RecoveryService {
 
+  correo: String;
+
   constructor(private http: HttpClient,
     private processHTTPMessageService: ProcessHttpMessageService) { }
 
-  postRecovery(correo): Observable<String>{
+  postRecovery(recovery): Observable<Recovery>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
 
-    return this.http.post<String>(baseURL + 'correo', correo, httpOptions)
+    return this.http.post<Recovery>(baseURL + 'recovery', recovery, httpOptions)
   }
 }
