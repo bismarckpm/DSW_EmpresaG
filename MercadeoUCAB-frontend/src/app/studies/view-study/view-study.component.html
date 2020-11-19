@@ -10,7 +10,7 @@
             <div class="p-col-6 p-lg-6">
                 <div class="p-grid p-jc-end p-mt-1 p-mr-4">
                     <button pButton pRipple type="button" pTooltip="Crear pregunta" tooltipPosition="bottom"
-                        icon="pi pi-plus" (click)="showAddOptions()" class="p-button-rounded p-button-text"></button>
+                        icon="pi pi-plus"  class="p-button-rounded p-button-text"></button>
                 </div>
             </div>
         </div>
@@ -46,7 +46,7 @@
             </p>
         </div>
 
-        <div *ngIf="estudio && estudio.preguntas && !display_new && !display_pool">
+        <div *ngIf="estudio && estudio.preguntas">
             <div class="p-mx-5 p-mt-5" *ngFor="let pregunta of estudio.preguntas">
                 <div class="p-grid">
                     <div class="p-col-12 p-lg-10">
@@ -121,7 +121,7 @@
             </div>
         </div>
 
-        <div *ngIf="false">
+        <div *ngIf="!estudio && studyErrorMessage">
             <app-server-disconnected></app-server-disconnected>
         </div>
 
