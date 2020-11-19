@@ -64,7 +64,8 @@ export class NavigationComponent implements OnInit {
       },
       {
         label: 'Solicitudes (5)',
-        icon: 'pi pi-fw pi-clock'
+        icon: 'pi pi-fw pi-clock',
+        command: r => this.router.navigate(["studies/requests"])
       },
       {
         label: 'Perfil',
