@@ -26,6 +26,7 @@ import { ProfileComponent } from '../profile/profile.component';
 import { componentFactoryName } from '@angular/compiler';
 import { ChangeComponent } from '../recovery/change/change.component';
 import { SelectExistingComponent } from '../studies/select-existing/select-existing.component';
+import { PresentationsComponent } from '../presentations/presentations.component';
 
 export const routes: Routes = [
     { 
@@ -121,6 +122,12 @@ export const routes: Routes = [
     {
       path: 'profile',
       component: ProfileComponent
+    },
+
+    /* PRODUCTS */
+    {
+      path: 'presentations',
+      component: PresentationsComponent
     },
 
     /* ERROR PAGES */

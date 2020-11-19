@@ -78,6 +78,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { AddQuestionFormComponent } from './questions/add-question/add-question-form/add-question-form.component';
 import { ChangeComponent } from './recovery/change/change.component';
 import { SelectExistingComponent } from './studies/select-existing/select-existing.component';
+import { PresentationsComponent } from './presentations/presentations.component';
+import { AddPresentationComponent } from './presentations/add-presentation/add-presentation.component';
+import { EditPresentationComponent } from './presentations/edit-presentation/edit-presentation.component';
 
 @NgModule({
   declarations: [
@@ -108,7 +111,10 @@ import { SelectExistingComponent } from './studies/select-existing/select-existi
     ProfileComponent,
     AddQuestionFormComponent,
     ChangeComponent,
-    SelectExistingComponent
+    SelectExistingComponent,
+    PresentationsComponent,
+    AddPresentationComponent,
+    EditPresentationComponent
   ],
   imports: [
     BrowserModule,
