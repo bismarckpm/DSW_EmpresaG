@@ -19,6 +19,7 @@ export class QuestionService {
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
+  /* Question cannot be in existing study (filter by the content of the question ig) */
   getQuestionsByCategory(category_id): Observable<Question[]>{
     return this.http.get<Question[]>(baseURL + 'questions', {params: {
       id_categoria: category_id

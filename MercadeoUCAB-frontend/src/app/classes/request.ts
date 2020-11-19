@@ -1,5 +1,6 @@
 export class Request {
     id: number;
+    estado: string;
 
     /* TO MODIFY / ADD VALUES */
     id_autor?: number;

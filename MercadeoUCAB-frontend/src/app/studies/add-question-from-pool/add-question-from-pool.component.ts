@@ -15,7 +15,8 @@ import { replaceKey } from '../../functions/common_functions';
 
 export class AddQuestionFromPoolComponent implements OnInit {
   @Output() onQuestionSelect = new EventEmitter<any>();
-  
+  @Output() onViewClose = new EventEmitter<any>();
+
   preguntas: Question[];
   questionsErrorMessage: string;
   categoryErrorMessage: string;
@@ -58,6 +59,10 @@ export class AddQuestionFromPoolComponent implements OnInit {
 
   onQuestionTypeChange(event){
     this.table.filter(event.value, 'tipo', 'in')
+  }
+
+  closeView(){
+    this.onViewClose.emit(1);
   }
 
   selectQuestion(question){

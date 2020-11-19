@@ -92,7 +92,7 @@
 
                             <td class="p-text-center">
                                 <button type="button" pButton
-                                    pRipple icon="pi pi-plus" class="p-button-rounded p-mr-2" pTooltip="Crear estudio"
+                                    pRipple icon="pi pi-plus" routerLink="../create" [queryParams]="{requestId:estudio.id}" class="p-button-rounded p-mr-2" pTooltip="Crear estudio"
                                     tooltipPosition="bottom"></button>
                                 <button type="button" pButton pRipple icon="pi pi-clone"
                                     class="p-button-rounded p-mr-2" pTooltip="Asignar estudio existente" tooltipPosition="bottom"></button>
