@@ -81,6 +81,10 @@ import { SelectExistingComponent } from './studies/select-existing/select-existi
 import { PresentationsComponent } from './presentations/presentations.component';
 import { AddPresentationComponent } from './presentations/add-presentation/add-presentation.component';
 import { EditPresentationComponent } from './presentations/edit-presentation/edit-presentation.component';
+import { UsersComponent } from './users/users.component';
+import { AddUserComponent } from './users/add-user/add-user.component';
+import { EditUserComponent } from './users/edit-user/edit-user.component';
+import { ViewUsersSummaryComponent } from './users/view-users-summary/view-users-summary.component';
 
 @NgModule({
   declarations: [
@@ -114,7 +118,11 @@ import { EditPresentationComponent } from './presentations/edit-presentation/edi
     SelectExistingComponent,
     PresentationsComponent,
     AddPresentationComponent,
-    EditPresentationComponent
+    EditPresentationComponent,
+    UsersComponent,
+    AddUserComponent,
+    EditUserComponent,
+    ViewUsersSummaryComponent
   ],
   imports: [
     BrowserModule,
