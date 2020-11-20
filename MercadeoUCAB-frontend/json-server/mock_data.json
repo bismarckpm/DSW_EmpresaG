@@ -66,7 +66,38 @@
       "label": "Chile (+56)"
     }
   ],
-  "register": [],
+  "register": [
+    {
+      "correo_electronico": "cverde22@gmail.com",
+      "clave": "Caracas1.",
+      "hijos": [],
+      "confirmar_clave": "Caracas1.",
+      "primer_nombre": "Carlos",
+      "primer_apellido": "Verde",
+      "documento_de_identificacion": "A58469874",
+      "genero": 1,
+      "estado_civil": 4,
+      "fecha_de_nacimiento": "03/03/1997",
+      "id_pais": 1,
+      "id_estado": 2,
+      "id_ciudad": 5,
+      "id_parroquia": 9,
+      "codigo_pais": 1,
+      "telefono": "04241458802",
+      "personas_hogar": "2",
+      "tiene_hijos": true,
+      "ocupacion": "Mesonero",
+      "id_nivel_academico": 6,
+      "id_nivel_socioeconomico": 2,
+      "dispositivos": [
+        4,
+        2
+      ],
+      "id_horario_inicial": 6,
+      "id_horario_final": 16,
+      "id": 1
+    }
+  ],
   "recovery": [
     {
       "correo": "ale@gm.com",
@@ -383,6 +414,69 @@
       "pregunta": "¿Tiene un grupo predeterminado para jugar?",
       "id_tipo": 4,
       "id": 110
+    },
+    {
+      "id_categoria": 5,
+      "id_subcategoria": 6,
+      "pregunta": "¿Maneja automovil automatico o sincrónico?",
+      "id_tipo": 2,
+      "opciones": [
+        {
+          "valor": "Automático"
+        },
+        {
+          "valor": "Sincrónico"
+        }
+      ],
+      "id": 111
+    },
+    {
+      "id_categoria": 5,
+      "id_subcategoria": 6,
+      "pregunta": "¿Qué tan seguido se le daña el carro?",
+      "id_tipo": 2,
+      "opciones": [
+        {
+          "valor": "Una vez al mes o más seguido"
+        },
+        {
+          "valor": "Cada dos-cinco meses"
+        },
+        {
+          "valor": "Cada seis-nueve meses"
+        },
+        {
+          "valor": "Una vez al año"
+        },
+        {
+          "valor": "Menos de una vez al año"
+        }
+      ],
+      "id": 112
+    },
+    {
+      "id_categoria": 5,
+      "id_subcategoria": 6,
+      "pregunta": "¿Qué tan seguido se le daña el carro?",
+      "id_tipo": 2,
+      "opciones": [
+        {
+          "valor": "Una vez al mes o más seguido"
+        },
+        {
+          "valor": "Cada dos-cinco meses"
+        },
+        {
+          "valor": "Cada seis-nueve meses"
+        },
+        {
+          "valor": "Una vez al año"
+        },
+        {
+          "valor": "Menos de una vez al año"
+        }
+      ],
+      "id": 113
     }
   ],
   "categories": [
@@ -457,7 +551,8 @@
       "edad_minima": 15,
       "edad_maxima": 20,
       "id_autor": 2,
-      "autor": "Tate Langdon"
+      "autor": "Tate Langdon",
+      "estado": "Sin procesar"
     },
     {
       "id": 2,
@@ -482,7 +577,8 @@
         1
       ],
       "autor": "Clarke Hent",
-      "id_autor": 3
+      "id_autor": 3,
+      "estado": "Sin procesar"
     },
     {
       "id": 3,
@@ -505,7 +601,8 @@
       "edad_minima": 14,
       "edad_maxima": 28,
       "autor": "Julian Brandt",
-      "id_autor": 7
+      "id_autor": 7,
+      "estado": "En progreso"
     }
   ],
   "studies": [
@@ -578,6 +675,7 @@
           "id": 13
         }
       ],
+      "lugares": "Estados Unidos",
       "id_lugares": [
         1
       ],
@@ -691,6 +789,94 @@
           "id_tipo": 1,
           "id_categoria": 3,
           "id": 111
+        }
+      ]
+    },
+    {
+      "categoria": "Transporte",
+      "id_categoria": 5,
+      "id_subcategoria": 6,
+      "subcategoria": "Automoviles",
+      "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
+      "id_nivel_socioeconomico": [
+        2,
+        3,
+        4
+      ],
+      "tipo_filtro_geografico": "estados",
+      "lugares": "Florida, California",
+      "id_lugares": [
+        4,
+        3
+      ],
+      "edad_minima": 14,
+      "edad_maxima": 28,
+      "autor": "Julian Brandt",
+      "id_autor": 7,
+      "estado": "En progreso",
+      "id": 4,
+      "preguntas": [
+        {
+          "id_categoria": 5,
+          "id_subcategoria": 6,
+          "pregunta": "¿Maneja automovil automatico o sincrónico?",
+          "id_tipo": 2,
+          "opciones": [
+            {
+              "valor": "Automático"
+            },
+            {
+              "valor": "Sincrónico"
+            }
+          ],
+          "id": 111
+        },
+        {
+          "id_categoria": 5,
+          "id_subcategoria": 6,
+          "pregunta": "¿Qué tan seguido se le daña el carro?",
+          "id_tipo": 2,
+          "opciones": [
+            {
+              "valor": "Una vez al mes o más seguido"
+            },
+            {
+              "valor": "Cada dos-cinco meses"
+            },
+            {
+              "valor": "Cada seis-nueve meses"
+            },
+            {
+              "valor": "Una vez al año"
+            },
+            {
+              "valor": "Menos de una vez al año"
+            }
+          ]
+        },
+        {
+          "id_categoria": 5,
+          "id_subcategoria": 6,
+          "pregunta": "¿Qué tan seguido se le daña el carro?",
+          "id_tipo": 2,
+          "opciones": [
+            {
+              "valor": "Una vez al mes o más seguido"
+            },
+            {
+              "valor": "Cada dos-cinco meses"
+            },
+            {
+              "valor": "Cada seis-nueve meses"
+            },
+            {
+              "valor": "Una vez al año"
+            },
+            {
+              "valor": "Menos de una vez al año"
+            }
+          ],
+          "id": 113
         }
       ]
     }

@@ -81,8 +81,9 @@ body .p-button-secondary{
     width: 97%;
 }
 
-body .p-calendar .p-inputtext{
-    font-size: 13px !important;
+
+#mercadeoucab .p-inputtext-lg .p-calendar{
+    font-size: 1.25rem !important;
 }	
 
 span.p-highlight.ng-star-inserted{
@@ -302,6 +303,23 @@ hr{
 	box-shadow: none;
 }
 
+#mercadeoucab .card-shadow .p-card {
+    background-color: #4D80CA;
+    color: floralwhite;
+    border-radius: 10%;
+    -webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+
+#mercadeoucab .card-shadow .p-card .p-card-content{
+    padding: 0;
+}
+
+#mercadeoucab .card-shadow .p-card .p-card-body{
+    padding: 0.75rem;
+}
+
 code{
     color: #4D80CA;
 }
@@ -330,3 +348,6 @@ u{
     font-size: medium;
 }
 
+em{
+    font-style: normal;
+}

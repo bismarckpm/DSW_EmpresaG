@@ -37,4 +37,15 @@ export class StudiesService {
     return this.http.put<Study>(baseURL + 'studies/' + study.id, study, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
+
+  postStudy(study): Observable<Study>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+    };
+
+    return this.http.post<Study>(baseURL + 'studies', study, httpOptions)
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
 }
