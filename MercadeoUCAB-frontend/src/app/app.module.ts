@@ -47,6 +47,7 @@ import { QuestionService } from './services/question.service';
 import { CategoryService } from './services/category.service';
 import { SubcategoryService } from './services/subcategory.service';
 import { StudiesService } from './services/studies.service';
+import { PresentationService } from './services/presentation.service';
 import { ProcessHttpMessageService } from './services/process-http-message.service';
 
 /* My components */
@@ -77,6 +78,14 @@ import { AddQuestionFromPoolComponent } from './studies/add-question-from-pool/a
 import { ProfileComponent } from './profile/profile.component';
 import { AddQuestionFormComponent } from './questions/add-question/add-question-form/add-question-form.component';
 import { ChangeComponent } from './recovery/change/change.component';
+import { SelectExistingComponent } from './studies/select-existing/select-existing.component';
+import { PresentationsComponent } from './presentations/presentations.component';
+import { AddPresentationComponent } from './presentations/add-presentation/add-presentation.component';
+import { EditPresentationComponent } from './presentations/edit-presentation/edit-presentation.component';
+import { UsersComponent } from './users/users.component';
+import { AddUserComponent } from './users/add-user/add-user.component';
+import { EditUserComponent } from './users/edit-user/edit-user.component';
+import { ViewUsersSummaryComponent } from './users/view-users-summary/view-users-summary.component';
 
 @NgModule({
   declarations: [
@@ -106,7 +115,15 @@ import { ChangeComponent } from './recovery/change/change.component';
     AddQuestionFromPoolComponent,
     ProfileComponent,
     AddQuestionFormComponent,
-    ChangeComponent
+    ChangeComponent,
+    SelectExistingComponent,
+    PresentationsComponent,
+    AddPresentationComponent,
+    EditPresentationComponent,
+    UsersComponent,
+    AddUserComponent,
+    EditUserComponent,
+    ViewUsersSummaryComponent
   ],
   imports: [
     BrowserModule,
@@ -147,6 +164,7 @@ import { ChangeComponent } from './recovery/change/change.component';
     CategoryService,
     SubcategoryService,
     StudiesService,
+    PresentationService,
     ProcessHttpMessageService,
     {provide: 'BaseURL', useValue: baseURL},
     {provide: 'ServerURL', useValue: serverURL}

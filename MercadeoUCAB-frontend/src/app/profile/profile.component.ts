@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SelectItem } from 'primeng/api';
-import {CardModule} from 'primeng/card';
+import { CardModule } from 'primeng/card';
 import { Person } from '../classes/person';
 import { ProfileService } from '../services/profile.service';
 import { GENDERS } from '../constants/gender';
 import { CIVIL_STATUSES } from '../constants/civil_status';
+import { NgxSpinnerService } from "ngx-spinner";
+
+/* Form */
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -23,13 +27,18 @@ export class ProfileComponent implements OnInit {
   selectedGenreValue: number;
   selectedEdoCivilValue: number;
   hasKids: boolean;
+  es: any;
 
-  constructor(
-    private profileService: ProfileService) 
-    { 
-      this.generos = GENDERS;
-      this.edos_civil = CIVIL_STATUSES;
-      this.tieneHijos = [
+  /* Form */
+  profileForm: FormGroup;
+  @ViewChild('pform') profileFormDirective;
+
+  constructor(private fb: FormBuilder,
+    private spinner: NgxSpinnerService,
+    private profileService: ProfileService) {
+    this.generos = GENDERS;
+    this.edos_civil = CIVIL_STATUSES;
+    this.tieneHijos = [
       {
         label: 'Si',
         value: true
@@ -38,22 +47,45 @@ export class ProfileComponent implements OnInit {
         label: 'No',
         value: false
       }];
-    }
+  }
 
   ngOnInit(): void {
+    this.spinner.show();
+    this.es = {
+      firstDayOfWeek: 1,
+      dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+      dayNamesShort: ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"],
+      dayNamesMin: ["D", "L", "M", "X", "J", "V", "S"],
+      monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+      monthNamesShort: ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"],
+      today: 'Hoy',
+      clear: 'Borrar'
+    }
+
     this.loading = true;
     this.profileService.getPerson(1).subscribe((p) => {
-      this.persona = p; 
+      this.persona = p;
       this.loading = false;
       this.selectedGenreValue = Number.parseInt(p.genero);
       this.selectedEdoCivilValue = Number.parseInt(p.estado_civil);
       this.fecha_nacimiento = new Date(p.fecha_de_nacimiento);
       this.hasKids = p.tiene_hijos;
-    
+
+      this.createForm();
+      this.spinner.hide();
     }, errorMessage => {
       this.loading = false;
+      this.spinner.hide();
       this.personErrorMessage = errorMessage;
     })
+  }
+
+  createForm() {
+    this.profileForm = this.fb.group({
+      correo_electronico: [
+        this.persona.correo_electronico,
+      ],
+    });
   }
 
 }

@@ -1,57 +1,71 @@
+<app-navigation></app-navigation>
+
 <div class="demo-container p-mx-6 p-p-0 p-p-sm-1 p-p-md-2 p-p-lg-6">
-    <div class="p-grid vertical-container">
+    <div class="p-grid vertical-container" *ngIf="persona">
         <!-- info detalladita -->
         <!-- Aca tambien usamos data persona, para no mostrar la info de la izquierda -->
-        <div class="p-col-12 p-lg-3 p-as-start" *ngIf="!dataPersona"> 
+        <div class="p-col-12 p-lg-3 p-as-start" *ngIf="!dataPersona">
             <p-card>
-                <div class="p-grid" style="margin-left: 2.5em; padding-top: 2.5em;">
-                    <div class="p-col-12 p-md-3">
-                        <img style="vertical-align: center" width="60" src="../../assets/img/user_profile.png">   
+                <div class="p-grid p-mx-5">
+                    <div class="p-col-12 p-lg-3">
+                        <div class="p-d-flex p-jc-center">
+                            <img class="p-mt-3" width="60" src="../../assets/img/user_profile.png">
+                        </div>
                     </div>
-                    <div class="p-col-12 p-md-9">
-                        <p><b>{{persona.primer_nombre}} {{persona.primer_apellido}}</b><br>
-                        {{persona.fecha_de_nacimiento}}<br>
-                        (Direccion bonita)
-                        </p>
+                    <div class="p-col-12 p-lg-9">
+                        <div class="p-d-flex p-jc-lg-start p-jc-sm-center">
+                            <p><b>{{persona.primer_nombre}} {{persona.primer_apellido}}</b><br>
+                                {{persona.fecha_de_nacimiento}}<br>
+                                (Direccion bonita)
+                            </p>
+                        </div>
                     </div>
                 </div>
-                <hr>
-                <p>Email: {{persona.correo_electronico}}</p>
-                <p>Genero: {{persona.genero}}</p>
-                <p>Teléfono: {{persona.telefono}}</p>
-                <p>Ocupación: {{persona.ocupacion}}</p>
-                <p>Nivel académico: {{persona.id_nivel_academico}}</p>
-                <p>Número de hijos: {{persona.hijos.length}}</p>
-                <hr>
+                <!-- Secondary info -->
+                <div class="p-mx-5">
+                    <hr>
+                    <p>Email: {{persona.correo_electronico}}</p>
+                    <p>Genero: {{persona.genero}}</p>
+                    <p>Teléfono: {{persona.telefono}}</p>
+                    <p>Ocupación: {{persona.ocupacion}}</p>
+                    <p>Nivel académico: {{persona.id_nivel_academico}}</p>
+                    <p>Número de hijos: {{persona.hijos.length}}</p>
+                    <hr>
+                </div>
 
                 <p style="text-align: center;">
-                    Disponibilidad
+                    <strong>Disponibilidad</strong>
                 </p>
 
-                <div class="p-d-flex">
-                    <div class="p-mr-2">{{persona.id_horario_inicial}} a {{persona.id_horario_final}}</div>
+                <div class="p-d-flex p-mx-5">
+                    <div class="p-mr-2">
+                        <p-card class="card-shadow">
+                            <i class="pi pi-fw pi-clock"></i>
+                            {{persona.id_horario_inicial}} a {{persona.id_horario_final}}
+                        </p-card>
+                    </div>
                 </div>
             </p-card>
         </div>
-        
+
         <!-- Formulario de cammbio de perfil -->
         <div class="p-col-12 p-lg-8  p-as-start" style="margin-left: 2em;">
             <p-card>
-                <div class="p-grid">
+                <form novalidate [formGroup]="profileForm" #pform="ngForm">
                     <!-- INFORMACION DE LA CUENTA -->
-                    <div class="p-grid p-jc-start" style="padding: 2em;">
+                    <div class="p-grid p-jc-start p-mx-5">
                         <div class="p-col-12">
                             <h3>INFORMACIÓN DE LA CUENTA</h3>
                         </div>
                         <div class="p-col-12 p-lg-6">
                             <span class="p-float-label">
-                                <input class="p-inputtext-lg fill-width" type="text" value="{{persona.correo_electronico}}" pInputText disabled>
+                                <input class="p-inputtext-lg fill-width" formControlName="correo_electronico" type="text" pInputText disabled>
                                 <label for="float-input">Correo Electrónico</label>
                             </span>
                         </div>
-                        <div class="p-col-12 p-lg-3" *ngIf="!dataPersona">
+                        <div class="p-col-12 p-lg-6" *ngIf="!dataPersona">
                             <span class="p-float-label">
-                                <input class="p-inputtext-lg fill-width" type="text" value="aca va el rol" pInputText disabled>
+                                <input class="p-inputtext-lg fill-width" type="text" pInputText disabled>
                                 <label for="float-input">Rol</label>
                             </span>
                         </div>
@@ -59,159 +73,163 @@
                             <a href="#">Cambiar contraseña</a>
                         </div>
                     </div>
-                    
+
                     <!-- dataPersona es un valor clave, para saber si se muestra los datos o solo la info de alguien que no es encuestado. -->
                     <div *ngIf="!dataPersona">
-                        <div class="p-grid">
-                        
-                            <!-- INFORMACION PERSONAL -->
-                            <div class="p-col-12" style="padding: 2em;">
-                                <div class="p-grid">
-                                    <div class="p-col-12 p-md-6 p-mb-5">
-                                        <h3>INFORMACIÓN PERSONAL</h3>
-                                    </div>
-                                </div>
-                                <div class="p-grid">
-                                    <div class="p-col-12 p-md-6 p-mb-5">
-                                        <span class="p-float-label">
-                                            <input class="p-inputtext-lg fill-width" type="text" value="{{persona.primer_nombre}}" pInputText>
-                                            <label for="float-input">Primer Nombre</label>
-                                        </span>
-                                    </div>
-                                    <div class="p-col-12 p-md-6 p-mb-5">
-                                        <span class="p-float-label">
-                                            <input class="p-inputtext-lg fill-width" type="text" value="{{persona.primer_apellido}}" pInputText>
-                                            <label for="float-input">Primer Apellido</label>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="p-grid">
-                                    <div class="p-col-12 p-md-6 p-mb-5">
-                                        <span class="p-float-label">
-                                            <input class="p-inputtext-lg fill-width" type="text" value="{{persona.documento_de_identificacion}}" pInputText>
-                                            <label for="float-input">Documento de identidad</label>
-                                        </span>
-                                    </div>
-                                    <div class="p-col-12 p-md-6 p-mb-5">
-                                        <span class="p-float-label">
-                                            <p-dropdown [options]="generos" [(ngModel)]="selectedGenreValue" ></p-dropdown>
-                                            <label for="float-input">Género</label>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="p-grid">
-                                    <div class="p-col-12 p-md-6 p-mb-5">
-                                        <span class="p-float-label">
-                                            <p-dropdown [options]="edos_civil" [(ngModel)]="selectedEdoCivilValue" ></p-dropdown>
-                                            <label for="float-input">Estado Civil</label>
-                                        </span>
-                                    </div>
-                                    <div class="p-col-12 p-md-6 p-mb-5">
-                                        <span class="p-float-label">
-                                            <p-calendar [(ngModel)]="fecha_nacimiento" [yearNavigator]="true" yearRange="1900:2030" dateFormat="dd/mm/yy"></p-calendar>
-                                            <label for="float-input">Fecha de Nacimiento</label>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- INFORMACION DE CONTACTO -->
-                            <div class="p-col-12" style="padding: 2em;">
-                                <div class="p-grid">
-                                    <div class="p-col-12 p-md-6 p-mb-5">
-                                        <h3>INFORMACIÓN DE CONTACTO</h3>
-                                    </div>
-                                </div>
-                                <div class="p-grid">
-                                    <div class="p-col-12 p-md-6 p-mb-5">
-                                        <span class="p-float-label">
-                                            <p-dropdown [options]="generos" [(ngModel)]="selectedGenreValue" ></p-dropdown>
-                                            <label for="float-input">País</label>
-                                        </span>
-                                    </div>
-                                    <div class="p-col-12 p-md-6 p-mb-5">
-                                        <span class="p-float-label">
-                                            <p-dropdown [options]="generos" [(ngModel)]="selectedGenreValue" ></p-dropdown>
-                                            <label for="float-input">Estado</label>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="p-grid">
-                                    <div class="p-col-12 p-md-6 p-mb-5">
-                                        <span class="p-float-label">
-                                            <p-dropdown [options]="generos" [(ngModel)]="selectedGenreValue" ></p-dropdown>
-                                            <label for="float-input">Ciudad/Municipio</label>
-                                        </span>
-                                    </div>
-                                    <div class="p-col-12 p-md-6 p-mb-5">
-                                        <span class="p-float-label">
-                                            <p-dropdown [options]="generos" [(ngModel)]="selectedGenreValue" ></p-dropdown>
-                                            <label for="float-input">Parroquia</label>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="p-grid">
-                                    <div class="p-col-12 p-md-6 p-mb-5">
-                                        <span class="p-float-label">
-                                            <input class="p-inputtext-lg fill-width" type="text" value="{{persona.telefono}}" pInputText>
-                                            <label for="float-input">Teléfono</label>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- INFORMACION FAMILIAR -->
-                            <div class="p-col-12" style="padding: 2em;">
-                                <div class="p-grid">
-                                    <div class="p-col-12 p-md-6 p-mb-5">
-                                        <h3>INFORMACIÓN FAMILIAR</h3>
-                                    </div>
-                                </div>
-                                <div class="p-grid">
-                                    <div class="p-col-12 p-md-6 p-mb-5">
-                                        <span class="p-float-label">
-                                            <input class="p-inputtext-lg fill-width" type="text" value="{{persona.personas_hogar}}" pInputText>
-                                            <label for="float-input">¿Con cuántas personas vive?</label>
-                                        </span>
-                                    </div>
-                                    <div class="p-col-12 p-md-6 p-mb-5">
-                                        <span class="p-float-label">
-                                            <p-dropdown [options]="tieneHijos" [(ngModel)]="hasKids"></p-dropdown>
-                                            <label for="float-input">¿Tiene hijos?</label>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- INFORMACION DE EDUCACIÓN Y TRABAJO -->
-                            <div class="p-col-12" style="margin-top: 1em;">
-                                <div class="p-grid p-jc-start" style="padding: 2em;">
-                                    <h3>INFORMACIÓN DE EDUCACIÓN Y TRABAJO</h3>
-                                    <div class="p-col-12" style="margin-top: 1em;">
-                                        <span class="p-float-label">
-                                            <input class="p-inputtext-lg fill-width" type="text" value="{{persona.correo_electronico}}" pInputText disabled>
-                                            <label for="float-input">Correo Electrónico</label>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- DISPONIBILIDAD -->
-                            <div class="p-col-12" style="margin-top: 1em;">
-                                <div class="p-grid p-jc-start" style="padding: 2em;">
-                                    <h3>DISPONIBILIDAD</h3>
-                                    <div class="p-col-12" style="margin-top: 1em;">
-                                        <span class="p-float-label">
-                                            <input class="p-inputtext-lg fill-width" type="text" value="{{persona.correo_electronico}}" pInputText disabled>
-                                            <label for="float-input">Correo Electrónico</label>
-                                        </span>
-                                    </div>
-                                </div>
+                        <div class="p-grid p-mx-5">
+                            <div class="p-col-12 p-md-6 p-mt-5">
+                                <h3>INFORMACIÓN PERSONAL</h3>
                             </div>
                         </div>
+
+                        <!-- INFORMACION PERSONAL -->
+                        <div class="p-grid p-mx-5">
+                            <div class="p-col-12 p-md-6 p-mb-5">
+                                <span class="p-float-label">
+                                    <input class="p-inputtext-lg fill-width" type="text" pInputText>
+                                    <label for="float-input">Primer Nombre</label>
+                                </span>
+                            </div>
+                            <div class="p-col-12 p-md-6 p-mb-5">
+                                <span class="p-float-label">
+                                    <input class="p-inputtext-lg fill-width" type="text" pInputText>
+                                    <label for="float-input">Primer Apellido</label>
+                                </span>
+                            </div>
+                            <div class="p-col-12 p-md-6 p-mb-5">
+                                <span class="p-float-label">
+                                    <input class="p-inputtext-lg fill-width" type="text" pInputText>
+                                    <label for="float-input">Documento de identidad</label>
+                                </span>
+                            </div>
+                            <div class="p-col-12 p-md-6 p-mb-5">
+                                <span class="p-float-label">
+                                    <p-dropdown [options]="generos" placeholder="Genero">
+                                    </p-dropdown>
+                                </span>
+                            </div>
+                            <div class="p-col-12 p-md-6 p-mb-5">
+                                <span class="p-float-label">
+                                    <p-dropdown [options]="edos_civil" placeholder="Estado Civil">
+                                    </p-dropdown>
+                                </span>
+                            </div>
+                            <div class="p-col-12 p-md-6 p-mb-5">
+                                <span class="p-float-label">
+                                    <p-calendar placeholder="Fecha de Nacimiento *" [locale]="es" [yearNavigator]="true"
+                                        yearRange="1900:2030" dataType="string" dateFormat="dd/mm/yy"
+                                        class="p-inputtext-lg"></p-calendar>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- INFORMACION DE CONTACTO -->
+                        <div class="p-grid p-mx-5">
+                            <div class="p-col-12 p-md-6 p-mb-5">
+                                <h3>INFORMACIÓN DE CONTACTO</h3>
+                            </div>
+                        </div>
+                        <div class="p-grid p-mx-5">
+                            <div class="p-col-12 p-md-6 p-mb-5">
+                                <span class="p-float-label">
+                                    <p-dropdown [options]="generos">
+                                    </p-dropdown>
+                                    <label for="float-input">País</label>
+                                </span>
+                            </div>
+                            <div class="p-col-12 p-md-6 p-mb-5">
+                                <span class="p-float-label">
+                                    <p-dropdown [options]="generos">
+                                    </p-dropdown>
+                                    <label for="float-input">Estado</label>
+                                </span>
+                            </div>
+                            <div class="p-col-12 p-md-6 p-mb-5">
+                                <span class="p-float-label">
+                                    <p-dropdown [options]="generos">
+                                    </p-dropdown>
+                                    <label for="float-input">Ciudad/Municipio</label>
+                                </span>
+                            </div>
+                            <div class="p-col-12 p-md-6 p-mb-5">
+                                <span class="p-float-label">
+                                    <p-dropdown [options]="generos">
+                                    </p-dropdown>
+                                    <label for="float-input">Parroquia</label>
+                                </span>
+                            </div>
+                            <div class="p-col-12 p-md-6 p-mb-5">
+                                <span class="p-float-label">
+                                    <input class="p-inputtext-lg fill-width" type="text" pInputText>
+                                    <label for="float-input">Teléfono</label>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- INFORMACION FAMILIAR -->
+                            <div class="p-grid p-mx-5">
+                                <div class="p-col-12 p-md-6 p-mb-5">
+                                    <h3>INFORMACIÓN FAMILIAR</h3>
+                                </div>
+                            </div>
+                            <div class="p-grid p-mx-5">
+                                <div class="p-col-12 p-md-6 p-mb-5">
+                                    <span class="p-float-label">
+                                        <input class="p-inputtext-lg fill-width" type="text" pInputText>
+                                        <label for="float-input">¿Con cuántas personas vive?</label>
+                                    </span>
+                                </div>
+                                <div class="p-col-12 p-md-6 p-mb-5">
+                                    <span class="p-float-label">
+                                        <p-dropdown [options]="tieneHijos"></p-dropdown>
+                                        <label for="float-input">¿Tiene hijos?</label>
+                                    </span>
+                                </div>
+                            </div>
+
+                        <!-- INFORMACION DE EDUCACIÓN Y TRABAJO -->
+                        <div class="p-grid p-mx-5">
+                            <div class="p-col-12 p-md-6 p-mb-5">
+                                <h3>INFORMACIÓN FAMILIAR</h3>
+                            </div>
+                        </div>
+                        <div class="p-grid p-mx-5">
+                            <div class="p-col-12 p-md-6 p-mb-5">
+                                <span class="p-float-label">
+                                    <input class="p-inputtext-lg fill-width" type="text" pInputText>
+                                    <label for="float-input">¿Con cuántas personas vive?</label>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- DISPONIBILIDAD -->
+                        <div class="p-grid p-mx-5">
+                            <div class="p-col-12 p-md-6 p-mb-5">
+                                <h3>DISPONIBILIDAD</h3>
+                            </div>
+                        </div>
+                        <div class="p-grid p-mx-5">
+                            <div class="p-col-12 p-md-6 p-mb-5">
+                                <span class="p-float-label">
+                                    <input class="p-inputtext-lg fill-width" type="text" pInputText>
+                                    <label for="float-input">¿Con cuántas personas vive?</label>
+                                </span>
+                            </div>
+                        </div>
+                        
                     </div>
-                </div>
-            </p-card>    
+                </form>
+            </p-card>
         </div>
+    </div>
+
+    <div>
+        <div class="p-grid p-jc-center">
+            <ngx-spinner></ngx-spinner>
+        </div>
+    </div>
+
+    <div *ngIf="!loading && personErrorMessage">
+        <app-server-disconnected></app-server-disconnected>
     </div>
 </div>

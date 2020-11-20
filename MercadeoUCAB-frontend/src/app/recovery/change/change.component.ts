@@ -1,11 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisterService } from '../../services/register.service';
 import { RxwebValidators } from '@rxweb/reactive-form-validators'
+import { Reset } from 'src/app/classes/reset';
+import { ResetService } from 'src/app/services/reset.service';
+
 
 @Component({
   selector: 'app-change',
@@ -15,6 +18,9 @@ import { RxwebValidators } from '@rxweb/reactive-form-validators'
 
 })
 export class ChangeComponent implements OnInit {
+
+  token: String;
+  reset: Reset;
 
   /* Form */
   changeForm: FormGroup;
@@ -38,11 +44,15 @@ export class ChangeComponent implements OnInit {
 
    es: any;
 
-    constructor(private router: Router,
+    constructor(private Activatedroute:ActivatedRoute,
+      private router: Router,
       private fb: FormBuilder,
-      private registerService: RegisterService,
+      private resetService: ResetService,
       private messageService: MessageService) { 
       this.createForm();
+      this.token = this.Activatedroute.snapshot.queryParamMap.get('token');
+      this.reset = new Reset();
+      this.reset.token = this.token;
     }
 
   ngOnInit(): void {
@@ -50,14 +60,14 @@ export class ChangeComponent implements OnInit {
 
   createForm(){
     this.changeForm = this.fb.group({
-      clave: [this.registerService.user.clave,
+      clave: [this.resetService.clave,
         [
           Validators.required,
           Validators.pattern(/^(?=.*\d)(?=.*[a-zA-Z])(?=.*[\W_]).{8,40}$/)
         ]
       ],
       confirmar_clave: [
-        this.registerService.user.confirmar_clave,
+        this.resetService.confirmar_clave,
         [
           Validators.required,
           RxwebValidators.compare({fieldName: 'clave'})
@@ -100,15 +110,28 @@ export class ChangeComponent implements OnInit {
   }
 
   onSubmit(){
-    this.registerService.user.clave = this.changeForm.value.clave;
-    this.registerService.user.confirmar_clave = this.changeForm.value.confirmar_clave;
+    
 
     if (this.changeForm.valid){
+
+      this.reset.clave = this.changeForm.value.clave;
+
+      this.postReset();
       this.nextPage();
     }
     else{
       this.messageService.add({severity:'error', summary: 'Error', detail: 'Claves inválidas'});
     }
+  }
+
+  
+  postReset(): void {
+
+    this.resetService.postReset(this.reset).subscribe((res)=>{
+      this.messageService.add({severity:'success', summary: 'Success', detail: "Clave cambiada correctamente."});
+    }, errorMessage => {
+      this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
+    });
   }
 
   nextPage(): void {

@@ -17,6 +17,7 @@ import { ReorderableColumn } from 'primeng/table';
 })
 export class RecoveryComponent implements OnInit {
 
+
    /* Form */
    recoveryForm: FormGroup;
    @ViewChild('aform') recoveryFormDirective;

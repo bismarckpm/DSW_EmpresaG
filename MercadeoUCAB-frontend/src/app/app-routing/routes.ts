@@ -25,6 +25,11 @@ import { NotFoundComponent } from '../errors/not-found/not-found.component';
 import { ProfileComponent } from '../profile/profile.component';
 import { componentFactoryName } from '@angular/compiler';
 import { ChangeComponent } from '../recovery/change/change.component';
+import { SelectExistingComponent } from '../studies/select-existing/select-existing.component';
+import { PresentationsComponent } from '../presentations/presentations.component';
+import { UsersComponent } from '../users/users.component';
+import { AddUserComponent } from '../users/add-user/add-user.component';
+import { EditUserComponent } from '../users/edit-user/edit-user.component';
 
 export const routes: Routes = [
     { 
@@ -102,6 +107,10 @@ export const routes: Routes = [
       component: CreateStudyComponent
     },
     {
+      path: 'studies/select-existing',
+      component: SelectExistingComponent
+    },
+    {
       path: 'studies/edit',
       component: EditStudyComponent
     },
@@ -116,6 +125,26 @@ export const routes: Routes = [
     {
       path: 'profile',
       component: ProfileComponent
+    },
+
+    /* PRODUCTS */
+    {
+      path: 'presentations',
+      component: PresentationsComponent
+    },
+
+    /* USERS */
+    {
+      path: 'users',
+      component: UsersComponent
+    },
+    {
+      path: 'users/add',
+      component: AddUserComponent
+    },
+    {
+      path: 'users/edit',
+      component: EditUserComponent
     },
 
     /* ERROR PAGES */
