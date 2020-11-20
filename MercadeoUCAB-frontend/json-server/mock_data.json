@@ -533,8 +533,45 @@
       "id_categoria": 5
     }
   ],
+  "types": [
+    {
+      "id": 1,
+      "nombre": "Spray"
+    },
+    {
+      "id": 2,
+      "nombre": "Headsets"
+    },
+    {
+      "id": 3,
+      "nombre": "Lata"
+    }
+  ],
   "presentations": [
-
+    {
+      "id": 1,
+      "nombre": "200 ml",
+      "id_tipo": 1,
+      "tipo": "Spray"
+    },
+    {
+      "id": 2,
+      "nombre": "Azul",
+      "id_tipo": 2,
+      "tipo": "Headsets"
+    },
+    {
+      "id": 3,
+      "nombre": "Cereza",
+      "id_tipo": 3,
+      "tipo": "Lata"
+    },
+    {
+      "id": 4,
+      "nombre": "2L",
+      "id_tipo": 1,
+      "descripcion": ":)"
+    }
   ],
   "requests": [
     {
