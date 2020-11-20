@@ -47,6 +47,7 @@ import { QuestionService } from './services/question.service';
 import { CategoryService } from './services/category.service';
 import { SubcategoryService } from './services/subcategory.service';
 import { StudiesService } from './services/studies.service';
+import { PresentationService } from './services/presentation.service';
 import { ProcessHttpMessageService } from './services/process-http-message.service';
 
 /* My components */
@@ -163,6 +164,7 @@ import { ViewUsersSummaryComponent } from './users/view-users-summary/view-users
     CategoryService,
     SubcategoryService,
     StudiesService,
+    PresentationService,
     ProcessHttpMessageService,
     {provide: 'BaseURL', useValue: baseURL},
     {provide: 'ServerURL', useValue: serverURL}
