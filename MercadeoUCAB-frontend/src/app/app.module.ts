@@ -49,6 +49,7 @@ import { SubcategoryService } from './services/subcategory.service';
 import { StudiesService } from './services/studies.service';
 import { PresentationService } from './services/presentation.service';
 import { TypesService } from './services/types.service';
+import { UserSurveyService } from './services/user-survey.service';
 import { ProcessHttpMessageService } from './services/process-http-message.service';
 
 /* My components */
@@ -87,6 +88,8 @@ import { UsersComponent } from './users/users.component';
 import { AddUserComponent } from './users/add-user/add-user.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
 import { ViewUsersSummaryComponent } from './users/view-users-summary/view-users-summary.component';
+import { AvailableSurveysComponent } from './surveys/available-surveys/available-surveys.component';
+import { TakeSurveyUserComponent } from './surveys/take-survey-user/take-survey-user.component';
 
 @NgModule({
   declarations: [
@@ -124,7 +127,9 @@ import { ViewUsersSummaryComponent } from './users/view-users-summary/view-users
     UsersComponent,
     AddUserComponent,
     EditUserComponent,
-    ViewUsersSummaryComponent
+    ViewUsersSummaryComponent,
+    AvailableSurveysComponent,
+    TakeSurveyUserComponent
   ],
   imports: [
     BrowserModule,
@@ -167,6 +172,7 @@ import { ViewUsersSummaryComponent } from './users/view-users-summary/view-users
     StudiesService,
     PresentationService,
     TypesService,
+    UserSurveyService,
     ProcessHttpMessageService,
     {provide: 'BaseURL', useValue: baseURL},
     {provide: 'ServerURL', useValue: serverURL}

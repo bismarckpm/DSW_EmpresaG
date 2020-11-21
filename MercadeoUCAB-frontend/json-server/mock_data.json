@@ -920,5 +920,7 @@
         }
       ]
     }
-  ]
+  ],
+  "available-surveys": [],
+  "take-survey": []
 }

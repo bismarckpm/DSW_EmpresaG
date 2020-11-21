@@ -30,6 +30,8 @@ import { PresentationsComponent } from '../presentations/presentations.component
 import { UsersComponent } from '../users/users.component';
 import { AddUserComponent } from '../users/add-user/add-user.component';
 import { EditUserComponent } from '../users/edit-user/edit-user.component';
+import { AvailableSurveysComponent } from '../surveys/available-surveys/available-surveys.component';
+import { TakeSurveyUserComponent } from '../surveys/take-survey-user/take-survey-user.component';
 
 export const routes: Routes = [
     { 
@@ -125,6 +127,16 @@ export const routes: Routes = [
     {
       path: 'profile',
       component: ProfileComponent
+    },
+
+    /* SURVEYS */
+    {
+      path: 'available-surveys',
+      component: AvailableSurveysComponent
+    },
+    {
+      path: 'available-surveys/take',
+      component: TakeSurveyUserComponent
     },
 
     /* PRODUCTS */
