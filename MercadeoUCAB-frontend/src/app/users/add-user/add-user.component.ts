@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-user',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-user.component.scss']
 })
 export class AddUserComponent implements OnInit {
-
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { 
+  }
 
   ngOnInit(): void {
   }
 
+  backToUsers(event){
+    this.router.navigate(["/users"]);
+  }
 }

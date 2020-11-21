@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Person } from '../classes/person';
+import { Child } from '../classes/child';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { baseURL } from '../constants/baseURL';
@@ -11,11 +12,27 @@ import { ProcessHttpMessageService } from '../services/process-http-message.serv
 })
 export class UserService {
 
+  hijos: Child[] = null;
+
+  user: Person = {
+    correo_electronico: '',
+    clave: '',
+    hijos: this.hijos
+  };
+
   constructor(private http: HttpClient,
     private processHTTPMessageService: ProcessHttpMessageService) { }
 
   getPerson(): Observable<Person[]>{
     return this.http.get<Person[]>(baseURL + 'register')
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
+  getNewPerson(pid): Observable<Person>{
+    return this.http.get<Person>(baseURL + 'register', {params: {
+      id: pid
+    }})
+      .pipe(map(person => person[0]))
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 

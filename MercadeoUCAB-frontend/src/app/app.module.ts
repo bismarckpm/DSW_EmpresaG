@@ -86,6 +86,7 @@ import { UsersComponent } from './users/users.component';
 import { AddUserComponent } from './users/add-user/add-user.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
 import { ViewUsersSummaryComponent } from './users/view-users-summary/view-users-summary.component';
+import { AddUserFormComponent } from './users/add-user/add-user-form/add-user-form.component';
 
 @NgModule({
   declarations: [
@@ -123,7 +124,8 @@ import { ViewUsersSummaryComponent } from './users/view-users-summary/view-users
     UsersComponent,
     AddUserComponent,
     EditUserComponent,
-    ViewUsersSummaryComponent
+    ViewUsersSummaryComponent,
+    AddUserFormComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,7 @@
-// export class Reset {
-//     nombre: String;
-//     apellido: String;
-// }
-// No por ahora
+import { Person } from '../classes/person';
+
+export class Users {
+    status: String;
+    email: Person[];
+    password: Person[];
+}

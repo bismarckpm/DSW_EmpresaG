@@ -1,0 +1,211 @@
+<div class="p-grid vertical-container" *ngIf="persona">
+    <!-- Formulario - Add a new User -->
+        <p-card>
+            <form novalidate [formGroup]="userForm" #uform="ngForm">
+
+                <div *ngIf="!dataPersona">
+                    <div class="p-grid p-mx-5">
+                        <div class="p-col-12 p-md-12 p-mt-12">
+                            <h4>Información de la cuenta</h4>
+                        </div>
+                    </div>
+
+                    <!-- INFORMACION DE LA CUENTA -->
+                    <div class="p-grid p-mx-5">
+                        <div class="p-col-12 p-md-6 p-mb-5">
+                            <span class="p-float-label">
+                                <input class="p-inputtext-lg fill-width" type="text" pInputText>
+                                <label for="float-input">Correo electrónico</label>
+                            </span>
+                        </div>
+                        <div class="p-col-12 p-md-6 p-mb-5">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="roles" placeholder="Rol">
+                                </p-dropdown>
+                            </span>
+                        </div>
+
+                        <div class="p-col-12 p-md-6 p-mb-5">
+                            <span class="p-float-label">
+                                <input id="contraseña" class="p-inputtext-lg fill-width" formControlName="clave" type="password" pPassword weakLabel="Débil"
+                                    mediumLabel="Normal" strongLabel="Fuerte" promptLabel="Ingrese una clave">
+                                <label for="float-input">Contraseña *</label>
+                            </span>
+                            <span class="error-msg" *ngIf="formErrors.clave"><small>{{formErrors.clave}}</small></span>
+                        </div>  
+
+                        <div class="p-col-12 p-md-6 p-mb-5">
+                            <span class="p-float-label">
+                                <input id="confirmar_clave" class="p-inputtext-lg fill-width" formControlName="confirmar_clave"  type="password" pInputText>
+                                <label for="float-input">Confirmar Contraseña *</label>
+                            </span>
+                            <span class="error-msg" *ngIf="formErrors.confirmar_clave"><small>{{formErrors.confirmar_clave}}</small></span>
+            
+                        </div>
+
+                        <div class="p-col-12 p-md-6 p-mb-5">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="account_stat" placeholder="Estado de la cuenta">
+                                </p-dropdown>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- dataPersona es un valor clave, para saber si se muestra los datos o solo la info de alguien que no es encuestado. -->
+                <div *ngIf="!dataPersona">
+                    <div class="p-grid p-mx-5">
+                        <div class="p-col-12 p-md-6 p-mt-5">
+                            <h4>Información peronal</h4>
+                        </div>
+                    </div>
+
+                    <!-- INFORMACION PERSONAL -->
+                    <div class="p-grid p-mx-5">
+                        <div class="p-col-12 p-md-6 p-mb-5">
+                            <span class="p-float-label">
+                                <input class="p-inputtext-lg fill-width" type="text" pInputText>
+                                <label for="float-input">Primer Nombre</label>
+                            </span>
+                        </div>
+                        <div class="p-col-12 p-md-6 p-mb-5">
+                            <span class="p-float-label">
+                                <input class="p-inputtext-lg fill-width" type="text" pInputText>
+                                <label for="float-input">Primer Apellido</label>
+                            </span>
+                        </div>
+                        <div class="p-col-12 p-md-6 p-mb-5">
+                            <span class="p-float-label">
+                                <input class="p-inputtext-lg fill-width" type="text" pInputText>
+                                <label for="float-input">Documento de identidad</label>
+                            </span>
+                        </div>
+                        <div class="p-col-12 p-md-6 p-mb-5">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="generos" placeholder="Género">
+                                </p-dropdown>
+                            </span>
+                        </div>
+                        <div class="p-col-12 p-md-6 p-mb-5">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="edos_civil" placeholder="Estado Civil">
+                                </p-dropdown>
+                            </span>
+                        </div>
+                        <div class="p-col-12 p-md-6 p-mb-5">
+                            <span class="p-float-label">
+                                <p-calendar placeholder="Fecha de Nacimiento *" [locale]="es" [yearNavigator]="true"
+                                    yearRange="1900:2030" dataType="string" dateFormat="dd/mm/yy"
+                                    class="p-inputtext-lg"></p-calendar>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- INFORMACION DE CONTACTO -->
+                    <div class="p-grid p-mx-5">
+                        <div class="p-col-12 p-md-6 p-mb-5">
+                            <h3>Información de contacto</h3>
+                        </div>
+                    </div>
+                    <div class="p-grid p-mx-5">
+                        <div class="p-col-12 p-md-6 p-mb-5">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="generos">
+                                </p-dropdown>
+                                <label for="float-input">País</label>
+                            </span>
+                        </div>
+                        <div class="p-col-12 p-md-6 p-mb-5">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="generos">
+                                </p-dropdown>
+                                <label for="float-input">Estado</label>
+                            </span>
+                        </div>
+                        <div class="p-col-12 p-md-6 p-mb-5">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="generos">
+                                </p-dropdown>
+                                <label for="float-input">Ciudad/Municipio</label>
+                            </span>
+                        </div>
+                        <div class="p-col-12 p-md-6 p-mb-5">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="generos">
+                                </p-dropdown>
+                                <label for="float-input">Parroquia</label>
+                            </span>
+                        </div>
+                        <div class="p-col-12 p-md-6 p-mb-5">
+                            <span class="p-float-label">
+                                <input class="p-inputtext-lg fill-width" type="text" pInputText>
+                                <label for="float-input">Teléfono</label>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- INFORMACION FAMILIAR -->
+                        <div class="p-grid p-mx-5">
+                            <div class="p-col-12 p-md-6 p-mb-5">
+                                <h4>Familia</h4>
+                            </div>
+                        </div>
+                        <div class="p-grid p-mx-5">
+                            <div class="p-col-12 p-md-6 p-mb-5">
+                                <span class="p-float-label">
+                                    <input class="p-inputtext-lg fill-width" type="text" pInputText>
+                                    <label for="float-input">¿Con cuántas personas vive?</label>
+                                </span>
+                            </div>
+                            <div class="p-col-12 p-md-6 p-mb-5">
+                                <span class="p-float-label">
+                                    <p-dropdown [options]="tieneHijos"></p-dropdown>
+                                    <label for="float-input">¿Tiene hijos?</label>
+                                </span>
+                            </div>
+                        </div>
+
+                    <!-- INFORMACION DE EDUCACIÓN Y TRABAJO -->
+                    <div class="p-grid p-mx-5">
+                        <div class="p-col-12 p-md-6 p-mb-5">
+                            <h4>Información de educación y trabajo</h4>
+                        </div>
+                    </div>
+                    <div class="p-grid p-mx-5">
+                        <div class="p-col-12 p-md-6 p-mb-5">
+                            <span class="p-float-label">
+                                <input class="p-inputtext-lg fill-width" type="text" pInputText>
+                                <label for="float-input">¿Con cuántas personas vive?</label>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- DISPONIBILIDAD -->
+                    <div class="p-grid p-mx-5">
+                        <div class="p-col-12 p-md-6 p-mb-5">
+                            <h4>Disponibilidad</h4>
+                        </div>
+                    </div>
+                    <div class="p-grid p-mx-5">
+                        <div class="p-col-12 p-md-6 p-mb-5">
+                            <span class="p-float-label">
+                                <input class="p-inputtext-lg fill-width" type="text" pInputText>
+                                <label for="float-input">¿Con cuántas personas vive?</label>
+                            </span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </form>
+        </p-card>
+    <!-- </div> -->
+
+    <div>
+        <div class="p-grid p-jc-center">
+            <ngx-spinner></ngx-spinner>
+        </div>
+    </div>
+
+    <div *ngIf="!loading && personErrorMessage">
+    <app-server-disconnected></app-server-disconnected>
+</div>

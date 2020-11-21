@@ -43,15 +43,15 @@ export class UsersComponent implements OnInit {
   }
 
   // El doc de identificacion no sirvio
-  deleteUser(usuarios){
+  deleteUser(person){
     this.confirmationService.confirm({
-      message: 'El siguiente usuario: <code>' + usuarios.documento_de_identificacion + '</code> está apunto de ser eliminado, ¿Desea continuar?',
+      message: 'El siguiente usuario: <code>' + person.documento_de_identificacion + '</code> está apunto de ser eliminado, ¿Desea continuar?',
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-          this.userService.deleteUser(usuarios).subscribe((q) => {
+          this.userService.deleteUser(person).subscribe((q) => {
 
-            let index = this.usuarios.indexOf(usuarios)
+            let index = this.usuarios.indexOf(person)
             if (index > -1)
               this.usuarios.splice(index, 1);
 
