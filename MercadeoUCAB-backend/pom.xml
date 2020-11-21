@@ -12,6 +12,9 @@
     <modules>
         <module>servicio</module>
         <module>entidades</module>
+        <module>dto</module>
+        <module>dao</module>
+        <module>exceptions</module>
     </modules>
 
     <build>
