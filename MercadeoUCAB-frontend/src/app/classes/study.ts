@@ -25,4 +25,8 @@ export class Study {
     lugares?: string[];
     subcategoria?: string;
     categoria?: string;
+
+    /* FOR USER VIEW */
+    n_preguntas?: number;
+    tiempo_estimado?: number;
 }
