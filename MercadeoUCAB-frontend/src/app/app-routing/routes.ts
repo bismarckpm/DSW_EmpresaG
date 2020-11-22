@@ -32,6 +32,10 @@ import { AddUserComponent } from '../users/add-user/add-user.component';
 import { EditUserComponent } from '../users/edit-user/edit-user.component';
 import { AvailableSurveysComponent } from '../surveys/available-surveys/available-surveys.component';
 import { TakeSurveyUserComponent } from '../surveys/take-survey-user/take-survey-user.component';
+import { AnalysisRequestsComponent } from '../analytics/analysis-requests/analysis-requests.component';
+import { AvailablePopulationComponent } from '../analytics/available-population/available-population.component';
+import { StatisticsComponent } from '../analytics/statistics/statistics.component';
+import { MakeInterviewComponent } from '../analytics/make-interview/make-interview.component';
 
 export const routes: Routes = [
     { 
@@ -137,6 +141,24 @@ export const routes: Routes = [
     {
       path: 'available-surveys/take',
       component: TakeSurveyUserComponent
+    },
+
+    /* ANALYST */
+    {
+      path: 'analysis-requests',
+      component: AnalysisRequestsComponent
+    },
+    {
+      path: 'available-population',
+      component: AvailablePopulationComponent
+    },
+    {
+      path: 'stats',
+      component: StatisticsComponent
+    },
+    {
+      path: 'make-interview',
+      component: MakeInterviewComponent
     },
 
     /* PRODUCTS */

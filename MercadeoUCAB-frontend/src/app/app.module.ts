@@ -91,6 +91,10 @@ import { EditUserComponent } from './users/edit-user/edit-user.component';
 import { ViewUsersSummaryComponent } from './users/view-users-summary/view-users-summary.component';
 import { AvailableSurveysComponent } from './surveys/available-surveys/available-surveys.component';
 import { TakeSurveyUserComponent } from './surveys/take-survey-user/take-survey-user.component';
+import { AnalysisRequestsComponent } from './analytics/analysis-requests/analysis-requests.component';
+import { StatisticsComponent } from './analytics/statistics/statistics.component';
+import { AvailablePopulationComponent } from './analytics/available-population/available-population.component';
+import { MakeInterviewComponent } from './analytics/make-interview/make-interview.component';
 
 @NgModule({
   declarations: [
@@ -130,7 +134,11 @@ import { TakeSurveyUserComponent } from './surveys/take-survey-user/take-survey-
     EditUserComponent,
     ViewUsersSummaryComponent,
     AvailableSurveysComponent,
-    TakeSurveyUserComponent
+    TakeSurveyUserComponent,
+    AnalysisRequestsComponent,
+    StatisticsComponent,
+    AvailablePopulationComponent,
+    MakeInterviewComponent
   ],
   imports: [
     BrowserModule,
