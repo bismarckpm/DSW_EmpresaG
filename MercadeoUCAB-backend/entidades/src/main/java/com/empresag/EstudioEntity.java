@@ -7,21 +7,10 @@ import java.util.Objects;
 @Entity
 @Table(name = "estudio", schema = "empresag", catalog = "")
 public class EstudioEntity extends BaseEntity{
-    private int id;
     private Date fechaRealizacion;
     private Date fechaCulminacion;
     private int estado;
     private AnalisisEntity fkAnalisis;
-
-    @Id
-    @Column(name = "id")
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @Basic
     @Column(name = "fecha_realizacion")
@@ -63,20 +52,4 @@ public class EstudioEntity extends BaseEntity{
         this.fkAnalisis = fkAnalisis;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        EstudioEntity that = (EstudioEntity) o;
-        return id == that.id &&
-                estado == that.estado &&
-                Objects.equals(fechaRealizacion, that.fechaRealizacion) &&
-                Objects.equals(fechaCulminacion, that.fechaCulminacion) &&
-                Objects.equals(fkAnalisis, that.fkAnalisis);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, fechaRealizacion, fechaCulminacion, estado, fkAnalisis);
-    }
 }

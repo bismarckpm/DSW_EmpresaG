@@ -9,13 +9,6 @@ public class CategoriaSubcategoriaEntity extends BaseEntity {
     private CategoriaEntity fkCategoria;
     private SubcategoriaEntity fkSubcategoria;
 
-    public CategoriaSubcategoriaEntity(long id) {
-        super(id);
-    }
-
-    public CategoriaSubcategoriaEntity() {
-    }
-
     @ManyToOne
     @Column(name = "fk_categoria")
     public CategoriaEntity getFkCategoria() {

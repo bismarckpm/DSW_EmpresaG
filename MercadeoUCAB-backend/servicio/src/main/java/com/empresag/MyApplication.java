@@ -18,6 +18,7 @@ public class MyApplication extends Application {
     public Set<Class<?>> getClasses() {
         Set<Class<?>> h = new HashSet<>();
         h.add( HelloWorld.class );
+        h.add( DispositivoService.class );
         /* h.add( Name.class ); */
         return h;
     }

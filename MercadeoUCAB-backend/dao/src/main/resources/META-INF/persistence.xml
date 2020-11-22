@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+
+    <persistence-unit name="empresag">
+        <class>com.empresag.AnalisisEntity</class>
+        <class>com.empresag.CategoriaEntity</class>
+        <class>com.empresag.CategoriaSubcategoriaEntity</class>
+        <class>com.empresag.DisponibilidadEntity</class>
+        <class>com.empresag.DispositivoEntity</class>
+        <class>com.empresag.EdoCivilEntity</class>
+        <class>com.empresag.EncuestaEntity</class>
+        <class>com.empresag.EstudioEntity</class>
+        <class>com.empresag.FiltroEntity</class>
+        <class>com.empresag.GeneroEntity</class>
+        <class>com.empresag.GrupoFamiliarEntity</class>
+        <class>com.empresag.LugarEntity</class>
+        <class>com.empresag.MarcaEntity</class>
+        <class>com.empresag.MarcaTipoEntity</class>
+        <class>com.empresag.NivelAcademicoEntity</class>
+        <class>com.empresag.NivelSocioeconomicoEntity</class>
+        <class>com.empresag.OcupacionEntity</class>
+        <class>com.empresag.OpcionEntity</class>
+        <class>com.empresag.PersonaDisponibilidadEntity</class>
+        <class>com.empresag.PersonaDispositivoEntity</class>
+        <class>com.empresag.PersonaEntity</class>
+        <class>com.empresag.PersonaGrupofamiliarEntity</class>
+        <class>com.empresag.PersonaNvlacademicoEntity</class>
+        <class>com.empresag.PersonaOcupacionEntity</class>
+        <class>com.empresag.PosibleRespuestaEntity</class>
+        <class>com.empresag.PreguntaCatSubcatEntity</class>
+        <class>com.empresag.PreguntaEntity</class>
+        <class>com.empresag.PreguntaEstudioEntity</class>
+        <class>com.empresag.PresentacionEntity</class>
+        <class>com.empresag.RolEntity</class>
+        <class>com.empresag.SolicitudEntity</class>
+        <class>com.empresag.SolicitudEstudioEntity</class>
+        <class>com.empresag.SubcategoriaEntity</class>
+        <class>com.empresag.SubcategoriaMarcaEntity</class>
+        <class>com.empresag.TelefonoEntity</class>
+        <class>com.empresag.TipoEntity</class>
+        <class>com.empresag.TipoPreguntaEntity</class>
+        <class>com.empresag.TipoPresentacionEntity</class>
+        <class>com.empresag.UsuarioEntity</class>
+
+        <!--TODO (INFO) - AQUI VAN LAS CREDENCIALES DE LA BASE DE DATOS-->
+
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/empresag"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="12345678"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="eclipselink.logging.level" value="FINE"/>
+        </properties>
+    </persistence-unit>
+</persistence>

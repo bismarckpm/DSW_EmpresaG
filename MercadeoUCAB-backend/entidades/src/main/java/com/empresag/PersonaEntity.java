@@ -7,7 +7,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "persona", schema = "empresag", catalog = "")
 public class PersonaEntity extends BaseEntity{
-    private int id;
     private String documentoIdentidad;
     private String primerNombre;
     private String segundoNombre;
@@ -17,16 +16,6 @@ public class PersonaEntity extends BaseEntity{
     private GeneroEntity fkGenero;
     private EdoCivilEntity fkEdoCivil;
     private PersonaEntity fkPersona;
-
-    @Id
-    @Column(name = "id")
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @Basic
     @Column(name = "documento_identidad")
@@ -118,25 +107,4 @@ public class PersonaEntity extends BaseEntity{
         this.fkPersona = fkPersona;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PersonaEntity that = (PersonaEntity) o;
-        return id == that.id &&
-                fkGenero == that.fkGenero &&
-                fkEdoCivil == that.fkEdoCivil &&
-                Objects.equals(documentoIdentidad, that.documentoIdentidad) &&
-                Objects.equals(primerNombre, that.primerNombre) &&
-                Objects.equals(segundoNombre, that.segundoNombre) &&
-                Objects.equals(primerApellido, that.primerApellido) &&
-                Objects.equals(segundoApellido, that.segundoApellido) &&
-                Objects.equals(fechaNacimiento, that.fechaNacimiento) &&
-                Objects.equals(fkPersona, that.fkPersona);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, documentoIdentidad, primerNombre, segundoNombre, primerApellido, segundoApellido, fechaNacimiento, fkGenero, fkEdoCivil, fkPersona);
-    }
 }

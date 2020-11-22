@@ -6,21 +6,10 @@ import java.util.Objects;
 @Entity
 @Table(name = "lugar", schema = "empresag", catalog = "")
 public class LugarEntity extends BaseEntity{
-    private int id;
     private String nombre;
     private int tipo;
     private NivelSocioeconomicoEntity fkNivelSocioeconomico;
     private LugarEntity fkLugar;
-
-    @Id
-    @Column(name = "id")
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @Basic
     @Column(name = "nombre")
@@ -62,20 +51,4 @@ public class LugarEntity extends BaseEntity{
         this.fkLugar = fkLugar;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        LugarEntity that = (LugarEntity) o;
-        return id == that.id &&
-                tipo == that.tipo &&
-                Objects.equals(nombre, that.nombre) &&
-                Objects.equals(fkNivelSocioeconomico, that.fkNivelSocioeconomico) &&
-                Objects.equals(fkLugar, that.fkLugar);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, nombre, tipo, fkNivelSocioeconomico, fkLugar);
-    }
 }

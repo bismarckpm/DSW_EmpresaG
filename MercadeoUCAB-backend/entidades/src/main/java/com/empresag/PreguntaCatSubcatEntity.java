@@ -6,20 +6,9 @@ import java.util.Objects;
 @Entity
 @Table(name = "pregunta_cat_subcat", schema = "empresag", catalog = "")
 public class PreguntaCatSubcatEntity extends BaseEntity{
-    private int id;
     private PreguntaEntity fkPregunta;
     private CategoriaEntity fkCategoria;
     private SubcategoriaEntity fkSubcategoria;
-
-    @Id
-    @Column(name = "id")
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @ManyToOne
     @JoinColumn(name = "fk_pregunta")
@@ -51,19 +40,4 @@ public class PreguntaCatSubcatEntity extends BaseEntity{
         this.fkSubcategoria = fkSubcategoria;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PreguntaCatSubcatEntity that = (PreguntaCatSubcatEntity) o;
-        return id == that.id &&
-                fkPregunta == that.fkPregunta &&
-                Objects.equals(fkCategoria, that.fkCategoria) &&
-                Objects.equals(fkSubcategoria, that.fkSubcategoria);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, fkPregunta, fkCategoria, fkSubcategoria);
-    }
 }

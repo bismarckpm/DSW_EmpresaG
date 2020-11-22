@@ -6,18 +6,9 @@ import java.util.Objects;
 @Entity
 @Table(name = "dispositivo", schema = "empresag", catalog = "")
 public class DispositivoEntity extends BaseEntity{
-    private int id;
+
     private String nombre;
 
-    @Id
-    @Column(name = "id")
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @Basic
     @Column(name = "nombre")
@@ -29,17 +20,4 @@ public class DispositivoEntity extends BaseEntity{
         this.nombre = nombre;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DispositivoEntity that = (DispositivoEntity) o;
-        return id == that.id &&
-                Objects.equals(nombre, that.nombre);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, nombre);
-    }
 }

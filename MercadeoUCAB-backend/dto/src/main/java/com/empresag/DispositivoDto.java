@@ -18,4 +18,11 @@ public class DispositivoDto extends BaseDto {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    @Override
+    public String toString() {
+        return "DispositivoDto{" +
+                "nombre='" + nombre + '\'' +
+                '}';
+    }
 }

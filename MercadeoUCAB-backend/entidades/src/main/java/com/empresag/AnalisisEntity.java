@@ -8,13 +8,6 @@ import java.util.Objects;
 public class AnalisisEntity extends BaseEntity {
     private String conclusiones;
 
-    public AnalisisEntity(long id) {
-        super(id);
-    }
-
-    public AnalisisEntity() {
-    }
-
     @Basic
     @Column(name = "conclusiones")
     public String getConclusiones() {

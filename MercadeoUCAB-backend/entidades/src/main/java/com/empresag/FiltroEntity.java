@@ -6,7 +6,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "filtro", schema = "empresag", catalog = "")
 public class FiltroEntity extends BaseEntity{
-    private int id;
     private EstudioEntity fkEstudio;
     private Integer tipoFiltroLugar;
     private Integer edadMinima;
@@ -19,16 +18,6 @@ public class FiltroEntity extends BaseEntity{
     private LugarEntity fkLugar;
     private CategoriaEntity fkCategoria;
     private SubcategoriaEntity fkSubcategoria;
-
-    @Id
-    @Column(name = "id")
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @ManyToOne
     @JoinColumn(name = "fk_estudio")
@@ -150,28 +139,4 @@ public class FiltroEntity extends BaseEntity{
         this.fkSubcategoria = fkSubcategoria;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        FiltroEntity that = (FiltroEntity) o;
-        return id == that.id &&
-                fkEstudio == that.fkEstudio &&
-                Objects.equals(tipoFiltroLugar, that.tipoFiltroLugar) &&
-                Objects.equals(edadMinima, that.edadMinima) &&
-                Objects.equals(edadMaxima, that.edadMaxima) &&
-                Objects.equals(fkNivelSocioeconomico, that.fkNivelSocioeconomico) &&
-                Objects.equals(fkEdoCivil, that.fkEdoCivil) &&
-                Objects.equals(fkNivelAcademico, that.fkNivelAcademico) &&
-                Objects.equals(fkGenero, that.fkGenero) &&
-                Objects.equals(fkGrupoFamiliar, that.fkGrupoFamiliar) &&
-                Objects.equals(fkLugar, that.fkLugar) &&
-                Objects.equals(fkCategoria, that.fkCategoria) &&
-                Objects.equals(fkSubcategoria, that.fkSubcategoria);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, fkEstudio, tipoFiltroLugar, edadMinima, edadMaxima, fkNivelSocioeconomico, fkEdoCivil, fkNivelAcademico, fkGenero, fkGrupoFamiliar, fkLugar, fkCategoria, fkSubcategoria);
-    }
 }
