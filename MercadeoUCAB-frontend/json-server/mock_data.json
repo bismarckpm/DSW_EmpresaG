@@ -119,7 +119,7 @@
     {
       "id": 2,
       "tipo": "Rango",
-      "pregunta": "¿Qué talla de zapatos suele usar usted?",
+      "pregunta": "¿Qué talla de zapatos suele usar usted?¿",
       "categoria": "Ropa",
       "subcategoria": "Streetwear",
       "id_categoria": 1,
@@ -477,6 +477,20 @@
         }
       ],
       "id": 113
+    },
+    {
+      "id_categoria": 1,
+      "id_subcategoria": 1,
+      "pregunta": "¿Alguna vez ha comprado en una tienda underground?",
+      "id_tipo": 4,
+      "id": 114
+    },
+    {
+      "id_categoria": 1,
+      "id_subcategoria": 1,
+      "pregunta": "¿Alguna vez ha comprado en una tienda underground?",
+      "id_tipo": 4,
+      "id": 115
     }
   ],
   "categories": [
@@ -533,8 +547,45 @@
       "id_categoria": 5
     }
   ],
+  "types": [
+    {
+      "id": 1,
+      "nombre": "Spray"
+    },
+    {
+      "id": 2,
+      "nombre": "Headsets"
+    },
+    {
+      "id": 3,
+      "nombre": "Lata"
+    }
+  ],
   "presentations": [
-
+    {
+      "id": 1,
+      "nombre": "200 ml",
+      "id_tipo": 1,
+      "tipo": "Spray"
+    },
+    {
+      "id": 2,
+      "nombre": "Azul",
+      "id_tipo": 2,
+      "tipo": "Headsets"
+    },
+    {
+      "id": 3,
+      "nombre": "Cereza",
+      "id_tipo": 3,
+      "tipo": "Lata"
+    },
+    {
+      "id": 4,
+      "nombre": "2L",
+      "id_tipo": 1,
+      "descripcion": ":)"
+    }
   ],
   "requests": [
     {
@@ -676,6 +727,13 @@
             }
           ],
           "id": 13
+        },
+        {
+          "id_categoria": 1,
+          "id_subcategoria": 1,
+          "pregunta": "¿Alguna vez ha comprado en una tienda underground?",
+          "id_tipo": 4,
+          "id": 115
         }
       ],
       "lugares": "Estados Unidos",
@@ -882,6 +940,106 @@
           "id": 113
         }
       ]
+    }
+  ],
+  "take-survey": [
+    {
+      "id": 1,
+      "categoria": "Ropa",
+      "id_categoria": 1,
+      "subcategoria": "Streetwear",
+      "id_subcategoria": 1,
+      "genero": "Masculino",
+      "id_genero": 1,
+      "nivel_academico": "Primaria, Secundaria",
+      "id_nivel_academico": [
+        1,
+        2
+      ],
+      "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
+      "id_nivel_socioeconomico": [
+        2,
+        3,
+        4
+      ],
+      "estado": "En progreso",
+      "edad_minima": 15,
+      "edad_maxima": "45",
+      "id_estado": 2,
+      "preguntas": [
+        {
+          "id": 2,
+          "tipo": "Rango",
+          "pregunta": "¿Qué talla de zapatos suele usar usted?",
+          "categoria": "Ropa",
+          "subcategoria": "Streetwear",
+          "id_categoria": 1,
+          "id_subcategoria": 1,
+          "id_tipo": 5,
+          "opciones": [
+            {
+              "rango_inicial": "35",
+              "rango_final": "46"
+            }
+          ],
+          "respuestas": {
+            "rango_inicial": 2,
+            "rango_final": 23
+          }
+        },
+        {
+          "id_categoria": 1,
+          "id_subcategoria": 1,
+          "pregunta": "¿De qué precio fue la pieza más cara que ha comprado? ($)",
+          "id_tipo": 1,
+          "id": 101,
+          "respuestas": {
+            "respuesta_texto": "pinto es gei"
+          }
+        },
+        {
+          "id_categoria": 4,
+          "id_subcategoria": 4,
+          "pregunta": "Seleccione qué animes de los siguientes se le hace familiar/lo ha visto",
+          "id_tipo": 3,
+          "opciones": [
+            {
+              "valor": "Full Metal Alchemist"
+            },
+            {
+              "valor": "Naruto"
+            },
+            {
+              "valor": "Dragon Ball"
+            },
+            {
+              "valor": "Death Note"
+            }
+          ],
+          "id": 13,
+          "respuestas": {
+            "opcion_seleccionada": [
+              "Death Note",
+              "Dragon Ball"
+            ]
+          }
+        },
+        {
+          "id_categoria": 1,
+          "id_subcategoria": 1,
+          "pregunta": "¿Alguna vez ha comprado en una tienda underground?",
+          "id_tipo": 4,
+          "id": 115,
+          "respuestas": {
+            "opcion_seleccionada": true
+          }
+        }
+      ],
+      "lugares": "Estados Unidos",
+      "id_lugares": [
+        1
+      ],
+      "tipo_filtro_geografico": "paises"
     }
   ]
 }

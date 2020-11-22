@@ -30,6 +30,8 @@ import { PresentationsComponent } from '../presentations/presentations.component
 import { UsersComponent } from '../users/users.component';
 import { AddUserComponent } from '../users/add-user/add-user.component';
 import { EditUserComponent } from '../users/edit-user/edit-user.component';
+import { AvailableSurveysComponent } from '../surveys/available-surveys/available-surveys.component';
+import { TakeSurveyUserComponent } from '../surveys/take-survey-user/take-survey-user.component';
 
 export const routes: Routes = [
     { 
@@ -127,6 +129,16 @@ export const routes: Routes = [
       component: ProfileComponent
     },
 
+    /* SURVEYS */
+    {
+      path: 'available-surveys',
+      component: AvailableSurveysComponent
+    },
+    {
+      path: 'available-surveys/take',
+      component: TakeSurveyUserComponent
+    },
+
     /* PRODUCTS */
     {
       path: 'presentations',
@@ -156,7 +168,7 @@ export const routes: Routes = [
     /* REDIRECCIONAR A LA RUTA EN LA QUE SE ESTE TRABAJANDO MIENTRAS TANTO */
     { 
       path: '', 
-      redirectTo: 'studies/requests', 
+      redirectTo: 'available-surveys', 
       pathMatch: 'full' 
     }
 ];

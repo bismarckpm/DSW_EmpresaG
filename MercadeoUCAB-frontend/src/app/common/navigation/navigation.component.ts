@@ -10,7 +10,7 @@ import { MenuItem } from 'primeng/api';
 })
 export class NavigationComponent implements OnInit {
   items: MenuItem[];
-  items_guest: MenuItem[];
+  items_user: MenuItem[];
 
   constructor(private router: Router) { }
 
@@ -18,7 +18,8 @@ export class NavigationComponent implements OnInit {
     this.items = [
       {
         label: 'Usuarios',
-        icon: 'pi pi-fw pi-users'
+        icon: 'pi pi-fw pi-users',
+        command: u => this.router.navigate(["users"])
       },
       {
         label: 'Productos',
@@ -42,7 +43,8 @@ export class NavigationComponent implements OnInit {
           },
           {
             label: 'Presentaciones',
-            icon: 'pi pi-fw pi-eye'
+            icon: 'pi pi-fw pi-eye',
+            command: p => this.router.navigate(["presentations"])
           }
         ]
       },
@@ -70,20 +72,17 @@ export class NavigationComponent implements OnInit {
       {
         label: 'Perfil',
         icon: 'pi pi-fw pi-user',
+        command: p => this.router.navigate(["profile"])
       },
     ];
 
     
-    this.items_guest = [
+    this.items_user = [
       {
-        label: 'Login',
-        icon: 'pi pi-fw pi-user'
-      },
-     
-      {
-        label: 'Registro',
-        icon: 'pi pi-fw pi-user-plus'
-      },
+        label: 'Encuestas',
+        icon: 'pi pi-fw pi-chart-bar',
+        command: s => this.router.navigate(["available-surveys"])
+      }
     ];
 
   }
