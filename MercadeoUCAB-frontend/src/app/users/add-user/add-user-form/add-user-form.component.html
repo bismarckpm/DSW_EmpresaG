@@ -14,12 +14,12 @@
                     <div class="p-grid p-mx-5">
                         <div class="p-col-12 p-md-6 p-mb-5">
                             <span class="p-float-label">
-                                <input class="p-inputtext-lg fill-width" type="text" pInputText>
+                                <input id="correo_electronico" class="p-inputtext-lg fill-width" type="text" pInputText>
                                 <label for="float-input">Correo electrónico</label>
                             </span>
                         </div>
                         <div class="p-col-12 p-md-6 p-mb-5">
-                            <span class="p-float-label">
+                            <span id="urol" class="p-float-label">
                                 <p-dropdown [options]="roles" placeholder="Rol">
                                 </p-dropdown>
                             </span>
@@ -27,7 +27,7 @@
 
                         <div class="p-col-12 p-md-6 p-mb-5">
                             <span class="p-float-label">
-                                <input id="contraseña" class="p-inputtext-lg fill-width" formControlName="clave" type="password" pPassword weakLabel="Débil"
+                                <input id="clave" class="p-inputtext-lg fill-width" formControlName="clave" type="password" pPassword weakLabel="Débil"
                                     mediumLabel="Normal" strongLabel="Fuerte" promptLabel="Ingrese una clave">
                                 <label for="float-input">Contraseña *</label>
                             </span>
@@ -44,7 +44,7 @@
                         </div>
 
                         <div class="p-col-12 p-md-6 p-mb-5">
-                            <span class="p-float-label">
+                            <span id="estado_cuenta" class="p-float-label">
                                 <p-dropdown [options]="account_stat" placeholder="Estado de la cuenta">
                                 </p-dropdown>
                             </span>

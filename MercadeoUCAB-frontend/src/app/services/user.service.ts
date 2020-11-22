@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Person } from '../classes/person';
 import { Child } from '../classes/child';
+import { Users } from '../classes/users';
+import { Device } from '../constants/device';
+
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { baseURL } from '../constants/baseURL';
@@ -14,11 +17,42 @@ export class UserService {
 
   hijos: Child[] = null;
 
-  user: Person = {
+  device: Device[] = null;
+
+
+  persona: Person = {
     correo_electronico: '',
     clave: '',
-    hijos: this.hijos
+    primer_nombre: '',
+    primer_apellido: '',
+    documento_de_identificacion: '',
+    genero: '',
+    estado_civil: '',
+    fecha_de_nacimiento: '',
+    id_pais: 0,
+    id_ciudad: 0,
+    id_parroquia: 0,
+    id_estado: 0,
+    telefono: 0,
+    ocupacion: '',
+    personas_hogar: 0,
+    hijos: this.hijos,
+    id_nivel_academico: 0,
+    id_nivel_socioeconomico: 0,
+    dispositivos: this.device,
+    id_horario_inicial: 0,
+    id_horario_final: 0
   };
+
+  // Me falta ROL
+
+  user: Users = {
+    email: '',
+    password: '',
+    status: 0,
+    persona: this.persona
+  };
+
 
   constructor(private http: HttpClient,
     private processHTTPMessageService: ProcessHttpMessageService) { }

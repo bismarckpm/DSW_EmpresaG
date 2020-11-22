@@ -42,6 +42,16 @@ export class AddUserFormComponent implements OnInit {
   personErrorMessage: string;
   selectedGenreValue: number;
   selectedEdoCivilValue: number;
+  selectedHoraI: number;
+  selectedHoraF: number;
+  selectedPais: number;
+  selectedEstado: number;
+  selectedCiudad: number;
+  selectedParroquia: number;
+  selectedAcademico: number;
+  selectedSocioE: number;
+  selectedStatus: number;
+  selectRol: number;
   hasKids: boolean;
   es: any;
 
@@ -56,9 +66,34 @@ export class AddUserFormComponent implements OnInit {
     'primer_nombre': '',
     'primer_apellido': '',
     'documento_de_identificacion': '',
+    'genero': '',
+    'estado_civil': '',
+    'fecha_nacimiento': '',
+    'pais': '',
+    'ciudad': '',
+    'estado': '',
+    'parroquia': '',
+    'telefono': '',
+    'ocupacion': '',
+    'personas_hogar': '',
+    'hijos': '',
+    'niv_academico': '',
+    'niv_socioeconomico': '',
+    'dispositivos': '',
+    'hora_inicial': '',
+    'hora_final': '',
+    'estado_cuenta': '',
+    'rol': ''
   };
 
+
   validationMessages = {
+    'estado_cuenta': {
+      'required': 'Estado de la cuenta es requerido',
+    },
+    'rol':{
+      'required': 'Rol es requerido',
+    },
     'correo_electronico': {
       'required': 'Correo electrónico es requerido',
       'pattern': 'Correo electronico debe tener un formato válido'
@@ -85,7 +120,56 @@ export class AddUserFormComponent implements OnInit {
       'required': 'Documento de identificación es requerido',
       'minlength': 'Documento de identificación debe tener al menos 8 caracteres',
       'maxlength': 'Documento de identificación no debe pasar de los 50 caracteres'
-    }
+    },
+    'genero': {
+      'required': 'Genero es requerido',
+    },
+    'estado_civil': {
+      'required': 'Estado civil es requerido',
+    },
+    'fecha_nacimiento': {
+      'required': 'Fecha de nacimiento es requerido',
+    },
+    'pais': {
+      'required': 'Pais es requerido',
+    },
+    'ciudad': {
+      'required': 'Ciudad es requerido',
+    },
+    'estado': {
+      'required': 'Estado es requerido',
+    },
+    'parroquia': {
+      'required': 'Parroquia es requerido',
+    },
+    'telefono': {
+      'required': 'Teléfono es requerido',
+    },
+    'ocupacion': {
+      'required': 'Ocupación es requerido',
+    },
+    'personas_hogar': {
+      'required': 'Cantidad de personas en el hogar es requerido',
+    },
+    'hijos': {
+      'required': 'Cantidad de hijos es requerido / En el caso de no tener, seleccione 0',
+    },
+    'niv_academico': {
+      'required': 'Nivel academico es requerido',
+    },
+    'niv_socioeconomico': {
+      'required': 'Nivel socioeconomico es requerido',
+    },
+    'dispositivos': {
+      'required': 'Cantidad de dispositivos es requerido',
+    },
+    'hora_inicial': {
+      'required': 'Hora inicial de disponibilidad es requerido',
+    },
+    'hora_final': {
+      'required': 'Hora final de disponibilidad es requerido',
+    },
+
   };
 
   constructor(
@@ -129,6 +213,8 @@ export class AddUserFormComponent implements OnInit {
       this.persona = p;
       this.loading = false;
       this.selectedGenreValue = Number.parseInt(p.genero);
+      // Por aca
+      // this. = p.;
       this.selectedEdoCivilValue = Number.parseInt(p.estado_civil);
       this.fecha_nacimiento = new Date(p.fecha_de_nacimiento);
       this.hasKids = p.tiene_hijos;
@@ -145,50 +231,74 @@ export class AddUserFormComponent implements OnInit {
   createForm(){
     this.userForm = this.fb.group({
       correo_electronico: [
-        this.userService.user.correo_electronico,
+        this.userService.persona.correo_electronico,
         [
           Validators.required,
           Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
         ]
       ],
-      clave: [this.userService.user.clave,
+      clave: [this.userService.persona.clave,
         [
           Validators.required,
           Validators.pattern(/^(?=.*\d)(?=.*[a-zA-Z])(?=.*[\W_]).{8,40}$/)
         ]
       ],
       confirmar_clave: [
-        this.userService.user.confirmar_clave,
+        this.userService.persona.confirmar_clave,
         [
           Validators.required,
           RxwebValidators.compare({fieldName: 'clave'})
         ]
       ],
-      primer_nombre: [this.userService.user.primer_nombre,
+      primer_nombre: [this.userService.persona.primer_nombre,
       [
         Validators.required,
         Validators.minLength(2),
         Validators.maxLength(50)
       ]],
       primer_apellido: [
-        this.userService.user.primer_apellido,
+        this.userService.persona.primer_apellido,
         [
           Validators.required,
           Validators.minLength(2),
           Validators.maxLength(50)
         ]
       ],
-      documento_de_identificacion: [this.userService.user.documento_de_identificacion,
+      documento_de_identificacion: [this.userService.persona.documento_de_identificacion,
         [
           Validators.required,
           Validators.minLength(8),
           Validators.maxLength(50)
         ]
       ],
-      genero: this.userService.user.genero,
-      estado_civil: this.userService.user.estado_civil,
-      fecha_de_nacimiento: this.userService.user.fecha_de_nacimiento
+      genero: this.userService.persona.genero,
+      estado_civil: this.userService.persona.estado_civil,
+      fecha_de_nacimiento: this.userService.persona.fecha_de_nacimiento,
+      estado_cuenta: this.userService.user.status
     });
+
+
+
+  
+    // primer_nombre: '',
+    // primer_apellido: '',
+    // documento_de_identificacion: '',
+    // genero: '',
+    // estado_civil: '',
+    // fecha_de_nacimiento: '',
+    // id_pais: 0,
+    // id_ciudad: 0,
+    // id_parroquia: 0,
+    // id_estado: 0,
+    // telefono: 0,
+    // ocupacion: '',
+    // personas_hogar: 0,
+    // hijos: this.hijos,
+    // id_nivel_academico: 0,
+    // id_nivel_socioeconomico: 0,
+    // dispositivos: this.device,
+    // id_horario_inicial: 0,
+    // id_horario_final: 0
 
     
     this.userForm.valueChanges
@@ -227,15 +337,15 @@ export class AddUserFormComponent implements OnInit {
   }
 
   onSubmit(){
-    this.userService.user.correo_electronico = this.userForm.value.correo_electronico;
-    this.userService.user.clave = this.userForm.value.clave;
-    this.userService.user.confirmar_clave = this.userForm.value.confirmar_clave;
-    this.userService.user.primer_nombre = this.userForm.value.primer_nombre;
-    this.userService.user.primer_apellido = this.userForm.value.primer_apellido;
-    this.userService.user.documento_de_identificacion = this.userForm.value.documento_de_identificacion;
-    this.userService.user.genero = this.userForm.value.genero;
-    this.userService.user.estado_civil = this.userForm.value.estado_civil;
-    this.userService.user.fecha_de_nacimiento = this.userForm.value.fecha_de_nacimiento;
+    this.userService.persona.correo_electronico = this.userForm.value.correo_electronico;
+    this.userService.persona.clave = this.userForm.value.clave;
+    this.userService.persona.confirmar_clave = this.userForm.value.confirmar_clave;
+    this.userService.persona.primer_nombre = this.userForm.value.primer_nombre;
+    this.userService.persona.primer_apellido = this.userForm.value.primer_apellido;
+    this.userService.persona.documento_de_identificacion = this.userForm.value.documento_de_identificacion;
+    this.userService.persona.genero = this.userForm.value.genero;
+    this.userService.persona.estado_civil = this.userForm.value.estado_civil;
+    this.userService.persona.fecha_de_nacimiento = this.userForm.value.fecha_de_nacimiento;
 
     if (this.userForm.valid){
       this.nextPage();
