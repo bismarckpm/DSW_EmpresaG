@@ -10,7 +10,7 @@ public class MyApplication extends Application {
 
     /**
      *
-     * Aca debemos agregar a la aplicacion las clases que queremos utilizar.
+     * TODO - Aca debemos agregar a la aplicacion las clases que queremos utilizar. Con el formato "h.add( Name.class );"
      *
      * */
 
@@ -19,7 +19,6 @@ public class MyApplication extends Application {
         Set<Class<?>> h = new HashSet<>();
         h.add( HelloWorld.class );
         h.add( DispositivoService.class );
-        /* h.add( Name.class ); */
         return h;
     }
 }

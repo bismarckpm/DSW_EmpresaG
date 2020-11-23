@@ -2,16 +2,18 @@ package com.empresag;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
+import java.util.List;
 
-@Path( "/prueba" )
+@Path( "/dispositivo" )
 @Produces( MediaType.APPLICATION_JSON )
 @Consumes( MediaType.APPLICATION_JSON )
 public class DispositivoService {
 
 
     @PUT
-    @Path("/addDispositivo")
-    public DispositivoDto addDispositivo ( DispositivoDto dispositivoDto ){
+    @Path("/add")
+    public DispositivoDto addDispositivo ( DispositivoDto dispositivoDto ) {
 
         System.out.println("DATA: " + dispositivoDto.toString());
 
@@ -35,12 +37,34 @@ public class DispositivoService {
 
     }
 
-
     @GET
     @Path( "/consulta" )
-    public String consulta()
+    public List<DispositivoDto> consulta()
     {
-        return "Epa";
+        List<DispositivoDto> resultado = new ArrayList<>();
+
+        try {
+            DaoDispositivo daoDispositivo = new DaoDispositivo();
+            List<DispositivoEntity> dispositivos = daoDispositivo.findAll(DispositivoEntity.class);
+
+            for (int i = 0; i < dispositivos.size(); i++){
+                DispositivoEntity dispositivo = dispositivos.get(i);
+
+                DispositivoDto resul_dto = new DispositivoDto();
+
+                resul_dto.set_id(dispositivo.get_id());
+                resul_dto.setNombre(dispositivo.getNombre());
+
+                resultado.add(resul_dto);
+            }
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        return resultado;
     }
 
 }
