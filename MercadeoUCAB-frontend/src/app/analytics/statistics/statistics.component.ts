@@ -10,6 +10,8 @@ import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { StudiesService } from 'src/app/services/studies.service';
 
+// TODO: Show only X kind of questions
+
 @Component({
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',

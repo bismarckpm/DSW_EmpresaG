@@ -36,6 +36,8 @@ import { AnalysisRequestsComponent } from '../analytics/analysis-requests/analys
 import { AvailablePopulationComponent } from '../analytics/available-population/available-population.component';
 import { StatisticsComponent } from '../analytics/statistics/statistics.component';
 import { MakeInterviewComponent } from '../analytics/make-interview/make-interview.component';
+import { MyRequestsComponent } from '../client/my-requests/my-requests.component';
+import { CreateRequestComponent } from '../client/create-request/create-request.component';
 
 export const routes: Routes = [
     { 
@@ -98,10 +100,6 @@ export const routes: Routes = [
       path: 'categories',
       component: CategoriesComponent
     },
-    {
-      path: 'categories/add',
-      component: AddCategoryComponent
-    },
 
     /* STUDIES */
     {
@@ -161,6 +159,16 @@ export const routes: Routes = [
       component: MakeInterviewComponent
     },
 
+    /* CLIENT */
+    {
+      path: 'my-requests',
+      component: MyRequestsComponent
+    },
+    {
+      path: 'make-request',
+      component: CreateRequestComponent
+    },
+
     /* PRODUCTS */
     {
       path: 'presentations',
@@ -190,7 +198,7 @@ export const routes: Routes = [
     /* REDIRECCIONAR A LA RUTA EN LA QUE SE ESTE TRABAJANDO MIENTRAS TANTO */
     { 
       path: '', 
-      redirectTo: 'analysis-requests', 
+      redirectTo: 'presentations', 
       pathMatch: 'full' 
     }
 ];

@@ -74,6 +74,7 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerDisconnectedComponent } from './errors/server-disconnected/server-disconnected.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { AddCategoryComponent } from './categories/add-category/add-category.component';
+import { EditCategoryComponent } from './categories/edit-category/edit-category.component'
 import { ExistingStudiesComponent } from './studies/existing-studies/existing-studies.component';
 import { ViewStudyComponent } from './studies/view-study/view-study.component';
 import { EditStudyComponent } from './studies/edit-study/edit-study.component';
@@ -97,6 +98,8 @@ import { AnalysisRequestsComponent } from './analytics/analysis-requests/analysi
 import { StatisticsComponent } from './analytics/statistics/statistics.component';
 import { AvailablePopulationComponent } from './analytics/available-population/available-population.component';
 import { MakeInterviewComponent } from './analytics/make-interview/make-interview.component';
+import { MyRequestsComponent } from './client/my-requests/my-requests.component';
+import { CreateRequestComponent } from './client/create-request/create-request.component';
 
 @NgModule({
   declarations: [
@@ -140,7 +143,10 @@ import { MakeInterviewComponent } from './analytics/make-interview/make-intervie
     AnalysisRequestsComponent,
     StatisticsComponent,
     AvailablePopulationComponent,
-    MakeInterviewComponent
+    MakeInterviewComponent,
+    MyRequestsComponent,
+    CreateRequestComponent,
+    EditCategoryComponent
   ],
   imports: [
     BrowserModule,
