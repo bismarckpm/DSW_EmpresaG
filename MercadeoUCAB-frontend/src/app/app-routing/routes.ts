@@ -190,7 +190,7 @@ export const routes: Routes = [
     /* REDIRECCIONAR A LA RUTA EN LA QUE SE ESTE TRABAJANDO MIENTRAS TANTO */
     { 
       path: '', 
-      redirectTo: 'available-surveys', 
+      redirectTo: 'analysis-requests', 
       pathMatch: 'full' 
     }
 ];

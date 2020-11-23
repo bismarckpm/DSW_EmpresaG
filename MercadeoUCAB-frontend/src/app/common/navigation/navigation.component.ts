@@ -11,6 +11,7 @@ import { MenuItem } from 'primeng/api';
 export class NavigationComponent implements OnInit {
   items: MenuItem[];
   items_user: MenuItem[];
+  items_analyst: MenuItem[];
 
   constructor(private router: Router) { }
 
@@ -85,6 +86,13 @@ export class NavigationComponent implements OnInit {
       }
     ];
 
+    this.items_analyst = [
+      {
+        label: 'Encuestas (5)',
+        icon: 'pi pi-fw pi-chart-bar',
+        command: s => this.router.navigate(["analysis-requests"])
+      }
+    ];
   }
 
 
