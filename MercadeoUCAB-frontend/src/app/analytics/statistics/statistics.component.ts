@@ -1,16 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AnalystService } from '../../services/analyst.service';
 import { Study } from '../../classes/study';
 import { Question } from 'src/app/classes/question';
 import { AnalyticData } from 'src/app/classes/analytic_data';
+import { ConfirmationService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
+import { StudiesService } from 'src/app/services/studies.service';
 
 @Component({
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
-  styleUrls: ['./statistics.component.scss']
+  styleUrls: ['./statistics.component.scss'],
+  providers: [ConfirmationService, MessageService]
 })
 export class StatisticsComponent implements OnInit {
   current_study: number;
@@ -25,12 +29,45 @@ export class StatisticsComponent implements OnInit {
   range_dataset: any[] = [];
   background_colors: string[] = [];
 
+  loading:boolean = true;
+  estudioErrorMessage: string;
+  toolbar: any;
+  show_editor: boolean = false;
+  sent_form: boolean = false;
+
+  conclusionForm: FormGroup;
+  @ViewChild('cform') conclusionFormDirective;
+
+  formErrors = {
+    'conclusion': ''
+  };
+
+  validationMessages = {
+    'conclusion': {
+      'required': "Conclusión es requerida",
+      'minlength': "Conclusión no puede ser menor a 50 caracteres",
+      'maxlength': "Conclusión no puede ser mayor a 3000 caracteres",
+    }
+  }
+
   constructor(private activatedRoute: ActivatedRoute,
     private router: Router,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService,
     private analystService: AnalystService,
+    private studiesService: StudiesService,
     private fb: FormBuilder,
     private spinner: NgxSpinnerService) {
-    this.background_colors = ['#42A5F5', '#9CCC65', '#FF6384', '#ffc1c1', '#FFCE56', '#4bc0c0', '#E7E9ED', '#a0b6fe', '#f87f38', '#d5ffd1']
+    this.background_colors = ['#42A5F5', '#439f78', '#FF6384', '#6a6085', '#FFCE56', '#4bc0c0', '#E7E9ED', '#a0b6fe', '#f87f38', '#d5ffd1']
+    this.toolbar = {
+      toolbar: [
+        ['bold', 'italic', 'underline'],
+        [{'list': 'ordered'}, {'list': 'bullet'}],
+        [{'color': ['#000000', '#439f78', '#FF6384', '#003399']}, {'background': ['#ffff00', '#99ff99', '#ff99cc']} ],
+        ['blockquote'],
+        [{'size': ['small', false, 'large']}]
+      ], 
+    }
   }
 
   ngOnInit(): void {
@@ -45,23 +82,116 @@ export class StatisticsComponent implements OnInit {
       this.current_study = parseInt(this.activatedRoute.snapshot.queryParamMap.get('studyId'));
 
       this.analystService.getStats(this.current_study).subscribe((study) => {
-        this.spinner.hide();
-        this.study = study;
-        this.open_text_questions = this.study.preguntas.filter(this.isOpenText)
+        if (study){
+          console.log(study)
+          this.spinner.hide();
+          this.study = study;
+          this.open_text_questions = this.study.preguntas.filter(this.isOpenText)
+  
+          this.selection_questions = this.study.preguntas.filter(this.isSelection)
+          this.selectionDataset();
+  
+          this.true_false_questions = this.study.preguntas.filter(this.isTrueFalse)
+          this.trueFalseDataset();
+  
+          this.range_questions = this.study.preguntas.filter(this.isRange)
+          this.rangeDataset();
 
-        this.selection_questions = this.study.preguntas.filter(this.isSelection)
-        this.selectionDataset();
+          this.createForm();
+  
+          this.loading = false;
+  
+        }
 
-        this.true_false_questions = this.study.preguntas.filter(this.isTrueFalse)
-        this.trueFalseDataset();
-
-        this.range_questions = this.study.preguntas.filter(this.isRange)
-        this.rangeDataset();
-        console.log(this.range_questions);
-        console.log(this.range_dataset)
-
+        else {
+          this.router.navigate(['404']);
+        }
+        
         // TODO: Get open text responses in a table
+      }, errorMessage => {
+        this.loading = false;
+        this.estudioErrorMessage = errorMessage;
       })
+    }
+  }
+
+  createForm(){
+    this.conclusionForm = this.fb.group({
+      conclusion: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(50),
+          Validators.maxLength(3000)
+        ]
+      ]
+    })
+
+    this.conclusionForm.valueChanges
+    .subscribe(data => {
+      this.onValueChange(data);
+    });
+  }
+
+  onValueChange(data?: any) {
+    /* If form hasn't been created */
+    if (!this.conclusionForm) {
+      return;
+    }
+
+    const form = this.conclusionForm;
+    for (const field in this.formErrors) {
+      if (this.formErrors.hasOwnProperty(field)) {
+        // clear previous error message if any
+        this.formErrors[field] = '';
+        const control = form.get(field);
+
+        // if field is modified by user
+        if (control && control.dirty && !control.valid) {
+          const messages = this.validationMessages[field];
+
+          // check if i'm adding the error message to the field
+          for (const key in control.errors) {
+            if (control.errors.hasOwnProperty(key)) {
+              this.formErrors[field] += messages[key] + ' ';
+            }
+          }
+        }
+      }
+    }
+  }
+
+  putStudy(){
+    console.log(this.study)
+    /*this.studiesService.putStudy(this.study.id).subscribe((s) => {
+      this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Estudio analizado con éxito'});
+    }, errorMessage => {
+      this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
+      this.sent_form = false;
+    })*/
+  }
+
+  onSubmit(){
+    this.sent_form = true;
+    if (this.conclusionForm.valid){
+      this.study.conclusion = this.conclusionForm.value.conclusion
+      this.confirmationService.confirm({
+        message: '¿Está seguro que desea concluir el estudio? No podrá modificar la conclusión después',
+        header: 'Confirmación',
+        icon: 'pi pi-info-circle',
+        accept: () => {
+            this.study.id_estado = 3;
+            this.putStudy();
+        },
+        reject: () => {
+          this.sent_form = false;
+          return;
+        }
+    });
+    }
+    else {
+      this.messageService.add({severity:'error', summary: 'Error', detail: 'El campo conclusión debe ser válido'});
+      this.sent_form = false;
     }
   }
 
@@ -107,7 +237,8 @@ export class StatisticsComponent implements OnInit {
       for (var j = 0; j < this.selection_questions[i].opciones.length; j++) {
         labels.push(this.selection_questions[i].opciones[j].valor)
         data.push(this.selection_questions[i].opciones[j].estadisticas.n_personas_respondieron)
-        colors.push(this.background_colors[j])
+        // Avoid index error if there are more than 10 options
+        colors.push(this.background_colors[(this.background_colors.length+j) % this.background_colors.length])
       }
       this.selection_dataset.push({
         labels: labels,

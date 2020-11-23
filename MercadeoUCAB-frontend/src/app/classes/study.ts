@@ -32,5 +32,6 @@ export class Study {
     tiempo_estimado?: number;
 
     /* FOR ANALYTICS */
-    estadisticas: Analytics;
+    estadisticas?: Analytics;
+    conclusion?: string;
 }

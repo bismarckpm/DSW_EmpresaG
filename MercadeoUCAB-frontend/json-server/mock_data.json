@@ -1294,6 +1294,7 @@
       "edad_maxima": 28,
       "autor": "Julian Brandt",
       "id_autor": 7,
+      "id_estado": 2,
       "estado": "En progreso",
       "id": 4,
       "preguntas": [

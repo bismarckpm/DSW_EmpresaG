@@ -24,6 +24,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { DialogModule } from 'primeng/dialog';
 import { ChartModule } from 'primeng/chart';
+import { EditorModule } from 'primeng/editor';
+
 
 /* Modules */
 import { AppRoutingModule } from './app-routing/app-routing.module';
@@ -168,7 +170,8 @@ import { MakeInterviewComponent } from './analytics/make-interview/make-intervie
     CheckboxModule,
     NgxSpinnerModule,
     DialogModule,
-    ChartModule
+    ChartModule,
+    EditorModule
   ],
   providers: [
     RegisterService,
