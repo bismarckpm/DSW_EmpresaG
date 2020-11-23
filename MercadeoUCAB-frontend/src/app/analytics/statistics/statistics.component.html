@@ -1,1 +1,78 @@
-<p>statistics works!</p>
+<app-navigation></app-navigation>
+
+<!-- Existing studies -->
+<div class="demo-container p-mx-6 p-p-0 p-p-sm-1 p-p-md-2 p-p-lg-6">
+    <p-card>
+        <div class="p-grid p-mx-5">
+            <div class="p-col-12">
+                <h3 class="table-title">ESTADÍSTICAS DEL ESTUDIO</h3>
+            </div>
+        </div>
+        <hr>
+
+        <h4 class="p-mx-5">RESPUESTAS DE TEXTO ABIERTO</h4>
+        <div *ngFor="let pregunta of open_text_questions" class="p-mx-5">
+            <div class="p-grid">
+                <div class="p-col-12 p-lg-10">
+                    <p>{{pregunta.pregunta}}</p>
+                    <!-- RESPONSES OPEN TEXT -->
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <h4 class="p-mx-5">RESPUESTAS DE SELECCIÓN</h4>
+        <div *ngFor="let pregunta of selection_questions; let i=index" class="p-mx-5">
+            <div class="p-grid" *ngIf="selection_dataset">
+                <div class="p-col-12 p-lg-10">
+                    <p>{{pregunta.pregunta}}</p>
+                    <!-- RESPONSES SELECTION -->
+                    <p-chart type="pie" width="500" [data]="selection_dataset[i]"></p-chart>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <h4 class="p-mx-5">RESPUESTAS DE VERDADERO Y FALSO</h4>
+        <div *ngFor="let pregunta of true_false_questions; let i=index" class="p-mx-5">
+            <div class="p-grid" *ngIf="true_false_dataset">
+                <div class="p-col-12 p-lg-10">
+                    <p>{{pregunta.pregunta}}</p>
+                    <!-- RESPONSES TRUE FALSE -->
+                    <p-chart type="doughnut" width="500" [data]="true_false_dataset[i]"></p-chart>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <h4 class="p-mx-5">RESPUESTAS DE RANGO</h4>
+        <div *ngIf="range_questions">
+            <div *ngFor="let pregunta of range_questions; let i=index">
+                <div *ngIf="range_dataset">
+                    <div class="p-grid p-mx-5">
+                        <div class="p-col-12 p-lg-10">
+                            <p>{{pregunta.pregunta}}</p>
+                            <!-- RESPONSES RANGE -->
+                        </div>
+                    </div>
+                    <div class="p-grid p-mx-5">
+                        <p><strong>Promedio Mínimo: </strong>{{range_dataset[i].min_average}}
+                            <br>
+                            <strong>Promedio Máximo: </strong>{{range_dataset[i].max_average}}
+                        </p>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+
+
+        <!-- STATS 
+        <div *ngIf="!estudios && !loading && estudiosErrorMessage">
+            <app-server-disconnected></app-server-disconnected>
+        </div>-->
+    </p-card>
+</div>

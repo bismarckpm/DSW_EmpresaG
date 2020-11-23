@@ -167,7 +167,8 @@ import { MakeInterviewComponent } from './analytics/make-interview/make-intervie
     ProgressSpinnerModule,
     CheckboxModule,
     NgxSpinnerModule,
-    DialogModule
+    DialogModule,
+    ChartModule
   ],
   providers: [
     RegisterService,

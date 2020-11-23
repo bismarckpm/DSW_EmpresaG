@@ -83,7 +83,7 @@ export class CreateStudyComponent implements OnInit {
       /* Create study based on request */
       this.requestsService.getRequest(this.current_study).subscribe((request) => {
         /* In progress studies cannot be recreated */
-        this.estudio = request;
+        this.estudio = request as Study;
         if (this.estudio.estado == "En progreso"){
           this.router.navigate(['404']);
         }

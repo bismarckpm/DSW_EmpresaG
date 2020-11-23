@@ -19,7 +19,11 @@
                         emptyFilterMessage="No se encontraron resultados" (onChange)="onCategoryChange($event)"
                         selectedItemsLabel="{} items seleccionados"></p-multiSelect>
                 </div>
-
+                <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
+                    <p-multiSelect [options]="estados" defaultLabel="Estado"
+                    emptyFilterMessage="No se encontraron resultados" (onChange)="onStateChange($event)"
+                    selectedItemsLabel="{} items seleccionados"></p-multiSelect>
+                </div>
             </div>
             <div class="p-grid p-mt-5 p-mx-5">
                 <p-table #dt [value]="estudios" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"

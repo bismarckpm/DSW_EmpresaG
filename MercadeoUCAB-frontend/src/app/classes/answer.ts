@@ -1,3 +1,4 @@
+import { Analytics } from './analytics';
 import { Option } from './options'
 
 export class Answer {
@@ -6,4 +7,5 @@ export class Answer {
     opcion_seleccionada?: Option[];
     rango_inicial?: number;
     rango_final?: number;
+    estadisticas?: Analytics;
 }

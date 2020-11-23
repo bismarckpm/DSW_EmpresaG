@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { Request } from '../../classes/request';
 import { CategoryService } from '../../services/category.service';
-import { RequestsService } from '../../services/requests.service';
+import { StudiesService } from '../../services/studies.service';
 import { replaceKey } from '../../functions/common_functions';
-
-//TODO: SHOW ONLY IN PROGRESS STUDIES
+import { STUDY_STATES } from '../../constants/study_states'
+import { Study } from 'src/app/classes/study';
 
 @Component({
   selector: 'app-analysis-requests',
@@ -14,19 +13,20 @@ import { replaceKey } from '../../functions/common_functions';
   styleUrls: ['./analysis-requests.component.scss']
 })
 export class AnalysisRequestsComponent implements OnInit {
-  estudios: Request[];
+  estudios: Study[];
   estudiosErrorMessage: string;
   categorias: MenuItem[];
+  estados: MenuItem[] = STUDY_STATES;
   categoriasErrorMessage: string;
   loading: boolean = false;
   @ViewChild('dt') table: Table;
 
-  constructor(private requestsService: RequestsService,
+  constructor(private studiesService: StudiesService,
     private categoryService: CategoryService) { }
 
   ngOnInit(): void {
     this.loading = true;
-    this.requestsService.getRequests().subscribe((studies) => {
+    this.studiesService.getStudies().subscribe((studies) => {
       this.estudios = studies;
     }, errorMessage => {
       this.loading = false;
@@ -40,10 +40,14 @@ export class AnalysisRequestsComponent implements OnInit {
       this.loading = false;
       this.categoriasErrorMessage = errorMessage;
     })
+
   }
 
   onCategoryChange(event){
     this.table.filter(event.value, 'categoria', 'in')
   }
 
+  onStateChange(event){
+    this.table.filter(event.value, 'estado', 'in')
+  }
 }

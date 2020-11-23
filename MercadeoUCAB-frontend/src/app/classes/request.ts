@@ -1,3 +1,5 @@
+import { Analytics } from './analytics';
+
 export class Request {
     id: number;
     estado: string;

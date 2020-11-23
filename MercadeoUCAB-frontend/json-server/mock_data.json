@@ -455,30 +455,6 @@
       "id": 112
     },
     {
-      "id_categoria": 5,
-      "id_subcategoria": 6,
-      "pregunta": "¿Qué tan seguido se le daña el carro?",
-      "id_tipo": 2,
-      "opciones": [
-        {
-          "valor": "Una vez al mes o más seguido"
-        },
-        {
-          "valor": "Cada dos-cinco meses"
-        },
-        {
-          "valor": "Cada seis-nueve meses"
-        },
-        {
-          "valor": "Una vez al año"
-        },
-        {
-          "valor": "Menos de una vez al año"
-        }
-      ],
-      "id": 113
-    },
-    {
       "id_categoria": 1,
       "id_subcategoria": 1,
       "pregunta": "¿Alguna vez ha comprado en una tienda underground?",
@@ -1040,6 +1016,347 @@
         1
       ],
       "tipo_filtro_geografico": "paises"
+    }
+  ],
+  "stats": [
+    {
+      "id": 1,
+      "estadisticas": {
+        "n_personas_respondieron": 117
+      },
+      "categoria": "Ropa",
+      "id_categoria": 1,
+      "subcategoria": "Streetwear",
+      "id_subcategoria": 1,
+      "genero": "Masculino",
+      "id_genero": 1,
+      "nivel_academico": "Primaria, Secundaria",
+      "id_nivel_academico": [
+        1,
+        2
+      ],
+      "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
+      "id_nivel_socioeconomico": [
+        2,
+        3,
+        4
+      ],
+      "estado": "En progreso",
+      "edad_minima": 15,
+      "edad_maxima": "45",
+      "id_estado": 2,
+      "preguntas": [
+        {
+          "id": 2,
+          "tipo": "Rango",
+          "pregunta": "¿Qué talla de zapatos suele usar usted?",
+          "categoria": "Ropa",
+          "subcategoria": "Streetwear",
+          "id_categoria": 1,
+          "id_subcategoria": 1,
+          "id_tipo": 5,
+          "opciones": [
+            {
+              "rango_inicial": "35",
+              "rango_final": "46",
+              "estadisticas": {
+                "promedio_rango_inicial": 30,
+                "promedio_rango_final": 50
+              }
+            }
+          ],
+          "estadisticas": {
+            "n_personas_respondieron": 117
+          }
+        },
+        {
+          "id_categoria": 1,
+          "id_subcategoria": 1,
+          "pregunta": "¿De qué precio fue la pieza más cara que ha comprado? ($)",
+          "id_tipo": 1,
+          "id": 101,
+          "estadisticas": {
+            "n_personas_respondieron": 15
+          }
+        },
+        {
+          "id_categoria": 4,
+          "id_subcategoria": 4,
+          "pregunta": "Seleccione qué animes de los siguientes se le hace familiar/lo ha visto",
+          "id_tipo": 3,
+          "opciones": [
+            {
+              "valor": "Full Metal Alchemist",
+              "estadisticas": {
+                "n_personas_respondieron": 15
+              }
+            },
+            {
+              "valor": "Naruto",
+              "estadisticas": {
+                "n_personas_respondieron": 30
+              }
+            },
+            {
+              "valor": "Dragon Ball",
+              "estadisticas": {
+                "n_personas_respondieron": 48
+              }
+            },
+            {
+              "valor": "Death Note",
+              "estadisticas": {
+                "n_personas_respondieron": 20
+              }
+            }
+          ],
+          "id": 13
+        },
+        {
+          "id_categoria": 1,
+          "id_subcategoria": 1,
+          "pregunta": "¿Alguna vez ha comprado en una tienda underground?",
+          "estadisticas": {
+            "n_personas_verdadero": 20,
+            "n_personas_falso": 45
+          },
+          "id_tipo": 4,
+          "id": 115
+        }
+      ],
+      "lugares": "Estados Unidos",
+      "id_lugares": [
+        1
+      ],
+      "tipo_filtro_geografico": "paises"
+    },
+    {
+      "id": 2,
+      "estadisticas": {
+        "n_personas_respondieron": 126
+      },
+      "categoria": "Videojuegos",
+      "id_categoria": 2,
+      "subcategoria": "Shooter",
+      "id_subcategoria": 2,
+      "genero": "Masculino",
+      "id_genero": 1,
+      "nivel_academico": "Primaria, Secundaria",
+      "id_nivel_academico": [
+        1,
+        2
+      ],
+      "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
+      "id_nivel_socioeconomico": [
+        2,
+        3,
+        4
+      ],
+      "tipo_filtro_geografico": "paises",
+      "lugares": "Estados Unidos",
+      "id_lugares": [
+        1
+      ],
+      "estado": "En progreso",
+      "id_estado": 2,
+      "preguntas": [
+        {
+          "id_categoria": 2,
+          "id_subcategoria": 2,
+          "pregunta": "¿Qué mejoraría del juego VALORANT?",
+          "id_tipo": 1,
+          "estadisticas": {
+            "n_personas_respondieron": 115
+          }
+        },
+        {
+          "id_categoria": 2,
+          "id_subcategoria": 2,
+          "pregunta": "¿Usted suele ser campero?",
+          "id_tipo": 4,
+          "estadisticas": {
+            "n_personas_verdadero": 50,
+            "n_personas_falso": 78
+          }
+        },
+        {
+          "id_categoria": 2,
+          "id_subcategoria": 2,
+          "pregunta": "¿Tiene un grupo predeterminado para jugar?",
+          "id_tipo": 4,
+          "estadisticas": {
+            "n_personas_verdadero": 50,
+            "n_personas_falso": 78
+          }
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "estadisticas": {
+        "n_personas_respondieron": 185
+      },
+      "categoria": "Tecnología",
+      "id_categoria": 3,
+      "id_subcategoria": 3,
+      "subcategoria": "Programación",
+      "nivel_academico": "Primaria, Secundaria",
+      "id_nivel_academico": [
+        1,
+        2
+      ],
+      "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
+      "id_nivel_socioeconomico": [
+        2,
+        3,
+        4
+      ],
+      "tipo_filtro_geografico": "estados",
+      "lugares": "Lousiana, California",
+      "id_lugares": [
+        2,
+        3
+      ],
+      "estado": "En progreso",
+      "id_estado": 2,
+      "id_genero": null,
+      "edad_minima": 14,
+      "edad_maxima": 28,
+      "preguntas": [
+        {
+          "id": 6,
+          "tipo": "Selección simple",
+          "pregunta": "¿Prefieres los headsets o los earbuds?",
+          "categoria": "Tecnología",
+          "id_categoria": 3,
+          "id_subcategoria": 5,
+          "id_tipo": 2,
+          "subcategoria": "Hardware",
+          "opciones": [
+            {
+              "valor": "Headsets",
+              "estadisticas": {
+                "n_personas_respondieron": 15
+              }
+            },
+            {
+              "valor": "Earbuds",
+              "estadisticas": {
+                "n_personas_respondieron": 47
+              }
+            }
+          ]
+        },
+        {
+          "id_categoria": 3,
+          "id_subcategoria": 3,
+          "pregunta": "¿De cuántas lineas fue el codigo mas largo que has escrito?",
+          "id_tipo": 1,
+          "estadisticas": {
+            "n_personas_respondieron": 115
+          }
+        },
+        {
+          "tipo": "Texto abierto",
+          "pregunta": "Si usted sabe qué es el Net Neutrality ¿Qué opina de el?",
+          "estadisticas": {
+            "n_personas_respondieron": 115
+          },
+          "categoria": "Tecnología",
+          "subcategoria": "",
+          "id_tipo": 1,
+          "id_categoria": 3,
+          "id": 111
+        }
+      ]
+    },
+    {
+      "estadisticas": {
+        "n_personas_respondieron": 150
+      },
+      "categoria": "Transporte",
+      "id_categoria": 5,
+      "id_subcategoria": 6,
+      "subcategoria": "Automoviles",
+      "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
+      "id_nivel_socioeconomico": [
+        2,
+        3,
+        4
+      ],
+      "tipo_filtro_geografico": "estados",
+      "lugares": "Florida, California",
+      "id_lugares": [
+        4,
+        3
+      ],
+      "edad_minima": 14,
+      "edad_maxima": 28,
+      "autor": "Julian Brandt",
+      "id_autor": 7,
+      "estado": "En progreso",
+      "id": 4,
+      "preguntas": [
+        {
+          "id_categoria": 5,
+          "id_subcategoria": 6,
+          "pregunta": "¿Maneja automovil automatico o sincrónico?",
+          "id_tipo": 2,
+          "opciones": [
+            {
+              "valor": "Automático",
+              "estadisticas": {
+                "n_personas_respondieron": 15
+              }
+            },
+            {
+              "valor": "Sincrónico",
+              "estadisticas": {
+                "n_personas_respondieron": 48
+              }
+            }
+          ],
+          "id": 111
+        },
+        {
+          "id_categoria": 5,
+          "id_subcategoria": 6,
+          "pregunta": "¿Qué tan seguido se le daña el carro?",
+          "id_tipo": 2,
+          "opciones": [
+            {
+              "valor": "Una vez al mes o más seguido",
+              "estadisticas": {
+                "n_personas_respondieron": 15
+              }
+            },
+            {
+              "valor": "Cada dos-cinco meses",
+              "estadisticas": {
+                "n_personas_respondieron": 25
+              }
+            },
+            {
+              "valor": "Cada seis-nueve meses",
+              "estadisticas": {
+                "n_personas_respondieron": 55
+              }
+            },
+            {
+              "valor": "Una vez al año",
+              "estadisticas": {
+                "n_personas_respondieron": 45
+              }
+            },
+            {
+              "valor": "Menos de una vez al año",
+              "estadisticas": {
+                "n_personas_respondieron": 95
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }
