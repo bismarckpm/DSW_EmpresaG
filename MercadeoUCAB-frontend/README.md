@@ -17,3 +17,5 @@
 2. El error handler del process http service message debe mostrar los errores que salgan del backend, por ahora solo muestra [Object object]
 
 3. Si al eliminar una pregunta del estudio vuelve a aparecer al actualizarse la pagina es porque las rutas de question y studies tienen referenciados objetos diferentes, cuando se haga la integracion con el backend se va a eliminar la pregunta y la relacion con su estudio con cascade
+
+4. Al concluir un estudio se modifica el id_estado en la ruta "studies" a "Terminado", pero no se actualiza en la ruta "stats", cuando se maneje desde el servidor real deberia ser consistente

@@ -131,9 +131,16 @@
                                 </div>
                             </div>
                         </div>
-                    
                     </form>
                 </div>
+            </div>
+
+            <!-- YOU CAN VISUALIZE THE CONCLUSIONS FROM FINISHED STUDIES -->
+            <div *ngIf="study.id_estado == 3" class="p-mx-5 p-mt-2">
+                <h4>CONCLUSIÓN DEL ESTUDIO</h4>
+                <p>
+                    <span [innerHTML]="study.conclusion"></span>
+                </p>
             </div>
         </div>
 

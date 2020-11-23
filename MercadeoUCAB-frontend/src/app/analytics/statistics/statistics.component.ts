@@ -83,7 +83,7 @@ export class StatisticsComponent implements OnInit {
 
       this.analystService.getStats(this.current_study).subscribe((study) => {
         if (study){
-          console.log(study)
+          //console.log(study)
           this.spinner.hide();
           this.study = study;
           this.open_text_questions = this.study.preguntas.filter(this.isOpenText)
@@ -162,13 +162,12 @@ export class StatisticsComponent implements OnInit {
   }
 
   putStudy(){
-    console.log(this.study)
-    /*this.studiesService.putStudy(this.study.id).subscribe((s) => {
+    this.studiesService.putStudy(this.study).subscribe((s) => {
       this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Estudio analizado con éxito'});
     }, errorMessage => {
       this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
       this.sent_form = false;
-    })*/
+    })
   }
 
   onSubmit(){

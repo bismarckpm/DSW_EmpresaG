@@ -830,6 +830,9 @@
       ]
     },
     {
+      "estadisticas": {
+        "n_personas_respondieron": 150
+      },
       "categoria": "Transporte",
       "id_categoria": 5,
       "id_subcategoria": 6,
@@ -850,6 +853,7 @@
       "edad_maxima": 28,
       "autor": "Julian Brandt",
       "id_autor": 7,
+      "id_estado": 3,
       "estado": "En progreso",
       "id": 4,
       "preguntas": [
@@ -860,10 +864,16 @@
           "id_tipo": 2,
           "opciones": [
             {
-              "valor": "Automático"
+              "valor": "Automático",
+              "estadisticas": {
+                "n_personas_respondieron": 15
+              }
             },
             {
-              "valor": "Sincrónico"
+              "valor": "Sincrónico",
+              "estadisticas": {
+                "n_personas_respondieron": 48
+              }
             }
           ],
           "id": 111
@@ -875,47 +885,39 @@
           "id_tipo": 2,
           "opciones": [
             {
-              "valor": "Una vez al mes o más seguido"
+              "valor": "Una vez al mes o más seguido",
+              "estadisticas": {
+                "n_personas_respondieron": 15
+              }
             },
             {
-              "valor": "Cada dos-cinco meses"
+              "valor": "Cada dos-cinco meses",
+              "estadisticas": {
+                "n_personas_respondieron": 25
+              }
             },
             {
-              "valor": "Cada seis-nueve meses"
+              "valor": "Cada seis-nueve meses",
+              "estadisticas": {
+                "n_personas_respondieron": 55
+              }
             },
             {
-              "valor": "Una vez al año"
+              "valor": "Una vez al año",
+              "estadisticas": {
+                "n_personas_respondieron": 45
+              }
             },
             {
-              "valor": "Menos de una vez al año"
+              "valor": "Menos de una vez al año",
+              "estadisticas": {
+                "n_personas_respondieron": 95
+              }
             }
           ]
-        },
-        {
-          "id_categoria": 5,
-          "id_subcategoria": 6,
-          "pregunta": "¿Qué tan seguido se le daña el carro?",
-          "id_tipo": 2,
-          "opciones": [
-            {
-              "valor": "Una vez al mes o más seguido"
-            },
-            {
-              "valor": "Cada dos-cinco meses"
-            },
-            {
-              "valor": "Cada seis-nueve meses"
-            },
-            {
-              "valor": "Una vez al año"
-            },
-            {
-              "valor": "Menos de una vez al año"
-            }
-          ],
-          "id": 113
         }
-      ]
+      ],
+      "conclusion": "<p>Luego de un <strong>exhaustivo </strong>análisis de los gráficos proporcionados por el sistema, se puede concluir que</p><ol><li>pinto es gei</li></ol>"
     }
   ],
   "take-survey": [
@@ -1294,8 +1296,9 @@
       "edad_maxima": 28,
       "autor": "Julian Brandt",
       "id_autor": 7,
-      "id_estado": 2,
+      "id_estado": 3,
       "estado": "En progreso",
+      "conclusion": "<p>Luego de un <strong>exhaustivo </strong>análisis de los gráficos proporcionados por el sistema, se puede concluir que</p><ol><li>pinto es gei</li></ol>",
       "id": 4,
       "preguntas": [
         {
