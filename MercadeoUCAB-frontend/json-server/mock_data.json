@@ -652,6 +652,30 @@
       "id_autor": 7,
       "estado": "En progreso",
       "id_estado": 2
+    },
+    {
+      "id_categoria": 2,
+      "id_subcategoria": 2,
+      "id_nivel_academico": null,
+      "id_nivel_socioeconomico": null,
+      "id_genero": null,
+      "tipo_filtro_geografico": null,
+      "edad_minima": null,
+      "edad_maxima": null,
+      "id_estado": 1,
+      "id": 4
+    },
+    {
+      "id_categoria": 2,
+      "id_subcategoria": 2,
+      "id_nivel_academico": null,
+      "id_nivel_socioeconomico": null,
+      "id_genero": null,
+      "tipo_filtro_geografico": null,
+      "edad_minima": null,
+      "edad_maxima": null,
+      "id_estado": 1,
+      "id": 5
     }
   ],
   "studies": [

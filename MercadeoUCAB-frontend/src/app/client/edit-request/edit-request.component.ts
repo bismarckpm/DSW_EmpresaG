@@ -88,7 +88,7 @@ export class EditRequestComponent implements OnInit {
       this.current_request = parseInt(this.Activatedroute.snapshot.queryParamMap.get('requestId'));
       this.requestsService.getRequest(this.current_request).subscribe((req) => {
         this.study_request = req;
-        // IF STUDY EXISTS
+        // IF REQUEST EXISTS
         if (this.study_request) {
           /* If request is being processed it can't be modified */
           if (this.study_request.id_estado == 2) {
