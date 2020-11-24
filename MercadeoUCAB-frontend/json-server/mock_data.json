@@ -655,10 +655,10 @@
         3,
         4
       ],
-      "estado": "En progreso",
+      "estado": "Terminado",
       "edad_minima": 15,
       "edad_maxima": "45",
-      "id_estado": 2,
+      "id_estado": 3,
       "preguntas": [
         {
           "id": 2,
@@ -788,8 +788,8 @@
         2,
         3
       ],
-      "estado": "En progreso",
-      "id_estado": 2,
+      "estado": "Terminado",
+      "id_estado": 3,
       "id_genero": null,
       "edad_minima": 14,
       "edad_maxima": 28,
@@ -853,7 +853,7 @@
       "edad_maxima": 28,
       "autor": "Julian Brandt",
       "id_autor": 7,
-      "id_estado": 3,
+      "id_estado": 2,
       "estado": "En progreso",
       "id": 4,
       "preguntas": [
@@ -1372,7 +1372,7 @@
       "edad_maxima": 28,
       "autor": "Julian Brandt",
       "id_autor": 7,
-      "id_estado": 3,
+      "id_estado": 2,
       "estado": "En progreso",
       "conclusion": "<p>Luego de un <strong>exhaustivo </strong>análisis de los gráficos proporcionados por el sistema, se puede concluir que</p><ol><li>pinto es gei</li></ol>",
       "id": 4,

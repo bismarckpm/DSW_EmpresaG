@@ -12,6 +12,7 @@ export class NavigationComponent implements OnInit {
   items: MenuItem[];
   items_user: MenuItem[];
   items_analyst: MenuItem[];
+  items_client: MenuItem[];
 
   constructor(private router: Router) { }
 
@@ -91,6 +92,19 @@ export class NavigationComponent implements OnInit {
         label: 'Encuestas (5)',
         icon: 'pi pi-fw pi-chart-bar',
         command: s => this.router.navigate(["analysis-requests"])
+      }
+    ];
+
+    this.items_client = [
+      {
+        label: 'Solicitudes',
+        icon: 'pi pi-fw pi-clock',
+        command: s => this.router.navigate(["my-requests"])
+      },
+      {
+        label: 'Solicitar Estudio',
+        icon: 'pi pi-fw pi-file',
+        command: r => this.router.navigate(["make-request"])
       }
     ];
   }

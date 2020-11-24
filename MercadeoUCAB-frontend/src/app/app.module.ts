@@ -100,6 +100,7 @@ import { AvailablePopulationComponent } from './analytics/available-population/a
 import { MakeInterviewComponent } from './analytics/make-interview/make-interview.component';
 import { MyRequestsComponent } from './client/my-requests/my-requests.component';
 import { CreateRequestComponent } from './client/create-request/create-request.component';
+import { ClientsStudyStatsComponent } from './client/clients-study-stats/clients-study-stats.component';
 
 @NgModule({
   declarations: [
@@ -146,7 +147,8 @@ import { CreateRequestComponent } from './client/create-request/create-request.c
     MakeInterviewComponent,
     MyRequestsComponent,
     CreateRequestComponent,
-    EditCategoryComponent
+    EditCategoryComponent,
+    ClientsStudyStatsComponent
   ],
   imports: [
     BrowserModule,

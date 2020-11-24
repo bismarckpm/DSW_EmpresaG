@@ -23,7 +23,6 @@ import { CategoriesComponent } from '../categories/categories.component';
 import { AddCategoryComponent } from '../categories/add-category/add-category.component';
 import { NotFoundComponent } from '../errors/not-found/not-found.component';
 import { ProfileComponent } from '../profile/profile.component';
-import { componentFactoryName } from '@angular/compiler';
 import { ChangeComponent } from '../recovery/change/change.component';
 import { SelectExistingComponent } from '../studies/select-existing/select-existing.component';
 import { PresentationsComponent } from '../presentations/presentations.component';
@@ -38,6 +37,7 @@ import { StatisticsComponent } from '../analytics/statistics/statistics.componen
 import { MakeInterviewComponent } from '../analytics/make-interview/make-interview.component';
 import { MyRequestsComponent } from '../client/my-requests/my-requests.component';
 import { CreateRequestComponent } from '../client/create-request/create-request.component';
+import { ClientsStudyStatsComponent } from '../client/clients-study-stats/clients-study-stats.component';
 
 export const routes: Routes = [
     { 
@@ -168,6 +168,10 @@ export const routes: Routes = [
       path: 'make-request',
       component: CreateRequestComponent
     },
+    {
+      path: 'client-stats',
+      component: ClientsStudyStatsComponent
+    },
 
     /* PRODUCTS */
     {
@@ -198,7 +202,7 @@ export const routes: Routes = [
     /* REDIRECCIONAR A LA RUTA EN LA QUE SE ESTE TRABAJANDO MIENTRAS TANTO */
     { 
       path: '', 
-      redirectTo: 'login', 
+      redirectTo: 'my-requests', 
       pathMatch: 'full' 
     }
 ];
