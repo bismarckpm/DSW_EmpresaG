@@ -1,1 +1,47 @@
-<p>login works!</p>
+<div class="demo-container p-mx-6 p-p-0 p-p-sm-1 p-p-md-2 p-p-lg-6">
+    <p-card>
+        <div class="marco">
+            <!-- Imagen decorativa -->
+            <div class="p-col-12 p-lg-5 p-d-none p-d-lg-inline-flex">
+                <img src="../../assets/img/register-2.jpg" class="panel-img" width="100%" height="550px" alt="">
+            </div>
+                
+            <div class="demo-container p-p-0 p-p-sm-4 p-p-md-6 p-p-lg-4">
+                <form novalidate [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <!-- <div class="p-col-12 p-lg-7">
+                        <div class="p-grid p-jc-center p-d-lg-none">
+                            <img src="../assets/img/Logo.png" width="100px" height="100px"  alt="">
+                        </div>
+                        <!-- <p-steps [model]="items" class="p-d-none p-d-lg-block"></p-steps> -->
+                        <!-- <router-outlet></router-outlet>
+                    </div> -->
+
+                    <div class="p-grid p-mt-4">
+                        <div class="p-col-12 p-md-6 p-mb-5">
+                            <span class="p-float-label">
+                                <input id="correo_electronico" formControlName="correo_electronico" type="text" pInputText>
+                                <label for="float-input">Correo electronico *</label>
+                            </span>
+                            <!-- <span class="error-msg" *ngIf="formErrors.correo_electronico"><small>{{formErrors.correo_electronico}}</small></span> -->
+                        </div>
+                    </div>
+
+                    <div class="p-grid p-mt-4">
+                        <div class="p-col-12 p-md-6 p-mb-5">
+                            <span class="p-float-label">
+                                <input id="clave" formControlName="clave" type="password" pInputText>
+                                <label for="float-input">Clave *</label>
+                            </span>
+                            <!-- <span class="error-msg" *ngIf="formErrors.correo_electronico"><small>{{formErrors.correo_electronico}}</small></span> -->
+                        </div>
+                    </div>
+                    <div class="p-grid p-formgrid p-fluid">
+                        <div class="p-mb-2 p-col-6 p-mb-lg-0">
+                            <button label="Finalizar">Finalizar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </p-card>
+</div>
