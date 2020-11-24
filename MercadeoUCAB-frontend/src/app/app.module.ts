@@ -103,6 +103,9 @@ import { CreateRequestComponent } from './client/create-request/create-request.c
 import { ClientsStudyStatsComponent } from './client/clients-study-stats/clients-study-stats.component';
 import { EditRequestComponent } from './client/edit-request/edit-request.component';
 import { StudyPreviewComponent } from './client/study-preview/study-preview.component';
+import { SubcategoriesComponent } from './subcategories/subcategories.component';
+import { AddSubcategoryComponent } from './subcategories/add-subcategory/add-subcategory.component';
+import { EditSubcategoryComponent } from './subcategories/edit-subcategory/edit-subcategory.component';
 
 @NgModule({
   declarations: [
@@ -152,7 +155,10 @@ import { StudyPreviewComponent } from './client/study-preview/study-preview.comp
     EditCategoryComponent,
     ClientsStudyStatsComponent,
     EditRequestComponent,
-    StudyPreviewComponent
+    StudyPreviewComponent,
+    SubcategoriesComponent,
+    AddSubcategoryComponent,
+    EditSubcategoryComponent
   ],
   imports: [
     BrowserModule,

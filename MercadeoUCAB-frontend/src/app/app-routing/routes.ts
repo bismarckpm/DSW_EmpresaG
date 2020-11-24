@@ -40,6 +40,7 @@ import { CreateRequestComponent } from '../client/create-request/create-request.
 import { ClientsStudyStatsComponent } from '../client/clients-study-stats/clients-study-stats.component';
 import { EditRequestComponent } from '../client/edit-request/edit-request.component';
 import { StudyPreviewComponent } from '../client/study-preview/study-preview.component';
+import { SubcategoriesComponent } from '../subcategories/subcategories.component';
 
 export const routes: Routes = [
     { 
@@ -184,6 +185,10 @@ export const routes: Routes = [
     },
 
     /* PRODUCTS */
+    {
+      path: 'subcategories',
+      component: SubcategoriesComponent
+    },
     {
       path: 'presentations',
       component: PresentationsComponent
