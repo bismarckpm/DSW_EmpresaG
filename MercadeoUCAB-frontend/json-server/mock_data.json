@@ -1373,7 +1373,7 @@
           "primer_apellido": "Hesse",
           "documento_de_identificacion": "8932SHFD",
           "correo_electronico": "hyperschnell11@outlook.sk",
-          "fecha_de_nacimiento": "08/01/1999" 
+          "fecha_de_nacimiento": "08/01/1999"
         },
         {
           "id": 2,
@@ -1391,7 +1391,7 @@
           "correo_electronico": "jujutsukaisenfingerposting@gmail.ca",
           "fecha_de_nacimiento": "13/01/1997"
         }
-    ]
+      ]
     },
     {
       "id": 2,
@@ -1402,7 +1402,7 @@
           "primer_apellido": "Hesse",
           "documento_de_identificacion": "8932SHFD",
           "correo_electronico": "hyperschnell11@outlook.sk",
-          "fecha_de_nacimiento": "08/01/1999" 
+          "fecha_de_nacimiento": "08/01/1999"
         },
         {
           "id": 4,
@@ -1420,7 +1420,7 @@
           "correo_electronico": "maketrash@gmail.ca",
           "fecha_de_nacimiento": "17/05/2012"
         }
-    ]
+      ]
     },
     {
       "id": 3,
@@ -1449,7 +1449,7 @@
           "correo_electronico": "maketrash@gmail.ca",
           "fecha_de_nacimiento": "17/05/2012"
         }
-    ]
+      ]
     },
     {
       "id": 4,
@@ -1478,7 +1478,14 @@
           "correo_electronico": "chemagogia@gmail.ca",
           "fecha_de_nacimiento": "18/10/1997"
         }
-    ]
+      ]
+    }
+  ],
+  "login": [
+    {
+      "correo_electronico": "angel99castillo@gmail.com",
+      "clave": "hola2123",
+      "id": 1
     }
   ]
 }
