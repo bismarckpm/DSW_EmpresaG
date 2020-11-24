@@ -82,6 +82,10 @@
                                 *ngIf="answers.controls[i].get('rango_inicial').touched && answers.controls[i].get('rango_inicial').errors?.pattern"><small>{{validationMessages.rango_inicial.pattern}}</small></span>
                                 <span class="error-msg"
                                 *ngIf="answers.controls[i].get('rango_inicial').touched && answers.controls[i].get('rango_inicial').errors?.lessThan"><small>{{validationMessages.rango_inicial.lessThan}}</small></span>
+                                <span class="error-msg"
+                                *ngIf="answers.controls[i].get('rango_inicial').touched && answers.controls[i].get('rango_inicial').errors?.min"><small>{{validationMessages.rango_inicial.min}}</small></span>
+                                <span class="error-msg"
+                                *ngIf="answers.controls[i].get('rango_inicial').touched && answers.controls[i].get('rango_inicial').errors?.max"><small>{{validationMessages.rango_inicial.max}}</small></span>
                             
                             </div>
                             <div class="p-col-12 p-lg-6">
@@ -93,6 +97,10 @@
                                 *ngIf="answers.controls[i].get('rango_final').touched && answers.controls[i].get('rango_final').errors?.pattern"><small>{{validationMessages.rango_final.pattern}}</small></span>
                                 <span class="error-msg"
                                 *ngIf="answers.controls[i].get('rango_final').touched && answers.controls[i].get('rango_final').errors?.greaterThan"><small>{{validationMessages.rango_final.greaterThan}}</small></span>
+                                <span class="error-msg"
+                                *ngIf="answers.controls[i].get('rango_final').touched && answers.controls[i].get('rango_final').errors?.min"><small>{{validationMessages.rango_final.min}}</small></span>
+                                <span class="error-msg"
+                                *ngIf="answers.controls[i].get('rango_final').touched && answers.controls[i].get('rango_final').errors?.max"><small>{{validationMessages.rango_final.max}}</small></span>
                             
                             </div>
                         </div>

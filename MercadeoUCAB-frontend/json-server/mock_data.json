@@ -1018,6 +1018,82 @@
         1
       ],
       "tipo_filtro_geografico": "paises"
+    },
+    {
+      "id": 3,
+      "categoria": "Tecnología",
+      "id_categoria": 3,
+      "id_subcategoria": 3,
+      "subcategoria": "Programación",
+      "nivel_academico": "Primaria, Secundaria",
+      "id_nivel_academico": [
+        1,
+        2
+      ],
+      "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
+      "id_nivel_socioeconomico": [
+        2,
+        3,
+        4
+      ],
+      "tipo_filtro_geografico": "estados",
+      "lugares": "Lousiana, California",
+      "id_lugares": [
+        2,
+        3
+      ],
+      "estado": "En progreso",
+      "id_estado": 2,
+      "id_genero": null,
+      "edad_minima": 14,
+      "edad_maxima": 28,
+      "preguntas": [
+        {
+          "id": 6,
+          "tipo": "Selección simple",
+          "pregunta": "¿Prefieres los headsets o los earbuds?",
+          "categoria": "Tecnología",
+          "id_categoria": 3,
+          "id_subcategoria": 5,
+          "id_tipo": 2,
+          "subcategoria": "Hardware",
+          "opciones": [
+            {
+              "valor": "Headsets"
+            },
+            {
+              "valor": "Earbuds"
+            }
+          ],
+          "respuestas": {
+            "opcion_seleccionada": "Headsets",
+            "usuario_id": 5
+          }
+        },
+        {
+          "id_categoria": 3,
+          "id_subcategoria": 3,
+          "pregunta": "¿De cuántas lineas fue el codigo mas largo que has escrito?",
+          "id_tipo": 1,
+          "respuestas": {
+            "respuesta_texto": "18000",
+            "usuario_id": 5
+          }
+        },
+        {
+          "tipo": "Texto abierto",
+          "pregunta": "Si usted sabe qué es el Net Neutrality ¿Qué opina de el?",
+          "categoria": "Tecnología",
+          "subcategoria": "",
+          "id_tipo": 1,
+          "id_categoria": 3,
+          "id": 111,
+          "respuestas": {
+            "respuesta_texto": "no se :/ ",
+            "usuario_id": 5
+          }
+        }
+      ]
     }
   ],
   "stats": [

@@ -37,12 +37,16 @@ export class TakeSurveyUserComponent implements OnInit {
     'rango_inicial': {
       'required': 'Rango inicial es requerido',
       'pattern': 'Rango debe ser numérico',
-      'lessThan': 'Rango inicial debe ser menor que rango final'
+      'lessThan': 'Rango inicial debe ser menor que rango final',
+      'min': 'Rango inicial no puede ser menor que el valor permitido',
+      'max': 'Rango inicial no puede ser mayor que el valor permitido'
     },
     'rango_final': {
       'required': 'Rango final es requerido',
       'pattern': 'Rango debe ser numérico',
-      'greaterThan': 'Rango final debe ser mayor que rango inicial'
+      'greaterThan': 'Rango final debe ser mayor que rango inicial',
+      'min': 'Rango final no puede ser menor que el valor permitido',
+      'max': 'Rango final no puede ser mayor que el valor permitido'
     }
   }
 
@@ -136,7 +140,9 @@ export class TakeSurveyUserComponent implements OnInit {
             [
               Validators.required,
               Validators.pattern('^[0-9]*$'),
-              RxwebValidators.lessThan({fieldName: 'rango_final'})
+              RxwebValidators.lessThan({fieldName: 'rango_final'}),
+              Validators.min(this.estudio.preguntas[i].opciones[0].rango_inicial),
+              Validators.max(this.estudio.preguntas[i].opciones[0].rango_final)
             ]
           ),
 
@@ -145,7 +151,9 @@ export class TakeSurveyUserComponent implements OnInit {
             [
               Validators.required,
               Validators.pattern('^[0-9]*$'),
-              RxwebValidators.greaterThan({fieldName: 'rango_inicial'})
+              RxwebValidators.greaterThan({fieldName: 'rango_inicial'}),
+              Validators.min(this.estudio.preguntas[i].opciones[0].rango_inicial),
+              Validators.max(this.estudio.preguntas[i].opciones[0].rango_final)
             ]
           )
         }))

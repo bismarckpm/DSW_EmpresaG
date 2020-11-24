@@ -19,3 +19,5 @@
 3. Si al eliminar una pregunta del estudio vuelve a aparecer al actualizarse la pagina es porque las rutas de question y studies tienen referenciados objetos diferentes, cuando se haga la integracion con el backend se va a eliminar la pregunta y la relacion con su estudio con cascade
 
 4. Al concluir un estudio se modifica el id_estado en la ruta "studies" a "Terminado", pero no se actualiza en la ruta "stats", cuando se maneje desde el servidor real deberia ser consistente
+
+5. Si se toma la misma encuesta va a dar error porque la ruta esta usando los id de las encuestas, cuando se integre con el backend este error se va a arreglar solo
