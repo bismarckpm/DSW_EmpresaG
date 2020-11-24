@@ -19,4 +19,12 @@ export class AnalystService {
       .pipe(map(study => study[0]))
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
+
+  getAvailablePopulation(study_id){
+    return this.http.get(baseURL + 'population', {params: {
+      id: study_id
+    }})
+    .pipe(map(study => study[0]))
+    .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
 }

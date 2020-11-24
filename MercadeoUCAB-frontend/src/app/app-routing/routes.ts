@@ -198,7 +198,7 @@ export const routes: Routes = [
     /* REDIRECCIONAR A LA RUTA EN LA QUE SE ESTE TRABAJANDO MIENTRAS TANTO */
     { 
       path: '', 
-      redirectTo: 'presentations', 
+      redirectTo: 'available-population', 
       pathMatch: 'full' 
     }
 ];

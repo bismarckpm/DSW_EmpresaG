@@ -1,5 +1,6 @@
 import { Question } from '../classes/question';
 import { Analytics } from '../classes/analytics';
+import { Person } from './person';
 
 export class Study {
     id: number;
@@ -34,4 +35,5 @@ export class Study {
     /* FOR ANALYTICS */
     estadisticas?: Analytics;
     conclusion?: string;
+    poblacion_disponible?: Person[];
 }
