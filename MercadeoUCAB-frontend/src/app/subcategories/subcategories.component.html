@@ -1,6 +1,6 @@
 <app-navigation></app-navigation>
 
-<!-- PRESENTATIONS -->
+<!-- SUBCATEGORIES -->
 <div class="demo-container p-mx-6 p-p-0 p-p-sm-1 p-p-md-2 p-p-lg-6">
     <p-card>
         <div class="p-grid p-mx-5">
@@ -101,7 +101,7 @@
     </p-card>
 
     <app-add-subcategory [display]="display_add_subcategory" (onsubcategoryAdded)="appendNewSubcategory($event)" (onModalClose)="hideAddSubcategoryModal()"></app-add-subcategory>
-    <app-edit-subcategory *ngIf="subcategoria" [subcategory]="subcategory" [display]="display_edit_subcategory" (onsubcategoryEdited)="editSubcategory($event)" (onModalClose)="hideEditSubcategoryModal()"></app-edit-subcategory>
+    <app-edit-subcategory *ngIf="subcategoria" [subcategory]="subcategory" [display]="display_edit_subcategory" (onSubcategoryEdited)="editSubcategory($event)" (onModalClose)="hideEditSubcategoryModal()"></app-edit-subcategory>
 
     <p-confirmDialog></p-confirmDialog>
     <p-toast></p-toast>

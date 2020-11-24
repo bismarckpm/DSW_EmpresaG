@@ -26,6 +26,11 @@ export class SubcategoryService {
       }}).pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
+  postSubcategory(subcategory): Observable<Subcategory>{
+    return this.http.post<Subcategory>(baseURL + 'subcategories', subcategory)
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
   deleteSubcategory(subcategory): Observable<Subcategory>{
     return this.http.delete<Subcategory>(baseURL + 'subcategories/' + subcategory.id)
       .pipe(catchError(this.processHTTPMessageService.handleError))

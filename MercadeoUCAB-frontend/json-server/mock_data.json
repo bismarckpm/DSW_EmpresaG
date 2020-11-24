@@ -528,6 +528,12 @@
       "id": 6,
       "nombre": "Automoviles",
       "id_categoria": 5
+    },
+    {
+      "nombre": "headsets de pupu",
+      "id_categoria": 2,
+      "descripcion": "xd",
+      "id": 7
     }
   ],
   "types": [

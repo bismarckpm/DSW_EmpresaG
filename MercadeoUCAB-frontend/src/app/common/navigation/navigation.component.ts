@@ -29,11 +29,13 @@ export class NavigationComponent implements OnInit {
         items: [
           {
             label: 'Categorías',
-            icon: 'pi pi-fw pi-list'
+            icon: 'pi pi-fw pi-list',
+            command: c => this.router.navigate(["categories"])
           },
           {
             label: 'Subcategorías',
-            icon: 'pi pi-fw pi-sort-amount-down'
+            icon: 'pi pi-fw pi-sort-amount-down',
+            command: s => this.router.navigate(["subcategories"])
           },
           {
             label: 'Tipos',
