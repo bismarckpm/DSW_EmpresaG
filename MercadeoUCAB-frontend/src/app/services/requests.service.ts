@@ -27,6 +27,17 @@ export class RequestsService {
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
+  postRequest(request): Observable<Request>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+    };
+
+    return this.http.post<Request>(baseURL + 'requests' , request, httpOptions)
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
   putRequest(request): Observable<Request>{
     const httpOptions = {
       headers: new HttpHeaders({

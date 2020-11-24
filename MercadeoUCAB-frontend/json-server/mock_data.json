@@ -467,6 +467,13 @@
       "pregunta": "¿Alguna vez ha comprado en una tienda underground?",
       "id_tipo": 4,
       "id": 115
+    },
+    {
+      "id_categoria": 2,
+      "id_subcategoria": 2,
+      "pregunta": "¿Se considera usted bueno en los shooter?",
+      "id_tipo": 4,
+      "id": 116
     }
   ],
   "categories": [
@@ -567,22 +574,26 @@
     {
       "id": 1,
       "categoria": "TV",
-      "id_categoria": 4,
+      "id_categoria": 5,
       "subcategoria": "Anime",
-      "id_subcategoria": 4,
+      "id_subcategoria": 6,
       "nivel_academico": "Primaria",
       "id_nivel_academico": [
-        1
+        3
       ],
       "nivel_socioeconomico": "Medio-bajo",
-      "id_nivel_socioeconomico": [
-        2
-      ],
-      "edad_minima": 15,
-      "edad_maxima": 20,
+      "id_nivel_socioeconomico": [],
+      "edad_minima": 1,
+      "edad_maxima": 90,
       "id_autor": 2,
       "autor": "Tate Langdon",
-      "estado": "Sin procesar"
+      "estado": "Sin procesar",
+      "id_estado": 1,
+      "id_lugares": [
+        2
+      ],
+      "id_genero": null,
+      "tipo_filtro_geografico": "estados"
     },
     {
       "id": 2,
@@ -595,20 +606,27 @@
       "nivel_academico": "Primaria, Secundaria",
       "id_nivel_academico": [
         1,
-        2
+        2,
+        3,
+        4
       ],
       "nivel_socioeconomico": "Medio-alto",
       "id_nivel_socioeconomico": [
         4
       ],
-      "tipo_filtro_geografico": "paises",
+      "tipo_filtro_geografico": "estados",
       "lugares": "Estados Unidos",
       "id_lugares": [
-        1
+        4,
+        2,
+        3
       ],
       "autor": "Clarke Hent",
       "id_autor": 3,
-      "estado": "Sin procesar"
+      "estado": "Sin procesar",
+      "id_estado": 1,
+      "edad_minima": null,
+      "edad_maxima": null
     },
     {
       "id": 3,
@@ -632,7 +650,8 @@
       "edad_maxima": 28,
       "autor": "Julian Brandt",
       "id_autor": 7,
-      "estado": "En progreso"
+      "estado": "En progreso",
+      "id_estado": 2
     }
   ],
   "studies": [
@@ -737,10 +756,10 @@
         3,
         4
       ],
-      "tipo_filtro_geografico": "paises",
+      "tipo_filtro_geografico": "estados",
       "lugares": "Estados Unidos",
       "id_lugares": [
-        1
+        4
       ],
       "estado": "En progreso",
       "id_estado": 2,
@@ -762,8 +781,16 @@
           "id_subcategoria": 2,
           "pregunta": "¿Tiene un grupo predeterminado para jugar?",
           "id_tipo": 4
+        },
+        {
+          "id_categoria": 2,
+          "id_subcategoria": 2,
+          "pregunta": "¿Se considera usted bueno en los shooter?",
+          "id_tipo": 4
         }
-      ]
+      ],
+      "edad_minima": null,
+      "edad_maxima": null
     },
     {
       "id": 3,

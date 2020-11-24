@@ -2,8 +2,9 @@ import { Analytics } from './analytics';
 
 export class Request {
     id: number;
-    estado: string;
-
+    estado?: string;
+    id_estado: number;
+    
     /* TO MODIFY / ADD VALUES */
     id_autor?: number;
     id_categoria?: number;

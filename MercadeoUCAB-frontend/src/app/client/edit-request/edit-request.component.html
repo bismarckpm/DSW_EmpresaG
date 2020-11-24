@@ -1,1 +1,136 @@
-<p>edit-request works!</p>
+<app-navigation></app-navigation>
+
+<!-- Study -->
+<div class="demo-container p-mx-6 p-p-0 p-p-sm-1 p-p-md-2 p-p-lg-6">
+    <p-card>
+        <div class="p-grid p-mx-5">
+            <div class="p-col-12 p-lg-6">
+                <h3 class="table-title">EDITAR SOLICITUD</h3>
+            </div>
+        </div>
+        <hr>
+
+        <div *ngIf="study_request">
+            <form novalidate [formGroup]="studyForm" #sform="ngForm" (ngSubmit)="onSubmit()">
+                <h4 class="p-mx-5">Filtros de producto</h4>
+                <div class="p-grid p-mx-5 p-mt-2">
+                    <div class="p-col-12 p-md-6 p-lg-4">
+                        <p-dropdown [options]="categorias"
+                            (onChange)="getSubcategories()"
+                            formControlName="categoria" placeholder="Categoría"></p-dropdown>
+                    </div>
+
+                    <div class="p-col-12 p-md-6 p-lg-4">
+                        <p-dropdown [options]="subcategorias" formControlName="subcategoria" placeholder="Subcategoría">
+                        </p-dropdown>
+                    </div>
+                </div>
+
+                <h4 class="p-mx-5">Filtro de edad</h4>
+                <div class="p-grid p-mx-5 p-mt-2">
+                    <div class="p-col-12 p-md-6 p-lg-4">
+                        <input class="p-inputtext-lg full-width" formControlName="edad_minima" type="text" pInputText
+                            placeholder="Edad mínima">
+                        <span class="error-msg"
+                            *ngIf="formErrors.edad_minima"><small>{{formErrors.edad_minima}}</small></span>
+                    </div>
+
+                    <div class="p-col-12 p-md-6 p-lg-4">
+                        <input class="p-inputtext-lg full-width" formControlName="edad_maxima" type="text" pInputText
+                            placeholder="Edad máxima">
+                        <span class="error-msg"
+                            *ngIf="formErrors.edad_maxima"><small>{{formErrors.edad_maxima}}</small></span>
+                    </div>
+                </div>
+
+
+                <h4 class="p-mx-5">Filtros de población</h4>
+                <div class="p-grid p-mx-5 p-mt-2">
+                    <div class="p-col-12 p-md-6 p-lg-4">
+                        <p-multiSelect [options]="niveles_academicos" formControlName="nivel_academico"
+                            defaultLabel="Nivel académico" emptyFilterMessage="No se encontraron resultados"
+                            selectedItemsLabel="{} items seleccionados"></p-multiSelect>
+                    </div>
+
+                    <div class="p-col-12 p-md-6 p-lg-4">
+                        <p-multiSelect [options]="niveles_socioeconomicos" formControlName="nivel_socioeconomico"
+                            defaultLabel="Nivel socioeconómico" emptyFilterMessage="No se encontraron resultados"
+                            selectedItemsLabel="{} items seleccionados"></p-multiSelect>
+                    </div>
+
+                    <div class="p-col-12 p-md-6 p-lg-4">
+                        <p-dropdown [options]="generos" formControlName="genero" placeholder="Genero"></p-dropdown>
+                    </div>
+                </div>
+
+                <h4 class="p-mx-5">Filtros geográficos</h4>
+                <div class="p-grid p-mx-5 p-mt-2">
+                    <p-radioButton value="paises" (onClick)="clearPlaces()" formControlName="tipo_de_filtro"
+                        label="Filtrar por países" class="p-mb-3"></p-radioButton>
+                </div>
+                <div class="p-grid p-mx-5 p-mt-2">
+                    <p-radioButton value="estados" (onClick)="clearPlaces()" label="Filtrar por estados"
+                        formControlName="tipo_de_filtro" class="p-mb-3"></p-radioButton>
+                </div>
+                <div class="p-grid p-mx-5 p-mt-2">
+                    <p-radioButton [value]="null" (onClick)="clearPlaces()" label="Ninguno"
+                        formControlName="tipo_de_filtro" class="p-mb-3"></p-radioButton>
+                </div>
+
+                <!-- FILTRO GEOGRÁFICO -->
+
+                <div>
+                    <div class="p-grid p-mx-5 p-mt-2">
+                        <div class="p-col-12 p-md-6 p-lg-4">
+                            <p-multiSelect *ngIf="studyForm.value.tipo_de_filtro == 'paises'" [options]="paises"
+                                defaultLabel="Países" emptyFilterMessage="No se encontraron resultados"
+                                selectedItemsLabel="{} items seleccionados" formControlName="pais"></p-multiSelect>
+
+                            <p-dropdown [options]="paises" formControlName="pais"
+                                *ngIf="studyForm.value.tipo_de_filtro == 'estados'"
+                                (onChange)="getStates($event.value)"
+                                placeholder="País"></p-dropdown>
+                        </div>
+
+                        <div class="p-col-12 p-md-6 p-lg-4">
+                            <p-multiSelect *ngIf="studyForm.value.tipo_de_filtro == 'estados'" [options]="estados"
+                                defaultLabel="Estados" emptyFilterMessage="No se encontraron resultados"
+                                formControlName="estado" selectedItemsLabel="{} items seleccionados"></p-multiSelect>
+
+                            <p-dropdown [options]="estados" formControlName="estado"
+                                *ngIf="studyForm.value.tipo_de_filtro == 'ciudades'" placeholder="Estado"></p-dropdown>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                <!-- BOTONES -->
+                <div class="p-grid p-jc-end p-mt-3 p-mb-6 p-mr-4">
+                    <div class="p-grid p-formgrid p-fluid">
+                        <div class="p-mb-2 p-col-6 p-mb-lg-0">
+                            <button pButton pRipple type="button" label="Atrás" class="p-button-secondary"></button>
+                        </div>
+                        <div class="p-mb-2 p-col-6 p-mb-lg-0">
+                            <button pButton pRipple type="submit" [disabled]="sent_form" label="Enviar"></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div *ngIf="!study_request && !loading && studyErrorMessage">
+            <app-server-disconnected></app-server-disconnected>
+        </div>
+
+        <div>
+            <div class="p-grid p-jc-center">
+                <ngx-spinner></ngx-spinner>
+            </div>
+        </div>
+        <p-toast></p-toast>
+
+    </p-card>
+</div>

@@ -1,1 +1,117 @@
-<p>study-preview works!</p>
+<app-navigation></app-navigation>
+
+<!-- Study -->
+<div class="demo-container p-mx-6 p-p-0 p-p-sm-1 p-p-md-2 p-p-lg-6">
+    <p-card>
+        <div class="p-grid p-mx-5">
+            <div class="p-col-12 p-lg-6">
+                <h3 class="table-title">VISTA PREVIA DEL ESTUDIO</h3>
+            </div>
+        </div>
+        <hr>
+        <div class="p-grid p-mx-5 p-mt-3" *ngIf="estudio && !loading">
+            <button pButton pRipple type="button" icon="pi pi-info" class="p-button-rounded p-button-text"></button>
+            <div class="p-mt-2 p-ml-3">
+                Características del estudio
+            </div>
+        </div>
+        
+        <div class="p-mx-5" *ngIf="estudio && !loading">
+            <p>
+                <strong>CATEGORÍA: </strong>{{estudio.categoria}} <br>
+                <strong>SUBCATEGORÍA: </strong>{{estudio.subcategoria}} <br>
+                <em *ngIf="estudio.edad_minima && estudio.edad_maxima">
+                    <strong>EDAD MÍNIMA: </strong>{{estudio.edad_minima}} <br>
+                    <strong>EDAD MÁXIMA: </strong>{{estudio.edad_maxima}} <br>
+                </em>
+                <em *ngIf="estudio.nivel_academico">
+                    <strong>NIVEL ACADÉMICO: </strong>{{estudio.nivel_academico}} <br>
+                </em>
+                <em *ngIf="estudio.nivel_socioeconomico">
+                    <strong>NIVEL SOCIOECONÓMICO: </strong>{{estudio.nivel_socioeconomico}} <br>
+                </em>
+                <em *ngIf="estudio.genero">
+                    <strong>GÉNERO: </strong>{{estudio.genero}} <br>
+                </em>
+                <em *ngIf="estudio.tipo_filtro_geografico">
+                    <strong>TIPO DE FILTRO GEOGRÁFICO: </strong>{{estudio.tipo_filtro_geografico}} <br>
+                    <strong>LUGARES: </strong>{{estudio.lugares}} <br>
+                </em>
+            </p>
+        </div>
+
+        <div *ngIf="estudio && estudio.preguntas">
+            <div class="p-mx-5 p-mt-5" *ngFor="let pregunta of estudio.preguntas">
+                <div class="p-grid">
+                    <div class="p-col-12 p-lg-10">
+                        <p>{{pregunta.pregunta}}</p>
+                        <small *ngIf="pregunta.id_tipo == 5">Valores permitidos: Desde
+                            {{pregunta.opciones[0].rango_inicial}} hasta {{pregunta.opciones[0].rango_final}}</small>
+                        <!-- RESPONSES OPEN TEXT -->
+                        <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.id_tipo == 1">
+                            <div class="p-col-12 p-lg-6">
+                                <label for="float-input">Respuesta</label>
+                                <input [disabled]="true" class="p-inputtext-lg fill-width" type="text" pInputText>
+                            </div>
+                        </div>
+
+                        <!-- RESPONSES SIMPLE SELECTION -->
+                        <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.id_tipo == 2">
+                            <div class="p-col-12" *ngFor="let opcion of pregunta.opciones">
+                                <p-radioButton [label]="opcion.valor" [disabled]="true" class="p-mb-3"></p-radioButton>
+                            </div>
+                        </div>
+
+                        <!-- RESPONSES MULTIPLE SELECTION -->
+                        <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.id_tipo == 3">
+                            <div class="p-col-12" *ngFor="let opcion of pregunta.opciones">
+                                <p-checkbox [label]="opcion.valor" [disabled]="true" class="p-mb-3"></p-checkbox>
+                            </div>
+                        </div>
+
+                        <!-- RESPONSES TRUE/FALSE -->
+                        <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.id_tipo == 4">
+                            <div class="p-col-12">
+                                <p-radioButton label="Verdadero" [disabled]="true" class="p-mb-3"></p-radioButton>
+                            </div>
+                            <div class="p-col-12">
+                                <p-radioButton label="Falso" [disabled]="true" class="p-mb-3"></p-radioButton>
+                            </div>
+                        </div>
+
+                        <!-- RESPONSES RANGE -->
+                        <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.id_tipo == 5">
+                            <div class="p-col-12 p-lg-6">
+                                <label for="float-input">Desde</label>
+                                <input [disabled]="true" class="p-inputtext-lg fill-width" type="text" pInputText>
+                            </div>
+                            <div class="p-col-12 p-lg-6">
+                                <label for="float-input">Hasta</label>
+                                <input [disabled]="true" class="p-inputtext-lg fill-width" type="text" pInputText>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-grid p-jc-end p-mt-1 p-mr-4">
+                <div class="p-grid p-formgrid p-fluid">
+                    <div class="p-mb-2 p-col-12 p-mb-lg-0">
+                        <button pButton pRipple type="button" (click)="backClicked()" label="Atrás"
+                            class="p-button-secondary"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="!estudio && studyErrorMessage">
+            <app-server-disconnected></app-server-disconnected>
+        </div>
+
+        <div>
+            <div class="p-grid p-jc-center">
+                <ngx-spinner></ngx-spinner>
+            </div>
+        </div>
+
+    </p-card>
+</div>
