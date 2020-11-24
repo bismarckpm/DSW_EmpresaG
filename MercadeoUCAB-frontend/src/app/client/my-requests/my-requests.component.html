@@ -4,8 +4,16 @@
 <div class="demo-container p-mx-6 p-p-0 p-p-sm-1 p-p-md-2 p-p-lg-6">
     <p-card>
         <div class="p-grid p-mx-5">
-            <div class="p-col-12">
+            <div class="p-col-12 p-lg-6">
                 <h3 class="table-title">SOLICITUDES DE ESTUDIO</h3>
+            </div>
+
+            <div class="p-col-12 p-lg-6" *ngIf="current_state == 1">
+                <div class="p-grid p-jc-end p-mt-1 p-mr-4">
+                    <button pButton pRipple type="button" pTooltip="Realizar solicitud" tooltipPosition="bottom"
+                        icon="pi pi-plus" routerLink="../make-request" class="p-button-rounded p-button-text">
+                    </button>
+                </div>
             </div>
         </div>
         <hr>
@@ -21,7 +29,8 @@
                 </div>
 
                 <div class="p-col-12 p-md-6 p-lg-4">
-                    <p-dropdown [options]="request_states" placeholder="Estado" [(ngModel)]="current_state" (onChange)="filterStudies($event)">
+                    <p-dropdown [options]="request_states" placeholder="Estado" [(ngModel)]="current_state"
+                        (onChange)="filterStudies($event)">
 
                     </p-dropdown>
                 </div>
@@ -70,7 +79,8 @@
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Rango de edades</span>
-                                <span class="image-text" *ngIf="estudio.edad_minima && estudio.edad_maxima">De {{estudio.edad_minima}} hasta {{estudio.edad_maxima}}</span>
+                                <span class="image-text" *ngIf="estudio.edad_minima && estudio.edad_maxima">De
+                                    {{estudio.edad_minima}} hasta {{estudio.edad_maxima}}</span>
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Lugares</span>
@@ -88,14 +98,18 @@
                             </td>
 
                             <td class="p-text-center">
-                                <button *ngIf="current_state == 2 || current_state == 3" type="button" pButton
-                                    pRipple icon="pi pi-eye" class="p-button-rounded p-mr-2" pTooltip="Vista previa del estudio"
-                                    tooltipPosition="bottom"></button>
-                                <button *ngIf="current_state == 3" type="button" pButton
-                                    pRipple icon="pi pi-chart-bar" class="p-button-rounded p-mr-2" pTooltip="Estadísticas"
-                                    tooltipPosition="bottom"></button>
+                                <button *ngIf="current_state == 2 || current_state == 3" type="button" pButton pRipple
+                                    icon="pi pi-eye" class="p-button-rounded p-mr-2" pTooltip="Vista previa del estudio"
+                                    tooltipPosition="bottom" routerLink="../view-study" [queryParams]="{studyId: estudio.id}"></button>
+                                <button *ngIf="current_state == 3" type="button" pButton pRipple icon="pi pi-chart-bar"
+                                    class="p-button-rounded p-mr-2" routerLink="../view-study/stats" [queryParams]="{studyId: estudio.id}" pTooltip="Estadísticas"
+                                    tooltipPosition="bottom" ></button>
+                                <button *ngIf="current_state == 1" type="button" pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-mr-2" pTooltip="Editar solicitud" tooltipPosition="bottom"
+                                    routerLink="../edit-request" [queryParams]="{requestId: estudio.id}"></button>
                                 <button *ngIf="current_state == 1" type="button" pButton pRipple icon="pi pi-times"
-                                    class="p-button-rounded p-mr-2" pTooltip="Cancelar solicitud" tooltipPosition="bottom"></button>
+                                    class="p-button-rounded p-mr-2" pTooltip="Cancelar solicitud"
+                                    tooltipPosition="bottom"></button>
                             </td>
                         </tr>
                     </ng-template>

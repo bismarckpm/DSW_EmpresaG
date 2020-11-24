@@ -101,6 +101,8 @@ import { MakeInterviewComponent } from './analytics/make-interview/make-intervie
 import { MyRequestsComponent } from './client/my-requests/my-requests.component';
 import { CreateRequestComponent } from './client/create-request/create-request.component';
 import { ClientsStudyStatsComponent } from './client/clients-study-stats/clients-study-stats.component';
+import { EditRequestComponent } from './client/edit-request/edit-request.component';
+import { StudyPreviewComponent } from './client/study-preview/study-preview.component';
 
 @NgModule({
   declarations: [
@@ -148,7 +150,9 @@ import { ClientsStudyStatsComponent } from './client/clients-study-stats/clients
     MyRequestsComponent,
     CreateRequestComponent,
     EditCategoryComponent,
-    ClientsStudyStatsComponent
+    ClientsStudyStatsComponent,
+    EditRequestComponent,
+    StudyPreviewComponent
   ],
   imports: [
     BrowserModule,

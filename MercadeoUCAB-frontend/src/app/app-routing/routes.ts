@@ -38,6 +38,8 @@ import { MakeInterviewComponent } from '../analytics/make-interview/make-intervi
 import { MyRequestsComponent } from '../client/my-requests/my-requests.component';
 import { CreateRequestComponent } from '../client/create-request/create-request.component';
 import { ClientsStudyStatsComponent } from '../client/clients-study-stats/clients-study-stats.component';
+import { EditRequestComponent } from '../client/edit-request/edit-request.component';
+import { StudyPreviewComponent } from '../client/study-preview/study-preview.component';
 
 export const routes: Routes = [
     { 
@@ -169,8 +171,16 @@ export const routes: Routes = [
       component: CreateRequestComponent
     },
     {
-      path: 'client-stats',
+      path: 'edit-request',
+      component: EditRequestComponent
+    },
+    {
+      path: 'view-study/stats',
       component: ClientsStudyStatsComponent
+    },
+    {
+      path: 'view-study',
+      component: StudyPreviewComponent
     },
 
     /* PRODUCTS */
