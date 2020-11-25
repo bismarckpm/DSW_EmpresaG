@@ -41,6 +41,7 @@ import { EditRequestComponent } from '../client/edit-request/edit-request.compon
 import { StudyPreviewComponent } from '../client/study-preview/study-preview.component';
 import { SubcategoriesComponent } from '../subcategories/subcategories.component';
 import { BrandsComponent } from '../brands/brands.component';
+import { ProductTypesComponent } from '../product-types/product-types.component';
 
 export const routes: Routes = [
     { 
@@ -193,6 +194,10 @@ export const routes: Routes = [
     {
       path: 'brands',
       component: BrandsComponent
+    },
+    {
+      path: 'types',
+      component: ProductTypesComponent
     },
     {
       path: 'presentations',

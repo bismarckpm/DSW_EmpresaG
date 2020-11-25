@@ -110,6 +110,9 @@ import { EditSubcategoryComponent } from './subcategories/edit-subcategory/edit-
 import { BrandsComponent } from './brands/brands.component';
 import { AddBrandComponent } from './brands/add-brand/add-brand.component';
 import { EditBrandComponent } from './brands/edit-brand/edit-brand.component';
+import { ProductTypesComponent } from './product-types/product-types.component';
+import { AddProductTypeComponent } from './product-types/add-product-type/add-product-type.component';
+import { EditProductTypeComponent } from './product-types/edit-product-type/edit-product-type.component';
 
 @NgModule({
   declarations: [
@@ -165,7 +168,10 @@ import { EditBrandComponent } from './brands/edit-brand/edit-brand.component';
     EditSubcategoryComponent,
     BrandsComponent,
     AddBrandComponent,
-    EditBrandComponent
+    EditBrandComponent,
+    ProductTypesComponent,
+    AddProductTypeComponent,
+    EditProductTypeComponent
   ],
   imports: [
     BrowserModule,
