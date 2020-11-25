@@ -161,6 +161,7 @@ export class AddBrandComponent implements OnInit {
       this.brand = new Brand();
       this.brand.nombre = this.brandForm.value.nombre;
       this.brand.id_categoria = this.brandForm.value.categoria;
+      this.brand.id_subcategoria = this.brandForm.value.subcategoria;
       this.brand.descripcion = this.brandForm.value.descripcion;
 
       this.postBrand();

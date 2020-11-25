@@ -7,4 +7,5 @@ export class ProductType {
     subcategoria?: string;
     id_marca?: number;
     marca?: string;
+    descripcion?: string;
 }

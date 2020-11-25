@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { ProcessHttpMessageService } from '../services/process-http-message.service';
 import { ProductType } from '../classes/productType';
 import { map, catchError } from 'rxjs/operators';
@@ -21,6 +21,28 @@ export class TypesService {
 
   deleteType(product_type): Observable<ProductType>{
     return this.http.delete<ProductType>(baseURL + 'types/' + product_type.id)
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
+  postType(product_type): Observable<ProductType>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    return this.http.post<ProductType>(baseURL + 'types', product_type, httpOptions)
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
+  putType(product_type): Observable<ProductType>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    return this.http.put<ProductType>(baseURL + 'types/' + product_type.id, product_type, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 }
