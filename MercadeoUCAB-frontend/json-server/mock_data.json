@@ -542,7 +542,7 @@
     },
     {
       "id": 2,
-      "nombre": "Intel",
+      "nombre": "Sony",
       "categoria": "Tecnología",
       "subcategoria": "Hardware",
       "id_subcategoria": 5,
@@ -561,15 +561,33 @@
   "types": [
     {
       "id": 1,
-      "nombre": "Spray"
+      "nombre": "Zapatos",
+      "id_categoria": 1,
+      "categoria": "Ropa",
+      "subcategoria": "Streetwear",
+      "id_subcategoria": 1,
+      "marca": "Supreme",
+      "id_marca": 1
     },
     {
       "id": 2,
-      "nombre": "Headsets"
-    },
+      "nombre": "Headsets",
+      "id_categoria": 3,
+      "categoria": "Tecnología",
+      "id_subcategoria": 5,
+      "subcategoria": "Hardware",
+      "id_marca": 2,
+      "marca": "Sony"
+    }, 
     {
       "id": 3,
-      "nombre": "Lata"
+      "nombre": "T-Shirt",
+      "id_categoria": 1,
+      "categoria": "Ropa",
+      "subcategoria": "Streetwear",
+      "id_subcategoria": 1,
+      "marca": "Vans",
+      "id_marca": 3
     }
   ],
   "presentations": [

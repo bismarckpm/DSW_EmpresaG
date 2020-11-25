@@ -47,7 +47,7 @@ export class AddPresentationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.typesService.getTypes().subscribe((types)=>{
+    this.typesService.getALLTypes().subscribe((types)=>{
       this.tipos = replaceKeyWithValue(types)
     })
     this.createForm();

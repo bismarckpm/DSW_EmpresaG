@@ -39,7 +39,8 @@ export class NavigationComponent implements OnInit {
           },
           {
             label: 'Tipos',
-            icon: 'pi pi-fw pi-briefcase'
+            icon: 'pi pi-fw pi-briefcase',
+            command: t => this.router.navigate(["types"])
           },
           {
             label: 'Marcas',

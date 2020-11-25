@@ -14,8 +14,13 @@ export class TypesService {
   constructor(private http: HttpClient,
     private processHTTPMessageService: ProcessHttpMessageService) { }
 
-  getTypes(): Observable<ProductType[]> {
+  getALLTypes(): Observable<ProductType[]> {
     return this.http.get<ProductType[]>(baseURL + 'types')
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
+  deleteType(product_type): Observable<ProductType>{
+    return this.http.delete<ProductType>(baseURL + 'types/' + product_type.id)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 }

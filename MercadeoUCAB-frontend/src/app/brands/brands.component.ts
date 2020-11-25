@@ -64,7 +64,7 @@ export class BrandsComponent implements OnInit {
           if (index > -1)
             this.marcas.splice(index, 1);
 
-          this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Subcategoría eliminada con éxito' });
+          this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Marca eliminada con éxito' });
 
         }, errorMessage => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
