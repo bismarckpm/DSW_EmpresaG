@@ -1,14 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { MessageService, MenuItem } from 'primeng/api'
-import { Category } from '../../classes/category';
 import { Subcategory } from '../../classes/subcategory';
-import { PresentationService } from 'src/app/services/presentation.service';
 import { replaceKeyWithValue } from '../../functions/common_functions';
+import { CategoryService } from 'src/app/services/category.service';
+import { SubcategoryService } from 'src/app/services/subcategory.service';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CategoryService } from 'src/app/services/category.service';
-import { SubcategoryService } from 'src/app/services/subcategory.service';
 
 @Component({
   selector: 'app-add-subcategory',

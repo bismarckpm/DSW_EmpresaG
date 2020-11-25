@@ -101,7 +101,7 @@
     </p-card>
 
     <app-add-subcategory [display]="display_add_subcategory" (onsubcategoryAdded)="appendNewSubcategory($event)" (onModalClose)="hideAddSubcategoryModal()"></app-add-subcategory>
-    <app-edit-subcategory *ngIf="subcategoria" [subcategory]="subcategory" [display]="display_edit_subcategory" (onSubcategoryEdited)="editSubcategory($event)" (onModalClose)="hideEditSubcategoryModal()"></app-edit-subcategory>
+    <app-edit-subcategory *ngIf="subcategoria" [subcategory]="subcategoria" [display]="display_edit_subcategory" (onSubcategoryEdited)="editSubcategory($event)" (onModalClose)="hideEditSubcategoryModal()"></app-edit-subcategory>
 
     <p-confirmDialog></p-confirmDialog>
     <p-toast></p-toast>
