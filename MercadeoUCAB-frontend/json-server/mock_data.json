@@ -542,11 +542,12 @@
     },
     {
       "id": 2,
-      "nombre": "NVIDIA",
+      "nombre": "Intel",
       "categoria": "Tecnología",
       "subcategoria": "Hardware",
       "id_subcategoria": 5,
-      "id_categoria": 3
+      "id_categoria": 3,
+      "descripcion": null
     },
     {
       "id": 3,
