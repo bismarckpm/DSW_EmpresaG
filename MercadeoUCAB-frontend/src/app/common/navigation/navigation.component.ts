@@ -43,7 +43,8 @@ export class NavigationComponent implements OnInit {
           },
           {
             label: 'Marcas',
-            icon: 'pi pi-fw pi-microsoft'
+            icon: 'pi pi-fw pi-microsoft',
+            command: b => this.router.navigate(["brands"])
           },
           {
             label: 'Presentaciones',

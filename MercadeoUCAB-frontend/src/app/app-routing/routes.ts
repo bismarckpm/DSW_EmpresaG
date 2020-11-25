@@ -20,7 +20,6 @@ import { StudyRequestsComponent } from '../studies/study-requests/study-requests
 import { ViewStudyComponent } from '../studies/view-study/view-study.component';
 
 import { CategoriesComponent } from '../categories/categories.component';
-import { AddCategoryComponent } from '../categories/add-category/add-category.component';
 import { NotFoundComponent } from '../errors/not-found/not-found.component';
 import { ProfileComponent } from '../profile/profile.component';
 import { ChangeComponent } from '../recovery/change/change.component';
@@ -41,6 +40,7 @@ import { ClientsStudyStatsComponent } from '../client/clients-study-stats/client
 import { EditRequestComponent } from '../client/edit-request/edit-request.component';
 import { StudyPreviewComponent } from '../client/study-preview/study-preview.component';
 import { SubcategoriesComponent } from '../subcategories/subcategories.component';
+import { BrandsComponent } from '../brands/brands.component';
 
 export const routes: Routes = [
     { 
@@ -99,10 +99,7 @@ export const routes: Routes = [
       path: 'questions/view',
       component: PreviewQuestionComponent
     },
-    {
-      path: 'categories',
-      component: CategoriesComponent
-    },
+
 
     /* STUDIES */
     {
@@ -186,8 +183,16 @@ export const routes: Routes = [
 
     /* PRODUCTS */
     {
+      path: 'categories',
+      component: CategoriesComponent
+    },
+    {
       path: 'subcategories',
       component: SubcategoriesComponent
+    },
+    {
+      path: 'brands',
+      component: BrandsComponent
     },
     {
       path: 'presentations',

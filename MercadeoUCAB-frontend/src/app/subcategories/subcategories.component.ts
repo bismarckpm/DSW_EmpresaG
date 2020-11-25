@@ -102,7 +102,6 @@ getSelectedSubcategory(subcategory){
 
 editSubcategory(event){
   this.subcategorias[this.subcategorias.indexOf(event)] = event;
-  this.subcategoria;
 }
 
 onCategoryChange(event){

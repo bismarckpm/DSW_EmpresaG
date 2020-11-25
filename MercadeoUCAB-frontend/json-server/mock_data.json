@@ -531,6 +531,32 @@
       "id_categoria": 5
     }
   ],
+  "brands": [
+    {
+      "id": 1,
+      "nombre": "Supreme",
+      "categoria": "Ropa",
+      "subcategoria": "Streetwear",
+      "id_subcategoria": 1,
+      "id_categoria": 1
+    },
+    {
+      "id": 2,
+      "nombre": "NVIDIA",
+      "categoria": "Tecnología",
+      "subcategoria": "Hardware",
+      "id_subcategoria": 5,
+      "id_categoria": 3
+    },
+    {
+      "id": 3,
+      "nombre": "Vans",
+      "categoria": "Ropa",
+      "subcategoria": "Streetwear",
+      "id_subcategoria": 1,
+      "id_categoria": 1
+    }
+  ],
   "types": [
     {
       "id": 1,

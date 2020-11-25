@@ -53,6 +53,7 @@ import { StudiesService } from './services/studies.service';
 import { PresentationService } from './services/presentation.service';
 import { TypesService } from './services/types.service';
 import { UserSurveyService } from './services/user-survey.service';
+import { BrandService } from './services/brand.service';
 import { ProcessHttpMessageService } from './services/process-http-message.service';
 
 /* My components */
@@ -106,6 +107,9 @@ import { StudyPreviewComponent } from './client/study-preview/study-preview.comp
 import { SubcategoriesComponent } from './subcategories/subcategories.component';
 import { AddSubcategoryComponent } from './subcategories/add-subcategory/add-subcategory.component';
 import { EditSubcategoryComponent } from './subcategories/edit-subcategory/edit-subcategory.component';
+import { BrandsComponent } from './brands/brands.component';
+import { AddBrandComponent } from './brands/add-brand/add-brand.component';
+import { EditBrandComponent } from './brands/edit-brand/edit-brand.component';
 
 @NgModule({
   declarations: [
@@ -158,7 +162,10 @@ import { EditSubcategoryComponent } from './subcategories/edit-subcategory/edit-
     StudyPreviewComponent,
     SubcategoriesComponent,
     AddSubcategoryComponent,
-    EditSubcategoryComponent
+    EditSubcategoryComponent,
+    BrandsComponent,
+    AddBrandComponent,
+    EditBrandComponent
   ],
   imports: [
     BrowserModule,
@@ -204,6 +211,7 @@ import { EditSubcategoryComponent } from './subcategories/edit-subcategory/edit-
     PresentationService,
     TypesService,
     UserSurveyService,
+    BrandService,
     ProcessHttpMessageService,
     {provide: 'BaseURL', useValue: baseURL},
     {provide: 'ServerURL', useValue: serverURL}
