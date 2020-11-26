@@ -18,4 +18,48 @@ export class StudiesService {
     return this.http.get<Study[]>(baseURL + 'studies')
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
+
+  getInProgressStudies(): Observable<Study[]> {
+    return this.http.get<Study[]>(baseURL + 'studies', {params: {
+      id_estado: "2"
+    }})
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
+  getFinishedStudies(): Observable<Study[]> {
+    return this.http.get<Study[]>(baseURL + 'studies', {params: {
+      id_estado: "3"
+    }})
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
+  getStudy(sid): Observable<Study>{
+    return this.http.get<Study>(baseURL + 'studies', {params: {
+      id: sid
+    }})
+    .pipe(map(study => study[0]))
+    .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
+  putStudy(study): Observable<Study>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+    };
+
+    return this.http.put<Study>(baseURL + 'studies/' + study.id, study, httpOptions)
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
+  postStudy(study): Observable<Study>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+    };
+
+    return this.http.post<Study>(baseURL + 'studies', study, httpOptions)
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
 }

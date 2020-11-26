@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Place } from '../classes/place'
+import { Place, State, City } from '../classes/place'
 import { ProcessHttpMessageService } from './process-http-message.service';
 import { baseURL } from '../constants/baseURL'
-import { catchError } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +25,16 @@ export class PlaceService {
         country_id: country_id
       }
     }).pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
+  getState(state_id): Observable<State>{
+    return this.http.get<State>(baseURL + 'states', {
+      params: {
+        id: state_id
+      }
+    })
+      .pipe(map(state => state[0]))
+      .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
   getCities(state_id): Observable<Place[]>{

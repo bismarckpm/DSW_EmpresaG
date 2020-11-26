@@ -22,6 +22,10 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { DialogModule } from 'primeng/dialog';
+import { ChartModule } from 'primeng/chart';
+import { EditorModule } from 'primeng/editor';
+
 
 /* Modules */
 import { AppRoutingModule } from './app-routing/app-routing.module';
@@ -46,6 +50,10 @@ import { QuestionService } from './services/question.service';
 import { CategoryService } from './services/category.service';
 import { SubcategoryService } from './services/subcategory.service';
 import { StudiesService } from './services/studies.service';
+import { PresentationService } from './services/presentation.service';
+import { TypesService } from './services/types.service';
+import { UserSurveyService } from './services/user-survey.service';
+import { BrandService } from './services/brand.service';
 import { ProcessHttpMessageService } from './services/process-http-message.service';
 
 /* My components */
@@ -67,11 +75,44 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerDisconnectedComponent } from './errors/server-disconnected/server-disconnected.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { AddCategoryComponent } from './categories/add-category/add-category.component';
+import { EditCategoryComponent } from './categories/edit-category/edit-category.component'
 import { ExistingStudiesComponent } from './studies/existing-studies/existing-studies.component';
 import { ViewStudyComponent } from './studies/view-study/view-study.component';
 import { EditStudyComponent } from './studies/edit-study/edit-study.component';
 import { CreateStudyComponent } from './studies/create-study/create-study.component';
 import { StudyRequestsComponent } from './studies/study-requests/study-requests.component';
+import { AddQuestionFromPoolComponent } from './studies/add-question-from-pool/add-question-from-pool.component';
+import { ProfileComponent } from './profile/profile.component';
+import { AddQuestionFormComponent } from './questions/add-question/add-question-form/add-question-form.component';
+import { ChangeComponent } from './recovery/change/change.component';
+import { SelectExistingComponent } from './studies/select-existing/select-existing.component';
+import { PresentationsComponent } from './presentations/presentations.component';
+import { AddPresentationComponent } from './presentations/add-presentation/add-presentation.component';
+import { EditPresentationComponent } from './presentations/edit-presentation/edit-presentation.component';
+import { UsersComponent } from './users/users.component';
+import { AddUserComponent } from './users/add-user/add-user.component';
+import { EditUserComponent } from './users/edit-user/edit-user.component';
+import { ViewUsersSummaryComponent } from './users/view-users-summary/view-users-summary.component';
+import { AvailableSurveysComponent } from './surveys/available-surveys/available-surveys.component';
+import { TakeSurveyUserComponent } from './surveys/take-survey-user/take-survey-user.component';
+import { AnalysisRequestsComponent } from './analytics/analysis-requests/analysis-requests.component';
+import { StatisticsComponent } from './analytics/statistics/statistics.component';
+import { AvailablePopulationComponent } from './analytics/available-population/available-population.component';
+import { MakeInterviewComponent } from './analytics/make-interview/make-interview.component';
+import { MyRequestsComponent } from './client/my-requests/my-requests.component';
+import { CreateRequestComponent } from './client/create-request/create-request.component';
+import { ClientsStudyStatsComponent } from './client/clients-study-stats/clients-study-stats.component';
+import { EditRequestComponent } from './client/edit-request/edit-request.component';
+import { StudyPreviewComponent } from './client/study-preview/study-preview.component';
+import { SubcategoriesComponent } from './subcategories/subcategories.component';
+import { AddSubcategoryComponent } from './subcategories/add-subcategory/add-subcategory.component';
+import { EditSubcategoryComponent } from './subcategories/edit-subcategory/edit-subcategory.component';
+import { BrandsComponent } from './brands/brands.component';
+import { AddBrandComponent } from './brands/add-brand/add-brand.component';
+import { EditBrandComponent } from './brands/edit-brand/edit-brand.component';
+import { ProductTypesComponent } from './product-types/product-types.component';
+import { AddProductTypeComponent } from './product-types/add-product-type/add-product-type.component';
+import { EditProductTypeComponent } from './product-types/edit-product-type/edit-product-type.component';
 
 @NgModule({
   declarations: [
@@ -98,6 +139,39 @@ import { StudyRequestsComponent } from './studies/study-requests/study-requests.
     EditStudyComponent,
     CreateStudyComponent,
     StudyRequestsComponent,
+    AddQuestionFromPoolComponent,
+    ProfileComponent,
+    AddQuestionFormComponent,
+    ChangeComponent,
+    SelectExistingComponent,
+    PresentationsComponent,
+    AddPresentationComponent,
+    EditPresentationComponent,
+    UsersComponent,
+    AddUserComponent,
+    EditUserComponent,
+    ViewUsersSummaryComponent,
+    AvailableSurveysComponent,
+    TakeSurveyUserComponent,
+    AnalysisRequestsComponent,
+    StatisticsComponent,
+    AvailablePopulationComponent,
+    MakeInterviewComponent,
+    MyRequestsComponent,
+    CreateRequestComponent,
+    EditCategoryComponent,
+    ClientsStudyStatsComponent,
+    EditRequestComponent,
+    StudyPreviewComponent,
+    SubcategoriesComponent,
+    AddSubcategoryComponent,
+    EditSubcategoryComponent,
+    BrandsComponent,
+    AddBrandComponent,
+    EditBrandComponent,
+    ProductTypesComponent,
+    AddProductTypeComponent,
+    EditProductTypeComponent
   ],
   imports: [
     BrowserModule,
@@ -126,6 +200,9 @@ import { StudyRequestsComponent } from './studies/study-requests/study-requests.
     ProgressSpinnerModule,
     CheckboxModule,
     NgxSpinnerModule,
+    DialogModule,
+    ChartModule,
+    EditorModule
   ],
   providers: [
     RegisterService,
@@ -137,6 +214,10 @@ import { StudyRequestsComponent } from './studies/study-requests/study-requests.
     CategoryService,
     SubcategoryService,
     StudiesService,
+    PresentationService,
+    TypesService,
+    UserSurveyService,
+    BrandService,
     ProcessHttpMessageService,
     {provide: 'BaseURL', useValue: baseURL},
     {provide: 'ServerURL', useValue: serverURL}

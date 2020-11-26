@@ -1,4 +1,6 @@
 import { Option } from '../classes/options';
+import { Answer } from '../classes/answer';
+import { Analytics } from '../classes/analytics';
 
 /* id_categoria/subcategoria: Es un campo para los IDs cuando se hagan los CRUD 
     los campo string son de muestra para la impresion de tablas y vistas previas
@@ -16,4 +18,6 @@ export class Question {
     categoria?: string;
     subcategoria?: string;
     opciones?: Option[];
+    respuestas?: Answer;
+    estadisticas?: Analytics;
 }

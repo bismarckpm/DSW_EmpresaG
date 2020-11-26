@@ -26,34 +26,34 @@
     {
       "value": 5,
       "label": "New Orleans",
-      "state_id": 1
+      "state_id": 2
     },
     {
       "value": 6,
       "label": "Lacombe",
-      "state_id": 1
+      "state_id": 2
     },
     {
       "value": 7,
       "label": "San Diego",
-      "state_id": 2
+      "state_id": 3
     },
     {
       "value": 8,
       "label": "Miami",
-      "state_id": 3
+      "state_id": 4
     }
   ],
   "counties": [
     {
       "value": 9,
       "label": "Carrolton",
-      "city_id": 1
+      "city_id": 5
     },
     {
       "value": 10,
       "label": "Fort Lauderale",
-      "city_id": 4
+      "city_id": 8
     }
   ],
   "phonecodes": [
@@ -66,23 +66,92 @@
       "label": "Chile (+56)"
     }
   ],
-  "register": [],
+  "register": [
+    {
+      "correo_electronico": "cverde22@gmail.com",
+      "clave": "Caracas1.",
+      "hijos": [],
+      "confirmar_clave": "Caracas1.",
+      "primer_nombre": "Carlos",
+      "primer_apellido": "Verde",
+      "documento_de_identificacion": "A58469874",
+      "genero": 1,
+      "estado_civil": 4,
+      "fecha_de_nacimiento": "03/03/1997",
+      "id_pais": 1,
+      "id_estado": 2,
+      "id_ciudad": 5,
+      "id_parroquia": 9,
+      "codigo_pais": 1,
+      "telefono": "04241458802",
+      "personas_hogar": "2",
+      "tiene_hijos": true,
+      "ocupacion": "Mesonero",
+      "id_nivel_academico": 6,
+      "id_nivel_socioeconomico": 2,
+      "dispositivos": [
+        4,
+        2
+      ],
+      "id_horario_inicial": 6,
+      "id_horario_final": 16,
+      "id": 1
+    },
+    {
+      "correo_electronico": "angel99castillo@gmail.com",
+      "clave": "AngelC99.",
+      "hijos": [],
+      "confirmar_clave": "AngelC99.",
+      "primer_nombre": "Angel",
+      "primer_apellido": "Castillo",
+      "documento_de_identificacion": "27547065",
+      "genero": 1,
+      "estado_civil": 1,
+      "fecha_de_nacimiento": "10/11/1999",
+      "id_pais": null,
+      "id_estado": null,
+      "id_ciudad": null,
+      "id_parroquia": null,
+      "codigo_pais": null,
+      "telefono": null,
+      "personas_hogar": null,
+      "tiene_hijos": null,
+      "ocupacion": null,
+      "id_nivel_academico": null,
+      "id_nivel_socioeconomico": null,
+      "dispositivos": null,
+      "id_horario_inicial": 9,
+      "id_horario_final": 24,
+      "id": 2
+    }
+  ],
+  "recovery": [
+    {
+      "correo": "ale@gm.com",
+      "id": 1
+    },
+    {
+      "correo": "cverde22@gmail.com",
+      "id": 2
+    }
+  ],
+  "reset": [
+    {
+      "token": "holacocacola",
+      "clave": "Caracas1.",
+      "id": 1
+    }
+  ],
   "questions": [
     {
       "id": 2,
       "tipo": "Rango",
-      "pregunta": "¿Qué talla de zapatos suele usar usted?",
+      "pregunta": "¿Qué talla de zapatos suele usar usted?¿",
       "categoria": "Ropa",
       "subcategoria": "Streetwear",
       "id_categoria": 1,
       "id_subcategoria": 1,
-      "id_tipo": 5,
-      "opciones": [
-        {
-          "rango_inicial": "35",
-          "rango_final": "46"
-        }
-      ]
+      "id_tipo": 1
     },
     {
       "id": 3,
@@ -189,8 +258,14 @@
       "categoria": "Tecnología",
       "subcategoria": "Hardware",
       "id_categoria": 3,
-      "id_tipo": 1,
-      "id_subcategoria": 5
+      "id_tipo": 5,
+      "id_subcategoria": 5,
+      "opciones": [
+        {
+          "rango_inicial": "13",
+          "rango_final": "20"
+        }
+      ]
     },
     {
       "id": 10,
@@ -226,8 +301,8 @@
       "id_tipo": 5,
       "opciones": [
         {
-          "rango_inicial": "500",
-          "rango_final": "200000"
+          "rango_inicial": 500,
+          "rango_final": 700000
         }
       ],
       "id": 12
@@ -259,6 +334,173 @@
       "pregunta": "¿Está usted familiarizado con el lenguaje de programación Python?",
       "id_tipo": 4,
       "id": 14
+    },
+    {
+      "id_categoria": 1,
+      "id_subcategoria": 1,
+      "pregunta": "¿De qué precio fue la pieza más cara que ha comprado? ($)",
+      "id_tipo": 1,
+      "id": 101
+    },
+    {
+      "id_categoria": 2,
+      "id_subcategoria": 2,
+      "pregunta": "¿Prefiere usted FPS o TPS?",
+      "id_tipo": 2,
+      "opciones": [
+        {
+          "valor": "FPS"
+        },
+        {
+          "valor": "TPS"
+        }
+      ],
+      "id": 102
+    },
+    {
+      "id_categoria": 3,
+      "id_subcategoria": 3,
+      "pregunta": "¿Qué procesador tiene?",
+      "id_tipo": 2,
+      "opciones": [
+        {
+          "valor": "Intel"
+        },
+        {
+          "valor": "AMD"
+        },
+        {
+          "valor": "Otro"
+        }
+      ],
+      "id": 104
+    },
+    {
+      "id_categoria": 5,
+      "id_subcategoria": 6,
+      "pregunta": "¿Maneja automovil automatico o sincrónico?",
+      "id_tipo": 2,
+      "opciones": [
+        {
+          "valor": "Automático"
+        },
+        {
+          "valor": "Sincrónico"
+        }
+      ],
+      "id": 105
+    },
+    {
+      "id_categoria": 2,
+      "id_subcategoria": 2,
+      "pregunta": "¿Cuál es tu arma favorita?",
+      "id_tipo": 2,
+      "opciones": [
+        {
+          "valor": "Sniper"
+        },
+        {
+          "valor": "Glock"
+        },
+        {
+          "valor": "Escopeta"
+        },
+        {
+          "valor": "AK-47"
+        },
+        {
+          "valor": "Otro"
+        }
+      ],
+      "id": 106
+    },
+    {
+      "id_categoria": 2,
+      "id_subcategoria": 2,
+      "pregunta": "¿Qué mejoraría del juego VALORANT?",
+      "id_tipo": 1,
+      "id": 107
+    },
+    {
+      "id_categoria": 2,
+      "id_subcategoria": 2,
+      "pregunta": "¿Usted suele ser campero?",
+      "id_tipo": 4,
+      "id": 108
+    },
+    {
+      "id_categoria": 3,
+      "id_subcategoria": 3,
+      "pregunta": "¿De cuántas lineas fue el codigo mas largo que has escrito?",
+      "id_tipo": 1,
+      "id": 109
+    },
+    {
+      "id_categoria": 2,
+      "id_subcategoria": 2,
+      "pregunta": "¿Tiene un grupo predeterminado para jugar?",
+      "id_tipo": 4,
+      "id": 110
+    },
+    {
+      "id_categoria": 5,
+      "id_subcategoria": 6,
+      "pregunta": "¿Maneja automovil automatico o sincrónico?",
+      "id_tipo": 2,
+      "opciones": [
+        {
+          "valor": "Automático"
+        },
+        {
+          "valor": "Sincrónico"
+        }
+      ],
+      "id": 111
+    },
+    {
+      "id_categoria": 5,
+      "id_subcategoria": 6,
+      "pregunta": "¿Qué tan seguido se le daña el carro?",
+      "id_tipo": 2,
+      "opciones": [
+        {
+          "valor": "Una vez al mes o más seguido"
+        },
+        {
+          "valor": "Cada dos-cinco meses"
+        },
+        {
+          "valor": "Cada seis-nueve meses"
+        },
+        {
+          "valor": "Una vez al año"
+        },
+        {
+          "valor": "Menos de una vez al año"
+        }
+      ],
+      "id": 112
+    },
+    {
+      "id_categoria": 1,
+      "id_subcategoria": 1,
+      "pregunta": "¿Alguna vez ha comprado en una tienda underground?",
+      "id_tipo": 4,
+      "id": 114
+    },
+    {
+      "id_categoria": 1,
+      "id_subcategoria": 1,
+      "pregunta": "¿Alguna vez ha comprado en una tienda underground?",
+      "id_tipo": 4,
+      "id": 115
+    },
+    {
+      "id_categoria": 2,
+      "id_subcategoria": 2,
+      "pregunta": "¿Se considera usted bueno en los shooter?",
+      "id_tipo": 4,
+      "id": 116
     }
   ],
   "categories": [
@@ -281,13 +523,19 @@
     {
       "id": 5,
       "nombre": "Transporte"
+    },
+    {
+      "nombre": "Deportes",
+      "descripcion": "",
+      "id": 6
     }
   ],
   "subcategories": [
     {
       "id": 1,
       "nombre": "Streetwear",
-      "id_categoria": 1
+      "id_categoria": 1,
+      "descripcion": null
     },
     {
       "id": 2,
@@ -315,23 +563,115 @@
       "id_categoria": 5
     }
   ],
-  "studies":[
+  "brands": [
     {
       "id": 1,
+      "nombre": "Supreme",
       "categoria": "Ropa",
-      "id_categoria": 1,
       "subcategoria": "Streetwear",
-      "id_subcategoria": 2,
-      "genero": "Masculino",
-      "id_genero": 1,
-      "nivel_academico": "Primaria, Secundaria",
-      "id_nivel_academico": [1, 2],
-      "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
-      "id_nivel_socioeconomico": [2,3,4],
-      "lugares": "New Orleans, Lacombe, San Diego",
-      "id_lugares": [5, 6, 7],
-      "estado": "Terminado",
-      "id_estado": 3
+      "id_subcategoria": 1,
+      "id_categoria": 1
+    },
+    {
+      "id": 2,
+      "nombre": "Sony",
+      "categoria": "Tecnología",
+      "subcategoria": "Hardware",
+      "id_subcategoria": 5,
+      "id_categoria": 3,
+      "descripcion": null
+    },
+    {
+      "id": 3,
+      "nombre": "Vans",
+      "categoria": "Ropa",
+      "subcategoria": "Streetwear",
+      "id_subcategoria": 1,
+      "id_categoria": 1
+    }
+  ],
+  "types": [
+    {
+      "id": 1,
+      "nombre": "Zapatos",
+      "id_categoria": 1,
+      "categoria": "Ropa",
+      "subcategoria": "Streetwear",
+      "id_subcategoria": 1,
+      "marca": "Supreme",
+      "id_marca": 1
+    },
+    {
+      "id": 2,
+      "nombre": "Headsets",
+      "id_categoria": 3,
+      "categoria": "Tecnología",
+      "id_subcategoria": 5,
+      "subcategoria": "Hardware",
+      "id_marca": 2,
+      "marca": "Sony"
+    },
+    {
+      "id": 3,
+      "nombre": "T-Shirt",
+      "id_categoria": 1,
+      "categoria": "Ropa",
+      "subcategoria": "Streetwear",
+      "id_subcategoria": 1,
+      "marca": "Vans",
+      "id_marca": 3
+    }
+  ],
+  "presentations": [
+    {
+      "id": 1,
+      "nombre": "200 ml",
+      "id_tipo": 1,
+      "tipo": "Spray"
+    },
+    {
+      "id": 2,
+      "nombre": "Azul",
+      "id_tipo": 2,
+      "tipo": "Headsets"
+    },
+    {
+      "id": 3,
+      "nombre": "Cereza",
+      "id_tipo": 3,
+      "tipo": "Lata"
+    },
+    {
+      "id": 4,
+      "nombre": "2L",
+      "id_tipo": 1,
+      "descripcion": ":)"
+    }
+  ],
+  "requests": [
+    {
+      "id": 1,
+      "categoria": "TV",
+      "id_categoria": 5,
+      "subcategoria": "Anime",
+      "id_subcategoria": 6,
+      "nivel_academico": "Primaria",
+      "id_nivel_academico": [
+        3
+      ],
+      "nivel_socioeconomico": "Medio-bajo",
+      "id_nivel_socioeconomico": [],
+      "edad_minima": 1,
+      "edad_maxima": 90,
+      "id_autor": 2,
+      "autor": "Tate Langdon",
+      "estado": "Sin procesar",
+      "id_estado": 1,
+      "id_lugares": [
+        2
+      ],
+      "id_genero": null,
+      "tipo_filtro_geografico": "estados"
     },
     {
       "id": 2,
@@ -342,26 +682,1070 @@
       "genero": "Masculino",
       "id_genero": 1,
       "nivel_academico": "Primaria, Secundaria",
-      "id_nivel_academico": [1, 2],
-      "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
-      "id_nivel_socioeconomico": [2,3,4],
+      "id_nivel_academico": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "nivel_socioeconomico": "Medio-alto",
+      "id_nivel_socioeconomico": [
+        4
+      ],
+      "tipo_filtro_geografico": "estados",
       "lugares": "Estados Unidos",
-      "id_lugares": [1],
-      "estado": "Sin culminar",
-      "id_estado": 1
+      "id_lugares": [
+        4,
+        2,
+        3
+      ],
+      "autor": "Clarke Hent",
+      "id_autor": 3,
+      "estado": "Sin procesar",
+      "id_estado": 1,
+      "edad_minima": null,
+      "edad_maxima": null
     },
     {
       "id": 3,
-      "categoria": "Programación",
-      "id_categoria": 3,
-      "nivel_academico": "Primaria, Secundaria",
-      "id_nivel_academico": [1, 2],
+      "categoria": "Transporte",
+      "id_categoria": 5,
+      "id_subcategoria": 6,
+      "subcategoria": "Automoviles",
       "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
-      "id_nivel_socioeconomico": [2,3,4],
-      "lugares": "Lousiana, California",
-      "id_lugares": [2,3],
-      "estado": "En proceso",
+      "id_nivel_socioeconomico": [
+        2,
+        3,
+        4
+      ],
+      "tipo_filtro_geografico": "estados",
+      "lugares": "Florida, California",
+      "id_lugares": [
+        4,
+        3
+      ],
+      "edad_minima": 14,
+      "edad_maxima": 28,
+      "autor": "Julian Brandt",
+      "id_autor": 7,
+      "estado": "En progreso",
       "id_estado": 2
+    },
+    {
+      "id_categoria": 2,
+      "id_subcategoria": 2,
+      "id_nivel_academico": null,
+      "id_nivel_socioeconomico": null,
+      "id_genero": null,
+      "tipo_filtro_geografico": null,
+      "edad_minima": null,
+      "edad_maxima": null,
+      "id_estado": 1,
+      "id": 4
+    },
+    {
+      "id_categoria": 2,
+      "id_subcategoria": 2,
+      "id_nivel_academico": null,
+      "id_nivel_socioeconomico": null,
+      "id_genero": null,
+      "tipo_filtro_geografico": null,
+      "edad_minima": null,
+      "edad_maxima": null,
+      "id_estado": 1,
+      "id": 5
+    }
+  ],
+  "studies": [
+    {
+      "id": 1,
+      "categoria": "Ropa",
+      "id_categoria": 1,
+      "subcategoria": "Streetwear",
+      "id_subcategoria": 1,
+      "genero": "Masculino",
+      "id_genero": 1,
+      "nivel_academico": "Primaria, Secundaria",
+      "id_nivel_academico": [
+        1,
+        2
+      ],
+      "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
+      "id_nivel_socioeconomico": [
+        2,
+        3,
+        4
+      ],
+      "estado": "Terminado",
+      "edad_minima": 15,
+      "edad_maxima": "45",
+      "id_estado": 3,
+      "preguntas": [
+        {
+          "id": 2,
+          "tipo": "Rango",
+          "pregunta": "¿Qué talla de zapatos suele usar usted?",
+          "categoria": "Ropa",
+          "subcategoria": "Streetwear",
+          "id_categoria": 1,
+          "id_subcategoria": 1,
+          "id_tipo": 5,
+          "opciones": [
+            {
+              "rango_inicial": "35",
+              "rango_final": "46"
+            }
+          ]
+        },
+        {
+          "id_categoria": 1,
+          "id_subcategoria": 1,
+          "pregunta": "¿De qué precio fue la pieza más cara que ha comprado? ($)",
+          "id_tipo": 1,
+          "id": 101
+        },
+        {
+          "id_categoria": 4,
+          "id_subcategoria": 4,
+          "pregunta": "Seleccione qué animes de los siguientes se le hace familiar/lo ha visto",
+          "id_tipo": 3,
+          "opciones": [
+            {
+              "valor": "Full Metal Alchemist"
+            },
+            {
+              "valor": "Naruto"
+            },
+            {
+              "valor": "Dragon Ball"
+            },
+            {
+              "valor": "Death Note"
+            }
+          ],
+          "id": 13
+        },
+        {
+          "id_categoria": 1,
+          "id_subcategoria": 1,
+          "pregunta": "¿Alguna vez ha comprado en una tienda underground?",
+          "id_tipo": 4,
+          "id": 115
+        }
+      ],
+      "lugares": "Estados Unidos",
+      "id_lugares": [
+        1
+      ],
+      "tipo_filtro_geografico": "paises"
+    },
+    {
+      "id": 2,
+      "categoria": "Videojuegos",
+      "id_categoria": 2,
+      "subcategoria": "Shooter",
+      "id_subcategoria": 2,
+      "genero": "Masculino",
+      "id_genero": 1,
+      "nivel_academico": "Primaria, Secundaria",
+      "id_nivel_academico": [
+        1,
+        2
+      ],
+      "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
+      "id_nivel_socioeconomico": [
+        2,
+        3,
+        4
+      ],
+      "tipo_filtro_geografico": "estados",
+      "lugares": "Estados Unidos",
+      "id_lugares": [
+        4
+      ],
+      "estado": "En progreso",
+      "id_estado": 2,
+      "preguntas": [
+        {
+          "id_categoria": 2,
+          "id_subcategoria": 2,
+          "pregunta": "¿Qué mejoraría del juego VALORANT?",
+          "id_tipo": 1
+        },
+        {
+          "id_categoria": 2,
+          "id_subcategoria": 2,
+          "pregunta": "¿Usted suele ser campero?",
+          "id_tipo": 4
+        },
+        {
+          "id_categoria": 2,
+          "id_subcategoria": 2,
+          "pregunta": "¿Tiene un grupo predeterminado para jugar?",
+          "id_tipo": 4
+        },
+        {
+          "id_categoria": 2,
+          "id_subcategoria": 2,
+          "pregunta": "¿Se considera usted bueno en los shooter?",
+          "id_tipo": 4
+        }
+      ],
+      "edad_minima": null,
+      "edad_maxima": null
+    },
+    {
+      "id": 3,
+      "categoria": "Tecnología",
+      "id_categoria": 3,
+      "id_subcategoria": 3,
+      "subcategoria": "Programación",
+      "nivel_academico": "Primaria, Secundaria",
+      "id_nivel_academico": [
+        1,
+        2
+      ],
+      "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
+      "id_nivel_socioeconomico": [
+        2,
+        3,
+        4
+      ],
+      "tipo_filtro_geografico": "estados",
+      "lugares": "Lousiana, California",
+      "id_lugares": [
+        2,
+        3
+      ],
+      "estado": "Terminado",
+      "id_estado": 3,
+      "id_genero": null,
+      "edad_minima": 14,
+      "edad_maxima": 28,
+      "preguntas": [
+        {
+          "id": 6,
+          "tipo": "Selección simple",
+          "pregunta": "¿Prefieres los headsets o los earbuds?",
+          "categoria": "Tecnología",
+          "id_categoria": 3,
+          "id_subcategoria": 5,
+          "id_tipo": 2,
+          "subcategoria": "Hardware",
+          "opciones": [
+            {
+              "valor": "Headsets"
+            },
+            {
+              "valor": "Earbuds"
+            }
+          ]
+        },
+        {
+          "id_categoria": 3,
+          "id_subcategoria": 3,
+          "pregunta": "¿De cuántas lineas fue el codigo mas largo que has escrito?",
+          "id_tipo": 1
+        },
+        {
+          "tipo": "Texto abierto",
+          "pregunta": "Si usted sabe qué es el Net Neutrality ¿Qué opina de el?",
+          "categoria": "Tecnología",
+          "subcategoria": "",
+          "id_tipo": 1,
+          "id_categoria": 3,
+          "id": 111
+        }
+      ]
+    },
+    {
+      "estadisticas": {
+        "n_personas_respondieron": 150
+      },
+      "categoria": "Transporte",
+      "id_categoria": 5,
+      "id_subcategoria": 6,
+      "subcategoria": "Automoviles",
+      "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
+      "id_nivel_socioeconomico": [
+        2,
+        3,
+        4
+      ],
+      "tipo_filtro_geografico": "estados",
+      "lugares": "Florida, California",
+      "id_lugares": [
+        4,
+        3
+      ],
+      "edad_minima": 14,
+      "edad_maxima": 28,
+      "autor": "Julian Brandt",
+      "id_autor": 7,
+      "id_estado": 2,
+      "estado": "En progreso",
+      "id": 4,
+      "preguntas": [
+        {
+          "id_categoria": 5,
+          "id_subcategoria": 6,
+          "pregunta": "¿Maneja automovil automatico o sincrónico?",
+          "id_tipo": 2,
+          "opciones": [
+            {
+              "valor": "Automático",
+              "estadisticas": {
+                "n_personas_respondieron": 15
+              }
+            },
+            {
+              "valor": "Sincrónico",
+              "estadisticas": {
+                "n_personas_respondieron": 48
+              }
+            }
+          ],
+          "id": 111
+        },
+        {
+          "id_categoria": 5,
+          "id_subcategoria": 6,
+          "pregunta": "¿Qué tan seguido se le daña el carro?",
+          "id_tipo": 2,
+          "opciones": [
+            {
+              "valor": "Una vez al mes o más seguido",
+              "estadisticas": {
+                "n_personas_respondieron": 15
+              }
+            },
+            {
+              "valor": "Cada dos-cinco meses",
+              "estadisticas": {
+                "n_personas_respondieron": 25
+              }
+            },
+            {
+              "valor": "Cada seis-nueve meses",
+              "estadisticas": {
+                "n_personas_respondieron": 55
+              }
+            },
+            {
+              "valor": "Una vez al año",
+              "estadisticas": {
+                "n_personas_respondieron": 45
+              }
+            },
+            {
+              "valor": "Menos de una vez al año",
+              "estadisticas": {
+                "n_personas_respondieron": 95
+              }
+            }
+          ]
+        }
+      ],
+      "conclusion": "<p>Luego de un <strong>exhaustivo </strong>análisis de los gráficos proporcionados por el sistema, se puede concluir que</p><ol><li>pinto es gei</li></ol>"
+    }
+  ],
+  "take-survey": [
+    {
+      "id": 1,
+      "categoria": "Ropa",
+      "id_categoria": 1,
+      "subcategoria": "Streetwear",
+      "id_subcategoria": 1,
+      "genero": "Masculino",
+      "id_genero": 1,
+      "nivel_academico": "Primaria, Secundaria",
+      "id_nivel_academico": [
+        1,
+        2
+      ],
+      "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
+      "id_nivel_socioeconomico": [
+        2,
+        3,
+        4
+      ],
+      "estado": "En progreso",
+      "edad_minima": 15,
+      "edad_maxima": "45",
+      "id_estado": 2,
+      "preguntas": [
+        {
+          "id": 2,
+          "tipo": "Rango",
+          "pregunta": "¿Qué talla de zapatos suele usar usted?",
+          "categoria": "Ropa",
+          "subcategoria": "Streetwear",
+          "id_categoria": 1,
+          "id_subcategoria": 1,
+          "id_tipo": 5,
+          "opciones": [
+            {
+              "rango_inicial": "35",
+              "rango_final": "46"
+            }
+          ],
+          "respuestas": {
+            "rango_inicial": 2,
+            "rango_final": 23
+          }
+        },
+        {
+          "id_categoria": 1,
+          "id_subcategoria": 1,
+          "pregunta": "¿De qué precio fue la pieza más cara que ha comprado? ($)",
+          "id_tipo": 1,
+          "id": 101,
+          "respuestas": {
+            "respuesta_texto": "pinto es gei"
+          }
+        },
+        {
+          "id_categoria": 4,
+          "id_subcategoria": 4,
+          "pregunta": "Seleccione qué animes de los siguientes se le hace familiar/lo ha visto",
+          "id_tipo": 3,
+          "opciones": [
+            {
+              "valor": "Full Metal Alchemist"
+            },
+            {
+              "valor": "Naruto"
+            },
+            {
+              "valor": "Dragon Ball"
+            },
+            {
+              "valor": "Death Note"
+            }
+          ],
+          "id": 13,
+          "respuestas": {
+            "opcion_seleccionada": [
+              "Death Note",
+              "Dragon Ball"
+            ]
+          }
+        },
+        {
+          "id_categoria": 1,
+          "id_subcategoria": 1,
+          "pregunta": "¿Alguna vez ha comprado en una tienda underground?",
+          "id_tipo": 4,
+          "id": 115,
+          "respuestas": {
+            "opcion_seleccionada": true
+          }
+        }
+      ],
+      "lugares": "Estados Unidos",
+      "id_lugares": [
+        1
+      ],
+      "tipo_filtro_geografico": "paises"
+    },
+    {
+      "id": 3,
+      "categoria": "Tecnología",
+      "id_categoria": 3,
+      "id_subcategoria": 3,
+      "subcategoria": "Programación",
+      "nivel_academico": "Primaria, Secundaria",
+      "id_nivel_academico": [
+        1,
+        2
+      ],
+      "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
+      "id_nivel_socioeconomico": [
+        2,
+        3,
+        4
+      ],
+      "tipo_filtro_geografico": "estados",
+      "lugares": "Lousiana, California",
+      "id_lugares": [
+        2,
+        3
+      ],
+      "estado": "En progreso",
+      "id_estado": 2,
+      "id_genero": null,
+      "edad_minima": 14,
+      "edad_maxima": 28,
+      "preguntas": [
+        {
+          "id": 6,
+          "tipo": "Selección simple",
+          "pregunta": "¿Prefieres los headsets o los earbuds?",
+          "categoria": "Tecnología",
+          "id_categoria": 3,
+          "id_subcategoria": 5,
+          "id_tipo": 2,
+          "subcategoria": "Hardware",
+          "opciones": [
+            {
+              "valor": "Headsets"
+            },
+            {
+              "valor": "Earbuds"
+            }
+          ],
+          "respuestas": {
+            "opcion_seleccionada": "Headsets",
+            "usuario_id": 5
+          }
+        },
+        {
+          "id_categoria": 3,
+          "id_subcategoria": 3,
+          "pregunta": "¿De cuántas lineas fue el codigo mas largo que has escrito?",
+          "id_tipo": 1,
+          "respuestas": {
+            "respuesta_texto": "18000",
+            "usuario_id": 5
+          }
+        },
+        {
+          "tipo": "Texto abierto",
+          "pregunta": "Si usted sabe qué es el Net Neutrality ¿Qué opina de el?",
+          "categoria": "Tecnología",
+          "subcategoria": "",
+          "id_tipo": 1,
+          "id_categoria": 3,
+          "id": 111,
+          "respuestas": {
+            "respuesta_texto": "no se :/ ",
+            "usuario_id": 5
+          }
+        }
+      ]
+    }
+  ],
+  "stats": [
+    {
+      "id": 1,
+      "estadisticas": {
+        "n_personas_respondieron": 117
+      },
+      "categoria": "Ropa",
+      "id_categoria": 1,
+      "subcategoria": "Streetwear",
+      "id_subcategoria": 1,
+      "genero": "Masculino",
+      "id_genero": 1,
+      "nivel_academico": "Primaria, Secundaria",
+      "id_nivel_academico": [
+        1,
+        2
+      ],
+      "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
+      "id_nivel_socioeconomico": [
+        2,
+        3,
+        4
+      ],
+      "estado": "En progreso",
+      "edad_minima": 15,
+      "edad_maxima": "45",
+      "id_estado": 2,
+      "preguntas": [
+        {
+          "id": 2,
+          "tipo": "Rango",
+          "pregunta": "¿Qué talla de zapatos suele usar usted?",
+          "categoria": "Ropa",
+          "subcategoria": "Streetwear",
+          "id_categoria": 1,
+          "id_subcategoria": 1,
+          "id_tipo": 5,
+          "opciones": [
+            {
+              "rango_inicial": "35",
+              "rango_final": "46",
+              "estadisticas": {
+                "promedio_rango_inicial": 30,
+                "promedio_rango_final": 50
+              }
+            }
+          ],
+          "estadisticas": {
+            "n_personas_respondieron": 117
+          }
+        },
+        {
+          "id_categoria": 1,
+          "id_subcategoria": 1,
+          "pregunta": "¿De qué precio fue la pieza más cara que ha comprado? ($)",
+          "id_tipo": 1,
+          "id": 101,
+          "estadisticas": {
+            "n_personas_respondieron": 15
+          }
+        },
+        {
+          "id_categoria": 4,
+          "id_subcategoria": 4,
+          "pregunta": "Seleccione qué animes de los siguientes se le hace familiar/lo ha visto",
+          "id_tipo": 3,
+          "opciones": [
+            {
+              "valor": "Full Metal Alchemist",
+              "estadisticas": {
+                "n_personas_respondieron": 15
+              }
+            },
+            {
+              "valor": "Naruto",
+              "estadisticas": {
+                "n_personas_respondieron": 30
+              }
+            },
+            {
+              "valor": "Dragon Ball",
+              "estadisticas": {
+                "n_personas_respondieron": 48
+              }
+            },
+            {
+              "valor": "Death Note",
+              "estadisticas": {
+                "n_personas_respondieron": 20
+              }
+            }
+          ],
+          "id": 13
+        },
+        {
+          "id_categoria": 1,
+          "id_subcategoria": 1,
+          "pregunta": "¿Alguna vez ha comprado en una tienda underground?",
+          "estadisticas": {
+            "n_personas_verdadero": 20,
+            "n_personas_falso": 45
+          },
+          "id_tipo": 4,
+          "id": 115
+        }
+      ],
+      "lugares": "Estados Unidos",
+      "id_lugares": [
+        1
+      ],
+      "tipo_filtro_geografico": "paises"
+    },
+    {
+      "id": 2,
+      "estadisticas": {
+        "n_personas_respondieron": 126
+      },
+      "categoria": "Videojuegos",
+      "id_categoria": 2,
+      "subcategoria": "Shooter",
+      "id_subcategoria": 2,
+      "genero": "Masculino",
+      "id_genero": 1,
+      "nivel_academico": "Primaria, Secundaria",
+      "id_nivel_academico": [
+        1,
+        2
+      ],
+      "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
+      "id_nivel_socioeconomico": [
+        2,
+        3,
+        4
+      ],
+      "tipo_filtro_geografico": "paises",
+      "lugares": "Estados Unidos",
+      "id_lugares": [
+        1
+      ],
+      "estado": "En progreso",
+      "id_estado": 2,
+      "preguntas": [
+        {
+          "id_categoria": 2,
+          "id_subcategoria": 2,
+          "pregunta": "¿Qué mejoraría del juego VALORANT?",
+          "id_tipo": 1,
+          "estadisticas": {
+            "n_personas_respondieron": 115
+          }
+        },
+        {
+          "id_categoria": 2,
+          "id_subcategoria": 2,
+          "pregunta": "¿Usted suele ser campero?",
+          "id_tipo": 4,
+          "estadisticas": {
+            "n_personas_verdadero": 50,
+            "n_personas_falso": 78
+          }
+        },
+        {
+          "id_categoria": 2,
+          "id_subcategoria": 2,
+          "pregunta": "¿Tiene un grupo predeterminado para jugar?",
+          "id_tipo": 4,
+          "estadisticas": {
+            "n_personas_verdadero": 50,
+            "n_personas_falso": 78
+          }
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "estadisticas": {
+        "n_personas_respondieron": 185
+      },
+      "categoria": "Tecnología",
+      "id_categoria": 3,
+      "id_subcategoria": 3,
+      "subcategoria": "Programación",
+      "nivel_academico": "Primaria, Secundaria",
+      "id_nivel_academico": [
+        1,
+        2
+      ],
+      "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
+      "id_nivel_socioeconomico": [
+        2,
+        3,
+        4
+      ],
+      "tipo_filtro_geografico": "estados",
+      "lugares": "Lousiana, California",
+      "id_lugares": [
+        2,
+        3
+      ],
+      "estado": "En progreso",
+      "id_estado": 2,
+      "id_genero": null,
+      "edad_minima": 14,
+      "edad_maxima": 28,
+      "preguntas": [
+        {
+          "id": 6,
+          "tipo": "Selección simple",
+          "pregunta": "¿Prefieres los headsets o los earbuds?",
+          "categoria": "Tecnología",
+          "id_categoria": 3,
+          "id_subcategoria": 5,
+          "id_tipo": 2,
+          "subcategoria": "Hardware",
+          "opciones": [
+            {
+              "valor": "Headsets",
+              "estadisticas": {
+                "n_personas_respondieron": 15
+              }
+            },
+            {
+              "valor": "Earbuds",
+              "estadisticas": {
+                "n_personas_respondieron": 47
+              }
+            }
+          ]
+        },
+        {
+          "id_categoria": 3,
+          "id_subcategoria": 3,
+          "pregunta": "¿De cuántas lineas fue el codigo mas largo que has escrito?",
+          "id_tipo": 1,
+          "estadisticas": {
+            "n_personas_respondieron": 115
+          }
+        },
+        {
+          "tipo": "Texto abierto",
+          "pregunta": "Si usted sabe qué es el Net Neutrality ¿Qué opina de el?",
+          "estadisticas": {
+            "n_personas_respondieron": 115
+          },
+          "categoria": "Tecnología",
+          "subcategoria": "",
+          "id_tipo": 1,
+          "id_categoria": 3,
+          "id": 111
+        }
+      ]
+    },
+    {
+      "estadisticas": {
+        "n_personas_respondieron": 150
+      },
+      "categoria": "Transporte",
+      "id_categoria": 5,
+      "id_subcategoria": 6,
+      "subcategoria": "Automoviles",
+      "nivel_socioeconomico": "Medio-bajo, Medio, Medio-alto",
+      "id_nivel_socioeconomico": [
+        2,
+        3,
+        4
+      ],
+      "tipo_filtro_geografico": "estados",
+      "lugares": "Florida, California",
+      "id_lugares": [
+        4,
+        3
+      ],
+      "edad_minima": 14,
+      "edad_maxima": 28,
+      "autor": "Julian Brandt",
+      "id_autor": 7,
+      "id_estado": 2,
+      "estado": "En progreso",
+      "conclusion": "<p>Luego de un <strong>exhaustivo </strong>análisis de los gráficos proporcionados por el sistema, se puede concluir que</p><ol><li>pinto es gei</li></ol>",
+      "id": 4,
+      "preguntas": [
+        {
+          "id_categoria": 5,
+          "id_subcategoria": 6,
+          "pregunta": "¿Maneja automovil automatico o sincrónico?",
+          "id_tipo": 2,
+          "opciones": [
+            {
+              "valor": "Automático",
+              "estadisticas": {
+                "n_personas_respondieron": 15
+              }
+            },
+            {
+              "valor": "Sincrónico",
+              "estadisticas": {
+                "n_personas_respondieron": 48
+              }
+            }
+          ],
+          "id": 111
+        },
+        {
+          "id_categoria": 5,
+          "id_subcategoria": 6,
+          "pregunta": "¿Qué tan seguido se le daña el carro?",
+          "id_tipo": 2,
+          "opciones": [
+            {
+              "valor": "Una vez al mes o más seguido",
+              "estadisticas": {
+                "n_personas_respondieron": 15
+              }
+            },
+            {
+              "valor": "Cada dos-cinco meses",
+              "estadisticas": {
+                "n_personas_respondieron": 25
+              }
+            },
+            {
+              "valor": "Cada seis-nueve meses",
+              "estadisticas": {
+                "n_personas_respondieron": 55
+              }
+            },
+            {
+              "valor": "Una vez al año",
+              "estadisticas": {
+                "n_personas_respondieron": 45
+              }
+            },
+            {
+              "valor": "Menos de una vez al año",
+              "estadisticas": {
+                "n_personas_respondieron": 95
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "population": [
+    {
+      "id": 1,
+      "poblacion_disponible": [
+        {
+          "id": 1,
+          "primer_nombre": "Frank",
+          "primer_apellido": "Hesse",
+          "documento_de_identificacion": "8932SHFD",
+          "correo_electronico": "hyperschnell11@outlook.sk",
+          "fecha_de_nacimiento": "08/01/1999"
+        },
+        {
+          "id": 2,
+          "primer_nombre": "Tate",
+          "primer_apellido": "Langdon",
+          "documento_de_identificacion": "SDFDSFU3H",
+          "correo_electronico": "str4ngl3r@aol.com",
+          "fecha_de_nacimiento": "23/11/1998"
+        },
+        {
+          "id": 3,
+          "primer_nombre": "Edward",
+          "primer_apellido": "Meyer",
+          "documento_de_identificacion": "DH37HFU4",
+          "correo_electronico": "jujutsukaisenfingerposting@gmail.ca",
+          "fecha_de_nacimiento": "13/01/1997"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "poblacion_disponible": [
+        {
+          "id": 1,
+          "primer_nombre": "Frank",
+          "primer_apellido": "Hesse",
+          "documento_de_identificacion": "8932SHFD",
+          "correo_electronico": "hyperschnell11@outlook.sk",
+          "fecha_de_nacimiento": "08/01/1999"
+        },
+        {
+          "id": 4,
+          "primer_nombre": "Phill",
+          "primer_apellido": "Rubik",
+          "documento_de_identificacion": "DFN3U3I2H",
+          "correo_electronico": "xblack_7x@gmail.ca",
+          "fecha_de_nacimiento": "19/02/2001"
+        },
+        {
+          "id": 5,
+          "primer_nombre": "Nicolas",
+          "primer_apellido": "Jimenez",
+          "documento_de_identificacion": "DHCNR378",
+          "correo_electronico": "maketrash@gmail.ca",
+          "fecha_de_nacimiento": "17/05/2012"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "poblacion_disponible": [
+        {
+          "id": 2,
+          "primer_nombre": "Tate",
+          "primer_apellido": "Langdon",
+          "documento_de_identificacion": "SDFDSFU3H",
+          "correo_electronico": "str4ngl3r@aol.com",
+          "fecha_de_nacimiento": "23/11/1998"
+        },
+        {
+          "id": 6,
+          "primer_nombre": "Peter",
+          "primer_apellido": "Nopsycho",
+          "documento_de_identificacion": "JKV38VNR",
+          "correo_electronico": "iamnopsycho@gmail.ca",
+          "fecha_de_nacimiento": "01/02/1998"
+        },
+        {
+          "id": 5,
+          "primer_nombre": "Nicolas",
+          "primer_apellido": "Jimenez",
+          "documento_de_identificacion": "DHCNR378",
+          "correo_electronico": "maketrash@gmail.ca",
+          "fecha_de_nacimiento": "17/05/2012"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "poblacion_disponible": [
+        {
+          "id": 2,
+          "primer_nombre": "Tate",
+          "primer_apellido": "Langdon",
+          "documento_de_identificacion": "SDFDSFU3H",
+          "correo_electronico": "str4ngl3r@aol.com",
+          "fecha_de_nacimiento": "23/11/1998"
+        },
+        {
+          "id": 7,
+          "primer_nombre": "Nick",
+          "primer_apellido": "Person",
+          "documento_de_identificacion": "NVUN383KE",
+          "correo_electronico": "",
+          "fecha_de_nacimiento": "01/02/1998"
+        },
+        {
+          "id": 8,
+          "primer_nombre": "Eric",
+          "primer_apellido": "Schmidt",
+          "documento_de_identificacion": "NXCJR339",
+          "correo_electronico": "chemagogia@gmail.ca",
+          "fecha_de_nacimiento": "18/10/1997"
+        }
+      ]
+    }
+  ],
+  "login": [
+    {
+      "correo_electronico": "angel99castillo@gmail.com",
+      "clave": "hola2123",
+      "id": 1
+    },
+    {
+      "correo_electronico": "odiovivir@gmail.com",
+      "clave": "123456789",
+      "id": 2
+    },
+    {
+      "correo_electronico": "odiovivir@gmail.com",
+      "clave": "fdgdgdfgfdg",
+      "id": 3
+    },
+    {
+      "correo_electronico": "odiovivir@gmail.com",
+      "clave": "asdasdadasd",
+      "id": 4
+    },
+    {
+      "correo_electronico": "angel99castillo@gmail.com",
+      "clave": "Tc9307460.",
+      "id": 5
+    },
+    {
+      "correo_electronico": "angel99castillo@gmail.com",
+      "clave": "Tc9307460.",
+      "id": 6
+    },
+    {
+      "correo_electronico": "angel99castillo@gmail.com",
+      "clave": "AngelC99.",
+      "id": 7
+    },
+    {
+      "correo_electronico": "angel99castillo@gmail.com",
+      "clave": "AngelC99.",
+      "id": 8
+    },
+    {
+      "correo_electronico": "angel99castillo@gmail.com",
+      "clave": "AngelC99.",
+      "id": 9
+    },
+    {
+      "correo_electronico": "angel99castillo@gmail.com",
+      "clave": "AngelC99.",
+      "id": 10
+    },
+    {
+      "correo_electronico": "angel99castillo@gmail.com",
+      "clave": "AngelC99.",
+      "id": 11
+    },
+    {
+      "correo_electronico": "angel99castillo@gmail.com",
+      "clave": "AngelC99.",
+      "id": 12
     }
   ]
 }

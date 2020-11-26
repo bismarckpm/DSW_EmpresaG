@@ -1,6 +1,6 @@
 <app-navigation></app-navigation>
 
-<!-- Questions -->
+<!-- Existing studies -->
 <div class="demo-container p-mx-6 p-p-0 p-p-sm-1 p-p-md-2 p-p-lg-6">
     <p-card>
         <div class="p-grid p-mx-5">
@@ -31,7 +31,7 @@
                     [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
                     [paginator]="true"
                     currentPageReportTemplate="Mostrando desde {first} hasta {last} de {totalRecords} resultados"
-                    [filterDelay]="0" [globalFilterFields]="['categoria']">
+                    [filterDelay]="0" [globalFilterFields]="['categoria', 'estado']">
 
                     <ng-template pTemplate="header">
                         <tr>
@@ -45,6 +45,9 @@
                             </th>
                             <th class="p-text-center">
                                 Filtros adicionales
+                            </th>
+                            <th class="p-text-center">
+                                Rango de edades
                             </th>
                             <th class="p-text-center">
                                 Lugares de aplicación
@@ -79,6 +82,10 @@
 
                             </td>
                             <td class="p-text-center">
+                                <span class="p-column-title">Rango de edades</span>
+                                <span class="image-text" *ngIf="estudio.edad_minima && estudio.edad_maxima">De {{estudio.edad_minima}} hasta {{estudio.edad_maxima}}</span>
+                            </td>
+                            <td class="p-text-center">
                                 <span class="p-column-title">Lugares</span>
                                 <span class="image-text">{{estudio.lugares}}</span>
                             </td>
@@ -91,8 +98,8 @@
                                 <button type="button" routerLink="../view" [queryParams]="{sid:estudio.id}" pButton
                                     pRipple icon="pi pi-eye" class="p-button-rounded p-mr-2" pTooltip="Vista previa"
                                     tooltipPosition="bottom"></button>
-                                <button type="button" pButton pRipple icon="pi pi-pencil"
-                                    class="p-button-rounded p-mr-2" pTooltip="Editar pregunta" routerLink="../edit"
+                                <button *ngIf="estudio.id_estado != 3" type="button" pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-mr-2" pTooltip="Editar estudio" routerLink="../edit"
                                     [queryParams]="{sid:estudio.id}" tooltipPosition="bottom"></button>
                             </td>
                         </tr>
