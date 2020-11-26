@@ -30,7 +30,7 @@ export class CategoryService {
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  putPresentation(category): Observable<Category>{
+  putCategory(category): Observable<Category>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

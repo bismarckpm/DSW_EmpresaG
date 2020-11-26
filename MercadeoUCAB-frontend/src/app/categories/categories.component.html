@@ -43,10 +43,6 @@
                             </th>
                             <th class="p-text-center">Descripción
                             </th>
-                            <th pSortableColumn="tipo" class="p-text-center">Tipo<p-sortIcon
-                                    field="tipo">
-                                </p-sortIcon>
-                            </th>
                             <th style="width: 11rem"></th>
                         </tr>
 
@@ -91,7 +87,7 @@
     </p-card>
 
     <app-add-category [display]="addCategoryView" (onCategoryAdded)="appendNewCategory($event)" (onModalClose)="hideAddCategoryView()"></app-add-category>
-    <app-edit-category *ngIf="category" [presentation]="category" [display]="editCategoryView" (onPresentationEdited)="editCategory($event)" (onModalClose)="hideEditCategoryView()"></app-edit-category>
+    <app-edit-category *ngIf="category" [category]="category" [display]="editCategoryView" (onCategoryEdited)="editCategory($event)" (onModalClose)="hideEditCategoryView()"></app-edit-category>
 
     <p-confirmDialog></p-confirmDialog>
     <p-toast></p-toast>
