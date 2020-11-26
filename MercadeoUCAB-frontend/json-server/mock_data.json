@@ -96,6 +96,33 @@
       "id_horario_inicial": 6,
       "id_horario_final": 16,
       "id": 1
+    },
+    {
+      "correo_electronico": "angel99castillo@gmail.com",
+      "clave": "AngelC99.",
+      "hijos": [],
+      "confirmar_clave": "AngelC99.",
+      "primer_nombre": "Angel",
+      "primer_apellido": "Castillo",
+      "documento_de_identificacion": "27547065",
+      "genero": 1,
+      "estado_civil": 1,
+      "fecha_de_nacimiento": "10/11/1999",
+      "id_pais": null,
+      "id_estado": null,
+      "id_ciudad": null,
+      "id_parroquia": null,
+      "codigo_pais": null,
+      "telefono": null,
+      "personas_hogar": null,
+      "tiene_hijos": null,
+      "ocupacion": null,
+      "id_nivel_academico": null,
+      "id_nivel_socioeconomico": null,
+      "dispositivos": null,
+      "id_horario_inicial": 9,
+      "id_horario_final": 24,
+      "id": 2
     }
   ],
   "recovery": [
@@ -496,6 +523,11 @@
     {
       "id": 5,
       "nombre": "Transporte"
+    },
+    {
+      "nombre": "Deportes",
+      "descripcion": "hola",
+      "id": 6
     }
   ],
   "subcategories": [
@@ -1674,6 +1706,46 @@
       "correo_electronico": "odiovivir@gmail.com",
       "clave": "asdasdadasd",
       "id": 4
+    },
+    {
+      "correo_electronico": "angel99castillo@gmail.com",
+      "clave": "Tc9307460.",
+      "id": 5
+    },
+    {
+      "correo_electronico": "angel99castillo@gmail.com",
+      "clave": "Tc9307460.",
+      "id": 6
+    },
+    {
+      "correo_electronico": "angel99castillo@gmail.com",
+      "clave": "AngelC99.",
+      "id": 7
+    },
+    {
+      "correo_electronico": "angel99castillo@gmail.com",
+      "clave": "AngelC99.",
+      "id": 8
+    },
+    {
+      "correo_electronico": "angel99castillo@gmail.com",
+      "clave": "AngelC99.",
+      "id": 9
+    },
+    {
+      "correo_electronico": "angel99castillo@gmail.com",
+      "clave": "AngelC99.",
+      "id": 10
+    },
+    {
+      "correo_electronico": "angel99castillo@gmail.com",
+      "clave": "AngelC99.",
+      "id": 11
+    },
+    {
+      "correo_electronico": "angel99castillo@gmail.com",
+      "clave": "AngelC99.",
+      "id": 12
     }
   ]
 }
