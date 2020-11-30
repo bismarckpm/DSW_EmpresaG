@@ -1,6 +1,6 @@
 <p-dialog header="AÑADIR CATEGORÍA" [(visible)]="display" [style]="{width: '50vw'}" [baseZIndex]="10000">
     <form novalidate [formGroup]="categoryForm" #cform="ngForm" (ngSubmit)="onSubmit()">
-        <div class="p-grid">
+        <div class="p-grid p-mt-3">
             <div class="p-col-12 p-md-6">
                 <span class="p-float-label">
                     <input id="nombre" formControlName="nombre" class="p-inputtext-lg fill-width" type="text"
