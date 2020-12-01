@@ -321,7 +321,7 @@ export class EditStudyComponent implements OnInit {
       this.display_modify_study_features = false;
       this.sent_form = false;
       this.display_new = false;
-      this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Pregunta añadida con éxito' });
+      this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Información modificada con éxito' });
     }, errorMessage => {
       this.display_modify_study_features = false;
       this.sent_form = false;

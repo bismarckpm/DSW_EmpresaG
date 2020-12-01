@@ -20,16 +20,28 @@ import { StudyRequestsComponent } from '../studies/study-requests/study-requests
 import { ViewStudyComponent } from '../studies/view-study/view-study.component';
 
 import { CategoriesComponent } from '../categories/categories.component';
-import { AddCategoryComponent } from '../categories/add-category/add-category.component';
 import { NotFoundComponent } from '../errors/not-found/not-found.component';
 import { ProfileComponent } from '../profile/profile.component';
-import { componentFactoryName } from '@angular/compiler';
 import { ChangeComponent } from '../recovery/change/change.component';
 import { SelectExistingComponent } from '../studies/select-existing/select-existing.component';
 import { PresentationsComponent } from '../presentations/presentations.component';
 import { UsersComponent } from '../users/users.component';
 import { AddUserComponent } from '../users/add-user/add-user.component';
 import { EditUserComponent } from '../users/edit-user/edit-user.component';
+import { AvailableSurveysComponent } from '../surveys/available-surveys/available-surveys.component';
+import { TakeSurveyUserComponent } from '../surveys/take-survey-user/take-survey-user.component';
+import { AnalysisRequestsComponent } from '../analytics/analysis-requests/analysis-requests.component';
+import { AvailablePopulationComponent } from '../analytics/available-population/available-population.component';
+import { StatisticsComponent } from '../analytics/statistics/statistics.component';
+import { MakeInterviewComponent } from '../analytics/make-interview/make-interview.component';
+import { MyRequestsComponent } from '../client/my-requests/my-requests.component';
+import { CreateRequestComponent } from '../client/create-request/create-request.component';
+import { ClientsStudyStatsComponent } from '../client/clients-study-stats/clients-study-stats.component';
+import { EditRequestComponent } from '../client/edit-request/edit-request.component';
+import { StudyPreviewComponent } from '../client/study-preview/study-preview.component';
+import { SubcategoriesComponent } from '../subcategories/subcategories.component';
+import { BrandsComponent } from '../brands/brands.component';
+import { ProductTypesComponent } from '../product-types/product-types.component';
 
 export const routes: Routes = [
     { 
@@ -88,14 +100,7 @@ export const routes: Routes = [
       path: 'questions/view',
       component: PreviewQuestionComponent
     },
-    {
-      path: 'categories',
-      component: CategoriesComponent
-    },
-    {
-      path: 'categories/add',
-      component: AddCategoryComponent
-    },
+
 
     /* STUDIES */
     {
@@ -127,7 +132,73 @@ export const routes: Routes = [
       component: ProfileComponent
     },
 
+    /* SURVEYS */
+    {
+      path: 'available-surveys',
+      component: AvailableSurveysComponent
+    },
+    {
+      path: 'available-surveys/take',
+      component: TakeSurveyUserComponent
+    },
+
+    /* ANALYST */
+    {
+      path: 'analysis-requests',
+      component: AnalysisRequestsComponent
+    },
+    {
+      path: 'available-population',
+      component: AvailablePopulationComponent
+    },
+    {
+      path: 'stats',
+      component: StatisticsComponent
+    },
+    {
+      path: 'make-interview',
+      component: MakeInterviewComponent
+    },
+
+    /* CLIENT */
+    {
+      path: 'my-requests',
+      component: MyRequestsComponent
+    },
+    {
+      path: 'make-request',
+      component: CreateRequestComponent
+    },
+    {
+      path: 'edit-request',
+      component: EditRequestComponent
+    },
+    {
+      path: 'view-study/stats',
+      component: ClientsStudyStatsComponent
+    },
+    {
+      path: 'view-study',
+      component: StudyPreviewComponent
+    },
+
     /* PRODUCTS */
+    {
+      path: 'categories',
+      component: CategoriesComponent
+    },
+    {
+      path: 'subcategories',
+      component: SubcategoriesComponent
+    },
+    {
+      path: 'brands',
+      component: BrandsComponent
+    },
+    {
+      path: 'types',
+      component: ProductTypesComponent
+    },
     {
       path: 'presentations',
       component: PresentationsComponent
@@ -156,7 +227,7 @@ export const routes: Routes = [
     /* REDIRECCIONAR A LA RUTA EN LA QUE SE ESTE TRABAJANDO MIENTRAS TANTO */
     { 
       path: '', 
-      redirectTo: 'studies/requests', 
+      redirectTo: 'types', 
       pathMatch: 'full' 
     }
 ];

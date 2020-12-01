@@ -23,6 +23,9 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { DialogModule } from 'primeng/dialog';
+import { ChartModule } from 'primeng/chart';
+import { EditorModule } from 'primeng/editor';
+
 
 /* Modules */
 import { AppRoutingModule } from './app-routing/app-routing.module';
@@ -48,6 +51,9 @@ import { CategoryService } from './services/category.service';
 import { SubcategoryService } from './services/subcategory.service';
 import { StudiesService } from './services/studies.service';
 import { PresentationService } from './services/presentation.service';
+import { TypesService } from './services/types.service';
+import { UserSurveyService } from './services/user-survey.service';
+import { BrandService } from './services/brand.service';
 import { ProcessHttpMessageService } from './services/process-http-message.service';
 
 /* My components */
@@ -69,6 +75,7 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerDisconnectedComponent } from './errors/server-disconnected/server-disconnected.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { AddCategoryComponent } from './categories/add-category/add-category.component';
+import { EditCategoryComponent } from './categories/edit-category/edit-category.component'
 import { ExistingStudiesComponent } from './studies/existing-studies/existing-studies.component';
 import { ViewStudyComponent } from './studies/view-study/view-study.component';
 import { EditStudyComponent } from './studies/edit-study/edit-study.component';
@@ -87,6 +94,26 @@ import { AddUserComponent } from './users/add-user/add-user.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
 import { ViewUsersSummaryComponent } from './users/view-users-summary/view-users-summary.component';
 import { AddUserFormComponent } from './users/add-user/add-user-form/add-user-form.component';
+import { AvailableSurveysComponent } from './surveys/available-surveys/available-surveys.component';
+import { TakeSurveyUserComponent } from './surveys/take-survey-user/take-survey-user.component';
+import { AnalysisRequestsComponent } from './analytics/analysis-requests/analysis-requests.component';
+import { StatisticsComponent } from './analytics/statistics/statistics.component';
+import { AvailablePopulationComponent } from './analytics/available-population/available-population.component';
+import { MakeInterviewComponent } from './analytics/make-interview/make-interview.component';
+import { MyRequestsComponent } from './client/my-requests/my-requests.component';
+import { CreateRequestComponent } from './client/create-request/create-request.component';
+import { ClientsStudyStatsComponent } from './client/clients-study-stats/clients-study-stats.component';
+import { EditRequestComponent } from './client/edit-request/edit-request.component';
+import { StudyPreviewComponent } from './client/study-preview/study-preview.component';
+import { SubcategoriesComponent } from './subcategories/subcategories.component';
+import { AddSubcategoryComponent } from './subcategories/add-subcategory/add-subcategory.component';
+import { EditSubcategoryComponent } from './subcategories/edit-subcategory/edit-subcategory.component';
+import { BrandsComponent } from './brands/brands.component';
+import { AddBrandComponent } from './brands/add-brand/add-brand.component';
+import { EditBrandComponent } from './brands/edit-brand/edit-brand.component';
+import { ProductTypesComponent } from './product-types/product-types.component';
+import { AddProductTypeComponent } from './product-types/add-product-type/add-product-type.component';
+import { EditProductTypeComponent } from './product-types/edit-product-type/edit-product-type.component';
 
 @NgModule({
   declarations: [
@@ -125,7 +152,28 @@ import { AddUserFormComponent } from './users/add-user/add-user-form/add-user-fo
     AddUserComponent,
     EditUserComponent,
     ViewUsersSummaryComponent,
-    AddUserFormComponent
+    AddUserFormComponent,
+    AvailableSurveysComponent,
+    TakeSurveyUserComponent,
+    AnalysisRequestsComponent,
+    StatisticsComponent,
+    AvailablePopulationComponent,
+    MakeInterviewComponent,
+    MyRequestsComponent,
+    CreateRequestComponent,
+    EditCategoryComponent,
+    ClientsStudyStatsComponent,
+    EditRequestComponent,
+    StudyPreviewComponent,
+    SubcategoriesComponent,
+    AddSubcategoryComponent,
+    EditSubcategoryComponent,
+    BrandsComponent,
+    AddBrandComponent,
+    EditBrandComponent,
+    ProductTypesComponent,
+    AddProductTypeComponent,
+    EditProductTypeComponent
   ],
   imports: [
     BrowserModule,
@@ -154,7 +202,9 @@ import { AddUserFormComponent } from './users/add-user/add-user-form/add-user-fo
     ProgressSpinnerModule,
     CheckboxModule,
     NgxSpinnerModule,
-    DialogModule
+    DialogModule,
+    ChartModule,
+    EditorModule
   ],
   providers: [
     RegisterService,
@@ -167,6 +217,9 @@ import { AddUserFormComponent } from './users/add-user/add-user-form/add-user-fo
     SubcategoryService,
     StudiesService,
     PresentationService,
+    TypesService,
+    UserSurveyService,
+    BrandService,
     ProcessHttpMessageService,
     {provide: 'BaseURL', useValue: baseURL},
     {provide: 'ServerURL', useValue: serverURL}

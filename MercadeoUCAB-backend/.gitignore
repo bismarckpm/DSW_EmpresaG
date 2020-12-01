@@ -1,0 +1,14 @@
+.idea/
+target/
+out/
+dao/target/
+dto/target/
+entidades/target/
+exceptions/target/
+servicio/target/
+MercadeoUCAB-backend.iml
+dto/dto.iml
+dao/dao.iml
+entidades/entidades.iml
+exceptions/exceptions.iml
+servicio/servicio.iml

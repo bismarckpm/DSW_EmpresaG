@@ -4,14 +4,8 @@
 <div class="demo-container p-mx-6 p-p-0 p-p-sm-1 p-p-md-2 p-p-lg-6">
     <p-card>
         <div class="p-grid p-mx-5">
-            <div class="p-col-6 p-lg-6">
+            <div class="p-col-12">
                 <h3 class="table-title">VISTA PREVIA DEL ESTUDIO</h3>
-            </div>
-            <div class="p-col-6 p-lg-6">
-                <div class="p-grid p-jc-end p-mt-1 p-mr-4">
-                    <button pButton pRipple type="button" pTooltip="Crear pregunta" tooltipPosition="bottom"
-                        icon="pi pi-plus"  class="p-button-rounded p-button-text"></button>
-                </div>
             </div>
         </div>
         <hr>
@@ -97,18 +91,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- OPTIONS -->
-                    <div class="p-col p-lg-2">
-                        <div class="p-grid p-jc-end p-mr-5">
-                            <i class="pi pi-fw pi-pencil p-mr-2" routerLink="../../questions/edit"
-                                [queryParams]="{qid: pregunta.id, origin: 'study', sid: estudio.id}"
-                                style="cursor: pointer;"></i>
-                            <i class="pi pi-fw pi-trash" (click)="deleteQuestion(pregunta)"
-                                style="cursor: pointer;"></i>
-                        </div>
-                    </div>
-
                 </div>
             </div>
             <div class="p-grid p-jc-end p-mt-1 p-mr-4">

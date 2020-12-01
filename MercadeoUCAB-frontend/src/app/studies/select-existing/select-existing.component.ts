@@ -99,7 +99,7 @@ export class SelectExistingComponent implements OnInit {
         this.request.estado = "En progreso";
         /* Update request's status before turning it into a study */
         this.requestsService.putRequest(this.request).subscribe((request) => {
-          this.estudio_generado = this.request;
+          this.estudio_generado = this.request as Study;
           this.estudio_generado.preguntas = study.preguntas;
           console.log(this.estudio_generado)
           delete this.estudio_generado['id'];

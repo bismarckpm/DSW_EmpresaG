@@ -103,8 +103,8 @@
                                 selectedItemsLabel="{} items seleccionados" formControlName="pais"></p-multiSelect>
 
                             <p-dropdown [options]="paises" formControlName="pais"
-                                *ngIf="studyForm.value.tipo_de_filtro == 'estados' || studyForm.value.tipo_de_filtro == 'ciudades'"
-                                placeholder="País"></p-dropdown>
+                                *ngIf="studyForm.value.tipo_de_filtro == 'estados'"
+                                placeholder="País" (onChange)="getStates($event.value)"></p-dropdown>
                         </div>
 
                         <div class="p-col-12 p-md-6 p-lg-4">

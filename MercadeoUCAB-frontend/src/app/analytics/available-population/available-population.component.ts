@@ -1,0 +1,56 @@
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Table } from 'primeng/table';
+import { Study } from 'src/app/classes/study';
+import { AnalystService } from 'src/app/services/analyst.service';
+
+@Component({
+  selector: 'app-available-population',
+  templateUrl: './available-population.component.html',
+  styleUrls: ['./available-population.component.scss']
+})
+export class AvailablePopulationComponent implements OnInit {
+  estudio: Study;
+  current_study: number;
+  loading: boolean = false;
+  estudioErrorMessage: string;
+  @ViewChild('dt') table: Table;
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private analystService: AnalystService,
+    private spinner: NgxSpinnerService) { }
+
+  ngOnInit(): void {
+    this.loading = true;
+    this.spinner.show();
+    if ((this.activatedRoute.snapshot.queryParamMap.get('studyId') || 0) == 0) {
+      this.router.navigate(['404']);
+    }
+
+    else {
+      this.current_study = parseInt(this.activatedRoute.snapshot.queryParamMap.get('studyId'));
+
+      this.analystService.getAvailablePopulation(this.current_study).subscribe((study) => {
+        if (study){
+          //console.log(study)
+          this.estudio = study;
+          this.loading = false;
+          this.spinner.hide();
+        }
+
+        else {
+          this.router.navigate(['404']);
+        }
+        
+      }, errorMessage => {
+        this.spinner.hide();
+        this.loading = false;
+        this.estudioErrorMessage = errorMessage;
+      })
+    }
+  }
+
+}

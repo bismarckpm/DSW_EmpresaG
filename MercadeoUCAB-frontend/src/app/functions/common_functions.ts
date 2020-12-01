@@ -3,5 +3,5 @@ export function replaceKey(obj){
 }
 
 export function replaceKeyWithValue(obj){
-    return obj.map(({ id: value, nombre: label, ...rest }) => ({ value, label, ...rest }));
+    return obj.map(({ _id: value, nombre: label, ...rest }) => ({ value, label, ...rest }));
 }
