@@ -1,12 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { MessageService, MenuItem } from 'primeng/api'
-import { Subcategory } from '../../classes/subcategory';
+import { CategorySubcategory } from 'src/app/classes/category_subcategory';
 import { replaceKeyWithValue } from '../../functions/common_functions';
 import { CategoryService } from 'src/app/services/category.service';
 import { SubcategoryService } from 'src/app/services/subcategory.service';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subcategory } from 'src/app/classes/subcategory';
+import { Category } from 'src/app/classes/category';
 
 @Component({
   selector: 'app-edit-subcategory',
@@ -16,11 +18,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class EditSubcategoryComponent implements OnInit {
   @Input() display: boolean;
-  @Input() subcategory: Subcategory;
+  @Input() subcategory: CategorySubcategory;
   @Output() onModalClose = new EventEmitter<any>();
   @Output() onSubcategoryEdited = new EventEmitter<any>();
-  tipos: MenuItem[];
-  categorias: MenuItem[];
+  categorias: any[];
   sent_form: boolean = false;
 
   /* Form */
@@ -61,20 +62,20 @@ export class EditSubcategoryComponent implements OnInit {
   createForm(){
     this.subcategoryForm = this.fb.group({
       'categoria': [
-        this.subcategory.id_categoria,
+        this.subcategory.fkCategoria._id,
         [
           Validators.required
         ]
       ],
       'nombre': [
-        this.subcategory.nombre,
+        this.subcategory.fkSubcategoria.nombre,
         [
           Validators.required,
           Validators.maxLength(90)
         ]
       ],
       'descripcion': [
-        this.subcategory.descripcion,
+        this.subcategory.fkSubcategoria.descripcion,
         [
           Validators.maxLength(500)
         ]
@@ -140,9 +141,11 @@ export class EditSubcategoryComponent implements OnInit {
       this.messageService.add({severity:'error', summary: 'Error', detail: 'Debe rellenar los campos requeridos con datos válidos'});
     }
     else {
-      this.subcategory.nombre = this.subcategoryForm.value.nombre;
-      this.subcategory.id_categoria = this.subcategoryForm.value.categoria;
-      this.subcategory.descripcion = this.subcategoryForm.value.descripcion;
+      this.subcategory.fkSubcategoria.nombre = this.subcategoryForm.value.nombre;
+      this.subcategory.fkSubcategoria.descripcion = this.subcategoryForm.value.descripcion;
+      this.subcategory.fkCategoria = new Category();
+      this.subcategory.fkCategoria._id = this.subcategoryForm.value.categoria;
+      this.subcategory.fkCategoria.nombre = this.categorias.find(o => o.value == this.subcategory.fkCategoria._id).label;
 
       this.putSubcategory();
     }

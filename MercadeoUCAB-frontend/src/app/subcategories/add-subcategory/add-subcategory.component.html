@@ -1,6 +1,6 @@
 <p-dialog header="AÑADIR SUBCATEGORÍA" [(visible)]="display" [style]="{width: '50vw'}" [baseZIndex]="10000">
     <form novalidate [formGroup]="subcategoryForm" #sform="ngForm" (ngSubmit)="onSubmit()">
-        <div class="p-grid">
+        <div class="p-grid p-mt-3">
             <div class="p-col-12 p-md-6">
                 <p-dropdown [options]="categorias" formControlName="categoria" placeholder="Categoría (*)"></p-dropdown>
                 <span class="error-msg" *ngIf="formErrors.categoria"><small>{{formErrors.categoria}}</small></span>

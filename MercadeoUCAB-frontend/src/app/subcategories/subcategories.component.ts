@@ -5,6 +5,7 @@ import { Subcategory } from '../classes/subcategory';
 import { SubcategoryService } from '../services/subcategory.service';
 import { CategoryService } from '../services/category.service';
 import { replaceKeyWithValue } from '../functions/common_functions';
+import { CategorySubcategory } from '../classes/category_subcategory';
 
 @Component({
   selector: 'app-subcategories',
@@ -14,7 +15,7 @@ import { replaceKeyWithValue } from '../functions/common_functions';
 })
 export class SubcategoriesComponent implements OnInit {
   loading: boolean = true;
-  subcategorias: Subcategory[];
+  subcategorias: CategorySubcategory[];
   categorias: MenuItem[];
   subcategoria: Subcategory;
   display_add_subcategory: boolean = false;

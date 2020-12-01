@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { baseURL } from '../constants/baseURL';
 import { catchError } from 'rxjs/operators';
 import { ProcessHttpMessageService } from '../services/process-http-message.service';
 import { Category } from '../classes/category';
+import { serverURL } from '../constants/serverURL';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class CategoryService {
     private processHTTPMessageService: ProcessHttpMessageService) { }
 
   getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(baseURL + 'categories')
+    return this.http.get<Category[]>(serverURL + 'categories/all')
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
@@ -26,7 +26,7 @@ export class CategoryService {
       })
     };
 
-    return this.http.post<Category>(baseURL + 'categories', category, httpOptions)
+    return this.http.post<Category>(serverURL + 'categories/add', category, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
@@ -37,12 +37,12 @@ export class CategoryService {
       })
     };
 
-    return this.http.put<Category>(baseURL + 'categories/' + category.id, category, httpOptions)
+    return this.http.put<Category>(serverURL + 'categories/update/' + category._id, category, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
   deleteCategory(category): Observable<Category>{
-    return this.http.delete<Category>(baseURL + 'categories/' + category.id)
+    return this.http.delete<Category>(serverURL + 'categories/delete/' + category._id)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 }

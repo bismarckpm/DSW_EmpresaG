@@ -61,19 +61,19 @@
                         <tr class="p-selectable-row">
                             <td class="p-text-center">
                                 <span class="p-column-title">ID</span>
-                                {{subcategoria.id}}
+                                {{subcategoria._id}}
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Nombre</span>
-                                {{subcategoria.nombre}}
+                                {{subcategoria.fkSubcategoria.nombre}}
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Descripción</span>
-                                {{subcategoria.descripcion}}
+                                {{subcategoria.fkSubcategoria.descripcion}}
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Categoría</span>
-                                <span class="image-text">{{subcategoria.categoria}}</span>
+                                <span class="image-text">{{subcategoria.fkCategoria.nombre}}</span>
                             </td>
 
                             <td class="p-text-center">
@@ -100,7 +100,7 @@
         </div>
     </p-card>
 
-    <app-add-subcategory [display]="display_add_subcategory" (onsubcategoryAdded)="appendNewSubcategory($event)" (onModalClose)="hideAddSubcategoryModal()"></app-add-subcategory>
+    <app-add-subcategory [display]="display_add_subcategory" (onSubcategoryAdded)="appendNewSubcategory($event)" (onModalClose)="hideAddSubcategoryModal()"></app-add-subcategory>
     <app-edit-subcategory *ngIf="subcategoria" [subcategory]="subcategoria" [display]="display_edit_subcategory" (onSubcategoryEdited)="editSubcategory($event)" (onModalClose)="hideEditSubcategoryModal()"></app-edit-subcategory>
 
     <p-confirmDialog></p-confirmDialog>

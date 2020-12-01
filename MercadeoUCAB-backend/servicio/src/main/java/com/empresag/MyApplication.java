@@ -19,6 +19,8 @@ public class MyApplication extends Application {
         Set<Class<?>> h = new HashSet<>();
         h.add( HelloWorld.class );
         h.add( DispositivoService.class );
+        h.add( CategoryService.class );
+        h.add( SubcategoryService.class );
         return h;
     }
 }
