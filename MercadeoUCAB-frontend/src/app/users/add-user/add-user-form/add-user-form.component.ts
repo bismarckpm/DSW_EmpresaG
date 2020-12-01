@@ -8,6 +8,7 @@ import { DEVICES } from '../../../constants/device';
 import { CIVIL_STATUSES } from '../../../constants/civil_status';
 import { ROLES } from '../../../constants/rol';
 import { ACCOUNT_XTATUS } from '../../../constants/account_status';
+import { Child } from '../../../classes/child';
 
 import { NgxSpinnerService } from "ngx-spinner";
 import { ConfirmationService } from 'primeng/api';
@@ -22,6 +23,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SCHEDULES } from 'src/app/constants/schedule';
 import { SOCIAL_STATUSES } from 'src/app/constants/social_status';
 import { ACADEMICS } from 'src/app/constants/academics';
+import { PhoneService } from 'src/app/services/phone.service';
+import { PlaceService } from 'src/app/services/place.service';
 
 
 @Component({
@@ -42,8 +45,14 @@ export class AddUserFormComponent implements OnInit {
   account_stat: SelectItem[];
   roles: SelectItem[];
   tieneHijos: SelectItem[];
+  hijos: Child[] = [];
   niveles_academicos: SelectItem[];
   niveles_socioeconomicos: SelectItem[];
+  paises: SelectItem[];
+  estados: SelectItem[];
+  ciudades: SelectItem[];
+  parroquias: SelectItem[];
+  codigos: SelectItem[];
   fecha_nacimiento: Date;
   persona: Person;
   dataPersona: boolean = false;
@@ -51,14 +60,7 @@ export class AddUserFormComponent implements OnInit {
   personErrorMessage: string;
   selectedGenreValue: number;
   selectedEdoCivilValue: number;
-  selectedHoraI: number;
-  selectedHoraF: number;
-  selectedPais: number;
-  selectedEstado: number;
-  selectedCiudad: number;
-  selectedParroquia: number;
   selectedStatus: number;
-  selectRol: number;
   hasKids: boolean;
   sent_form: boolean = false;
   es: any;
@@ -83,7 +85,6 @@ export class AddUserFormComponent implements OnInit {
     'parroquia': '',
     'telefono': '',
     'ocupacion': '',
-    'personas_hogar': '',
     'hijos': '',
     'niv_academico': '',
     'niv_socioeconomico': '',
@@ -91,7 +92,13 @@ export class AddUserFormComponent implements OnInit {
     'hora_inicial': '',
     'hora_final': '',
     'estado_cuenta': '',
-    'rol': ''
+    'rol': '',
+    'personas_hogar': '',
+    'tiene_hijos': '',
+    'nombre_hijo': '',
+    'apellido_hijo': '',
+    'genero_hijo': '',
+    'fecha_de_nacimiento_hijo': ''
   };
 
 
@@ -152,15 +159,10 @@ export class AddUserFormComponent implements OnInit {
     },
     'telefono': {
       'required': 'Teléfono es requerido',
+      'pattern': 'Teléfono debe ser un campo numérico',
     },
     'ocupacion': {
       'required': 'Ocupación es requerido',
-    },
-    'personas_hogar': {
-      'required': 'Cantidad de personas en el hogar es requerido',
-    },
-    'hijos': {
-      'required': 'Cantidad de hijos es requerido / En el caso de no tener, seleccione 0',
     },
     'niv_academico': {
       'required': 'Nivel academico es requerido',
@@ -177,14 +179,38 @@ export class AddUserFormComponent implements OnInit {
     'hora_final': {
       'required': 'Hora final de disponibilidad es requerido',
     },
+    'personas_hogar':{
+      'min': 'El número de personas con la que vive no puede ser cero',
+      'pattern': 'Personas en hogar debe ser numérico'
+    },
+    'nombre_hijo': {
+      'required': 'El nombre del hijo es requerido',
+      'minlength': 'El nombre del hijo debe tener al menos 2 caracteres',
+      'maxlength': 'El nombre del hijo no debe exceder los 50 caracteres'
+    },
+    'apellido_hijo': {
+      'required': 'El apellido del hijo es requerido',
+      'minlength': 'El apellido del hijo debe tener al menos 2 caracteres',
+      'maxlength': 'El apellido del hijo no debe exceder los 50 caracteres'
+    },
+    'genero_hijo': {
+      'required': 'El género del hijo es requerido'
+    },
+    'fecha_de_nacimiento_hijo': {
+      'required': 'La fecha de nacimiento del hijo es requerida'
+    }
 
   };
+
+  showKidsForm = false;
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
     private userService: UserService,
+    private placeService: PlaceService, 
+    private phoneService: PhoneService,
     private messageService: MessageService) {
     this.createForm();
     this.generos = GENDERS;
@@ -205,7 +231,14 @@ export class AddUserFormComponent implements OnInit {
         label: 'No',
         value: false
       }];
-      
+
+      this.placeService.getCountries().subscribe((countries) => {
+        this.paises = countries;
+      });
+  
+      this.phoneService.getCodes().subscribe((codes) => {
+        this.codigos = codes;
+      });
   }
 
   ngOnInit(): void {
@@ -229,6 +262,9 @@ export class AddUserFormComponent implements OnInit {
       this.selectedEdoCivilValue = Number.parseInt(p.estado_civil);
       this.fecha_nacimiento = new Date(p.fecha_de_nacimiento);
       this.hasKids = p.tiene_hijos;
+      this.hijos = p.hijos;
+
+
 
       this.createForm();
       this.spinner.hide();
@@ -282,6 +318,41 @@ export class AddUserFormComponent implements OnInit {
           Validators.maxLength(50)
         ]
       ],
+      personas_hogar: [
+        this.userService.persona.personas_hogar,
+        [
+          Validators.min(1),
+          Validators.pattern('^[0-9]*$')
+        ]
+      ],
+      tiene_hijos: this.userService.persona.tiene_hijos,
+      nombre_hijo: ['',
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(50)
+        ]
+      ],
+      apellido_hijo: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(50)
+        ]
+      ],
+      genero_hijo: [
+        null,
+        [
+          Validators.required
+        ]
+      ],
+      fecha_de_nacimiento_hijo: [
+        null,
+        [
+          Validators.required
+        ]
+      ],
       genero: this.userService.persona.genero,
       dispositivos: this.userService.persona.dispositivos,
       estado_civil: this.userService.persona.estado_civil,
@@ -291,6 +362,19 @@ export class AddUserFormComponent implements OnInit {
       horario_final: this.userService.persona.id_horario_final,
       nivel_academico: this.userService.persona.id_nivel_academico,
       nivel_socioeconomico: this.userService.persona.id_nivel_socioeconomico,
+
+      pais: this.userService.persona.id_pais,
+      estado: this.userService.persona.id_estado,
+      ciudad: this.userService.persona.id_ciudad,
+      parroquia: this.userService.persona.id_parroquia,
+      codigo_pais: this.userService.persona.codigo_pais,
+
+      telefono: [
+        this.userService.persona.telefono,
+        [
+          Validators.pattern('^[0-9]*$')
+        ]
+      ],
     });
   
     this.userForm.valueChanges
@@ -329,6 +413,7 @@ export class AddUserFormComponent implements OnInit {
   }
 
   onSubmit(){
+// Informacion basica
     this.userService.persona.correo_electronico = this.userForm.value.correo_electronico;
     this.userService.persona.clave = this.userForm.value.clave;
     this.userService.persona.confirmar_clave = this.userForm.value.confirmar_clave;
@@ -339,14 +424,30 @@ export class AddUserFormComponent implements OnInit {
     this.userService.persona.estado_civil = this.userForm.value.estado_civil;
     this.userService.persona.fecha_de_nacimiento = this.userForm.value.fecha_de_nacimiento;
     this.userService.persona.dispositivos = this.userForm.value.dispositivos;
+// Informacion socioeconomica
     this.userService.persona.id_nivel_academico = this.userForm.value.nivel_academico;
     this.userService.persona.id_nivel_socioeconomico = this.userForm.value.nivel_socioeconomico;
+// Informacion familiar
+    this.userService.persona.personas_hogar = this.userForm.value.personas_hogar;
+    this.userService.persona.tiene_hijos = this.userForm.value.tiene_hijos;
+    this.userService.persona.hijos = this.hijos;
+// Informacion de contacto
+    this.userService.persona.id_pais = this.userForm.value.pais;
+    this.userService.persona.id_estado = this.userForm.value.estado;
+    this.userService.persona.id_ciudad = this.userForm.value.ciudad;
+    this.userService.persona.id_parroquia = this.userForm.value.parroquia;
+    this.userService.persona.codigo_pais = this.userForm.value.codigo_pais;
+    this.userService.persona.telefono = this.userForm.value.telefono;
 
     if (this.userService.persona.correo_electronico && this.userService.persona.clave
       && this.userService.persona.confirmar_clave && this.userService.persona.primer_nombre
       && this.userService.persona.primer_apellido && this.userService.persona.documento_de_identificacion
       && this.userService.persona.fecha_de_nacimiento && this.userService.persona.genero
-      && this.userService.persona.id_nivel_academico && this.userService.persona.id_nivel_socioeconomico){
+      && this.userService.persona.id_nivel_academico && this.userService.persona.id_nivel_socioeconomico
+      && this.userService.persona.id_pais && this.userService.persona.id_estado
+      && this.userService.persona.id_ciudad && this.userService.persona.id_parroquia
+      && this.userService.persona.codigo_pais && this.userService.persona.telefono
+      && this.userService.persona.personas_hogar && this.userService.persona.tiene_hijos){
 
       /* SUBMIT FORM */
       this.userService.postRegPerson(this.userService.persona)
@@ -362,7 +463,60 @@ export class AddUserFormComponent implements OnInit {
       this.showError()
       this.sent_form = false;
     }
-    //console.log(this.registerService.user);
+  }
+
+  userHasKids(event){
+    if (event.value == false){
+      this.hijos = [];
+      this.showKidsForm = false;
+    } 
+  }
+
+  showAddKidForm(){
+    this.showKidsForm = true;
+  }
+
+  hideAddKidForm(){
+    this.showKidsForm = false;
+  }
+
+  validateAddKidForm(){
+    if (this.userForm.valid){
+      this.hijos.push({
+        primer_nombre: this.userForm.value.nombre_hijo,
+        primer_apellido: this.userForm.value.apellido_hijo,
+        genero: this.userForm.value.genero_hijo,
+        fecha_de_nacimiento: this.userForm.value.fecha_de_nacimiento_hijo
+    });
+    this.hideAddKidForm();
+    }
+  }
+
+  deleteChild(kid){
+    let index = this.hijos.indexOf(kid)
+    if (index > -1)
+      this.hijos.splice(index, 1)
+  }
+
+  getStates(event){
+    this.ciudades = [];
+    this.parroquias = [];
+    this.placeService.getStates(event.value).subscribe((states) => {
+      this.estados = states;
+    })
+  }
+
+  getCities(event){
+    this.parroquias = [];
+    this.placeService.getCities(event.value).subscribe((cities) => {
+      this.ciudades = cities;
+    })
+  }
+
+  getCounties(event){
+    this.placeService.getCounties(event.value).subscribe((counties) => {
+      this.parroquias = counties;
+    })
   }
 
   showError() {
