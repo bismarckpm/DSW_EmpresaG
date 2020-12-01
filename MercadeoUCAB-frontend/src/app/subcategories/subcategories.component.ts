@@ -106,7 +106,7 @@ editSubcategory(event){
 }
 
 onCategoryChange(event){
-  this.table.filter(event.value, 'id_categoria', 'in')
+  this.table.filter(event.value, 'fkCategoria._id', 'in')
 }
 
 }

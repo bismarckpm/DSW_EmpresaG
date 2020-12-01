@@ -6,6 +6,7 @@ import { BrandService } from '../services/brand.service';
 import { SubcategoryService } from '../services/subcategory.service';
 import { CategoryService } from '../services/category.service';
 import { replaceKeyWithValue } from '../functions/common_functions';
+import { SubcategoryBrand } from '../classes/subcategory_brand';
 
 @Component({
   selector: 'app-brands',
@@ -15,11 +16,11 @@ import { replaceKeyWithValue } from '../functions/common_functions';
 })
 export class BrandsComponent implements OnInit {
   loading: boolean = true;
-  marcas: Brand[];
-  backup_brands: Brand[];
+  marcas: SubcategoryBrand[];
+  backup_brands: SubcategoryBrand[];
   subcategorias: MenuItem[];
   categorias: MenuItem[];
-  marca: Brand;
+  marca: SubcategoryBrand;
   display_add_brand: boolean = false;
   display_edit_brand: boolean = false;
   @ViewChild('dt') table: Table;
@@ -54,7 +55,7 @@ export class BrandsComponent implements OnInit {
 
   deleteMarca(marca) {
     this.confirmationService.confirm({
-      message: 'La siguiente marca: <code>' + marca.nombre + '</code> de ID <code>' + marca.id + '</code> está apunto de ser eliminada, ¿Desea continuar?',
+      message: 'La siguiente marca: <code>' + marca.fkMarca.nombre + '</code> de ID <code>' + marca._id + '</code> está apunto de ser eliminada, ¿Desea continuar?',
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
@@ -115,12 +116,12 @@ export class BrandsComponent implements OnInit {
   
   onCategoryChange(event){
     this.marcas = this.backup_brands;
-    this.marcas = this.marcas.filter(marca => marca.id_categoria == event.value)
+    this.marcas = this.marcas.filter(marca => marca.fkMarca._id == event.value)
     this.getSubcategories(event.value)
   }
 
   onSubcategoryChange(event){
-    this.table.filter(event.value, 'id_subcategoria', 'in')
+    this.table.filter(event.value, 'fkSubcategoria.id_subcategoria', 'in')
   }
 
 }
