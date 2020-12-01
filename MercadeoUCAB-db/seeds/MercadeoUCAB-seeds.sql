@@ -29,3 +29,44 @@ INSERT INTO tipo (id, nombre) VALUES
 INSERT INTO marca_tipo (fk_marca, fk_tipo) VALUES
 (1, 1), (2, 2), (3, 3);
 
+INSERT INTO empresag.presentacion (id, nombre, descripcion)
+VALUES (1, 'Old Skool', null);
+
+INSERT INTO empresag.presentacion (id, nombre, descripcion)
+VALUES (2, 'Authentic', null);
+
+INSERT INTO empresag.presentacion (id, nombre, descripcion)
+VALUES (3, 'Z1R Headphones', null);
+
+INSERT INTO empresag.presentacion (id, nombre, descripcion)
+VALUES (4, 'MDR-Z7M2', null);
+
+INSERT INTO empresag.presentacion (id, nombre, descripcion)
+VALUES (5, 'Box Logo', 'Tee White');
+
+INSERT INTO empresag.presentacion (id, nombre, descripcion)
+VALUES (6, 'Futura Logo', 'Tee Black');
+
+INSERT INTO empresag.presentacion (id, nombre, descripcion)
+VALUES (7, 'Good Vibes Long Sleeve', null);
+
+INSERT INTO empresag.tipo_presentacion (fk_tipo, fk_presentacion)
+VALUES (1, 1);
+
+INSERT INTO empresag.tipo_presentacion (fk_tipo, fk_presentacion)
+VALUES (1, 2);
+
+INSERT INTO empresag.tipo_presentacion (fk_tipo, fk_presentacion)
+VALUES (2, 3);
+
+INSERT INTO empresag.tipo_presentacion (fk_tipo, fk_presentacion)
+VALUES (2, 4);
+
+INSERT INTO empresag.tipo_presentacion (fk_tipo, fk_presentacion)
+VALUES (3, 5);
+
+INSERT INTO empresag.tipo_presentacion (fk_tipo, fk_presentacion)
+VALUES (3, 6);
+
+INSERT INTO empresag.tipo_presentacion (fk_tipo, fk_presentacion)
+VALUES (3, 7);
