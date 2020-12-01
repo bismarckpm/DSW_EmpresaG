@@ -6,11 +6,10 @@ import java.util.Objects;
 @Entity
 @Table(name = "subcategoria_marca", schema = "empresag", catalog = "")
 public class SubcategoriaMarcaEntity extends BaseEntity{
-    private SubcategoriaEntity fkSubcategoria;
-    private MarcaEntity fkMarca;
-
     @ManyToOne
     @JoinColumn(name = "fk_subcategoria")
+    private SubcategoriaEntity fkSubcategoria;
+
     public SubcategoriaEntity getFkSubcategoria() {
         return fkSubcategoria;
     }
@@ -21,6 +20,8 @@ public class SubcategoriaMarcaEntity extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "fk_marca")
+    private MarcaEntity fkMarca;
+
     public MarcaEntity getFkMarca() {
         return fkMarca;
     }
@@ -29,4 +30,10 @@ public class SubcategoriaMarcaEntity extends BaseEntity{
         this.fkMarca = fkMarca;
     }
 
+    public SubcategoriaMarcaEntity() {
+    }
+
+    public SubcategoriaMarcaEntity(long id) {
+        super(id);
+    }
 }

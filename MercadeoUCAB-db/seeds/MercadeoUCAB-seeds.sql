@@ -17,3 +17,10 @@ INSERT INTO subcategoria (id, nombre) VALUES
 INSERT INTO categoria_subcategoria (fk_categoria, fk_subcategoria) VALUES
 (1,1), (2,2), (3,3), (4,4), (3,5), (5,6);
 
+INSERT INTO marca (id, nombre) VALUES
+(1, 'Supreme'), (2, 'Sony'), (3, 'Vans');
+
+INSERT INTO subcategoria_marca (fk_subcategoria, fk_marca) VALUES
+(1, 1), (5, 2), (1, 3);
+
+

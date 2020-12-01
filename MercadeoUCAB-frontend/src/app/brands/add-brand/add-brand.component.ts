@@ -1,13 +1,15 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { MessageService, MenuItem } from 'primeng/api'
-import { Brand } from '../../classes/brand';
 import { replaceKeyWithValue } from '../../functions/common_functions';
 import { CategoryService } from 'src/app/services/category.service';
 import { SubcategoryService } from 'src/app/services/subcategory.service';
 import { BrandService } from 'src/app/services/brand.service';
+import { SubcategoryBrand } from 'src/app/classes/subcategory_brand';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Brand } from 'src/app/classes/brand';
+import { Subcategory } from 'src/app/classes/subcategory';
 
 @Component({
   selector: 'app-add-brand',
@@ -20,8 +22,8 @@ export class AddBrandComponent implements OnInit {
   @Output() onModalClose = new EventEmitter<any>();
   @Output() onBrandAdded = new EventEmitter<any>();
   categorias: MenuItem[];
-  subcategorias: MenuItem[];
-  brand: Brand;
+  subcategorias: any[];
+  brand: SubcategoryBrand;
   sent_form: boolean = false;
 
   /* Form */
@@ -129,8 +131,15 @@ export class AddBrandComponent implements OnInit {
   }
 
   getSubcategories(event){
+    this.subcategorias = null;
+    this.subcategorias = [];
     this.subcategoryService.getSubcategories(event.value).subscribe((subcategories) => {
-      this.subcategorias = replaceKeyWithValue(subcategories);
+      for (var i = 0; i<subcategories.length; i++){
+        this.subcategorias.push({
+          value: subcategories[i].fkSubcategoria._id,
+          label: subcategories[i].fkSubcategoria.nombre
+        })
+      }
     })
   }
 
@@ -158,11 +167,13 @@ export class AddBrandComponent implements OnInit {
       this.messageService.add({severity:'error', summary: 'Error', detail: 'Debe rellenar los campos requeridos con datos válidos'});
     }
     else {
-      this.brand = new Brand();
-      this.brand.nombre = this.brandForm.value.nombre;
-      this.brand.id_categoria = this.brandForm.value.categoria;
-      this.brand.id_subcategoria = this.brandForm.value.subcategoria;
-      this.brand.descripcion = this.brandForm.value.descripcion;
+      this.brand = new SubcategoryBrand();
+      this.brand.fkMarca = new Brand();
+      this.brand.fkMarca.nombre = this.brandForm.value.nombre;
+      this.brand.fkMarca.descripcion = this.brandForm.value.descripcion;
+      this.brand.fkSubcategoria = new Subcategory();
+      this.brand.fkSubcategoria._id = this.brandForm.value.subcategoria;
+      this.brand.fkSubcategoria.nombre = this.subcategorias.find(o => o.value == this.brand.fkSubcategoria._id).label;
 
       this.postBrand();
     }

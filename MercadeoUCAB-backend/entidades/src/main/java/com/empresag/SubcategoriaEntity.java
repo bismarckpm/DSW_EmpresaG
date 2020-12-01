@@ -36,6 +36,11 @@ public class SubcategoriaEntity extends BaseEntity{
         super(id);
     }
 
+    public SubcategoriaEntity(long id, String nombre) {
+        super(id);
+        this.nombre = nombre;
+    }
+
     @Override
     public String toString() {
         return "SubcategoriaEntity{" +
