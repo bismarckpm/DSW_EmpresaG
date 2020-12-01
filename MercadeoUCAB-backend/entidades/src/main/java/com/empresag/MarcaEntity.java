@@ -29,4 +29,23 @@ public class MarcaEntity extends BaseEntity{
         this.descripcion = descripcion;
     }
 
+    @Override
+    public String toString() {
+        return "MarcaEntity{" +
+                "nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                '}';
+    }
+
+    public MarcaEntity(long id) {
+        super(id);
+    }
+
+    public MarcaEntity() {
+    }
+
+    public MarcaEntity(long id, String nombre) {
+        super(id);
+        this.nombre = nombre;
+    }
 }

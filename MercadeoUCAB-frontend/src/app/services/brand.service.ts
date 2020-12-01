@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { baseURL } from '../constants/baseURL';
+import { serverURL } from '../constants/serverURL';
 import { catchError } from 'rxjs/operators';
 import { ProcessHttpMessageService } from '../services/process-http-message.service';
 import { Brand } from '../classes/brand';
+import { SubcategoryBrand } from '../classes/subcategory_brand';
 
 @Injectable({
   providedIn: 'root'
@@ -14,42 +15,42 @@ export class BrandService {
   constructor(private http: HttpClient,
     private processHTTPMessageService: ProcessHttpMessageService) { }
 
-  getALLBrands(): Observable<Brand[]> {
-    return this.http.get<Brand[]>(baseURL + 'brands')
+  getALLBrands(): Observable<SubcategoryBrand[]> {
+    return this.http.get<SubcategoryBrand[]>(serverURL + 'brands/all')
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  getBrands(subcategory_id): Observable<Brand[]> {
-    return this.http.get<Brand[]>(baseURL + 'brands', {
+  getBrands(subcategory_id): Observable<SubcategoryBrand[]> {
+    return this.http.get<SubcategoryBrand[]>(serverURL + 'brands/filtered-by-subcategory', {
       params: {
-        id_subcategoria: subcategory_id
+        subcategory_id: subcategory_id
       }
     }).pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  postBrand(brand): Observable<Brand> {
+  postBrand(brand): Observable<SubcategoryBrand> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
     };
 
-    return this.http.post<Brand>(baseURL + 'brands', brand, httpOptions)
+    return this.http.post<SubcategoryBrand>(serverURL + 'brands/add', brand, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  putBrand(brand): Observable<Brand> {
+  putBrand(brand): Observable<SubcategoryBrand> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
     };
 
-    return this.http.put<Brand>(baseURL + 'brands/' + brand.id, brand, httpOptions)
+    return this.http.put<SubcategoryBrand>(serverURL + 'brands/update/' + brand._id, brand, httpOptions)
   }
 
-  deleteBrand(brand): Observable<Brand> {
-    return this.http.delete<Brand>(baseURL + 'brands/' + brand.id)
+  deleteBrand(brand): Observable<SubcategoryBrand> {
+    return this.http.delete<SubcategoryBrand>(serverURL + 'brands/delete/' + brand._id)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 }

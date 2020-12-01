@@ -7,6 +7,8 @@ import { SubcategoryService } from 'src/app/services/subcategory.service';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CategorySubcategory } from 'src/app/classes/category_subcategory';
+import { Category } from 'src/app/classes/category';
 
 @Component({
   selector: 'app-add-subcategory',
@@ -19,9 +21,8 @@ export class AddSubcategoryComponent implements OnInit {
   @Input() display: boolean;
   @Output() onModalClose = new EventEmitter<any>();
   @Output() onSubcategoryAdded = new EventEmitter<any>();
-  tipos: MenuItem[];
-  categorias: MenuItem[];
-  subcategory: Subcategory;
+  categorias: any[];
+  subcategory: CategorySubcategory;
   sent_form: boolean = false;
 
   /* Form */
@@ -141,11 +142,13 @@ export class AddSubcategoryComponent implements OnInit {
       this.messageService.add({severity:'error', summary: 'Error', detail: 'Debe rellenar los campos requeridos con datos válidos'});
     }
     else {
-      this.subcategory = new Subcategory();
-      this.subcategory.nombre = this.subcategoryForm.value.nombre;
-      this.subcategory.id_categoria = this.subcategoryForm.value.categoria;
-      this.subcategory.descripcion = this.subcategoryForm.value.descripcion;
-
+      this.subcategory = new CategorySubcategory();
+      this.subcategory.fkSubcategoria = new Subcategory();
+      this.subcategory.fkSubcategoria.nombre = this.subcategoryForm.value.nombre;
+      this.subcategory.fkSubcategoria.descripcion = this.subcategoryForm.value.descripcion;
+      this.subcategory.fkCategoria = new Category();
+      this.subcategory.fkCategoria._id = this.subcategoryForm.value.categoria;
+      this.subcategory.fkCategoria.nombre = this.categorias.find(o => o.value == this.subcategory.fkCategoria._id).label;
       this.postSubcategory();
     }
   }

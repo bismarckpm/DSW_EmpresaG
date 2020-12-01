@@ -21,7 +21,7 @@
             <div class="p-grid p-mx-5 p-mt-3">
                 <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
                     <input id="nombre" class="p-inputtext-lg fill-width" type="text" pInputText
-                        (input)="dt.filter($event.target.value, 'nombre', 'contains')" placeholder="Nombre">
+                        (input)="dt.filter($event.target.value, 'fkMarca.nombre', 'contains')" placeholder="Nombre">
                 </div>
 
                 <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
@@ -69,15 +69,15 @@
                         <tr class="p-selectable-row">
                             <td class="p-text-center">
                                 <span class="p-column-title">ID</span>
-                                {{marca.id}}
+                                {{marca._id}}
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Nombre</span>
-                                {{marca.nombre}}
+                                {{marca.fkMarca.nombre}}
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Descripción</span>
-                                {{marca.descripcion}}
+                                {{marca.fkMarca.descripcion}}
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Categoría</span>
@@ -85,7 +85,7 @@
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Subcategoría</span>
-                                <span class="image-text">{{marca.subcategoria}}</span>
+                                <span class="image-text">{{marca.fkSubcategoria.nombre}}</span>
                             </td>
 
                             <td class="p-text-center">
