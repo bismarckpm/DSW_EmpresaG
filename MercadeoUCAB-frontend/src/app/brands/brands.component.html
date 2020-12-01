@@ -25,10 +25,6 @@
                 </div>
 
                 <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
-                    <p-dropdown [options]="categorias" placeholder="Categoría" (onChange)="onCategoryChange($event)"></p-dropdown>
-                </div>
-
-                <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
                     <p-multiSelect [options]="subcategorias" defaultLabel="Subcategoría"
                         emptyFilterMessage="No se encontraron resultados" (onChange)="onSubcategoryChange($event)"
                         selectedItemsLabel="{} items seleccionados"></p-multiSelect>
@@ -53,10 +49,6 @@
                             </th>
                             <th class="p-text-center">Descripción
                             </th>
-                            <th pSortableColumn="categoria" class="p-text-center">Categoría<p-sortIcon
-                                    field="categoria">
-                                </p-sortIcon>
-                            </th>
                             <th pSortableColumn="subcategoria" class="p-text-center">Subcategoría<p-sortIcon
                                 field="subcategoria">
                             </p-sortIcon>
@@ -78,10 +70,6 @@
                             <td class="p-text-center">
                                 <span class="p-column-title">Descripción</span>
                                 {{marca.fkMarca.descripcion}}
-                            </td>
-                            <td class="p-text-center">
-                                <span class="p-column-title">Categoría</span>
-                                <span class="image-text">{{marca.categoria}}</span>
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Subcategoría</span>

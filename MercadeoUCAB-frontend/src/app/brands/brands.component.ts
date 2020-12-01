@@ -18,8 +18,7 @@ export class BrandsComponent implements OnInit {
   loading: boolean = true;
   marcas: SubcategoryBrand[];
   backup_brands: SubcategoryBrand[];
-  subcategorias: MenuItem[];
-  categorias: MenuItem[];
+  subcategorias: any[];
   marca: SubcategoryBrand;
   display_add_brand: boolean = false;
   display_edit_brand: boolean = false;
@@ -27,11 +26,10 @@ export class BrandsComponent implements OnInit {
 
   marcasErrorMessage: string;
   subcategoriasErrorMessage: string;
-  categoriasErrorMessage: string;
+
   constructor(
     private brandService: BrandService,
     private subcategoryService: SubcategoryService,
-    private categoryService: CategoryService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService) { }
 
@@ -39,12 +37,18 @@ export class BrandsComponent implements OnInit {
     this.brandService.getALLBrands().subscribe((brands) => {
       this.marcas = brands;
       this.backup_brands = brands;
-      this.categoryService.getCategories().subscribe((categorias) => {
-        this.categorias = replaceKeyWithValue(categorias);
+      this.subcategorias = [];
+      this.subcategoryService.getALLSubcategories().subscribe((subcategories) => {
         this.loading = false;
+        for (var i = 0; i<subcategories.length; i++){
+          this.subcategorias.push({
+            value: subcategories[i].fkSubcategoria._id,
+            label: subcategories[i].fkSubcategoria.nombre
+          })
+        }
       }, errorMessage => {
         this.loading = false;
-        this.categoriasErrorMessage = errorMessage;
+        this.subcategoriasErrorMessage = errorMessage;
       })
 
     }, errorMessage => {
@@ -114,14 +118,8 @@ export class BrandsComponent implements OnInit {
     })
   }
   
-  onCategoryChange(event){
-    this.marcas = this.backup_brands;
-    this.marcas = this.marcas.filter(marca => marca.fkMarca._id == event.value)
-    this.getSubcategories(event.value)
-  }
-
   onSubcategoryChange(event){
-    this.table.filter(event.value, 'fkSubcategoria.id_subcategoria', 'in')
+    this.table.filter(event.value, 'fkSubcategoria._id', 'in')
   }
 
 }
