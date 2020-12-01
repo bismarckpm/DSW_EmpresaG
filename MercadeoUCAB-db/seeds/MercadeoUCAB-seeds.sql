@@ -23,4 +23,9 @@ INSERT INTO marca (id, nombre) VALUES
 INSERT INTO subcategoria_marca (fk_subcategoria, fk_marca) VALUES
 (1, 1), (5, 2), (1, 3);
 
+INSERT INTO tipo (id, nombre) VALUES
+(1, 'Zapatos'), (2, 'Headsets'), (3, 'T-shirt');
+
+INSERT INTO marca_tipo (fk_marca, fk_tipo) VALUES
+(1, 1), (2, 2), (3, 3);
 

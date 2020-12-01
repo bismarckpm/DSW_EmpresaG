@@ -21,15 +21,7 @@
             <div class="p-grid p-mx-5 p-mt-3">
                 <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
                     <input id="nombre" class="p-inputtext-lg fill-width" type="text" pInputText
-                        (input)="dt.filter($event.target.value, 'nombre', 'contains')" placeholder="Nombre">
-                </div>
-
-                <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
-                    <p-dropdown [options]="categorias" placeholder="Categoría" (onChange)="onCategoryChange($event)"></p-dropdown>
-                </div>
-
-                <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
-                    <p-dropdown [options]="subcategorias" placeholder="Subcategoría" (onChange)="onSubcategoryChange($event)"></p-dropdown>
+                        (input)="dt.filter($event.target.value, 'fkTipo.nombre', 'contains')" placeholder="Nombre">
                 </div>
 
                 <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
@@ -57,14 +49,6 @@
                             </th>
                             <th class="p-text-center">Descripción
                             </th>
-                            <th pSortableColumn="categoria" class="p-text-center">Categoría<p-sortIcon
-                                    field="categoria">
-                                </p-sortIcon>
-                            </th>
-                            <th pSortableColumn="subcategoria" class="p-text-center">Subcategoría<p-sortIcon
-                                field="subcategoria">
-                            </p-sortIcon>
-                        </th>
                         <th pSortableColumn="marca" class="p-text-center">Marca<p-sortIcon
                             field="marca">
                         </p-sortIcon>
@@ -77,27 +61,19 @@
                         <tr class="p-selectable-row">
                             <td class="p-text-center">
                                 <span class="p-column-title">ID</span>
-                                {{tipo.id}}
+                                {{tipo._id}}
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Nombre</span>
-                                {{tipo.nombre}}
+                                {{tipo.fkTipo.nombre}}
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Descripción</span>
-                                {{tipo.descripcion}}
-                            </td>
-                            <td class="p-text-center">
-                                <span class="p-column-title">Categoría</span>
-                                <span class="image-text">{{tipo.categoria}}</span>
-                            </td>
-                            <td class="p-text-center">
-                                <span class="p-column-title">Subcategoría</span>
-                                <span class="image-text">{{tipo.subcategoria}}</span>
+                                {{tipo.fkTipo.descripcion}}
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Marca</span>
-                                <span class="image-text">{{tipo.marca}}</span>
+                                <span class="image-text">{{tipo.fkMarca.nombre}}</span>
                             </td>
 
                             <td class="p-text-center">

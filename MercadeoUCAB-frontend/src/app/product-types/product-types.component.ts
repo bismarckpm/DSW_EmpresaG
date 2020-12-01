@@ -1,13 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table'
-import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
-import { Brand } from '../classes/brand';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { BrandService } from '../services/brand.service';
-import { SubcategoryService } from '../services/subcategory.service';
-import { CategoryService } from '../services/category.service';
-import { replaceKeyWithValue } from '../functions/common_functions';
-import { ProductType } from '../classes/productType';
 import { TypesService } from '../services/types.service';
+import { BrandType } from '../classes/brand_type';
 
 @Component({
   selector: 'app-product-types',
@@ -17,25 +13,20 @@ import { TypesService } from '../services/types.service';
 })
 export class ProductTypesComponent implements OnInit {
   loading: boolean = true;
-  subcategorias: MenuItem[];
-  categorias: MenuItem[];
-  marcas: MenuItem[];
-  backup_types: ProductType[];
-  tipos: ProductType[];
-  tipo: ProductType;
+  marcas: any[];
+  backup_types: BrandType[];
+  tipos: BrandType[];
+  tipo: BrandType;
   display_add_type: boolean = false;
   display_edit_type: boolean = false;
   @ViewChild('dt') table: Table;
 
   tiposErrorMessage: string;
   marcasErrorMessage: string;
-  subcategoriasErrorMessage: string;
-  categoriasErrorMessage: string;
+
   constructor(
     private typesService: TypesService,
     private brandService: BrandService,
-    private subcategoryService: SubcategoryService,
-    private categoryService: CategoryService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
   ) { }
@@ -44,23 +35,29 @@ export class ProductTypesComponent implements OnInit {
     this.typesService.getALLTypes().subscribe((types) => {
       this.tipos = types;
       this.backup_types = types;
-      this.categoryService.getCategories().subscribe((categorias) => {
-        this.categorias = replaceKeyWithValue(categorias);
+      this.marcas = [];
+      this.brandService.getALLBrands().subscribe((brands) => {
+        for (var i = 0; i<brands.length; i++){
+          this.marcas.push({
+            value: brands[i].fkMarca._id,
+            label: brands[i].fkMarca.nombre
+          })
+        }
         this.loading = false;
       }, errorMessage => {
         this.loading = false;
-        this.categoriasErrorMessage = errorMessage;
+        this.marcasErrorMessage = errorMessage;
       })
 
     }, errorMessage => {
       this.loading = false;
-      this.marcasErrorMessage = errorMessage;
+      this.tiposErrorMessage = errorMessage;
     })
   }
 
   deleteType(tipo) {
     this.confirmationService.confirm({
-      message: 'El siguiente tipo de producto: <code>' + tipo.nombre + '</code> de marca <code>' + tipo.marca + '</code> está apunto de ser eliminada, ¿Desea continuar?',
+      message: 'El siguiente tipo de producto: <code>' + tipo.fkTipo.nombre + '</code> de marca <code>' + tipo.fkMarca.nombre + '</code> está apunto de ser eliminada, ¿Desea continuar?',
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
@@ -112,33 +109,9 @@ export class ProductTypesComponent implements OnInit {
   editType(event){
     this.tipos[this.tipos.indexOf(event)] = event;
   }
-
-  getSubcategories(category_id){
-    this.subcategoryService.getSubcategories(category_id).subscribe((subcategories) => {
-      this.subcategorias = replaceKeyWithValue(subcategories);
-    })
-  }
-
-  getBrands(subcategory_id){
-    this.brandService.getBrands(subcategory_id).subscribe((brands) => {
-      this.marcas = replaceKeyWithValue(brands);
-    })
-  }
   
-  onCategoryChange(event){
-    this.tipos = this.backup_types;
-    this.tipos = this.tipos.filter(tipo => tipo.id_categoria == event.value)
-    this.getSubcategories(event.value)
-  }
-
-  onSubcategoryChange(event){
-    this.tipos = this.backup_types;
-    this.tipos = this.tipos.filter(tipo => tipo.id_subcategoria == event.value)
-    this.getBrands(event.value)
-  }
-
   onBrandChange(event){
-    this.table.filter(event.value, 'id_marca', 'in')
+    this.table.filter(event.value, 'fkMarca._id', 'in')
   }
 
 }

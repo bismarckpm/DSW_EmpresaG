@@ -21,7 +21,6 @@ export class AddBrandComponent implements OnInit {
   @Input() display: boolean;
   @Output() onModalClose = new EventEmitter<any>();
   @Output() onBrandAdded = new EventEmitter<any>();
-  categorias: MenuItem[];
   subcategorias: any[];
   brand: SubcategoryBrand;
   sent_form: boolean = false;

@@ -22,6 +22,7 @@ public class MyApplication extends Application {
         h.add( CategoryService.class );
         h.add( SubcategoryService.class );
         h.add( BrandService.class );
+        h.add( TypeService.class );
         return h;
     }
 }

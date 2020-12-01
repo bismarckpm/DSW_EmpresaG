@@ -6,27 +6,34 @@ import java.util.Objects;
 @Entity
 @Table(name = "marca_tipo", schema = "empresag", catalog = "")
 public class MarcaTipoEntity extends BaseEntity{
-    private int fkMarca;
-    private int fkTipo;
+    @ManyToOne
+    @JoinColumn(name = "fk_marca")
+    private MarcaEntity fkMarca;
 
-    @Basic
-    @Column(name = "fk_marca")
-    public int getFkMarca() {
+    public MarcaEntity getFkMarca() {
         return fkMarca;
     }
 
-    public void setFkMarca(int fkMarca) {
+    public void setFkMarca(MarcaEntity fkMarca) {
         this.fkMarca = fkMarca;
     }
 
-    @Basic
-    @Column(name = "fk_tipo")
-    public int getFkTipo() {
+    @ManyToOne
+    @JoinColumn(name = "fk_tipo")
+    private TipoEntity fkTipo;
+
+    public TipoEntity getFkTipo() {
         return fkTipo;
     }
 
-    public void setFkTipo(int fkTipo) {
+    public void setFkTipo(TipoEntity fkTipo) {
         this.fkTipo = fkTipo;
     }
 
+    public MarcaTipoEntity(long id) {
+        super(id);
+    }
+
+    public MarcaTipoEntity() {
+    }
 }

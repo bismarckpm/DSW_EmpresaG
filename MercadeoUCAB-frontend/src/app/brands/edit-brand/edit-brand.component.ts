@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angu
 import { MessageService, MenuItem } from 'primeng/api'
 import { Brand } from '../../classes/brand';
 import { replaceKeyWithValue } from '../../functions/common_functions';
-import { CategoryService } from 'src/app/services/category.service';
 import { SubcategoryService } from 'src/app/services/subcategory.service';
 import { BrandService } from 'src/app/services/brand.service';
 
@@ -75,7 +74,7 @@ export class EditBrandComponent implements OnInit {
         ]
       ],
       'descripcion': [
-        this.brand.fkSubcategoria.descripcion,
+        this.brand.fkMarca.descripcion,
         [
           Validators.maxLength(500)
         ]
@@ -156,10 +155,8 @@ export class EditBrandComponent implements OnInit {
       this.messageService.add({severity:'error', summary: 'Error', detail: 'Debe rellenar los campos requeridos con datos válidos'});
     }
     else {
-      this.brand.fkMarca = new Brand();
       this.brand.fkMarca.nombre = this.brandForm.value.nombre;
       this.brand.fkMarca.descripcion = this.brandForm.value.descripcion;
-      this.brand.fkSubcategoria = new Subcategory();
       this.brand.fkSubcategoria._id = this.brandForm.value.subcategoria;
       this.brand.fkSubcategoria.nombre = this.subcategorias.find(o => o.value == this.brand.fkSubcategoria._id).label;
       this.putBrand();
