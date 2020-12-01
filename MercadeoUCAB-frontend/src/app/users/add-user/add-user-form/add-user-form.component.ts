@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { SelectItem } from 'primeng/api';
-import { CardModule } from 'primeng/card';
 import { Person } from '../../../classes/person';
 import { UserService } from '../../../services/user.service';
 import { GENDERS } from '../../../constants/gender';
@@ -42,7 +41,7 @@ export class AddUserFormComponent implements OnInit {
   horario_inicial: SelectItem[];
   horario_final: SelectItem[];
   edos_civil: SelectItem[];
-  account_stat: SelectItem[];
+  estado_cuenta: SelectItem[];
   roles: SelectItem[];
   tieneHijos: SelectItem[];
   hijos: Child[] = [];
@@ -220,7 +219,7 @@ export class AddUserFormComponent implements OnInit {
     this.edos_civil = CIVIL_STATUSES;
     this.niveles_academicos = ACADEMICS;
     this.niveles_socioeconomicos = SOCIAL_STATUSES;
-    this.account_stat = ACCOUNT_XTATUS;
+    this.estado_cuenta = ACCOUNT_XTATUS;
     this.roles = ROLES;
     this.tieneHijos = [
       {
@@ -368,6 +367,7 @@ export class AddUserFormComponent implements OnInit {
       ciudad: this.userService.persona.id_ciudad,
       parroquia: this.userService.persona.id_parroquia,
       codigo_pais: this.userService.persona.codigo_pais,
+      ocupacion: this.userService.persona.ocupacion,
 
       telefono: [
         this.userService.persona.telefono,
@@ -413,10 +413,12 @@ export class AddUserFormComponent implements OnInit {
   }
 
   onSubmit(){
+    this.sent_form = true;
 // Informacion basica
     this.userService.persona.correo_electronico = this.userForm.value.correo_electronico;
     this.userService.persona.clave = this.userForm.value.clave;
     this.userService.persona.confirmar_clave = this.userForm.value.confirmar_clave;
+    // this.userService.persona.estado_cuenta = this.userForm.value.estado_cuenta;
     this.userService.persona.primer_nombre = this.userForm.value.primer_nombre;
     this.userService.persona.primer_apellido = this.userForm.value.primer_apellido;
     this.userService.persona.documento_de_identificacion = this.userForm.value.documento_de_identificacion;
@@ -425,6 +427,7 @@ export class AddUserFormComponent implements OnInit {
     this.userService.persona.fecha_de_nacimiento = this.userForm.value.fecha_de_nacimiento;
     this.userService.persona.dispositivos = this.userForm.value.dispositivos;
 // Informacion socioeconomica
+    this.userService.persona.ocupacion = this.userForm.value.ocupacion;
     this.userService.persona.id_nivel_academico = this.userForm.value.nivel_academico;
     this.userService.persona.id_nivel_socioeconomico = this.userForm.value.nivel_socioeconomico;
 // Informacion familiar
@@ -438,23 +441,30 @@ export class AddUserFormComponent implements OnInit {
     this.userService.persona.id_parroquia = this.userForm.value.parroquia;
     this.userService.persona.codigo_pais = this.userForm.value.codigo_pais;
     this.userService.persona.telefono = this.userForm.value.telefono;
+// Informacion de tiempo disponible
+    this.userService.persona.id_horario_inicial = this.userForm.value.horario_inicial;
+    this.userService.persona.id_horario_final = this.userForm.value.horario_final;
+
 
     if (this.userService.persona.correo_electronico && this.userService.persona.clave
       && this.userService.persona.confirmar_clave && this.userService.persona.primer_nombre
       && this.userService.persona.primer_apellido && this.userService.persona.documento_de_identificacion
       && this.userService.persona.fecha_de_nacimiento && this.userService.persona.genero
       && this.userService.persona.id_nivel_academico && this.userService.persona.id_nivel_socioeconomico
-      && this.userService.persona.id_pais && this.userService.persona.id_estado
-      && this.userService.persona.id_ciudad && this.userService.persona.id_parroquia
+      && this.userService.persona.id_pais 
       && this.userService.persona.codigo_pais && this.userService.persona.telefono
-      && this.userService.persona.personas_hogar && this.userService.persona.tiene_hijos){
+      && this.userService.persona.personas_hogar){
 
+      // this.userService.persona.id_estado && this.userService.persona.id_ciudad && this.userService.persona.id_parroquia
+    // if(this.userForm.valid){
       /* SUBMIT FORM */
-      this.userService.postRegPerson(this.userService.persona)
+      this.userService.postPerson(this.userService.persona)
         .subscribe(person => {
           console.log("REGISTERED")
+          this.previousPage();
         },
         errorMessage => {
+          console.log("FALLO")
           this.sent_form = false;
           this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
         })
