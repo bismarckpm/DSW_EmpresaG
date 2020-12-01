@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { serverURL } from '../constants/serverURL';
 import { catchError } from 'rxjs/operators';
 import { ProcessHttpMessageService } from '../services/process-http-message.service';
 import { Category } from '../classes/category';
-import { serverURL } from '../constants/serverURL';
 
 @Injectable({
   providedIn: 'root'

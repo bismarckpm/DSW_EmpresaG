@@ -16,3 +16,4 @@ INSERT INTO subcategoria (id, nombre) VALUES
 
 INSERT INTO categoria_subcategoria (fk_categoria, fk_subcategoria) VALUES
 (1,1), (2,2), (3,3), (4,4), (3,5), (5,6);
+

@@ -1,8 +1,8 @@
+import com.empresag.CategoriaDto;
 import com.empresag.CategoriaEntity;
 import com.empresag.DaoCategoria;
 import org.junit.Assert;
 import org.junit.Test;
-
 public class CategoriaTest {
     @Test
     public void addCategory(){

@@ -3,6 +3,7 @@ import { Table } from 'primeng/table'
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Category } from '../classes/category';
 import { CategoryService } from '../services/category.service';
+import { removeUnderscore } from '../functions/common_functions';
 
 @Component({
   selector: 'app-categories',
@@ -26,7 +27,7 @@ export class CategoriesComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoryService.getCategories().subscribe((Ecategories) => {
-      this.categories = Ecategories;
+      this.categories = removeUnderscore(Ecategories);
       this.loading = false;
     }, errorMessage => {
       this.loading = false;
