@@ -26,6 +26,8 @@ export class AddBrandComponent implements OnInit {
   brand: SubcategoryBrand;
   sent_form: boolean = false;
 
+  subcategoriasErrorMessage: string;
+
   /* Form */
   brandForm: FormGroup;
   @ViewChild('sform') brandFormDirective;
@@ -37,16 +39,12 @@ export class AddBrandComponent implements OnInit {
     private brandService: BrandService) { }
 
   formErrors = {
-    'categoria': '',
     'subcategoria': '',
     'nombre': '',
     'descripcion': ''
   };
 
   validationMessages = {
-    'categoria': {
-      'required': 'Categoría es requerida'
-    },
     'subcategoria': {
       'required': 'Subcategoría es requerida'
     },
@@ -60,20 +58,22 @@ export class AddBrandComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.categoryService.getCategories().subscribe((category) => {
-      this.categorias = replaceKeyWithValue(category)
+    this.subcategoryService.getALLSubcategories().subscribe((subcategories) => {
+      this.subcategorias = [];
+      for (var i = 0; i<subcategories.length; i++){
+        this.subcategorias.push({
+          value: subcategories[i].fkSubcategoria._id,
+          label: subcategories[i].fkSubcategoria.nombre
+        })
+      }
+    }, errorMessage => {
+      this.subcategoriasErrorMessage = errorMessage;
     })
     this.createForm();
   }
 
   createForm(){
     this.brandForm = this.fb.group({
-      'categoria': [
-        null,
-        [
-          Validators.required
-        ]
-      ],
       'subcategoria': [
         null,
         [
@@ -130,10 +130,10 @@ export class AddBrandComponent implements OnInit {
     }
   }
 
-  getSubcategories(event){
+  getSubcategories(){
     this.subcategorias = null;
     this.subcategorias = [];
-    this.subcategoryService.getSubcategories(event.value).subscribe((subcategories) => {
+    this.subcategoryService.getALLSubcategories().subscribe((subcategories) => {
       for (var i = 0; i<subcategories.length; i++){
         this.subcategorias.push({
           value: subcategories[i].fkSubcategoria._id,
@@ -177,6 +177,7 @@ export class AddBrandComponent implements OnInit {
 
       this.postBrand();
     }
+
   }
 
   closeModal() {
