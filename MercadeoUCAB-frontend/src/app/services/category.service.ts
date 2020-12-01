@@ -37,12 +37,12 @@ export class CategoryService {
       })
     };
 
-    return this.http.put<Category>(serverURL + 'categories/update/' + category.id, category, httpOptions)
+    return this.http.put<Category>(serverURL + 'categories/update/' + category._id, category, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
   deleteCategory(category): Observable<Category>{
-    return this.http.delete<Category>(serverURL + 'categories/delete/' + category.id)
+    return this.http.delete<Category>(serverURL + 'categories/delete/' + category._id)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 }

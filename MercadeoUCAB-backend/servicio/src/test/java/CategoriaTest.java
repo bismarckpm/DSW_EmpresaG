@@ -3,10 +3,6 @@ import com.empresag.CategoriaEntity;
 import com.empresag.DaoCategoria;
 import org.junit.Assert;
 import org.junit.Test;
-
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
-
 public class CategoriaTest {
     @Test
     public void addCategory(){
@@ -17,7 +13,7 @@ public class CategoriaTest {
         categoria.setDescripcion(null);
 
         categoriaDao.insert(categoria);
-        Assert.assertNotEquals( categoria.get_id(), 0  );
+        Assert.assertNotEquals( categoria.get_id(), 0 );
     }
 
     @Test

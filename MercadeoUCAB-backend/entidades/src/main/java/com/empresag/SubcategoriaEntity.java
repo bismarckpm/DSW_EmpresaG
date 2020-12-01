@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "subcategoria", schema = "empresag", catalog = "")
+@Table(name = "subcategoria", schema = "empresag")
 public class SubcategoriaEntity extends BaseEntity{
     private String nombre;
     private String descripcion;
@@ -29,4 +29,18 @@ public class SubcategoriaEntity extends BaseEntity{
         this.descripcion = descripcion;
     }
 
+    public SubcategoriaEntity() {
+    }
+
+    public SubcategoriaEntity(long id) {
+        super(id);
+    }
+
+    @Override
+    public String toString() {
+        return "SubcategoriaEntity{" +
+                "nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                '}';
+    }
 }

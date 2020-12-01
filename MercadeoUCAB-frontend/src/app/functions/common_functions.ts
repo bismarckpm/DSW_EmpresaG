@@ -3,9 +3,5 @@ export function replaceKey(obj){
 }
 
 export function replaceKeyWithValue(obj){
-    return obj.map(({ id: value, nombre: label, ...rest }) => ({ value, label, ...rest }));
-}
-
-export function removeUnderscore(obj){
-    return obj.map(({ _id: id, ...rest }) => ({ id, ...rest }));
+    return obj.map(({ _id: value, nombre: label, ...rest }) => ({ value, label, ...rest }));
 }

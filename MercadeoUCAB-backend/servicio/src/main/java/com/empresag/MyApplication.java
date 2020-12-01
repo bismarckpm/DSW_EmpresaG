@@ -20,6 +20,7 @@ public class MyApplication extends Application {
         h.add( HelloWorld.class );
         h.add( DispositivoService.class );
         h.add( CategoryService.class );
+        h.add( SubcategoryService.class );
         return h;
     }
 }
