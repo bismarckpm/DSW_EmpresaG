@@ -52,7 +52,7 @@ export class SubcategoriesComponent implements OnInit {
 
   deleteSubcategoria(subcategoria){
     this.confirmationService.confirm({
-      message: 'La siguiente subcategoría: <code>' + subcategoria.nombre + '</code> de ID <code>' + subcategoria.id + '</code> está apunto de ser eliminada, ¿Desea continuar?',
+      message: 'La siguiente subcategoría: <code>' + subcategoria.fkSubcategoria.nombre + '</code> de ID <code>' + subcategoria.fkSubcategoria._id + '</code> está apunto de ser eliminada, ¿Desea continuar?',
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
