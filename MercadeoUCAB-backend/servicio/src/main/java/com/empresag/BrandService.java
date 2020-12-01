@@ -57,9 +57,9 @@ public class BrandService {
         if (sm != null){
             sm.setFkSubcategoria(new SubcategoriaEntity(subcategoriaMarcaDto.getFkSubcategoria().get_id(),
                     subcategoriaMarcaDto.getFkSubcategoria().getNombre()));
-            sm.setFkMarca(new MarcaEntity(id));
+            sm.setFkMarca(new MarcaEntity(subcategoriaMarcaDto.getFkMarca().get_id()));
 
-            MarcaEntity marca = daoMarca.find(id, MarcaEntity.class);
+            MarcaEntity marca = daoMarca.find(subcategoriaMarcaDto.getFkMarca().get_id(), MarcaEntity.class);
 
             if (marca != null){
                 marca.setNombre(subcategoriaMarcaDto.getFkMarca().getNombre());
