@@ -80,6 +80,17 @@ export class UserService {
     return this.http.post<Person>(baseURL + 'register', person, httpOptions)
   }
 
+  postRegPerson(user: Person): Observable<Person>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    return this.http.post<Person>(baseURL + 'register', this.user, httpOptions)
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
   deleteUser(user): Observable<Person>{
     return this.http.delete<Person>(baseURL + 'register/' + user.documento_de_identificacion)
       .pipe(catchError(this.processHTTPMessageService.handleError))

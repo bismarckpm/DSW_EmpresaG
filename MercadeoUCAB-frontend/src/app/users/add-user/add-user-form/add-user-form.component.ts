@@ -4,6 +4,7 @@ import { CardModule } from 'primeng/card';
 import { Person } from '../../../classes/person';
 import { UserService } from '../../../services/user.service';
 import { GENDERS } from '../../../constants/gender';
+import { DEVICES } from '../../../constants/device';
 import { CIVIL_STATUSES } from '../../../constants/civil_status';
 import { ROLES } from '../../../constants/rol';
 import { ACCOUNT_XTATUS } from '../../../constants/account_status';
@@ -18,6 +19,9 @@ import { Router } from '@angular/router'
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SCHEDULES } from 'src/app/constants/schedule';
+import { SOCIAL_STATUSES } from 'src/app/constants/social_status';
+import { ACADEMICS } from 'src/app/constants/academics';
 
 
 @Component({
@@ -31,10 +35,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AddUserFormComponent implements OnInit {
 
   generos: SelectItem[];
+  dispositivos: SelectItem[];
+  horario_inicial: SelectItem[];
+  horario_final: SelectItem[];
   edos_civil: SelectItem[];
   account_stat: SelectItem[];
   roles: SelectItem[];
   tieneHijos: SelectItem[];
+  niveles_academicos: SelectItem[];
+  niveles_socioeconomicos: SelectItem[];
   fecha_nacimiento: Date;
   persona: Person;
   dataPersona: boolean = false;
@@ -48,11 +57,10 @@ export class AddUserFormComponent implements OnInit {
   selectedEstado: number;
   selectedCiudad: number;
   selectedParroquia: number;
-  selectedAcademico: number;
-  selectedSocioE: number;
   selectedStatus: number;
   selectRol: number;
   hasKids: boolean;
+  sent_form: boolean = false;
   es: any;
 
   /* Form */
@@ -161,7 +169,7 @@ export class AddUserFormComponent implements OnInit {
       'required': 'Nivel socioeconomico es requerido',
     },
     'dispositivos': {
-      'required': 'Cantidad de dispositivos es requerido',
+      'required': 'Dispositivos de dispositivos es requerido',
     },
     'hora_inicial': {
       'required': 'Hora inicial de disponibilidad es requerido',
@@ -180,7 +188,12 @@ export class AddUserFormComponent implements OnInit {
     private messageService: MessageService) {
     this.createForm();
     this.generos = GENDERS;
+    this.dispositivos = DEVICES;
+    this.horario_inicial = SCHEDULES;
+    this.horario_final = SCHEDULES;
     this.edos_civil = CIVIL_STATUSES;
+    this.niveles_academicos = ACADEMICS;
+    this.niveles_socioeconomicos = SOCIAL_STATUSES;
     this.account_stat = ACCOUNT_XTATUS;
     this.roles = ROLES;
     this.tieneHijos = [
@@ -212,9 +225,7 @@ export class AddUserFormComponent implements OnInit {
     this.userService.getNewPerson(1).subscribe((p) => {
       this.persona = p;
       this.loading = false;
-      this.selectedGenreValue = Number.parseInt(p.genero);
-      // Por aca
-      // this. = p.;
+      this.selectedGenreValue = Number.parseInt(p.genero);  
       this.selectedEdoCivilValue = Number.parseInt(p.estado_civil);
       this.fecha_nacimiento = new Date(p.fecha_de_nacimiento);
       this.hasKids = p.tiene_hijos;
@@ -272,35 +283,16 @@ export class AddUserFormComponent implements OnInit {
         ]
       ],
       genero: this.userService.persona.genero,
+      dispositivos: this.userService.persona.dispositivos,
       estado_civil: this.userService.persona.estado_civil,
       fecha_de_nacimiento: this.userService.persona.fecha_de_nacimiento,
-      estado_cuenta: this.userService.user.status
+      estado_cuenta: this.userService.user.status,
+      horario_inicial: this.userService.persona.id_horario_inicial,
+      horario_final: this.userService.persona.id_horario_final,
+      nivel_academico: this.userService.persona.id_nivel_academico,
+      nivel_socioeconomico: this.userService.persona.id_nivel_socioeconomico,
     });
-
-
-
   
-    // primer_nombre: '',
-    // primer_apellido: '',
-    // documento_de_identificacion: '',
-    // genero: '',
-    // estado_civil: '',
-    // fecha_de_nacimiento: '',
-    // id_pais: 0,
-    // id_ciudad: 0,
-    // id_parroquia: 0,
-    // id_estado: 0,
-    // telefono: 0,
-    // ocupacion: '',
-    // personas_hogar: 0,
-    // hijos: this.hijos,
-    // id_nivel_academico: 0,
-    // id_nivel_socioeconomico: 0,
-    // dispositivos: this.device,
-    // id_horario_inicial: 0,
-    // id_horario_final: 0
-
-    
     this.userForm.valueChanges
     .subscribe(data => {
       this.onValueChange(data);
@@ -346,17 +338,38 @@ export class AddUserFormComponent implements OnInit {
     this.userService.persona.genero = this.userForm.value.genero;
     this.userService.persona.estado_civil = this.userForm.value.estado_civil;
     this.userService.persona.fecha_de_nacimiento = this.userForm.value.fecha_de_nacimiento;
+    this.userService.persona.dispositivos = this.userForm.value.dispositivos;
+    this.userService.persona.id_nivel_academico = this.userForm.value.nivel_academico;
+    this.userService.persona.id_nivel_socioeconomico = this.userForm.value.nivel_socioeconomico;
 
-    if (this.userForm.valid){
-      this.nextPage();
+    if (this.userService.persona.correo_electronico && this.userService.persona.clave
+      && this.userService.persona.confirmar_clave && this.userService.persona.primer_nombre
+      && this.userService.persona.primer_apellido && this.userService.persona.documento_de_identificacion
+      && this.userService.persona.fecha_de_nacimiento && this.userService.persona.genero
+      && this.userService.persona.id_nivel_academico && this.userService.persona.id_nivel_socioeconomico){
+
+      /* SUBMIT FORM */
+      this.userService.postRegPerson(this.userService.persona)
+        .subscribe(person => {
+          console.log("REGISTERED")
+        },
+        errorMessage => {
+          this.sent_form = false;
+          this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
+        })
     }
-    else{
-      this.messageService.add({severity:'error', summary: 'Error', detail: 'Hubo datos inválidos o incompletos en el formulario'});
+    else {
+      this.showError()
+      this.sent_form = false;
     }
+    //console.log(this.registerService.user);
   }
 
-  nextPage(): void {
-    this.router.navigate(['users']);
+  showError() {
+    this.messageService.add({severity:'error', summary: 'Error', detail: 'Faltan campos requeridos'});
   }
 
+  previousPage(): void {
+    this.router.navigate(['/users'])
+  }
 }

@@ -56,7 +56,7 @@
                 <div *ngIf="!dataPersona">
                     <div class="p-grid p-mx-5">
                         <div class="p-col-12 p-md-6 p-mt-5">
-                            <h4>Información peronal</h4>
+                            <h4>Información personal</h4>
                         </div>
                     </div>
 
@@ -174,9 +174,17 @@
                     <div class="p-grid p-mx-5">
                         <div class="p-col-12 p-md-6 p-mb-5">
                             <span class="p-float-label">
-                                <input class="p-inputtext-lg fill-width" type="text" pInputText>
-                                <label for="float-input">¿Con cuántas personas vive?</label>
+                                <input id="ocupacion" class="p-inputtext-lg fill-width" formControlName="ocupacion" type="text" pInputText>
+                                <label for="ocupacion">Ocupación</label>
                             </span>
+                        </div>
+            
+                        <div class="p-col-12 p-md-6 p-mb-5">
+                            <p-dropdown [options]="niveles_academicos" placeholder="Último grado académico obtenido" formControlName="nivel_academico"></p-dropdown>
+                        </div>
+            
+                        <div class="p-col-12 p-md-6 p-mb-5">
+                            <p-dropdown [options]="niveles_socioeconomicos" placeholder="Nivel socioeconómico" formControlName="nivel_socioeconomico"></p-dropdown>
                         </div>
                     </div>
 
@@ -188,17 +196,31 @@
                     </div>
                     <div class="p-grid p-mx-5">
                         <div class="p-col-12 p-md-6 p-mb-5">
-                            <span class="p-float-label">
-                                <input class="p-inputtext-lg fill-width" type="text" pInputText>
-                                <label for="float-input">¿Con cuántas personas vive?</label>
-                            </span>
+                            <p-multiSelect [options]="dispositivos" formControlName="dispositivos" defaultLabel="Dispositivos que utiliza" emptyFilterMessage="No se encontraron resultados" selectedItemsLabel="{} items seleccionados"></p-multiSelect>
+                        </div>
+                            <div class="p-col-12 p-md-6 p-mb-5">
+                                <p-dropdown [options]="horario_inicial" formControlName="horario_inicial" placeholder="De"></p-dropdown>
+                            </div>
+                
+                            <div class="p-col-12 p-md-6 p-mb-5">
+                                <p-dropdown [options]="horario_final" formControlName="horario_final" placeholder="Hasta"></p-dropdown>
                         </div>
                     </div>
-                    
+
+                    <div class="p-grid p-jc-end p-mt-1 p-mr-4">
+                        <div class="p-grid p-formgrid p-fluid">
+                            <div class="p-mb-2 p-col-6 p-mb-lg-0">
+                                <button pButton pRipple type="button" label="Cerrar" class="p-button-secondary" (click)="previousPage()"></button>
+                            </div>
+                            <div class="p-mb-2 p-col-6 p-mb-lg-0">
+                                <button pButton pRipple type="submit" [disabled]="sent_form" label="Guardar"></button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <p-toast></p-toast>
             </form>
         </p-card>
-    <!-- </div> -->
 
     <div>
         <div class="p-grid p-jc-center">
