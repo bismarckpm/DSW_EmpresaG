@@ -92,7 +92,7 @@ export class UserService {
   }
 
   deleteUser(user): Observable<Person>{
-    return this.http.delete<Person>(baseURL + 'register/' + user.documento_de_identificacion)
+    return this.http.delete<Person>(baseURL + 'register/' + user.id)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 

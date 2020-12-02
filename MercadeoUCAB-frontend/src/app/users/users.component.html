@@ -74,16 +74,16 @@
                             </td>
 
                             <td class="p-text-center">
-                                <button type="button" [routerLink]="['view']" [queryParams]="{qid:persona.documento_de_identificacion}" pButton
+                                <button type="button" [routerLink]="['view']" [queryParams]="{qid:persona.id}" pButton
                                     pRipple icon="pi pi-eye" class="p-button-rounded p-mr-2" pTooltip="Vista previa"
                                     tooltipPosition="bottom"></button>
                                 <button type="button" pButton pRipple icon="pi pi-pencil"
                                     class="p-button-rounded p-mr-2" pTooltip="Editar usuario" [routerLink]="['edit']"
-                                    [queryParams]="{qid:persona.documento_de_identificacion , origin: 'usuarios'}"
+                                    [queryParams]="{qid:persona.id , origin: 'person'}"
                                     tooltipPosition="bottom"></button>
                                 <button type="button" pButton pRipple icon="pi pi-trash" class="p-button-rounded"
                                     pTooltip="Eliminar usuario" tooltipPosition="bottom"
-                                    (click)="deleteUser(persona.documento_de_identificacion)"></button>
+                                    (click)="deleteUser(persona)"></button>
                             </td>
                         </tr>
                     </ng-template>

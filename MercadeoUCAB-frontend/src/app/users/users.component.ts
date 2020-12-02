@@ -3,8 +3,8 @@ import { Table } from 'primeng/table';
 import { MenuItem, MessageService, PrimeNGConfig } from 'primeng/api';
 import { ConfirmationService } from 'primeng/api';
 import { Person } from '../classes/person';
-import { replaceKey } from '../functions/common_functions';
 import { UserService } from '../services/user.service';
+import { replaceKey } from '../functions/common_functions';
 
 
 @Component({
@@ -45,7 +45,7 @@ export class UsersComponent implements OnInit {
   // El doc de identificacion no sirvio
   deleteUser(person){
     this.confirmationService.confirm({
-      message: 'El siguiente usuario: <code>' + person.documento_de_identificacion + '</code> está apunto de ser eliminado, ¿Desea continuar?',
+      message: 'El siguiente usuario: <code>' + person.correo_electronico + '</code> está apunto de ser eliminado, ¿Desea continuar?',
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
