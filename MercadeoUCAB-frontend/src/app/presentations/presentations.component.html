@@ -21,7 +21,7 @@
             <div class="p-grid p-mx-5 p-mt-3">
                 <div class="p-col-12 p-sm-12 p-md-6">
                     <input id="nombre" class="p-inputtext-lg fill-width" type="text" pInputText
-                        (input)="dt.filter($event.target.value, 'nombre', 'contains')" placeholder="Nombre">
+                        (input)="dt.filter($event.target.value, 'fkPresentacion.nombre', 'contains')" placeholder="Nombre">
                 </div>
             </div>
             <div class="p-grid p-mt-5 p-mx-5">
@@ -55,19 +55,19 @@
                         <tr class="p-selectable-row">
                             <td class="p-text-center">
                                 <span class="p-column-title">ID</span>
-                                {{presentacion.id}}
+                                {{presentacion._id}}
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Nombre</span>
-                                {{presentacion.nombre}}
+                                {{presentacion.fkPresentacion.nombre}}
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Descripción</span>
-                                {{presentacion.descripcion}}
+                                {{presentacion.fkPresentacion.descripcion}}
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Tipo</span>
-                                <span class="image-text">{{presentacion.tipo}}</span>
+                                <span class="image-text">{{presentacion.fkTipo.nombre}}</span>
                             </td>
 
                             <td class="p-text-center">

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { ProcessHttpMessageService } from '../services/process-http-message.service';
-import { Presentation } from '../classes/presentation';
-import { map, catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { baseURL } from '../constants/baseURL';
+import { serverURL } from '../constants/serverURL';
+import { TypePresentation } from '../classes/type_presentation';
 
 @Injectable({
   providedIn: 'root'
@@ -14,35 +14,35 @@ export class PresentationService {
   constructor(private http: HttpClient,
     private processHTTPMessageService: ProcessHttpMessageService) { }
 
-  getPresentations(): Observable<Presentation[]>{
-    return this.http.get<Presentation[]>(baseURL + 'presentations')
+  getPresentations(): Observable<TypePresentation[]>{
+    return this.http.get<TypePresentation[]>(serverURL + 'presentations/all')
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  postPresentation(presentation): Observable<Presentation>{
+  postPresentation(presentation): Observable<TypePresentation>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
 
-    return this.http.post<Presentation>(baseURL + 'presentations', presentation, httpOptions)
+    return this.http.post<TypePresentation>(serverURL + 'presentations/add', presentation, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  putPresentation(presentation): Observable<Presentation>{
+  putPresentation(presentation): Observable<TypePresentation>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
 
-    return this.http.put<Presentation>(baseURL + 'presentations/' + presentation.id, presentation, httpOptions)
+    return this.http.put<TypePresentation>(serverURL + 'presentations/update/' + presentation._id, presentation, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  deletePresentation(presentation): Observable<Presentation>{
-    return this.http.delete<Presentation>(baseURL + 'presentations/' + presentation.id)
+  deletePresentation(presentation): Observable<TypePresentation>{
+    return this.http.delete<TypePresentation>(serverURL + 'presentations/delete/' + presentation._id)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 }

@@ -1,7 +1,5 @@
 export class Presentation {
-    id: number;
+    _id: number;
     nombre: string;
     descripcion?: string;
-    id_tipo?: number;
-    tipo?: string;
 }
