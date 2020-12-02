@@ -7,6 +7,8 @@ import { replaceKeyWithValue } from '../../functions/common_functions';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TypePresentation } from 'src/app/classes/type_presentation';
+import { ProductType } from 'src/app/classes/productType';
 
 @Component({
   selector: 'app-add-presentation',
@@ -18,9 +20,11 @@ export class AddPresentationComponent implements OnInit {
   @Input() display: boolean;
   @Output() onModalClose = new EventEmitter<any>();
   @Output() onPresentationAdded = new EventEmitter<any>();
-  tipos: MenuItem[];
-  presentation: Presentation;
+  tipos: any[];
+  presentation: TypePresentation;
   sent_form: boolean = false;
+
+  tiposErrorMessage: string;
 
   /* Form */
   presentationForm: FormGroup;
@@ -47,8 +51,16 @@ export class AddPresentationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.typesService.getALLTypes().subscribe((types)=>{
-      this.tipos = replaceKeyWithValue(types)
+    this.typesService.getALLTypes().subscribe((types) => {
+      this.tipos = [];
+      for (var i = 0; i<types.length; i++){
+        this.tipos.push({
+          value: types[i].fkTipo._id,
+          label: types[i].fkTipo.nombre
+        })
+      }
+    }, errorMessage => {
+      this.tiposErrorMessage = errorMessage;
     })
     this.createForm();
   }
@@ -130,11 +142,13 @@ export class AddPresentationComponent implements OnInit {
       this.messageService.add({severity:'error', summary: 'Error', detail: 'Debe rellenar los campos requeridos con datos válidos'});
     }
     else {
-      this.presentation = new Presentation();
-      this.presentation.nombre = this.presentationForm.value.nombre;
-      this.presentation.id_tipo = this.presentationForm.value.tipo;
-      this.presentation.descripcion = this.presentationForm.value.descripcion;
-
+      this.presentation = new TypePresentation();
+      this.presentation.fkPresentacion = new Presentation();
+      this.presentation.fkPresentacion.nombre = this.presentationForm.value.nombre;
+      this.presentation.fkPresentacion.descripcion = this.presentationForm.value.descripcion;
+      this.presentation.fkTipo = new ProductType();
+      this.presentation.fkTipo._id = this.presentationForm.value.tipo;
+      this.presentation.fkTipo.nombre = this.tipos.find(o => o.value == this.presentation.fkTipo._id).label;
       this.postPresentation();
     }
   }

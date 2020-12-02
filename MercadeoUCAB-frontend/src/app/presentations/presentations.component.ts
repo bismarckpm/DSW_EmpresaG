@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table'
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { Presentation } from '../classes/presentation';
 import { PresentationService } from '../services/presentation.service';
+import { TypePresentation } from '../classes/type_presentation';
 
 @Component({
   selector: 'app-presentations',
@@ -12,8 +12,8 @@ import { PresentationService } from '../services/presentation.service';
 })
 export class PresentationsComponent implements OnInit {
   loading: boolean = true;
-  presentaciones: Presentation[];
-  presentation: Presentation;
+  presentaciones: TypePresentation[];
+  presentation: TypePresentation;
   presentationsErrorMessage: string;
   display_add_presentation: boolean = false;
   display_edit_presentation: boolean = false;
@@ -35,7 +35,7 @@ export class PresentationsComponent implements OnInit {
 
   deletePresentation(presentation){
     this.confirmationService.confirm({
-      message: 'La siguiente presentación: <code>' + presentation.nombre + '</code> de tipo <code>' + presentation.tipo + '</code> está apunto de ser eliminada, ¿Desea continuar?',
+      message: 'La siguiente presentación: <code>' + presentation.fkPresentacion.nombre + '</code> de tipo <code>' + presentation.fkTipo.nombre + '</code> está apunto de ser eliminada, ¿Desea continuar?',
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
