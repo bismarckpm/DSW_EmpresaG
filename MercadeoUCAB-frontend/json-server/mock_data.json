@@ -520,7 +520,7 @@
       "edad_maxima": 90,
       "id_autor": 2,
       "autor": "Tate Langdon",
-      "estado": "Sin procesar",
+      "estado": "En progreso",
       "id_estado": 1,
       "id_lugares": [
         2
@@ -902,6 +902,30 @@
         }
       ],
       "conclusion": "<p>Luego de un <strong>exhaustivo </strong>análisis de los gráficos proporcionados por el sistema, se puede concluir que</p><ol><li>pinto es gei</li></ol>"
+    },
+    {
+      "categoria": "TV",
+      "id_categoria": 5,
+      "subcategoria": "Anime",
+      "id_subcategoria": 6,
+      "nivel_academico": "Primaria",
+      "id_nivel_academico": [
+        3
+      ],
+      "nivel_socioeconomico": "Medio-bajo",
+      "id_nivel_socioeconomico": [],
+      "edad_minima": 1,
+      "edad_maxima": 90,
+      "id_autor": 2,
+      "autor": "Tate Langdon",
+      "estado": "En progreso",
+      "id_estado": 1,
+      "id_lugares": [
+        2
+      ],
+      "id_genero": null,
+      "tipo_filtro_geografico": "estados",
+      "id": 5
     }
   ],
   "take-survey": [
@@ -1546,61 +1570,6 @@
       "correo_electronico": "angel99castillo@gmail.com",
       "clave": "hola2123",
       "id": 1
-    },
-    {
-      "correo_electronico": "odiovivir@gmail.com",
-      "clave": "123456789",
-      "id": 2
-    },
-    {
-      "correo_electronico": "odiovivir@gmail.com",
-      "clave": "fdgdgdfgfdg",
-      "id": 3
-    },
-    {
-      "correo_electronico": "odiovivir@gmail.com",
-      "clave": "asdasdadasd",
-      "id": 4
-    },
-    {
-      "correo_electronico": "angel99castillo@gmail.com",
-      "clave": "Tc9307460.",
-      "id": 5
-    },
-    {
-      "correo_electronico": "angel99castillo@gmail.com",
-      "clave": "Tc9307460.",
-      "id": 6
-    },
-    {
-      "correo_electronico": "angel99castillo@gmail.com",
-      "clave": "AngelC99.",
-      "id": 7
-    },
-    {
-      "correo_electronico": "angel99castillo@gmail.com",
-      "clave": "AngelC99.",
-      "id": 8
-    },
-    {
-      "correo_electronico": "angel99castillo@gmail.com",
-      "clave": "AngelC99.",
-      "id": 9
-    },
-    {
-      "correo_electronico": "angel99castillo@gmail.com",
-      "clave": "AngelC99.",
-      "id": 10
-    },
-    {
-      "correo_electronico": "angel99castillo@gmail.com",
-      "clave": "AngelC99.",
-      "id": 11
-    },
-    {
-      "correo_electronico": "angel99castillo@gmail.com",
-      "clave": "AngelC99.",
-      "id": 12
     }
   ]
 }

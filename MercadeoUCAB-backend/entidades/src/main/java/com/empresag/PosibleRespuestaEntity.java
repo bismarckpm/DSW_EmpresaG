@@ -6,11 +6,10 @@ import java.util.Objects;
 @Entity
 @Table(name = "posible_respuesta", schema = "empresag", catalog = "")
 public class PosibleRespuestaEntity extends BaseEntity{
-    private PreguntaEntity fkPregunta;
-    private OpcionEntity fkOpcion;
-
     @ManyToOne
     @JoinColumn(name = "fk_pregunta")
+    private PreguntaEntity fkPregunta;
+
     public PreguntaEntity getFkPregunta() {
         return fkPregunta;
     }
@@ -21,6 +20,8 @@ public class PosibleRespuestaEntity extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "fk_opcion")
+    private OpcionEntity fkOpcion;
+
     public OpcionEntity getFkOpcion() {
         return fkOpcion;
     }
@@ -29,4 +30,12 @@ public class PosibleRespuestaEntity extends BaseEntity{
         this.fkOpcion = fkOpcion;
     }
 
+
+
+    public PosibleRespuestaEntity(long id) {
+        super(id);
+    }
+
+    public PosibleRespuestaEntity() {
+    }
 }
