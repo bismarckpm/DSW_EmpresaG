@@ -125,40 +125,29 @@
       "id": 2
     },
     {
-      "correo_electronico": "correo@dominio.com",
-      "clave": "Caracas1.",
-      "hijos": [
-        {
-          "primer_nombre": "Olga",
-          "primer_apellido": "Tañon",
-          "genero": 2,
-          "fecha_de_nacimiento": "02/11/2016"
-        }
-      ],
-      "confirmar_clave": "Caracas1.",
-      "primer_nombre": "Aaron",
-      "primer_apellido": "Bustamante",
-      "documento_de_identificacion": "A87459652",
-      "genero": 3,
+      "correo_electronico": "angel99castillo@gmail.com",
+      "clave": "AngelC99.",
+      "primer_nombre": "Angel",
+      "primer_apellido": "Castillo",
+      "documento_de_identificacion": "27547065",
+      "genero": 2,
       "estado_civil": 1,
-      "fecha_de_nacimiento": "04/11/2000",
+      "fecha_de_nacimiento": "10/11/1999",
       "id_pais": 1,
-      "id_estado": 2,
       "id_ciudad": 5,
       "id_parroquia": 9,
-      "codigo_pais": 1,
-      "telefono": "4085263587",
-      "personas_hogar": "2",
-      "tiene_hijos": true,
-      "ocupacion": "Mesonero",
-      "id_nivel_academico": 2,
+      "id_estado": 2,
+      "telefono": "01234556",
+      "ocupacion": "NADA",
+      "personas_hogar": "080",
+      "hijos": [],
+      "id_nivel_academico": 6,
       "id_nivel_socioeconomico": 2,
-      "dispositivos": [
-        2,
-        3
-      ],
-      "id_horario_inicial": 4,
-      "id_horario_final": 6,
+      "id_horario_inicial": 9,
+      "id_horario_final": 24,
+      "confirmar_clave": "AngelC99.",
+      "tiene_hijos": false,
+      "codigo_pais": 1,
       "id": 3
     }
   ],
@@ -540,6 +529,66 @@
       "id": 116
     }
   ],
+  "brands": [
+    {
+      "id": 1,
+      "nombre": "Supreme",
+      "categoria": "Ropa",
+      "subcategoria": "Streetwear",
+      "id_subcategoria": 1,
+      "id_categoria": 1
+    },
+    {
+      "id": 2,
+      "nombre": "Sony",
+      "categoria": "Tecnología",
+      "subcategoria": "Hardware",
+      "id_subcategoria": 5,
+      "id_categoria": 3,
+      "descripcion": null
+    },
+    {
+      "id": 3,
+      "nombre": "Vans",
+      "categoria": "Ropa",
+      "subcategoria": "Streetwear",
+      "id_subcategoria": 1,
+      "id_categoria": 1
+    }
+  ],
+  "types": [
+    {
+      "id": 1,
+      "nombre": "Zapatos",
+      "id_categoria": 1,
+      "categoria": "Ropa",
+      "subcategoria": "Streetwear",
+      "id_subcategoria": 1,
+      "marca": "Supreme",
+      "id_marca": 1
+    },
+    {
+      "id": 2,
+      "nombre": "Headsets",
+      "id_categoria": 3,
+      "categoria": "Tecnología",
+      "id_subcategoria": 5,
+      "subcategoria": "Hardware",
+      "id_marca": 2,
+      "marca": "Sony"
+    },
+    {
+      "id": 3,
+      "nombre": "T-Shirt",
+      "id_categoria": 1,
+      "categoria": "Ropa",
+      "subcategoria": "Streetwear",
+      "id_subcategoria": 1,
+      "marca": "Vans",
+      "id_marca": 3
+    }
+  ],
+  "presentations": [],
   "requests": [
     {
       "id": 1,

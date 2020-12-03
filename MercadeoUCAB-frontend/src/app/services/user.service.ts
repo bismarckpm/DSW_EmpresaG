@@ -69,7 +69,15 @@ export class UserService {
   constructor(private http: HttpClient,
     private processHTTPMessageService: ProcessHttpMessageService) { }
 
-  getPerson(): Observable<Person[]>{
+  getPerson(pid): Observable<Person>{
+    return this.http.get<Person>(baseURL + 'register', {params: {
+      id: pid
+    }})
+      .pipe(map(persona => persona[0]))
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+  
+  getPersons(): Observable<Person[]>{
     return this.http.get<Person[]>(baseURL + 'register')
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
@@ -104,7 +112,7 @@ export class UserService {
   }
 
   deleteUser(user): Observable<Person>{
-    return this.http.delete<Person>(baseURL + 'register/' + user.documento_de_identificacion)
+    return this.http.delete<Person>(baseURL + 'register/' + user.id)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
