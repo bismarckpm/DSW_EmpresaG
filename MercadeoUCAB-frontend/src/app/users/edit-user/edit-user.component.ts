@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MenuItem, SelectItem } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { replaceKeyWithValue } from '../../functions/common_functions';
-import { Option } from '../../classes/options';
 import { NgxSpinnerService } from "ngx-spinner";
 import { Person } from '../../classes/person';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -16,16 +15,11 @@ import { GENDERS } from '../../constants/gender';
 import { CIVIL_STATUSES } from '../../constants/civil_status';
 import { DEVICES } from '../../constants/device';
 import { ROLES } from '../../constants/rol';
-import { STUDY_STATES } from '../../constants/study_states';
+import { STUDY_STATES } from '../../constants/study_states'; // Se usara NO borrar
 import { SOCIAL_STATUSES } from '../../constants/social_status';
 import { SCHEDULES } from '../../constants/schedule';
 import { ACADEMICS } from '../../constants/academics';
 import { ACCOUNT_XTATUS } from 'src/app/constants/account_status';
-
-
-
-
-
 
 
 @Component({
@@ -480,7 +474,7 @@ export class EditUserComponent implements OnInit {
           this.previousPage();
         },
         errorMessage => {
-          console.log("FALLO")
+          console.log("FAIL")
           this.sent_form = false;
           this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
         })

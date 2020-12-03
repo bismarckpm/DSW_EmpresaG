@@ -1,8 +1,15 @@
-<div class="p-grid vertical-container" *ngIf="persona">
-    <!-- Formulario - Add a new User -->
+<app-navigation></app-navigation>
+<div class="demo-container p-mx-6 p-p-0 p-p-sm-1 p-p-md-2 p-p-lg-6" *ngIf="persona">
+
+    <!-- Formulario - Edit a User -->
         <p-card>
-            <!-- <form novalidate [formGroup]="userForm" #uform="ngForm"> -->
-            <form novalidate [formGroup]="userForm" #uform="ngForm" (ngSubmit)="onSubmit()">
+            <div class="p-grid p-mx-5">
+                <div class="p-col-12">
+                    <h3 class="table-title">EDITAR USUARIO</h3>
+                </div>
+            </div>
+            <hr>
+            <form novalidate [formGroup]="userForm" #uforms="ngForm" (ngSubmit)="onSubmit()">
 
                 <div *ngIf="!dataPersona">
                     <div class="p-grid p-mx-5">
@@ -173,7 +180,6 @@
 
 
                     <div class="p-grid p-mx-5">
-                    
                         <div class="p-grid p-mt-4">
                             <div class="p-col-12 p-md-6 p-mb-2">
                                 <span class="p-float-label">
