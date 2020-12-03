@@ -1,9 +1,11 @@
 import { Analytics } from '../classes/analytics'
 
 export class Option {
-    id?:number;
+    _id?:number;
     valor?:string;
-    rango_inicial?:number;
-    rango_final?:number;
+    rangoInicial?:number;
+    rangoFinal?:number;
+
+    // TODO: Clean up, but not now to avoid compilation errors
     estadisticas?: Analytics;
 }

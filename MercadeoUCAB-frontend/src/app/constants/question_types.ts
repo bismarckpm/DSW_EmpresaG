@@ -1,41 +1,14 @@
-export class QuestionType {
-    label: string;
-    value: number;
-}
-
-export const QUESTION_TYPES_FOR_TABLE_FILTER = [
-  {
-    label: 'Texto abierto',
-    value: 'Texto abierto'
-  },
-  {
-    label: 'Selección simple',
-    value: 'Selección simple'
-  },
-  {
-    label: 'Selección múltiple',
-    value: 'Selección múltiple'
-  },
-  {
-    label: 'Verdadero y Falso',
-    value: 'Verdadero y Falso'
-  },
-  {
-    label: 'Rango',
-    value: 'Rango'
-  }];
-
 export const QUESTION_TYPES = [
   {
-    label: 'Texto abierto',
+    label: 'Texto Abierto',
     value: 1
   },
   {
-    label: 'Selección simple',
+    label: 'Selección Simple',
     value: 2
   },
   {
-    label: 'Selección múltiple',
+    label: 'Selección Múltiple',
     value: 3
   },
   {
