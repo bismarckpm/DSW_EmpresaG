@@ -24,6 +24,10 @@ public class MyApplication extends Application {
         h.add( BrandService.class );
         h.add( TypeService.class );
         h.add ( PresentationService.class );
+        h.add( SesionService.class );
+        h.add( GeneroService.class );
+        h.add( EdoCivilService.class );
+        h.add( LugarService.class );
         return h;
     }
 }

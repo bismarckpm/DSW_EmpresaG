@@ -9,6 +9,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { baseURL } from '../constants/baseURL';
 import { map, catchError } from 'rxjs/operators';
 import { ProcessHttpMessageService } from '../services/process-http-message.service';
+import { persondata } from '../classes/persondata';
+import { Genero } from '../classes/genero';
+import { EdoCivil } from '../classes/edocivil';
+import { Place } from '../classes/place';
 
 @Injectable({
   providedIn: 'root'
@@ -19,20 +23,22 @@ export class UserService {
 
   device: Device[] = null;
 
+  genero: Genero = null;
+  edoCivil: EdoCivil = null;
+  fklugar: Place = null;
 
-  persona: Person = {
-    correo_electronico: '',
-    clave: '',
-    primer_nombre: '',
-    primer_apellido: '',
-    documento_de_identificacion: '',
-    genero: '',
-    estado_civil: '',
-    fecha_de_nacimiento: '',
-    id_pais: 0,
-    id_ciudad: 0,
-    id_parroquia: 0,
-    id_estado: 0,
+  personadata: persondata = {
+    primerNombre: '',
+    primerApellido: '',
+    documentoIdentidad: '',
+    fkGenero: this.genero,
+    fkEdoCivil: this.edoCivil,
+    fechaNacimiento: '',
+    // id_pais: 0,
+    // id_ciudad: 0,
+    // id_parroquia: 0,
+    // id_estado: 0,
+    fkLugar: this.fklugar,
     telefono: 0,
     ocupacion: '',
     personas_hogar: 0,
@@ -42,6 +48,12 @@ export class UserService {
     dispositivos: this.device,
     id_horario_inicial: 0,
     id_horario_final: 0
+  }
+
+  persona: Person = {
+    email: '',
+    password: '',
+    fkPersona: this.personadata
   };
 
   // Me falta ROL

@@ -1,6 +1,8 @@
 package com.empresag;
 
+import javax.json.bind.annotation.JsonbDateFormat;
 import java.sql.Date;
+import java.util.Arrays;
 
 public class PersonaDto extends BaseDto {
     private String documentoIdentidad;
@@ -8,10 +10,13 @@ public class PersonaDto extends BaseDto {
     private String segundoNombre;
     private String primerApellido;
     private String segundoApellido;
+    @JsonbDateFormat(value = "dd/MM/yyyy")
     private Date fechaNacimiento;
     private GeneroDto fkGenero;
     private EdoCivilDto fkEdoCivil;
     private PersonaDto fkPersona;
+    private LugarDto fkLugar;
+    private PersonaDto[] hijos;
 
     public String getDocumentoIdentidad() {
         return documentoIdentidad;
@@ -83,5 +88,38 @@ public class PersonaDto extends BaseDto {
 
     public void setFkPersona(PersonaDto fkPersona) {
         this.fkPersona = fkPersona;
+    }
+
+    public LugarDto getFkLugar() {
+        return fkLugar;
+    }
+
+    public void setFkLugar(LugarDto fkLugar) {
+        this.fkLugar = fkLugar;
+    }
+
+    public PersonaDto[] getHijos() {
+        return hijos;
+    }
+
+    public void setHijos(PersonaDto[] hijos) {
+        this.hijos = hijos;
+    }
+
+    @Override
+    public String toString() {
+        return "PersonaDto{" +
+                "documentoIdentidad='" + documentoIdentidad + '\'' +
+                ", primerNombre='" + primerNombre + '\'' +
+                ", segundoNombre='" + segundoNombre + '\'' +
+                ", primerApellido='" + primerApellido + '\'' +
+                ", segundoApellido='" + segundoApellido + '\'' +
+                ", fechaNacimiento=" + fechaNacimiento +
+                ", fkGenero=" + fkGenero +
+                ", fkEdoCivil=" + fkEdoCivil +
+                ", fkPersona=" + fkPersona +
+                ", fkLugar=" + fkLugar +
+                ", hijos=" + Arrays.toString(hijos) +
+                '}';
     }
 }

@@ -1,7 +1,6 @@
 package com.empresag;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "usuario", schema = "empresag", catalog = "")
@@ -9,8 +8,12 @@ public class UsuarioEntity extends BaseEntity{
     private String email;
     private String password;
     private int estado;
-    private PersonaEntity fkPersona;
-    private RolEntity fkRol;
+    @ManyToOne
+    @JoinColumn(name = "fk_persona")
+    private PersonaEntity fk_Persona;
+    @ManyToOne
+    @JoinColumn(name = "fk_rol")
+    private RolEntity fk_Rol;
 
     @Basic
     @Column(name = "email")
@@ -44,22 +47,22 @@ public class UsuarioEntity extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "fk_persona")
-    public PersonaEntity getFkPersona() {
-        return fkPersona;
+    public PersonaEntity getFk_Persona() {
+        return fk_Persona;
     }
 
-    public void setFkPersona(PersonaEntity fkPersona) {
-        this.fkPersona = fkPersona;
+    public void setFk_Persona(PersonaEntity fkPersona) {
+        this.fk_Persona = fkPersona;
     }
 
     @ManyToOne
     @JoinColumn(name = "fk_rol")
-    public RolEntity getFkRol() {
-        return fkRol;
+    public RolEntity getFk_Rol() {
+        return fk_Rol;
     }
 
-    public void setFkRol(RolEntity fkRol) {
-        this.fkRol = fkRol;
+    public void setFk_Rol(RolEntity fkRol) {
+        this.fk_Rol = fkRol;
     }
 
 }

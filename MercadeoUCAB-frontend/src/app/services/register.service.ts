@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Person } from '../classes/person';
+import { persondata } from '../classes/persondata';
 import { Child } from '../classes/child';
-import { Observable } from 'rxjs';
+import { serverURL } from '../constants/serverURL';
+import { from, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { baseURL } from '../constants/baseURL';
 import { map, catchError } from 'rxjs/operators';
@@ -13,10 +15,14 @@ import { ProcessHttpMessageService } from '../services/process-http-message.serv
 export class RegisterService {
   hijos: Child[] = null;
 
-  user: Person = {
-    correo_electronico: '',
-    clave: '',
+  personaData: persondata = {
     hijos: this.hijos
+  };
+
+  user: Person = {
+    email: '',
+    password: '',
+    fkPersona: this.personaData
   };
 
   constructor(private http: HttpClient,
@@ -30,7 +36,8 @@ export class RegisterService {
       })
     };
 
-    return this.http.post<Person>(baseURL + 'register', this.user, httpOptions)
+    // return this.http.post<Person>(baseURL + 'register', this.user, httpOptions)
+    return this.http.post<Person>(serverURL + 'sesion/register', this.user, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 }

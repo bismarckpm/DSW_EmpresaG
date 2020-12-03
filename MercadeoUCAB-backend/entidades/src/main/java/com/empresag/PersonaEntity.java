@@ -1,8 +1,8 @@
 package com.empresag;
 
+import javax.json.bind.annotation.JsonbDateFormat;
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.Objects;
 
 @Entity
 @Table(name = "persona", schema = "empresag", catalog = "")
@@ -12,10 +12,32 @@ public class PersonaEntity extends BaseEntity{
     private String segundoNombre;
     private String primerApellido;
     private String segundoApellido;
+    @JsonbDateFormat(value = "dd/MM/yyyy")
     private Date fechaNacimiento;
+    @ManyToOne
+    @JoinColumn(name = "fk_genero")
     private GeneroEntity fkGenero;
+    @ManyToOne
+    @JoinColumn(name = "fk_edo_civil")
     private EdoCivilEntity fkEdoCivil;
+    @ManyToOne
+    @JoinColumn(name = "fk_persona")
     private PersonaEntity fkPersona;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_lugar")
+    private LugarEntity fkLugar;
+
+    private PersonaEntity[] hijos;
+
+    public PersonaEntity(PersonaEntity[] hijos) {
+        this.hijos = hijos;
+    }
+
+    public PersonaEntity() {
+
+    }
+
 
     @Basic
     @Column(name = "documento_identidad")
@@ -107,4 +129,21 @@ public class PersonaEntity extends BaseEntity{
         this.fkPersona = fkPersona;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "fk_lugar")
+    public LugarEntity getFkLugar() {
+        return fkLugar;
+    }
+
+    public void setFkLugar(LugarEntity fkLugar) {
+        this.fkLugar = fkLugar;
+    }
+
+    public PersonaEntity[] getHijos() {
+        return hijos;
+    }
+
+    public void setHijos(PersonaEntity[] hijos) {
+        this.hijos = hijos;
+    }
 }

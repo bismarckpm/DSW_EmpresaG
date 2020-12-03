@@ -102,8 +102,8 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.sent_form = true;
     this.user = new Person();
-    this.user.correo_electronico = this.loginForm.value.correo_electronico;
-    this.user.clave = this.loginForm.value.clave;
+    this.user.email = this.loginForm.value.correo_electronico;
+    this.user.password = this.loginForm.value.clave;
 
     this.loginService.validateLogin(this.user)
       .subscribe(person => {

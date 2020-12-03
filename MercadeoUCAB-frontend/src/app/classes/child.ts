@@ -1,6 +1,6 @@
 export class Child {
-    primer_nombre?: string;
-    primer_apellido?: string;
+    primerNombre?: string;
+    primerApellido?: string;
     genero?: string;
-    fecha_de_nacimiento?: string;
+    fechaNacimiento?: string;
 }

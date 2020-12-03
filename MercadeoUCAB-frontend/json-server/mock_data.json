@@ -123,6 +123,43 @@
       "id_horario_inicial": 9,
       "id_horario_final": 24,
       "id": 2
+    },
+    {
+      "correo_electronico": "correo@dominio.com",
+      "clave": "Caracas1.",
+      "hijos": [
+        {
+          "primer_nombre": "Olga",
+          "primer_apellido": "Tañon",
+          "genero": 2,
+          "fecha_de_nacimiento": "02/11/2016"
+        }
+      ],
+      "confirmar_clave": "Caracas1.",
+      "primer_nombre": "Aaron",
+      "primer_apellido": "Bustamante",
+      "documento_de_identificacion": "A87459652",
+      "genero": 3,
+      "estado_civil": 1,
+      "fecha_de_nacimiento": "04/11/2000",
+      "id_pais": 1,
+      "id_estado": 2,
+      "id_ciudad": 5,
+      "id_parroquia": 9,
+      "codigo_pais": 1,
+      "telefono": "4085263587",
+      "personas_hogar": "2",
+      "tiene_hijos": true,
+      "ocupacion": "Mesonero",
+      "id_nivel_academico": 2,
+      "id_nivel_socioeconomico": 2,
+      "dispositivos": [
+        2,
+        3
+      ],
+      "id_horario_inicial": 4,
+      "id_horario_final": 6,
+      "id": 3
     }
   ],
   "recovery": [

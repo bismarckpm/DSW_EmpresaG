@@ -66,10 +66,10 @@ export class ProfileComponent implements OnInit {
     this.profileService.getPerson(1).subscribe((p) => {
       this.persona = p;
       this.loading = false;
-      this.selectedGenreValue = Number.parseInt(p.genero);
-      this.selectedEdoCivilValue = Number.parseInt(p.estado_civil);
-      this.fecha_nacimiento = new Date(p.fecha_de_nacimiento);
-      this.hasKids = p.tiene_hijos;
+      this.selectedGenreValue = p.fkPersona.fkGenero.value;
+      this.selectedEdoCivilValue = p.fkPersona.fkEdoCivil.value;
+      this.fecha_nacimiento = new Date(p.fkPersona.fechaNacimiento);
+      this.hasKids = p.fkPersona.tiene_hijos;
 
       this.createForm();
       this.spinner.hide();
@@ -83,7 +83,7 @@ export class ProfileComponent implements OnInit {
   createForm() {
     this.profileForm = this.fb.group({
       correo_electronico: [
-        this.persona.correo_electronico,
+        this.persona.email,
       ],
     });
   }

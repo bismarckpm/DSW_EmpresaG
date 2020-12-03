@@ -76,8 +76,8 @@ export class FamilyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.registerService.user.hijos)
-      this.hijos = this.registerService.user.hijos;
+    if (this.registerService.user.fkPersona.hijos)
+      this.hijos = this.registerService.user.fkPersona.hijos;
 
     this.es = {
         firstDayOfWeek: 1,
@@ -94,13 +94,13 @@ export class FamilyComponent implements OnInit {
   createForm(){
     this.familyForm = this.fb.group({
       personas_hogar: [
-        this.registerService.user.personas_hogar,
+        this.registerService.user.fkPersona.personas_hogar,
         [
           Validators.min(1),
           Validators.pattern('^[0-9]*$')
         ]
       ],
-      tiene_hijos: this.registerService.user.tiene_hijos,
+      tiene_hijos: this.registerService.user.fkPersona.tiene_hijos,
       nombre_hijo: ['',
         [
           Validators.required,
@@ -183,10 +183,10 @@ export class FamilyComponent implements OnInit {
   validateAddKidForm(){
     if (this.familyForm.valid){
       this.hijos.push({
-        primer_nombre: this.familyForm.value.nombre_hijo,
-        primer_apellido: this.familyForm.value.apellido_hijo,
+        primerNombre: this.familyForm.value.nombre_hijo,
+        primerApellido: this.familyForm.value.apellido_hijo,
         genero: this.familyForm.value.genero_hijo,
-        fecha_de_nacimiento: this.familyForm.value.fecha_de_nacimiento_hijo
+        fechaNacimiento: this.familyForm.value.fecha_de_nacimiento_hijo
     });
     this.hideAddKidForm();
     }
@@ -199,9 +199,9 @@ export class FamilyComponent implements OnInit {
   }
 
   onSubmit(){
-    this.registerService.user.personas_hogar = this.familyForm.value.personas_hogar;
-    this.registerService.user.tiene_hijos = this.familyForm.value.tiene_hijos;
-    this.registerService.user.hijos = this.hijos;
+    this.registerService.user.fkPersona.personas_hogar = this.familyForm.value.personas_hogar;
+    this.registerService.user.fkPersona.tiene_hijos = this.familyForm.value.tiene_hijos;
+    this.registerService.user.fkPersona.hijos = this.hijos;
 
     if (this.formErrors.personas_hogar == ''){
       this.nextPage();

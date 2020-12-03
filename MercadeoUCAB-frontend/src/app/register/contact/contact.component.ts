@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisterService } from '../../services/register.service';
 import { PlaceService } from '../../services/place.service'; 
 import { PhoneService } from '../../services/phone.service';
+import { replaceKeyWithValue } from 'src/app/functions/common_functions';
 
 @Component({
   selector: 'app-contact',
@@ -19,6 +20,10 @@ export class ContactComponent implements OnInit {
   ciudades: SelectItem[];
   parroquias: SelectItem[];
   codigos: SelectItem[];
+
+  estado: boolean;
+  ciudad: boolean;
+  parroquia: boolean;
 
   /* Form */
   contactForm: FormGroup;
@@ -39,8 +44,13 @@ export class ContactComponent implements OnInit {
     private placeService: PlaceService, 
     private phoneService: PhoneService,
     private fb: FormBuilder) { 
+
+    this.estado = true;
+    this.ciudad = true;
+    this.parroquia = true;
+
     this.placeService.getCountries().subscribe((countries) => {
-      this.paises = countries;
+      this.paises = replaceKeyWithValue(countries);
     });
 
     this.phoneService.getCodes().subscribe((codes) => {
@@ -55,13 +65,13 @@ export class ContactComponent implements OnInit {
 
   createForm(){
     this.contactForm = this.fb.group({
-      pais: this.registerService.user.id_pais,
-      estado: this.registerService.user.id_estado,
-      ciudad: this.registerService.user.id_ciudad,
-      parroquia: this.registerService.user.id_parroquia,
-      codigo_pais: this.registerService.user.codigo_pais,
+      // pais: this.registerService.user.fkPersona.id_pais,
+      // estado: this.registerService.user.fkPersona.id_estado,
+      // ciudad: this.registerService.user.fkPersona.id_ciudad,
+      // parroquia: this.registerService.user.fkPersona.id_parroquia,
+      codigo_pais: this.registerService.user.fkPersona.codigo_pais,
       telefono: [
-        this.registerService.user.telefono,
+        this.registerService.user.fkPersona.telefono,
         [
           Validators.pattern('^[0-9]*$')
         ]
@@ -78,20 +88,38 @@ export class ContactComponent implements OnInit {
     this.ciudades = [];
     this.parroquias = [];
     this.placeService.getStates(event.value).subscribe((states) => {
-      this.estados = states;
+      if (states.length){
+        this.estado = true;
+        this.estados = replaceKeyWithValue(states);        
+      }
+      else{
+        this.estado = false;
+      }
     })
   }
 
   getCities(event){
     this.parroquias = [];
     this.placeService.getCities(event.value).subscribe((cities) => {
-      this.ciudades = cities;
+      if (cities.length){
+        this.ciudad = true;
+        this.ciudades = replaceKeyWithValue(cities);
+      }
+      else{
+        this.ciudad = false;
+      }
     })
   }
 
   getCounties(event){
     this.placeService.getCounties(event.value).subscribe((counties) => {
-      this.parroquias = counties;
+      if (counties.length){
+        this.parroquia = true;
+        this.parroquias = replaceKeyWithValue(counties);
+      }
+      else{
+        this.parroquia = false;
+      }
     })
   }
 
@@ -124,12 +152,17 @@ export class ContactComponent implements OnInit {
   }
 
   onSubmit(){
-    this.registerService.user.id_pais = this.contactForm.value.pais;
-    this.registerService.user.id_estado = this.contactForm.value.estado;
-    this.registerService.user.id_ciudad = this.contactForm.value.ciudad;
-    this.registerService.user.id_parroquia = this.contactForm.value.parroquia;
-    this.registerService.user.codigo_pais = this.contactForm.value.codigo_pais;
-    this.registerService.user.telefono = this.contactForm.value.telefono;
+    // this.registerService.user.fkPersona.id_pais = this.contactForm.value.pais;
+    // this.registerService.user.fkPersona.id_estado = this.contactForm.value.estado;
+    // this.registerService.user.fkPersona.id_ciudad = this.contactForm.value.ciudad;
+    // this.registerService.user.fkPersona.id_parroquia = this.contactForm.value.parroquia;
+
+    if (this.parroquia){
+
+    }
+
+    this.registerService.user.fkPersona.codigo_pais = this.contactForm.value.codigo_pais;
+    this.registerService.user.fkPersona.telefono = this.contactForm.value.telefono;
 
     if (this.contactForm.valid)
       this.nextPage();

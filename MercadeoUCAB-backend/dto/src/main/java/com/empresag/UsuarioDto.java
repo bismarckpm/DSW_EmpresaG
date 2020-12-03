@@ -53,4 +53,15 @@ public class UsuarioDto extends BaseDto {
     public void setFkRol(RolDto fkRol) {
         this.fkRol = fkRol;
     }
+
+    @Override
+    public String toString() {
+        return "UsuarioDto{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", estado=" + estado +
+                ", fkPersona=" + fkPersona +
+                ", fkRol=" + fkRol +
+                '}';
+    }
 }

@@ -8,6 +8,14 @@ import java.util.Objects;
 public class RolEntity extends BaseEntity{
     private String nombre;
 
+    public RolEntity(long id) {
+        super(id);
+    }
+
+    public RolEntity() {
+
+    }
+
     @Basic
     @Column(name = "nombre")
     public String getNombre() {
