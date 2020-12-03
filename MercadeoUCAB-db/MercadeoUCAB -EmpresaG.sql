@@ -536,12 +536,12 @@ CREATE TABLE IF NOT EXISTS `empresag`.`POSIBLE_RESPUESTA` (
   CONSTRAINT `fk_posresp_pregunta`
     FOREIGN KEY (`fk_pregunta`)
     REFERENCES `empresag`.`PREGUNTA` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_posresp_opcion`
     FOREIGN KEY (`fk_opcion`)
     REFERENCES `empresag`.`OPCION` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 

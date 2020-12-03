@@ -4,14 +4,12 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "pregunta", schema = "empresag", catalog = "")
+@Table(name = "pregunta", schema = "empresag")
 public class PreguntaEntity extends BaseEntity{
-    private String pregunta;
-    private int status;
-    private TipoEntity fkTipo;
-
     @Basic
     @Column(name = "pregunta")
+    private String pregunta;
+
     public String getPregunta() {
         return pregunta;
     }
@@ -22,6 +20,8 @@ public class PreguntaEntity extends BaseEntity{
 
     @Basic
     @Column(name = "status")
+    private int status;
+
     public int getStatus() {
         return status;
     }
@@ -32,12 +32,28 @@ public class PreguntaEntity extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "fk_tipo")
-    public TipoEntity getFkTipo() {
-        return fkTipo;
+    private TipoPreguntaEntity fkTipoPregunta;
+
+    public TipoPreguntaEntity getFkTipoPregunta() {
+        return fkTipoPregunta;
     }
 
-    public void setFkTipo(TipoEntity fkTipo) {
-        this.fkTipo = fkTipo;
+    public void setFkTipoPregunta(TipoPreguntaEntity fkTipoPregunta) {
+        this.fkTipoPregunta = fkTipoPregunta;
     }
 
+    public PreguntaEntity(long id) {
+        super(id);
+    }
+
+    public PreguntaEntity() {
+    }
+
+    @Override
+    public String toString() {
+        return "PreguntaEntity{" +
+                "pregunta='" + pregunta + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }
