@@ -164,5 +164,6 @@ public class PreguntaTest {
         PreguntaEntity pregunta = daoPregunta.find(25L, PreguntaEntity.class);
         pregunta.setStatus(0);
         daoPregunta.update(pregunta);
+        Assert.assertNotEquals(0, pregunta.get_id());
     }
 }

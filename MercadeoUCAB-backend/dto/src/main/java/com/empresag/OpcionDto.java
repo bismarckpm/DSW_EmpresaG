@@ -35,4 +35,13 @@ public class OpcionDto extends BaseDto {
     public void setRangoFinal(Integer rangoFinal) {
         this.rangoFinal = rangoFinal;
     }
+
+    @Override
+    public String toString() {
+        return "OpcionDto{" +
+                "valor='" + valor + '\'' +
+                ", rangoInicial=" + rangoInicial +
+                ", rangoFinal=" + rangoFinal +
+                '}';
+    }
 }

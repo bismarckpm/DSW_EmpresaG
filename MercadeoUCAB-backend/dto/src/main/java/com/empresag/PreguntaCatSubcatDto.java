@@ -6,7 +6,7 @@ public class PreguntaCatSubcatDto extends BaseDto {
     private PreguntaDto fkPregunta;
     private CategoriaDto fkCategoria;
     private SubcategoriaDto fkSubcategoria;
-    private List<OpcionDto> opcionDtoList;
+    private List<OpcionDto> listOpciones;
 
     public PreguntaDto getFkPregunta() {
         return fkPregunta;
@@ -32,11 +32,11 @@ public class PreguntaCatSubcatDto extends BaseDto {
         this.fkSubcategoria = fkSubcategoria;
     }
 
-    public List<OpcionDto> getOpcionDtoList() {
-        return opcionDtoList;
+    public List<OpcionDto> getListOpciones() {
+        return listOpciones;
     }
 
-    public void setOpcionDtoList(List<OpcionDto> opcionDtoList) {
-        this.opcionDtoList = opcionDtoList;
+    public void setListOpciones(List<OpcionDto> listOpciones) {
+        this.listOpciones = listOpciones;
     }
 }

@@ -3,7 +3,7 @@ package com.empresag;
 public class PreguntaDto extends BaseDto {
     private String pregunta;
     private int status;
-    private TipoDto fkTipo;
+    private TipoPreguntaDto fkTipo;
 
     public PreguntaDto() {
     }
@@ -28,11 +28,11 @@ public class PreguntaDto extends BaseDto {
         this.status = status;
     }
 
-    public TipoDto getFkTipo() {
+    public TipoPreguntaDto getFkTipo() {
         return fkTipo;
     }
 
-    public void setFkTipo(TipoDto fkTipo) {
+    public void setFkTipo(TipoPreguntaDto fkTipo) {
         this.fkTipo = fkTipo;
     }
 }
