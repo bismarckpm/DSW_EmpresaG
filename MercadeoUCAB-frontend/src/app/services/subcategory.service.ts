@@ -21,9 +21,9 @@ export class SubcategoryService {
   }
 
   getSubcategories(category_id): Observable<CategorySubcategory[]> {
-    return this.http.get<CategorySubcategory[]>(serverURL + 'subcategories', {
+    return this.http.get<CategorySubcategory[]>(serverURL + 'subcategories/filtered-by-category', {
       params: {
-        id_categoria: category_id
+        category_id: category_id
       }}).pipe(catchError(this.processHTTPMessageService.handleError))
   }
 

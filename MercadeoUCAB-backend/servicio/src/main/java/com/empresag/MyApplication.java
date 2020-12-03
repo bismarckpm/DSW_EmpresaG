@@ -21,6 +21,9 @@ public class MyApplication extends Application {
         h.add( DispositivoService.class );
         h.add( CategoryService.class );
         h.add( SubcategoryService.class );
+        h.add( BrandService.class );
+        h.add( TypeService.class );
+        h.add ( PresentationService.class );
         return h;
     }
 }

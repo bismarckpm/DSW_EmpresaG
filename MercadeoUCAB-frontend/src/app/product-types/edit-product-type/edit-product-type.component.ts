@@ -1,15 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { MessageService, MenuItem } from 'primeng/api'
-import { Brand } from '../../classes/brand';
+import { MessageService } from 'primeng/api'
 import { replaceKeyWithValue } from '../../functions/common_functions';
-import { CategoryService } from 'src/app/services/category.service';
-import { SubcategoryService } from 'src/app/services/subcategory.service';
 import { BrandService } from 'src/app/services/brand.service';
+import { TypesService } from 'src/app/services/types.service';
+import { BrandType } from 'src/app/classes/brand_type';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ProductType } from 'src/app/classes/productType';
-import { TypesService } from 'src/app/services/types.service';
 
 @Component({
   selector: 'app-edit-product-type',
@@ -19,13 +16,13 @@ import { TypesService } from 'src/app/services/types.service';
 })
 export class EditProductTypeComponent implements OnInit {
   @Input() display: boolean;
-  @Input() product_type: ProductType;
+  @Input() product_type: BrandType;
   @Output() onModalClose = new EventEmitter<any>();
   @Output() onTypeEdited = new EventEmitter<any>();
-  marcas: MenuItem[];
-  categorias: MenuItem[];
-  subcategorias: MenuItem[];
+  marcas: any[] = [];
   sent_form: boolean = false;
+
+  marcasErrorMessage: string;
 
   /* Form */
   typeForm: FormGroup;
@@ -61,53 +58,42 @@ export class EditProductTypeComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private messageService: MessageService,
-    private categoryService: CategoryService,
-    private subcategoryService: SubcategoryService,
     private brandService: BrandService,
     private typeService: TypesService) { }
   
   ngOnInit(): void {
-    this.categoryService.getCategories().subscribe((category) => {
-      this.categorias = replaceKeyWithValue(category);
-      this.getSubcategories(this.product_type.id_categoria);
-      this.getBrands(this.product_type.id_subcategoria)
+    this.brandService.getALLBrands().subscribe((brands) => {
+      for (var i = 0; i<brands.length; i++){
+        this.marcas.push({
+          value: brands[i].fkMarca._id,
+          label: brands[i].fkMarca.nombre
+        })
+      }
+
+      this.marcas = replaceKeyWithValue(this.marcas);
+    }, errorMessage => {
+      this.marcasErrorMessage = errorMessage;
     })
     this.createForm();
-    this.typeForm.patchValue({
-      'subcategoria': this.product_type.id_subcategoria,
-      'marca': this.product_type.id_marca
-    })
   }
 
   createForm(){
     this.typeForm = this.fb.group({
-      'categoria': [
-        this.product_type.id_categoria,
-        [
-          Validators.required
-        ]
-      ],
-      'subcategoria': [
-        this.product_type.id_subcategoria,
-        [
-          Validators.required
-        ]
-      ],
       'marca': [
-        this.product_type.id_marca,
+        this.product_type.fkMarca._id,
         [
           Validators.required
         ]
       ],
       'nombre': [
-        this.product_type.nombre,
+        this.product_type.fkTipo.nombre,
         [
           Validators.required,
           Validators.maxLength(90)
         ]
       ],
       'descripcion': [
-        this.product_type.descripcion,
+        this.product_type.fkTipo.descripcion,
         [
           Validators.maxLength(500)
         ]
@@ -149,18 +135,6 @@ export class EditProductTypeComponent implements OnInit {
     }
   }
 
-  getSubcategories(category_id){
-    this.subcategoryService.getSubcategories(category_id).subscribe((subcategories) => {
-      this.subcategorias = replaceKeyWithValue(subcategories);
-    })
-  }
-
-  getBrands(subcategory_id){
-    this.brandService.getBrands(subcategory_id).subscribe((brands) => {
-      this.marcas = replaceKeyWithValue(brands);
-    })
-  }
-
   putType(){
     this.typeService.putType(this.product_type).subscribe((t)=>{
       this.product_type = t;
@@ -185,12 +159,10 @@ export class EditProductTypeComponent implements OnInit {
       this.messageService.add({severity:'error', summary: 'Error', detail: 'Debe rellenar los campos requeridos con datos válidos'});
     }
     else {
-      this.product_type.nombre = this.typeForm.value.nombre;
-      this.product_type.id_categoria = this.typeForm.value.categoria;
-      this.product_type.id_subcategoria = this.typeForm.value.subcategoria;
-      this.product_type.id_marca = this.typeForm.value.marca;
-      this.product_type.descripcion = this.typeForm.value.descripcion;
-
+      this.product_type.fkTipo.nombre = this.typeForm.value.nombre;
+      this.product_type.fkTipo.descripcion = this.typeForm.value.descripcion;
+      this.product_type.fkMarca._id = this.typeForm.value.marca;
+      this.product_type.fkMarca.nombre = this.marcas.find(o => o.value == this.product_type.fkMarca._id).label;
       this.putType();
     }
   }

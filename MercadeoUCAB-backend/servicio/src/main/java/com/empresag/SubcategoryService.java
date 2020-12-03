@@ -51,7 +51,6 @@ public class SubcategoryService {
     public Response updateSubcategoria(@PathParam("id") long id, CategoriaSubcategoriaDto categoriaSubcategoriaDto){
         DaoSubcategoria daoSubcategoria = new DaoSubcategoria();
         DaoCategoriaSubcategoria daoCategoriaSubcategoria = new DaoCategoriaSubcategoria();
-        System.out.println(id);
         CategoriaSubcategoriaEntity cs = daoCategoriaSubcategoria.find(id, CategoriaSubcategoriaEntity.class);
 
         if (cs != null){

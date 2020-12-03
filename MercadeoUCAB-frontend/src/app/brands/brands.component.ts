@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table'
-import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
-import { Brand } from '../classes/brand';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { BrandService } from '../services/brand.service';
 import { SubcategoryService } from '../services/subcategory.service';
-import { CategoryService } from '../services/category.service';
 import { replaceKeyWithValue } from '../functions/common_functions';
+import { SubcategoryBrand } from '../classes/subcategory_brand';
 
 @Component({
   selector: 'app-brands',
@@ -15,22 +14,20 @@ import { replaceKeyWithValue } from '../functions/common_functions';
 })
 export class BrandsComponent implements OnInit {
   loading: boolean = true;
-  marcas: Brand[];
-  backup_brands: Brand[];
-  subcategorias: MenuItem[];
-  categorias: MenuItem[];
-  marca: Brand;
+  marcas: SubcategoryBrand[];
+  backup_brands: SubcategoryBrand[];
+  subcategorias: any[];
+  marca: SubcategoryBrand;
   display_add_brand: boolean = false;
   display_edit_brand: boolean = false;
   @ViewChild('dt') table: Table;
 
   marcasErrorMessage: string;
   subcategoriasErrorMessage: string;
-  categoriasErrorMessage: string;
+
   constructor(
     private brandService: BrandService,
     private subcategoryService: SubcategoryService,
-    private categoryService: CategoryService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService) { }
 
@@ -38,12 +35,18 @@ export class BrandsComponent implements OnInit {
     this.brandService.getALLBrands().subscribe((brands) => {
       this.marcas = brands;
       this.backup_brands = brands;
-      this.categoryService.getCategories().subscribe((categorias) => {
-        this.categorias = replaceKeyWithValue(categorias);
+      this.subcategorias = [];
+      this.subcategoryService.getALLSubcategories().subscribe((subcategories) => {
         this.loading = false;
+        for (var i = 0; i<subcategories.length; i++){
+          this.subcategorias.push({
+            value: subcategories[i].fkSubcategoria._id,
+            label: subcategories[i].fkSubcategoria.nombre
+          })
+        }
       }, errorMessage => {
         this.loading = false;
-        this.categoriasErrorMessage = errorMessage;
+        this.subcategoriasErrorMessage = errorMessage;
       })
 
     }, errorMessage => {
@@ -54,7 +57,7 @@ export class BrandsComponent implements OnInit {
 
   deleteMarca(marca) {
     this.confirmationService.confirm({
-      message: 'La siguiente marca: <code>' + marca.nombre + '</code> de ID <code>' + marca.id + '</code> está apunto de ser eliminada, ¿Desea continuar?',
+      message: 'La siguiente marca: <code>' + marca.fkMarca.nombre + '</code> de ID <code>' + marca._id + '</code> está apunto de ser eliminada, ¿Desea continuar?',
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
@@ -113,14 +116,8 @@ export class BrandsComponent implements OnInit {
     })
   }
   
-  onCategoryChange(event){
-    this.marcas = this.backup_brands;
-    this.marcas = this.marcas.filter(marca => marca.id_categoria == event.value)
-    this.getSubcategories(event.value)
-  }
-
   onSubcategoryChange(event){
-    this.table.filter(event.value, 'id_subcategoria', 'in')
+    this.table.filter(event.value, 'fkSubcategoria._id', 'in')
   }
 
 }

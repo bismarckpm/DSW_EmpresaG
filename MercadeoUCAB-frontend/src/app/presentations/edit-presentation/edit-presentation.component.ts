@@ -3,6 +3,7 @@ import { MessageService, MenuItem } from 'primeng/api'
 import { Presentation } from '../../classes/presentation';
 import { TypesService } from '../../services/types.service';
 import { PresentationService } from 'src/app/services/presentation.service';
+import { TypePresentation } from 'src/app/classes/type_presentation';
 import { replaceKeyWithValue } from '../../functions/common_functions';
 
 /* Form */
@@ -16,11 +17,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class EditPresentationComponent implements OnInit {
   @Input() display: boolean;
-  @Input() presentation: Presentation;
+  @Input() presentation: TypePresentation;
   @Output() onModalClose = new EventEmitter<any>();
   @Output() onPresentationEdited = new EventEmitter<any>();
-  tipos: MenuItem[];
+  tipos: any[];
   sent_form: boolean = false;
+
+  tiposErrorMessage: string;
 
   /* Form */
   presentationForm: FormGroup;
@@ -47,24 +50,35 @@ export class EditPresentationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.typesService.getALLTypes().subscribe((types)=>{
-      this.tipos = replaceKeyWithValue(types)
+    this.typesService.getALLTypes().subscribe((types) => {
+      this.tipos = [];
+      for (var i = 0; i<types.length; i++){
+        this.tipos.push({
+          value: types[i].fkTipo._id,
+          label: types[i].fkTipo.nombre
+        })
+      }
+
+      this.tipos = replaceKeyWithValue(this.tipos);
+
+    }, errorMessage => {
+      this.tiposErrorMessage = errorMessage;
     })
     this.createForm();
   }
 
   createForm(){
     this.presentationForm = this.fb.group({
-      'tipo': this.presentation.id_tipo,
+      'tipo': this.presentation.fkTipo._id,
       'nombre': [
-        this.presentation.nombre,
+        this.presentation.fkPresentacion.nombre,
         [
           Validators.required,
           Validators.maxLength(90)
         ]
       ],
       'descripcion': [
-        this.presentation.descripcion,
+        this.presentation.fkPresentacion.descripcion,
         [
           Validators.maxLength(500)
         ]
@@ -131,9 +145,10 @@ export class EditPresentationComponent implements OnInit {
       this.messageService.add({severity:'error', summary: 'Error', detail: 'Debe rellenar los campos requeridos con datos válidos'});
     }
     else {
-      this.presentation.nombre = this.presentationForm.value.nombre;
-      this.presentation.id_tipo = this.presentationForm.value.tipo;
-      this.presentation.descripcion = this.presentationForm.value.descripcion;
+      this.presentation.fkPresentacion.nombre = this.presentationForm.value.nombre;
+      this.presentation.fkPresentacion.descripcion = this.presentationForm.value.descripcion;
+      this.presentation.fkTipo._id = this.presentationForm.value.tipo;
+      this.presentation.fkTipo.nombre = this.tipos.find(o => o.value == this.presentation.fkTipo._id).label;
 
       this.putPresentation();
     }
