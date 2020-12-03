@@ -72,11 +72,10 @@
                                 <span class="p-column-title">Estado</span>
                                 <span class="image-text">{{persona.estado_civil}}</span>
                             </td>
-
                             <td class="p-text-center">
                                 <button type="button" pButton pRipple icon="pi pi-pencil"
                                     class="p-button-rounded p-mr-2" pTooltip="Editar usuario" [routerLink]="['edit']"
-                                    [queryParams]="{qid:persona.id , origin: 'person'}"
+                                    [queryParams]="{pid:persona.id , origin: 'person'}"
                                     tooltipPosition="bottom"></button>
                                 <button type="button" pButton pRipple icon="pi pi-trash" class="p-button-rounded"
                                     pTooltip="Eliminar usuario" tooltipPosition="bottom"

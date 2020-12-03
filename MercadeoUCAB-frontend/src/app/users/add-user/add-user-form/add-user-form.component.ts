@@ -254,7 +254,7 @@ export class AddUserFormComponent implements OnInit {
     }
 
     this.loading = true;
-    this.userService.getNewPerson(1).subscribe((p) => {
+    this.userService.getPerson(1).subscribe((p) => {
       this.persona = p;
       this.loading = false;
       this.selectedGenreValue = Number.parseInt(p.genero);  
@@ -262,9 +262,7 @@ export class AddUserFormComponent implements OnInit {
       this.fecha_nacimiento = new Date(p.fecha_de_nacimiento);
       this.hasKids = p.tiene_hijos;
       this.hijos = p.hijos;
-
-
-
+      
       this.createForm();
       this.spinner.hide();
     }, errorMessage => {

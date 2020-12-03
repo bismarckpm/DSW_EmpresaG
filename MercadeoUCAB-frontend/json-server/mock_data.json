@@ -123,6 +123,32 @@
       "id_horario_inicial": 9,
       "id_horario_final": 24,
       "id": 2
+    },
+    {
+      "correo_electronico": "angel99castillo@gmail.com",
+      "clave": "AngelC99.",
+      "primer_nombre": "Angel",
+      "primer_apellido": "Castillo",
+      "documento_de_identificacion": "27547065",
+      "genero": 2,
+      "estado_civil": 1,
+      "fecha_de_nacimiento": "10/11/1999",
+      "id_pais": 1,
+      "id_ciudad": 5,
+      "id_parroquia": 9,
+      "id_estado": 2,
+      "telefono": "01234556",
+      "ocupacion": "NADA",
+      "personas_hogar": "080",
+      "hijos": [],
+      "id_nivel_academico": 6,
+      "id_nivel_socioeconomico": 2,
+      "id_horario_inicial": 9,
+      "id_horario_final": 24,
+      "confirmar_clave": "AngelC99.",
+      "tiene_hijos": false,
+      "codigo_pais": 1,
+      "id": 3
     }
   ],
   "recovery": [
@@ -560,32 +586,6 @@
       "id_subcategoria": 1,
       "marca": "Vans",
       "id_marca": 3
-    }
-  ],
-  "presentations": [
-    {
-      "id": 1,
-      "nombre": "200 ml",
-      "id_tipo": 1,
-      "tipo": "Spray"
-    },
-    {
-      "id": 2,
-      "nombre": "Azul",
-      "id_tipo": 2,
-      "tipo": "Headsets"
-    },
-    {
-      "id": 3,
-      "nombre": "Cereza",
-      "id_tipo": 3,
-      "tipo": "Lata"
-    },
-    {
-      "id": 4,
-      "nombre": "2L",
-      "id_tipo": 1,
-      "descripcion": ":)"
     }
   ],
   "presentations": [],

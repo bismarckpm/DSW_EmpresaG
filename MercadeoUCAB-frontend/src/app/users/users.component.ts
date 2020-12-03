@@ -32,7 +32,7 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
 
     this.loading = true;
-    this.userService.getPerson().subscribe((person) => {
+    this.userService.getPersons().subscribe((person) => {
     this.usuarios = person; 
     this.loading = false;
     },
