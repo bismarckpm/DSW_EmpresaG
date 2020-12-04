@@ -1,4 +1,6 @@
 export class Place {
+    _id?: number;
+    nombre?: string;
     label: string;
     value: number;
 }

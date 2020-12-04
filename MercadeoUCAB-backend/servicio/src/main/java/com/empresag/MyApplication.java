@@ -26,6 +26,7 @@ public class MyApplication extends Application {
         h.add( PresentationService.class );
         h.add( QuestionService.class );
         h.add( OptionService.class );
+        h.add( StudyService.class );
         return h;
     }
 }

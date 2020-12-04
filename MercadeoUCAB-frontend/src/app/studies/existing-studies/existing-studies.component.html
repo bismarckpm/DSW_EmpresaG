@@ -22,8 +22,8 @@
 
                 <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
                     <p-multiSelect [options]="estados" defaultLabel="Estado"
-                    emptyFilterMessage="No se encontraron resultados" (onChange)="onStateChange($event)"
-                    selectedItemsLabel="{} items seleccionados"></p-multiSelect>
+                        emptyFilterMessage="No se encontraron resultados" (onChange)="onStateChange($event)"
+                        selectedItemsLabel="{} items seleccionados"></p-multiSelect>
                 </div>
             </div>
             <div class="p-grid p-mt-5 p-mx-5">
@@ -52,10 +52,9 @@
                             <th class="p-text-center">
                                 Lugares de aplicación
                             </th>
-                            <th pSortableColumn="estado" class="p-text-center">Estado<p-sortIcon
-                                field="estado">
-                            </p-sortIcon>
-                        </th>
+                            <th pSortableColumn="estado" class="p-text-center">Estado<p-sortIcon field="estado">
+                                </p-sortIcon>
+                            </th>
                             <th style="width: 11rem"></th>
                         </tr>
 
@@ -65,42 +64,47 @@
                         <tr class="p-selectable-row">
                             <td class="p-text-center">
                                 <span class="p-column-title">Categoría</span>
-                                {{estudio.categoria}}
+                                {{estudio.fkCategoria.nombre}}
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Subcategoría</span>
-                                <span class="image-text">{{estudio.subcategoria}}</span>
+                                <span class="image-text"
+                                    *ngIf="estudio.fkSubcategoria">{{estudio.fkSubcategoria.nombre}}</span>
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Filtros adicionales</span>
-                                <span class="image-text" *ngIf="estudio.nivel_socioeconomico"><strong>Nivel
-                                        socioeconómico: </strong>{{estudio.nivel_socioeconomico}}&nbsp;</span>
-                                <span class="image-text" *ngIf="estudio.nivel_academico"><strong>Nivel académico:
-                                    </strong>{{estudio.nivel_academico}}&nbsp;</span>
-                                <span class="image-text" *ngIf="estudio.genero"><strong>Género: </strong>
-                                    {{estudio.genero}}&nbsp;</span>
+                                <span class="image-text" *ngIf="estudio.fkNivelSocioeconomico"><strong>Nivel
+                                        socioeconómico: </strong>{{estudio.fkNivelSocioeconomico.nombre}}&nbsp;</span>
+                                <span class="image-text" *ngIf="estudio.fkNivelAcademico"><strong>Nivel académico:
+                                    </strong>{{estudio.fkNivelAcademico.nombre}}&nbsp;</span>
+                                <span class="image-text" *ngIf="estudio.fkGenero"><strong>Género: </strong>
+                                    {{estudio.fkGenero.nombre}}&nbsp;</span>
+                                <span class="image-text" *ngIf="estudio.fkEdoCivil"><strong>Estado Civil: </strong>
+                                    {{estudio.fkEdoCivil.nombre}}&nbsp;</span>
 
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Rango de edades</span>
-                                <span class="image-text" *ngIf="estudio.edad_minima && estudio.edad_maxima">De {{estudio.edad_minima}} hasta {{estudio.edad_maxima}}</span>
+                                <span class="image-text" *ngIf="estudio.edadMinima && estudio.edadMaxima">De
+                                    {{estudio.edadMinima}} hasta {{estudio.edadMaxima}}</span>
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Lugares</span>
-                                <span class="image-text">{{estudio.lugares}}</span>
+                                <span class="image-text" *ngIf="estudio.fkLugar">{{estudio.fkLugar.nombre}}</span>
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Estado</span>
-                                <span class="image-text">{{estudio.estado}}</span>
+                                <span class="image-text" *ngIf="estudio.fkEstudio.estado == 1">En progreso</span>
+                                <span class="image-text" *ngIf="estudio.fkEstudio.estado == 2">Culminado</span>
                             </td>
 
                             <td class="p-text-center">
-                                <button type="button" routerLink="../view" [queryParams]="{sid:estudio.id}" pButton
+                                <button type="button" routerLink="../view" [queryParams]="{sid:estudio.fkEstudio._id}" pButton
                                     pRipple icon="pi pi-eye" class="p-button-rounded p-mr-2" pTooltip="Vista previa"
                                     tooltipPosition="bottom"></button>
                                 <button *ngIf="estudio.id_estado != 3" type="button" pButton pRipple icon="pi pi-pencil"
                                     class="p-button-rounded p-mr-2" pTooltip="Editar estudio" routerLink="../edit"
-                                    [queryParams]="{sid:estudio.id}" tooltipPosition="bottom"></button>
+                                    [queryParams]="{sid:estudio.fkEstudio._id}" tooltipPosition="bottom"></button>
                             </td>
                         </tr>
                     </ng-template>

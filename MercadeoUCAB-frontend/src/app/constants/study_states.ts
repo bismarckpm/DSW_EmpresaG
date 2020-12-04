@@ -1,14 +1,9 @@
-export class StudyStates {
-    label: string;
-    value: number;
-}
-
 export const STUDY_STATES = [
   {
     label: 'En progreso',
-    value: 'En progreso'
+    value: 1
   },
   {
     label: 'Terminado',
-    value: 'Terminado'
+    value: 2
   }];

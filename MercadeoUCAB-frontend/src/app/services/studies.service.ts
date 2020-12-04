@@ -3,8 +3,10 @@ import { Study } from '../classes/study';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { baseURL } from '../constants/baseURL';
+import { serverURL } from '../constants/serverURL';
 import { map, catchError } from 'rxjs/operators';
 import { ProcessHttpMessageService } from '../services/process-http-message.service';
+import { StudyWithFilter } from '../classes/study_with_filter';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +16,8 @@ export class StudiesService {
   constructor(private http: HttpClient,
     private processHTTPMessageService: ProcessHttpMessageService) { }
 
-  getStudies(): Observable<Study[]> {
-    return this.http.get<Study[]>(baseURL + 'studies')
+  getStudies(): Observable<StudyWithFilter[]> {
+    return this.http.get<StudyWithFilter[]>(serverURL + 'studies/existing')
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 

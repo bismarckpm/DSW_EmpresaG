@@ -65,7 +65,7 @@ export class SelectExistingComponent implements OnInit {
           //TODO: Change this request to get similar studies ONLY
           this.studiesService.getStudies().subscribe((studies) => {
             this.loading = false;
-            this.estudios = studies;
+            //this.estudios = studies;
           }, errorMessage => {
             this.loading = false;
             this.studyErrorMessage = errorMessage;
@@ -97,7 +97,7 @@ export class SelectExistingComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.request.estado = "En progreso";
-        /* Update request's status before turning it into a study */
+        /* Update request's status before turning it into a study 
         this.requestsService.putRequest(this.request).subscribe((request) => {
           this.estudio_generado = this.request as Study;
           this.estudio_generado.preguntas = study.preguntas;
@@ -115,7 +115,7 @@ export class SelectExistingComponent implements OnInit {
         }, errorMessage => {
           this.selected_study = false;
           this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
-        })
+        })*/
       },
       reject: () => {
         //

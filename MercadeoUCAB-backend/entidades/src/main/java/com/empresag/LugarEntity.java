@@ -6,13 +6,10 @@ import java.util.Objects;
 @Entity
 @Table(name = "lugar", schema = "empresag", catalog = "")
 public class LugarEntity extends BaseEntity{
-    private String nombre;
-    private int tipo;
-    private NivelSocioeconomicoEntity fkNivelSocioeconomico;
-    private LugarEntity fkLugar;
-
     @Basic
     @Column(name = "nombre")
+    private String nombre;
+
     public String getNombre() {
         return nombre;
     }
@@ -23,6 +20,8 @@ public class LugarEntity extends BaseEntity{
 
     @Basic
     @Column(name = "tipo")
+    private int tipo;
+
     public int getTipo() {
         return tipo;
     }
@@ -33,6 +32,8 @@ public class LugarEntity extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "fk_nivel_socioeconomico")
+    private NivelSocioeconomicoEntity fkNivelSocioeconomico;
+
     public NivelSocioeconomicoEntity getFkNivelSocioeconomico() {
         return fkNivelSocioeconomico;
     }
@@ -43,6 +44,8 @@ public class LugarEntity extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "fk_lugar")
+    private LugarEntity fkLugar;
+
     public LugarEntity getFkLugar() {
         return fkLugar;
     }

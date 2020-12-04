@@ -75,22 +75,20 @@ export class EditRequestComponent implements OnInit {
     private requestsService: RequestsService,
     private messageService: MessageService,
     private spinner: NgxSpinnerService) {
-    /* If query is empty return 404 */
+    /* If query is empty return 404 
     if ((this.Activatedroute.snapshot.queryParamMap.get('requestId') || 0) == 0) {
       this.router.navigate(['404']);
     }
 
-    /* Get current study */
     else {
+
       this.loading = true;
       this.spinner.show();
 
       this.current_request = parseInt(this.Activatedroute.snapshot.queryParamMap.get('requestId'));
       this.requestsService.getRequest(this.current_request).subscribe((req) => {
         this.study_request = req;
-        // IF REQUEST EXISTS
         if (this.study_request) {
-          /* If request is being processed it can't be modified */
           if (this.study_request.id_estado == 2) {
             this.router.navigate(['404']);
           }
@@ -107,7 +105,7 @@ export class EditRequestComponent implements OnInit {
             nivel_socioeconomico: this.study_request.id_nivel_socioeconomico
           })
 
-          /* Determine type of location filter */
+
           if (this.study_request.tipo_filtro_geografico == 'paises') {
             this.studyForm.patchValue({
               pais: this.study_request.id_lugares
@@ -150,7 +148,7 @@ export class EditRequestComponent implements OnInit {
       this.categorias = replaceKeyWithValue(categories);
     }, errorMessage => {
       this.categoriesErrorMessage = errorMessage;
-    })
+    })*/
   }
 
   ngOnInit(): void {

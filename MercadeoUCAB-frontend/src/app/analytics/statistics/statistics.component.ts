@@ -181,7 +181,7 @@ export class StatisticsComponent implements OnInit {
         header: 'Confirmación',
         icon: 'pi pi-info-circle',
         accept: () => {
-            this.study.id_estado = 3;
+            //this.study.id_estado = 3;
             this.putStudy();
         },
         reject: () => {
