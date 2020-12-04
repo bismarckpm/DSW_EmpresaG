@@ -243,8 +243,16 @@ export class EditQuestionComponent implements OnInit {
   }
 
   clearFormArray() {
-    this.opciones.clear();
-    this.pregunta.fkPregunta.listOpciones = [];
+    /* Don't delete options if switch between selections */
+    if (this.pregunta.fkPregunta.fkTipoPregunta._id == 2 || this.pregunta.fkPregunta.fkTipoPregunta._id == 3){
+      if (this.questionForm.value.tipo_de_pregunta == 2 || this.questionForm.value.tipo_de_pregunta == 3){
+        return;
+      }
+    }
+    else {
+      this.opciones.clear();
+      this.pregunta.fkPregunta.listOpciones = [];
+    }
   }
 
   addItem() {
@@ -283,7 +291,11 @@ export class EditQuestionComponent implements OnInit {
 
   putQuestion(type_of_option) {
     this.pregunta.fkCategoria._id = this.questionForm.value.categoria;
-    this.pregunta.fkSubcategoria._id = this.questionForm.value.subcategoria;
+    
+    if (this.questionForm.value.subcategoria){
+      this.pregunta.fkSubcategoria._id = this.questionForm.value.subcategoria
+    }
+    
     this.pregunta.fkPregunta.pregunta = this.questionForm.value.pregunta;
     this.pregunta.fkPregunta.fkTipoPregunta._id = this.questionForm.value.tipo_de_pregunta;
 

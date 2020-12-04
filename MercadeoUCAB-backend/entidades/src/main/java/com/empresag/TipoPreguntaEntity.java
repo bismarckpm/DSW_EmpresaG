@@ -36,4 +36,12 @@ public class TipoPreguntaEntity extends BaseEntity{
 
     public TipoPreguntaEntity() {
     }
+
+    @Override
+    public String toString() {
+        return "TipoPreguntaEntity{" +
+                "nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                '}';
+    }
 }
