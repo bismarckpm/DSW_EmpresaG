@@ -54,6 +54,7 @@ import { PresentationService } from './services/presentation.service';
 import { TypesService } from './services/types.service';
 import { UserSurveyService } from './services/user-survey.service';
 import { BrandService } from './services/brand.service';
+import { OptionService } from './services/option.service';
 import { ProcessHttpMessageService } from './services/process-http-message.service';
 
 /* My components */
@@ -220,6 +221,7 @@ import { EditProductTypeComponent } from './product-types/edit-product-type/edit
     TypesService,
     UserSurveyService,
     BrandService,
+    OptionService,
     ProcessHttpMessageService,
     {provide: 'BaseURL', useValue: baseURL},
     {provide: 'ServerURL', useValue: serverURL}

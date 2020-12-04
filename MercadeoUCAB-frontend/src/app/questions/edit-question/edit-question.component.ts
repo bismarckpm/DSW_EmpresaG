@@ -1,31 +1,32 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService, MenuItem } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { QUESTION_TYPES } from '../../constants/question_types';
 import { CategoryService } from '../../services/category.service';
 import { SubcategoryService } from '../../services/subcategory.service';
 import { QuestionService } from '../../services/question.service';
 import { replaceKeyWithValue } from '../../functions/common_functions';
-import { Question } from '../../classes/question';
 import { Option } from '../../classes/options';
 import { NgxSpinnerService } from "ngx-spinner";
 
 /* Form */
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { RxwebValidators } from '@rxweb/reactive-form-validators'
+import { QuestionCategorySubcategory } from 'src/app/classes/question_category_subcategory';
+import { OptionService } from 'src/app/services/option.service';
 
 @Component({
   selector: 'app-edit-question',
   templateUrl: './edit-question.component.html',
   styleUrls: ['./edit-question.component.scss'],
-  providers: [MessageService]
+  providers: [MessageService, ConfirmationService]
 })
 export class EditQuestionComponent implements OnInit {
   tipos_pregunta = QUESTION_TYPES;
   categorias: MenuItem[];
-  subcategorias: MenuItem[];
-  pregunta: Question;
+  subcategorias: any[];
+  pregunta: QuestionCategorySubcategory;
   categoriesErrorMessage: string;
   subcategoriesErrorMessage: string;
   sent_form: boolean = false;
@@ -70,73 +71,86 @@ export class EditQuestionComponent implements OnInit {
       'greaterThan': 'Rango final debe ser mayor que rango inicial'
     }
   }
-  constructor(private Activatedroute:ActivatedRoute,
-    private router:Router,
+  constructor(private Activatedroute: ActivatedRoute,
+    private router: Router,
     private categoryService: CategoryService,
     private messageService: MessageService,
+    private confirmationService: ConfirmationService,
     private subcategoryService: SubcategoryService,
     private questionService: QuestionService,
+    private optionService: OptionService,
     private fb: FormBuilder,
-    private spinner: NgxSpinnerService) { 
-      /* If query is empty return 404 */
-      if ((this.Activatedroute.snapshot.queryParamMap.get('qid')||0) == 0){
-        this.router.navigate(['404']);
-      }
+    private spinner: NgxSpinnerService) {
+    /* If query is empty return 404 */
+    if ((this.Activatedroute.snapshot.queryParamMap.get('questionId') || 0) == 0) {
+      this.router.navigate(['404']);
+    }
 
-      /* Get current question */
-      else {
-        this.spinner.show();
-        this.current_question = parseInt(this.Activatedroute.snapshot.queryParamMap.get('qid'));
-        this.questionService.getQuestion(this.current_question).subscribe((question) => {
-          this.pregunta = question;
-          if (this.pregunta){
-            this.createForm();
+    /* Get current question */
+    else {
+      this.spinner.show();
+      this.current_question = parseInt(this.Activatedroute.snapshot.queryParamMap.get('questionId'));
+      this.questionService.getQuestion(this.current_question).subscribe((question) => {
+        this.pregunta = question;
+        if (this.pregunta) {
+          this.createForm();
 
-            // Only add to form array if there are options
-            if (this.pregunta.opciones && this.pregunta.opciones.length>0 && (this.pregunta.id_tipo == 2 || this.pregunta.id_tipo == 3))
-              this.setFormArray();
-
-            // Add range 
-            if (this.pregunta.opciones && this.pregunta.opciones.length > 0 && this.pregunta.id_tipo == 5){
-              this.questionForm.patchValue({
-                rango_inicial: this.pregunta.opciones[0].rango_inicial,
-                rango_final: this.pregunta.opciones[0].rango_final
-              })
-            }
-
-            this.getSubcategories(); // Get subcategories according to the category selected
+          /* Patch value of subcategory only if it's linked to one */
+          if (this.pregunta.fkSubcategoria) {
+            this.questionForm.patchValue({
+              subcategoria: this.pregunta.fkSubcategoria._id
+            })
           }
 
-          else {
-            this.router.navigate(['404']);
+          // Only add to form array if there are options
+          if (this.pregunta.fkPregunta.listOpciones && this.pregunta.fkPregunta.listOpciones.length > 0
+            && (this.pregunta.fkPregunta.fkTipoPregunta._id == 2
+              || this.pregunta.fkPregunta.fkTipoPregunta._id == 3))
+
+            this.setFormArray();
+
+          // Add range 
+          if (this.pregunta.fkPregunta.listOpciones && this.pregunta.fkPregunta.listOpciones.length > 0
+            && this.pregunta.fkPregunta.fkTipoPregunta._id == 5) {
+            this.questionForm.patchValue({
+              rango_inicial: this.pregunta.fkPregunta.listOpciones[0].rangoInicial,
+              rango_final: this.pregunta.fkPregunta.listOpciones[0].rangoFinal
+            })
           }
-        });
-      }
+
+          this.getSubcategories(); // Get subcategories according to the category selected
+        }
+
+        else {
+          this.router.navigate(['404']);
+        }
+      });
+    }
   }
 
   ngOnInit(): void {
-      this.categoryService.getCategories().subscribe((categories) => {
-        this.loading = false;
-        this.categorias = replaceKeyWithValue(categories);
-        this.spinner.hide();
-      }, errorMessage => {
-        this.loading = false;
-        this.categoriesErrorMessage = errorMessage;
-        this.spinner.hide();
-      })
+    this.categoryService.getCategories().subscribe((categories) => {
+      this.loading = false;
+      this.categorias = replaceKeyWithValue(categories);
+      this.spinner.hide();
+    }, errorMessage => {
+      this.loading = false;
+      this.categoriesErrorMessage = errorMessage;
+      this.spinner.hide();
+    })
   }
 
-  createForm(){
+  createForm() {
     this.questionForm = this.fb.group({
       categoria: [
-        this.pregunta.id_categoria,
+        this.pregunta.fkCategoria._id,
         [
           Validators.required
         ]
       ],
-      subcategoria: this.pregunta.id_subcategoria,
+      subcategoria: null,
       pregunta: [
-        this.pregunta.pregunta,
+        this.pregunta.fkPregunta.pregunta,
         [
           Validators.required,
           Validators.maxLength(1000),
@@ -144,47 +158,53 @@ export class EditQuestionComponent implements OnInit {
         ]
       ],
       tipo_de_pregunta: [
-        this.pregunta.id_tipo,
+        this.pregunta.fkPregunta.fkTipoPregunta._id,
         [
           Validators.required,
         ]
       ],
       opciones: this.fb.array([
       ]),
-      rango_inicial: 
-      [
-        '',
+      rango_inicial:
         [
-          Validators.pattern('^[0-9]*$'),
-          RxwebValidators.lessThan({fieldName: 'rango_final'})
-        ]
-      ],
+          '',
+          [
+            Validators.pattern('^[0-9]*$'),
+            RxwebValidators.lessThan({ fieldName: 'rango_final' })
+          ]
+        ],
       rango_final: [
         '',
         [
           Validators.pattern('^[0-9]*$'),
-          RxwebValidators.greaterThan({fieldName: 'rango_inicial'})
+          RxwebValidators.greaterThan({ fieldName: 'rango_inicial' })
         ]
       ],
     });
-    
+
 
     this.questionForm.valueChanges
-    .subscribe(data => {
-      this.questionForm.setValue(data, { emitEvent: false });
-      this.onValueChange(data);
-    });
+      .subscribe(data => {
+        this.questionForm.setValue(data, { emitEvent: false });
+        this.onValueChange(data);
+      });
   }
 
-  setFormArray(){
-    for (var i =0; i < this.pregunta.opciones.length; i++){
-      this.addExistingItem(this.pregunta.opciones[i].valor);
+  setFormArray() {
+    for (var i = 0; i < this.pregunta.fkPregunta.listOpciones.length; i++) {
+      this.addExistingItem(this.pregunta.fkPregunta.listOpciones[i].valor);
     }
   }
 
-  getSubcategories(){
+  getSubcategories() {
     this.subcategoryService.getSubcategories(this.questionForm.value.categoria).subscribe((subcategories) => {
-      this.subcategorias = replaceKeyWithValue(subcategories);
+      this.subcategorias = [];
+      for (var i = 0; i < subcategories.length; i++) {
+        this.subcategorias.push({
+          value: subcategories[i].fkSubcategoria._id,
+          label: subcategories[i].fkSubcategoria.nombre
+        })
+      }
     }, errorMessage => {
       this.subcategoriesErrorMessage = errorMessage;
     })
@@ -194,26 +214,26 @@ export class EditQuestionComponent implements OnInit {
     return this.questionForm.get('opciones') as FormArray;
   }
 
-  onValueChange(data?: any){
+  onValueChange(data?: any) {
     /* If form hasn't been created */
-    if (!this.questionForm){
+    if (!this.questionForm) {
       return;
     }
 
     const form = this.questionForm;
-    for (const field in this.formErrors){
-      if (this.formErrors.hasOwnProperty(field)){
+    for (const field in this.formErrors) {
+      if (this.formErrors.hasOwnProperty(field)) {
         // clear previous error message if any
         this.formErrors[field] = '';
         const control = form.get(field);
 
         // if field is modified by user
-        if (control && control.dirty && !control.valid){
+        if (control && control.dirty && !control.valid) {
           const messages = this.validationMessages[field];
 
           // check if i'm adding the error message to the field
-          for (const key in control.errors){
-            if (control.errors.hasOwnProperty(key)){
+          for (const key in control.errors) {
+            if (control.errors.hasOwnProperty(key)) {
               this.formErrors[field] += messages[key] + ' ';
             }
           }
@@ -222,104 +242,145 @@ export class EditQuestionComponent implements OnInit {
     }
   }
 
-  clearFormArray(){
-    this.opciones.clear();
+  clearFormArray() {
+    /* Don't delete options if switch between selections */
+    if (this.pregunta.fkPregunta.fkTipoPregunta._id == 2 || this.pregunta.fkPregunta.fkTipoPregunta._id == 3){
+      if (this.questionForm.value.tipo_de_pregunta == 2 || this.questionForm.value.tipo_de_pregunta == 3){
+        return;
+      }
+    }
+    else {
+      this.opciones.clear();
+      this.pregunta.fkPregunta.listOpciones = [];
+    }
   }
 
-  addItem(){
+  addItem() {
     this.opciones.push(this.fb.control(''));
   }
 
-  addExistingItem(item){
+  addExistingItem(item) {
     this.opciones.push(this.fb.control(item))
   }
 
-  deleteItem(index){
-    this.opciones.removeAt(index);
+  deleteItem(index) {
+    /* Delete option from BD */
+    if (this.pregunta.fkPregunta.listOpciones[index]) {
+      this.confirmationService.confirm({
+        message: 'La opción: <code>' + this.pregunta.fkPregunta.listOpciones[index].valor + '</code> está apunto de ser eliminada, ¿Desea continuar? Esta acción eliminará la opción de la base de datos y no podrá deshacerla',
+        header: 'Confirmación',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          this.optionService.deleteOption(this.pregunta.fkPregunta.listOpciones[index]).subscribe((op) => {
+            this.opciones.removeAt(index);
+            this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Opción eliminada con éxito' });
+          }, errorMessage => {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
+          })
+        },
+        reject: () => {
+          //
+        }
+      });
+    }
+
+    else {
+      this.opciones.removeAt(index);
+    }
   }
 
-  putQuestion(type_of_option){
-    this.pregunta.id_categoria = this.questionForm.value.categoria;
-    this.pregunta.id_subcategoria = this.questionForm.value.subcategoria;
-    this.pregunta.pregunta = this.questionForm.value.pregunta;
-    this.pregunta.id_tipo = this.questionForm.value.tipo_de_pregunta;
+  putQuestion(type_of_option) {
+    this.pregunta.fkCategoria._id = this.questionForm.value.categoria;
     
+    if (this.questionForm.value.subcategoria){
+      this.pregunta.fkSubcategoria._id = this.questionForm.value.subcategoria
+    }
+    
+    this.pregunta.fkPregunta.pregunta = this.questionForm.value.pregunta;
+    this.pregunta.fkPregunta.fkTipoPregunta._id = this.questionForm.value.tipo_de_pregunta;
+
     /* Es una pregunta de seleccion simple o multiple */
-    if (type_of_option == 1){
-      this.pregunta.opciones = [];
-      for (var i=0; i < this.questionForm.value.opciones.length; i++){
-        this.pregunta.opciones.push({
-          valor: this.questionForm.value.opciones[i]
-        });
+    if (type_of_option == 1) {
+      for (var i = 0; i < this.questionForm.value.opciones.length; i++) {
+
+        /* Si ya existia la opcion se cambia el valor, si es una opcion agregada recientemente se hace push */
+        if (this.pregunta.fkPregunta.listOpciones[i]) {
+          this.pregunta.fkPregunta.listOpciones[i].valor = this.questionForm.value.opciones[i]
+        }
+        else {
+          this.pregunta.fkPregunta.listOpciones.push({
+            valor: this.questionForm.value.opciones[i]
+          });
+        }
       }
     }
 
     /* Es una pregunta de rango */
-    else if (type_of_option == 2){
+    else if (type_of_option == 2) {
       let qoption: Option[] = [];
       qoption.push({
-        rango_inicial: parseInt(this.questionForm.value.rango_inicial),
-        rango_final: parseInt(this.questionForm.value.rango_final)
+        rangoInicial: parseInt(this.questionForm.value.rango_inicial),
+        rangoFinal: parseInt(this.questionForm.value.rango_final)
       });
-      this.pregunta.opciones = qoption;
+      this.pregunta.fkPregunta.listOpciones = qoption;
     }
 
     else {
-      if (this.pregunta.opciones){
+      if (this.pregunta.fkPregunta.listOpciones) {
         delete this.pregunta["opciones"];
       }
     }
-    
+
     /* 3 = No es ninguno de los anteriores */
-    this.questionService.putQuestion(this.pregunta).subscribe((res)=>{
-      let redirect_to = this.Activatedroute.snapshot.queryParamMap.get('origin')||0
-      let study_origin = this.Activatedroute.snapshot.queryParamMap.get('sid')||0
+    this.questionService.putQuestion(this.pregunta).subscribe((res) => {
+      let redirect_to = this.Activatedroute.snapshot.queryParamMap.get('origin') || 0
+      let study_origin = this.Activatedroute.snapshot.queryParamMap.get('sid') || 0
       /* If it comes from questions go to questions table */
-      if (redirect_to == 'questions' || redirect_to == 0){
+      if (redirect_to == 'questions' || redirect_to == 0) {
         this.router.navigate(['questions'])
       }
 
       /* If it comes from a study edit, go back to editing the study */
-      if (redirect_to == 'study'){
-        this.router.navigate(['studies/edit'], {queryParams: {sid: study_origin}})
+      if (redirect_to == 'study') {
+        this.router.navigate(['studies/edit'], { queryParams: { sid: study_origin } })
       }
     }, errorMessage => {
-      this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
       this.sent_form = false;
     });
   }
 
-  onSubmit(){
+  onSubmit() {
     this.sent_form = true;
     /* CASOS VALIDOS */
-    if (this.questionForm.value.tipo_de_pregunta == 5 && this.questionForm.value.rango_inicial && this.questionForm.value.rango_final && this.questionForm.valid){
+    if (this.questionForm.value.tipo_de_pregunta == 5 && this.questionForm.value.rango_inicial && this.questionForm.value.rango_final && this.questionForm.valid) {
       this.putQuestion(2)
     }
 
-    else if ((this.questionForm.value.tipo_de_pregunta == 2 || this.questionForm.value.tipo_de_pregunta == 3) && this.questionForm.value.opciones.length > 1 && this.questionForm.valid){
+    else if ((this.questionForm.value.tipo_de_pregunta == 2 || this.questionForm.value.tipo_de_pregunta == 3) && this.questionForm.value.opciones.length > 1 && this.questionForm.valid) {
       this.putQuestion(1);
     }
-    
+
     else if (this.questionForm.value.tipo_de_pregunta != 5 && this.questionForm.value.tipo_de_pregunta != 2
-      && this.questionForm.value.tipo_de_pregunta != 3 && this.questionForm.valid){
+      && this.questionForm.value.tipo_de_pregunta != 3 && this.questionForm.valid) {
       this.putQuestion(3);
     }
 
     /* CASOS INVALIDOS */
 
-    else if (this.questionForm.valid && (!this.questionForm.value.rango_inicial || !this.questionForm.value.rango_final) && this.questionForm.value.tipo_de_pregunta == 5){
-      this.messageService.add({severity:'error', summary: 'Error', detail: 'Debe completar ambos campos de rango con datos válidos'});
-      this.sent_form = false;    
+    else if (this.questionForm.valid && (!this.questionForm.value.rango_inicial || !this.questionForm.value.rango_final) && this.questionForm.value.tipo_de_pregunta == 5) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Debe completar ambos campos de rango con datos válidos' });
+      this.sent_form = false;
     }
 
-    else if (this.questionForm.valid && this.questionForm.value.opciones.length < 2 && (this.questionForm.value.tipo_de_pregunta == 3 || this.questionForm.value.tipo_de_pregunta == 2 )){
-      this.messageService.add({severity:'error', summary: 'Error', detail: 'Debe añadir al menos dos opciones'});
-      this.sent_form = false;    
+    else if (this.questionForm.valid && this.questionForm.value.opciones.length < 2 && (this.questionForm.value.tipo_de_pregunta == 3 || this.questionForm.value.tipo_de_pregunta == 2)) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Debe añadir al menos dos opciones' });
+      this.sent_form = false;
     }
-    
+
     else {
-      this.messageService.add({severity:'error', summary: 'Error', detail: 'Debe completar los campos requeridos con datos validos'});
-      this.sent_form = false;    
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Debe completar los campos requeridos con datos validos' });
+      this.sent_form = false;
     }
   }
 

@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { Question } from '../classes/question';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { baseURL } from '../constants/baseURL';
+import { serverURL } from '../constants/serverURL';
 import { map, catchError } from 'rxjs/operators';
 import { ProcessHttpMessageService } from '../services/process-http-message.service';
+import { QuestionCategorySubcategory } from '../classes/question_category_subcategory';
 
 @Injectable({
   providedIn: 'root'
@@ -14,50 +15,50 @@ export class QuestionService {
   constructor(private http: HttpClient,
     private processHTTPMessageService: ProcessHttpMessageService) { }
 
-  getQuestions(): Observable<Question[]>{
-    return this.http.get<Question[]>(baseURL + 'questions')
+  getQuestions(): Observable<QuestionCategorySubcategory[]>{
+    return this.http.get<QuestionCategorySubcategory[]>(serverURL + 'questions/all')
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  /* Question cannot be in existing study (filter by the content of the question ig) */
-  getQuestionsByCategory(category_id): Observable<Question[]>{
-    return this.http.get<Question[]>(baseURL + 'questions', {params: {
+  getQuestionsByCategory(category_id): Observable<QuestionCategorySubcategory[]>{
+    return this.http.get<QuestionCategorySubcategory[]>(serverURL + 'questions', {params: {
       id_categoria: category_id
     }})
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  getQuestion(qid): Observable<Question>{
-    return this.http.get<Question>(baseURL + 'questions', {params: {
-      id: qid
-    }})
-      .pipe(map(question => question[0]))
+  getQuestion(qid): Observable<QuestionCategorySubcategory>{
+    return this.http.get<QuestionCategorySubcategory>(serverURL + 'questions/find/' + qid)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  postQuestion(question): Observable<Question>{
+  postQuestion(question): Observable<QuestionCategorySubcategory>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
 
-    return this.http.post<Question>(baseURL + 'questions', question, httpOptions)
+    return this.http.post<QuestionCategorySubcategory>(serverURL + 'questions/add', question, httpOptions)
   }
 
-  putQuestion(question): Observable<Question>{
-    //console.log(question);
+  putQuestion(question): Observable<QuestionCategorySubcategory>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
     };
 
-    return this.http.put<Question>(baseURL + 'questions/' + question.id, question, httpOptions)
+    return this.http.put<QuestionCategorySubcategory>(serverURL + 'questions/update/' + question._id, question, httpOptions)
   }
 
-  deleteQuestion(question): Observable<Question>{
-    return this.http.delete<Question>(baseURL + 'questions/' + question.id)
-      .pipe(catchError(this.processHTTPMessageService.handleError))
+  deleteQuestion(question): Observable<QuestionCategorySubcategory>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+    };
+
+    return this.http.put<QuestionCategorySubcategory>(serverURL + 'questions/delete/' + question._id, question, httpOptions)
   }
 }

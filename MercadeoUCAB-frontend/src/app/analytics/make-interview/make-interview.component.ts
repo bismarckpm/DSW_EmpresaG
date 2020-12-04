@@ -142,8 +142,8 @@ export class MakeInterviewComponent implements OnInit {
               Validators.required,
               Validators.pattern('^[0-9]*$'),
               RxwebValidators.lessThan({fieldName: 'rango_final'}),
-              Validators.min(this.estudio.preguntas[i].opciones[0].rango_inicial),
-              Validators.max(this.estudio.preguntas[i].opciones[0].rango_final)
+              Validators.min(this.estudio.preguntas[i].opciones[0].rangoInicial),
+              Validators.max(this.estudio.preguntas[i].opciones[0].rangoFinal)
             ]
           ),
 
@@ -153,8 +153,8 @@ export class MakeInterviewComponent implements OnInit {
               Validators.required,
               Validators.pattern('^[0-9]*$'),
               RxwebValidators.greaterThan({fieldName: 'rango_inicial'}),
-              Validators.min(this.estudio.preguntas[i].opciones[0].rango_inicial),
-              Validators.max(this.estudio.preguntas[i].opciones[0].rango_final)
+              Validators.min(this.estudio.preguntas[i].opciones[0].rangoInicial),
+              Validators.max(this.estudio.preguntas[i].opciones[0].rangoFinal)
             ]
           )
         }))

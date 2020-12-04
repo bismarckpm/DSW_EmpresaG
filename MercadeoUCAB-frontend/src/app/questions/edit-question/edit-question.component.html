@@ -12,7 +12,7 @@
             <hr>
 
             <!-- PRODUCT FILTER -->
-            <form novalidate [formGroup]="questionForm" #qform="ngForm" (ngSubmit)="onSubmit()">
+            <form novalidate *ngIf="pregunta" [formGroup]="questionForm" #qform="ngForm" (ngSubmit)="onSubmit()">
                 <div class="p-grid p-mx-5">
                     <p class="p-ml-2">Filtros de producto</p>
                 </div>
@@ -141,3 +141,6 @@
         </div>
     </p-card>
 </div>
+
+<p-confirmDialog></p-confirmDialog>
+<p-toast></p-toast>

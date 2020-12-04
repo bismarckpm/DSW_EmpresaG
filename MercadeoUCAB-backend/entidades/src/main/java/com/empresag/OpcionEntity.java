@@ -6,12 +6,10 @@ import java.util.Objects;
 @Entity
 @Table(name = "opcion", schema = "empresag", catalog = "")
 public class OpcionEntity extends BaseEntity{
-    private String valor;
-    private Integer rangoInicial;
-    private Integer rangoFinal;
-
     @Basic
     @Column(name = "valor")
+    private String valor;
+
     public String getValor() {
         return valor;
     }
@@ -22,6 +20,8 @@ public class OpcionEntity extends BaseEntity{
 
     @Basic
     @Column(name = "rango_inicial")
+    private Integer rangoInicial;
+
     public Integer getRangoInicial() {
         return rangoInicial;
     }
@@ -32,6 +32,8 @@ public class OpcionEntity extends BaseEntity{
 
     @Basic
     @Column(name = "rango_final")
+    private Integer rangoFinal;
+
     public Integer getRangoFinal() {
         return rangoFinal;
     }
@@ -40,4 +42,39 @@ public class OpcionEntity extends BaseEntity{
         this.rangoFinal = rangoFinal;
     }
 
+    public OpcionEntity(long id) {
+        super(id);
+    }
+
+    public OpcionEntity(long id, String valor) {
+        super(id);
+        this.valor = valor;
+    }
+
+    public OpcionEntity(long id, Integer rangoInicial, Integer rangoFinal) {
+        super(id);
+        this.rangoInicial = rangoInicial;
+        this.rangoFinal = rangoFinal;
+    }
+
+    public OpcionEntity(String valor) {
+        this.valor = valor;
+    }
+
+    public OpcionEntity(Integer rangoInicial, Integer rangoFinal) {
+        this.rangoInicial = rangoInicial;
+        this.rangoFinal = rangoFinal;
+    }
+
+    public OpcionEntity() {
+    }
+
+    @Override
+    public String toString() {
+        return "OpcionEntity{" +
+                "valor='" + valor + '\'' +
+                ", rangoInicial=" + rangoInicial +
+                ", rangoFinal=" + rangoFinal +
+                '}';
+    }
 }

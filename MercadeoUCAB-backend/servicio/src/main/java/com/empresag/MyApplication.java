@@ -28,6 +28,9 @@ public class MyApplication extends Application {
         h.add( GeneroService.class );
         h.add( EdoCivilService.class );
         h.add( LugarService.class );
+        h.add( PresentationService.class );
+        h.add( QuestionService.class );
+        h.add( OptionService.class );
         return h;
     }
 }

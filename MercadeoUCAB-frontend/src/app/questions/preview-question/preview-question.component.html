@@ -13,12 +13,12 @@
 
             <!-- QUESTION -->
             <div class="p-mx-6">
-                <p>{{pregunta.pregunta}}</p>
-                <small *ngIf="pregunta.id_tipo == 5">Valores permitidos: Desde {{pregunta.opciones[0].rango_inicial}} hasta {{pregunta.opciones[0].rango_final}}</small>
+                <p>{{pregunta.fkPregunta.pregunta}}</p>
+                <small *ngIf="pregunta.fkPregunta.fkTipoPregunta._id == 5">Valores permitidos: Desde {{pregunta.fkPregunta.listOpciones[0].rangoInicial}} hasta {{pregunta.listOpciones[0].rangoFinal}}</small>
             </div>
 
             <!-- RESPONSES OPEN TEXT -->
-            <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.id_tipo == 1">
+            <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.fkPregunta.fkTipoPregunta._id == 1">
                 <div class="p-col-12 p-lg-6">
                     <label for="float-input">Respuesta</label>
                     <input [disabled]="true" class="p-inputtext-lg fill-width" type="text"
@@ -27,21 +27,21 @@
             </div>
 
             <!-- RESPONSES SIMPLE SELECTION -->
-            <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.id_tipo == 2">
-                <div class="p-col-12" *ngFor="let opcion of pregunta.opciones">
+            <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.fkPregunta.fkTipoPregunta._id == 2">
+                <div class="p-col-12" *ngFor="let opcion of pregunta.fkPregunta.listOpciones">
                     <p-radioButton [label]="opcion.valor" [disabled]="true" class="p-mb-3"></p-radioButton>
                 </div>
             </div>
 
             <!-- RESPONSES MULTIPLE SELECTION -->
-            <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.id_tipo == 3">
-                <div class="p-col-12" *ngFor="let opcion of pregunta.opciones">
+            <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.fkPregunta.fkTipoPregunta._id == 3">
+                <div class="p-col-12" *ngFor="let opcion of pregunta.fkPregunta.listOpciones">
                     <p-checkbox [label]="opcion.valor" [disabled]="true" class="p-mb-3"></p-checkbox>
                 </div>
             </div>
 
             <!-- RESPONSES TRUE/FALSE -->
-            <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.id_tipo == 4">
+            <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.fkPregunta.fkTipoPregunta._id == 4">
                 <div class="p-col-12">
                     <p-radioButton label="Verdadero" [disabled]="true" class="p-mb-3"></p-radioButton>
                 </div>
@@ -51,7 +51,7 @@
             </div>
 
             <!-- RESPONSES RANGE -->
-            <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.id_tipo == 5">
+            <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.fkPregunta.fkTipoPregunta._id == 5">
                 <div class="p-col-12 p-lg-6">
                     <label for="float-input">Desde</label>
                     <input [disabled]="true" class="p-inputtext-lg fill-width" type="text"

@@ -21,8 +21,9 @@ public class TypeService {
     public MarcaTipoEntity addType(MarcaTipoDto marcaTipoDto) {
         DaoMarcaTipo daoMarcaTipo = new DaoMarcaTipo();
         DaoTipo daoTipo = new DaoTipo();
+        DaoMarca daoMarca = new DaoMarca();
 
-        MarcaEntity marca = new MarcaEntity(marcaTipoDto.getFkMarca().get_id());
+        MarcaEntity marca = daoMarca.find(marcaTipoDto.getFkMarca().get_id(), MarcaEntity.class);
         marca.setNombre(marcaTipoDto.getFkMarca().getNombre());
 
         TipoEntity tipo = new TipoEntity();

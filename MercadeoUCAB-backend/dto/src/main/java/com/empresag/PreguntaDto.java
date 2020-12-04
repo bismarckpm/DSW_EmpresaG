@@ -1,9 +1,12 @@
 package com.empresag;
 
+import java.util.List;
+
 public class PreguntaDto extends BaseDto {
     private String pregunta;
     private int status;
-    private TipoDto fkTipo;
+    private TipoPreguntaDto fkTipoPregunta;
+    private List<OpcionDto> listOpciones;
 
     public PreguntaDto() {
     }
@@ -28,11 +31,19 @@ public class PreguntaDto extends BaseDto {
         this.status = status;
     }
 
-    public TipoDto getFkTipo() {
-        return fkTipo;
+    public TipoPreguntaDto getFkTipoPregunta() {
+        return fkTipoPregunta;
     }
 
-    public void setFkTipo(TipoDto fkTipo) {
-        this.fkTipo = fkTipo;
+    public void setFkTipoPregunta(TipoPreguntaDto fkTipoPregunta) {
+        this.fkTipoPregunta = fkTipoPregunta;
+    }
+
+    public List<OpcionDto> getListOpciones() {
+        return listOpciones;
+    }
+
+    public void setListOpciones(List<OpcionDto> listOpciones) {
+        this.listOpciones = listOpciones;
     }
 }

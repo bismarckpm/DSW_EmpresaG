@@ -4,14 +4,12 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "pregunta_cat_subcat", schema = "empresag", catalog = "")
+@Table(name = "pregunta_cat_subcat", schema = "empresag")
 public class PreguntaCatSubcatEntity extends BaseEntity{
-    private PreguntaEntity fkPregunta;
-    private CategoriaEntity fkCategoria;
-    private SubcategoriaEntity fkSubcategoria;
-
     @ManyToOne
     @JoinColumn(name = "fk_pregunta")
+    private PreguntaEntity fkPregunta;
+
     public PreguntaEntity getFkPregunta() {
         return fkPregunta;
     }
@@ -22,6 +20,8 @@ public class PreguntaCatSubcatEntity extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "fk_categoria")
+    private CategoriaEntity fkCategoria;
+
     public CategoriaEntity getFkCategoria() {
         return fkCategoria;
     }
@@ -32,6 +32,8 @@ public class PreguntaCatSubcatEntity extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "fk_subcategoria")
+    private SubcategoriaEntity fkSubcategoria;
+
     public SubcategoriaEntity getFkSubcategoria() {
         return fkSubcategoria;
     }
@@ -40,4 +42,10 @@ public class PreguntaCatSubcatEntity extends BaseEntity{
         this.fkSubcategoria = fkSubcategoria;
     }
 
+    public PreguntaCatSubcatEntity(long id) {
+        super(id);
+    }
+
+    public PreguntaCatSubcatEntity() {
+    }
 }

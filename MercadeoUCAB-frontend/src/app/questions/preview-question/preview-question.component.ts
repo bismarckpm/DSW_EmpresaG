@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { QuestionService } from '../../services/question.service';
 import { Question } from '../../classes/question';
 import { NgxSpinnerService } from "ngx-spinner";
+import { QuestionCategorySubcategory } from 'src/app/classes/question_category_subcategory';
 
 @Component({
   selector: 'app-preview-question',
@@ -10,7 +11,7 @@ import { NgxSpinnerService } from "ngx-spinner";
   styleUrls: ['./preview-question.component.scss']
 })
 export class PreviewQuestionComponent implements OnInit {
-  pregunta: Question;
+  pregunta: QuestionCategorySubcategory;
   loading: boolean = true;
   current_question: number;
   questionErrorMessage: string;
@@ -20,14 +21,14 @@ export class PreviewQuestionComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private router: Router) {
     /* If query is empty return 404 */
-    if ((this.Activatedroute.snapshot.queryParamMap.get('qid') || 0) == 0) {
+    if ((this.Activatedroute.snapshot.queryParamMap.get('questionId') || 0) == 0) {
       this.router.navigate(['404']);
     }
 
     /* Get current question */
     else {
       this.spinner.show();
-      this.current_question = parseInt(this.Activatedroute.snapshot.queryParamMap.get('qid'));
+      this.current_question = parseInt(this.Activatedroute.snapshot.queryParamMap.get('questionId'));
       this.questionService.getQuestion(this.current_question).subscribe((question) => {
         this.pregunta = question;
         if (this.pregunta) {
