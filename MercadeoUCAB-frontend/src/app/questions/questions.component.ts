@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table'
-import { MenuItem, MessageService, PrimeNGConfig } from 'primeng/api';
-import { Question } from '../classes/question';
-import { QUESTION_TYPES_FOR_TABLE_FILTER } from '../constants/question_types';
+import { MenuItem, MessageService } from 'primeng/api';
 import { QuestionService } from '../services/question.service';
 import { CategoryService } from '../services/category.service';
 import { ConfirmationService } from 'primeng/api';
 import { replaceKey } from '../functions/common_functions';
+import { QuestionCategorySubcategory } from '../classes/question_category_subcategory';
+import { QUESTION_TYPES } from '../constants/question_types';
 
 @Component({
   selector: 'app-questions',
@@ -15,12 +15,16 @@ import { replaceKey } from '../functions/common_functions';
   providers: [ConfirmationService, MessageService]
 })
 export class QuestionsComponent implements OnInit {
-  preguntas: Question[];
+  preguntas: QuestionCategorySubcategory[];
   categorias: MenuItem[];
-  question_types = QUESTION_TYPES_FOR_TABLE_FILTER;
+  question_types = QUESTION_TYPES;
+
+
   questionsErrorMessage: string;
   categoryErrorMessage: string;
   subcategoryErrorMessage: string;
+
+
   loading: boolean = false;
   @ViewChild('dt') table: Table;
 
@@ -28,9 +32,7 @@ export class QuestionsComponent implements OnInit {
     private questionService: QuestionService,
     private categoryService: CategoryService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService,
-    private primeNgConfig: PrimeNGConfig) {
-
+    private messageService: MessageService) {
     }
 
   ngOnInit(): void {
@@ -53,16 +55,16 @@ export class QuestionsComponent implements OnInit {
   }
 
   onQuestionTypeChange(event){
-    this.table.filter(event.value, 'tipo', 'in')
+    this.table.filter(event.value, 'fkPregunta.fkTipoPregunta._id', 'in')
   }
 
   onCategoryChange(event){
-    this.table.filter(event.value, 'categoria', 'in')
+    this.table.filter(event.value, 'fkCategoria.nombre', 'in')
   }
 
   deleteQuestion(question){
     this.confirmationService.confirm({
-      message: 'La siguiente pregunta: <code>' + question.pregunta + '</code> está apunto de ser eliminada, ¿Desea continuar?',
+      message: 'La siguiente pregunta: <code>' + question.fkPregunta.pregunta + '</code> está apunto de ser eliminada, ¿Desea continuar?',
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {

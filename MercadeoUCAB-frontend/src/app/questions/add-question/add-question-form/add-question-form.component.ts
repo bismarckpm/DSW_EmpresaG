@@ -14,6 +14,10 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { RxwebValidators } from '@rxweb/reactive-form-validators'
 import { Router } from '@angular/router';
+import { QuestionCategorySubcategory } from 'src/app/classes/question_category_subcategory';
+import { Category } from 'src/app/classes/category';
+import { Subcategory } from 'src/app/classes/subcategory';
+import { QuestionType } from 'src/app/classes/question_type';
 
 @Component({
   selector: 'app-add-question-form',
@@ -24,8 +28,8 @@ import { Router } from '@angular/router';
 export class AddQuestionFormComponent implements OnInit {
   tipos_pregunta = QUESTION_TYPES;
   categorias: MenuItem[];
-  subcategorias: MenuItem[];
-  pregunta: Question;
+  subcategorias: any[];
+  pregunta: QuestionCategorySubcategory;
   categoriesErrorMessage: string;
   subcategoriesErrorMessage: string;
   sent_form: boolean = false;
@@ -168,7 +172,14 @@ export class AddQuestionFormComponent implements OnInit {
 
   getSubcategories(){
     this.subcategoryService.getSubcategories(this.questionForm.value.categoria).subscribe((subcategories) => {
-      this.subcategorias = replaceKeyWithValue(subcategories);
+      this.subcategorias = [];
+      for (var i = 0; i<subcategories.length; i++){
+        this.subcategorias.push({
+          value: subcategories[i].fkSubcategoria._id,
+          label: subcategories[i].fkSubcategoria.nombre
+        })
+      }
+      
     }, errorMessage => {
       this.subcategoriesErrorMessage = errorMessage;
     })
@@ -219,39 +230,42 @@ export class AddQuestionFormComponent implements OnInit {
   }
 
   postQuestion(type_of_option){
-    this.pregunta = new Question();
-    this.pregunta.id_categoria = this.questionForm.value.categoria;
-    this.pregunta.id_subcategoria = this.questionForm.value.subcategoria;
-    this.pregunta.pregunta = this.questionForm.value.pregunta;
-    this.pregunta.id_tipo = this.questionForm.value.tipo_de_pregunta;
+    this.pregunta = new QuestionCategorySubcategory();
+    this.pregunta.fkCategoria = new Category();
+    this.pregunta.fkCategoria._id = this.questionForm.value.categoria;
+    this.pregunta.fkSubcategoria = new Subcategory();
+    this.pregunta.fkSubcategoria._id = this.questionForm.value.subcategoria;
+    this.pregunta.fkPregunta = new Question();
+    this.pregunta.fkPregunta.pregunta = this.questionForm.value.pregunta;
+    this.pregunta.fkPregunta.fkTipoPregunta = new QuestionType();
+    this.pregunta.fkPregunta.fkTipoPregunta._id = this.questionForm.value.tipo_de_pregunta;
+
     
-    /* Es una pregunta de seleccion simple o multiple */
     if (type_of_option == 1){
-      this.pregunta.opciones = [];
+      this.pregunta.fkPregunta.listOpciones = [];
       for (var i=0; i < this.questionForm.value.opciones.length; i++){
-        this.pregunta.opciones.push({
+        this.pregunta.fkPregunta.listOpciones.push({
           valor: this.questionForm.value.opciones[i]
         });
       }
     }
 
-    /* Es una pregunta de rango */
     else if (type_of_option == 2){
       let qoption: Option[] = [];
       qoption.push({
-        rango_inicial: parseInt(this.questionForm.value.rango_inicial),
-        rango_final: parseInt(this.questionForm.value.rango_final)
+        rangoInicial: parseInt(this.questionForm.value.rango_inicial),
+        rangoFinal: parseInt(this.questionForm.value.rango_final)
       });
-      this.pregunta.opciones = qoption;
+      this.pregunta.fkPregunta.listOpciones = qoption;
     }
-    
-    /* 3 = No es ninguno de los anteriores */
+
     this.questionService.postQuestion(this.pregunta).subscribe((res)=>{
       this.nextForm()
     }, errorMessage => {
       this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
       this.sent_form = false;
     });
+    
   }
 
   nextForm(){

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "posible_respuesta", schema = "empresag", catalog = "")
+@Table(name = "posible_respuesta", schema = "empresag")
 public class PosibleRespuestaEntity extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "fk_pregunta")
@@ -29,8 +29,6 @@ public class PosibleRespuestaEntity extends BaseEntity{
     public void setFkOpcion(OpcionEntity fkOpcion) {
         this.fkOpcion = fkOpcion;
     }
-
-
 
     public PosibleRespuestaEntity(long id) {
         super(id);

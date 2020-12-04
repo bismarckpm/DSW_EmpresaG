@@ -2,10 +2,11 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { Question } from '../../classes/question';
 import { Table } from 'primeng/table';
 import { MenuItem } from 'primeng/api';
-import { QUESTION_TYPES_FOR_TABLE_FILTER } from '../../constants/question_types';
+import { QUESTION_TYPES } from '../../constants/question_types';
 import { QuestionService } from '../../services/question.service';
 import { SubcategoryService } from '../../services/subcategory.service';
 import { replaceKey } from '../../functions/common_functions';
+import { QuestionCategorySubcategory } from 'src/app/classes/question_category_subcategory';
 
 @Component({
   selector: 'app-add-question-from-pool',
@@ -17,11 +18,11 @@ export class AddQuestionFromPoolComponent implements OnInit {
   @Output() onQuestionSelect = new EventEmitter<any>();
   @Output() onViewClose = new EventEmitter<any>();
 
-  preguntas: Question[];
+  preguntas: QuestionCategorySubcategory[];
   questionsErrorMessage: string;
   categoryErrorMessage: string;
   subcategorias: MenuItem[];
-  question_types = QUESTION_TYPES_FOR_TABLE_FILTER;
+  question_types = QUESTION_TYPES;
 
   /* Table */
   loading: boolean = false;

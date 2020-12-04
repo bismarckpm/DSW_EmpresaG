@@ -4,7 +4,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.validation.constraints.Null;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -22,11 +21,14 @@ public class QuestionService {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
         EntityManager em = emf.createEntityManager();
         DaoOpcion daoOpcion = new DaoOpcion();
+        DaoPregunta daoPregunta = new DaoPregunta();
+
+        PreguntaEntity pregunta = daoPregunta.find(id, PreguntaEntity.class);
 
         List<OpcionEntity> opciones = null;
-        JPQL = "SELECT pr.fkOpcion FROM PosibleRespuestaEntity pr WHERE pr.fkPregunta._id = :id";
+        JPQL = "SELECT pr.fkOpcion FROM PosibleRespuestaEntity pr WHERE pr.fkPregunta = :pregunta";
         q = em.createQuery(JPQL);
-        q.setParameter("id", id);
+        q.setParameter("pregunta", pregunta);
         opciones = q.getResultList();
 
         for (OpcionEntity opcion: opciones) {
@@ -42,6 +44,73 @@ public class QuestionService {
         return daoPreguntaCategoriaSubcategoria.getAllActiveQuestions();
     }
 
+    @GET
+    @Path("/find/{id}")
+    public Response getQuestion(@PathParam("id") long id){
+        DaoPreguntaCategoriaSubcategoria daoPreguntaCategoriaSubcategoria = new DaoPreguntaCategoriaSubcategoria();
+        DaoPosibleRespuesta daoPosibleRespuesta = new DaoPosibleRespuesta();
+        PreguntaCatSubcatDto preguntaCatSubcatDto = new PreguntaCatSubcatDto();
+
+        try {
+            PreguntaCatSubcatEntity pcs = daoPreguntaCategoriaSubcategoria.find(id, PreguntaCatSubcatEntity.class);
+
+            preguntaCatSubcatDto.set_id(pcs.get_id());
+
+            CategoriaDto categoriaDto = new CategoriaDto();
+            preguntaCatSubcatDto.setFkCategoria(categoriaDto);
+            preguntaCatSubcatDto.getFkCategoria().set_id(pcs.getFkCategoria().get_id());
+            if (pcs.getFkSubcategoria() != null){
+                SubcategoriaDto subcategoriaDto = new SubcategoriaDto();
+                preguntaCatSubcatDto.setFkSubcategoria(subcategoriaDto);
+                preguntaCatSubcatDto.getFkSubcategoria().set_id(pcs.getFkSubcategoria().get_id());
+            }
+
+            PreguntaDto preguntaDto = new PreguntaDto();
+            preguntaCatSubcatDto.setFkPregunta(preguntaDto);
+            preguntaCatSubcatDto.getFkPregunta().set_id(pcs.getFkPregunta().get_id());
+            preguntaCatSubcatDto.getFkPregunta().setPregunta(pcs.getFkPregunta().getPregunta());
+
+            TipoPreguntaDto tipoPreguntaDto = new TipoPreguntaDto();
+            preguntaCatSubcatDto.getFkPregunta().setFkTipoPregunta(tipoPreguntaDto);
+            preguntaCatSubcatDto.getFkPregunta().getFkTipoPregunta().set_id
+                    (pcs.getFkPregunta().getFkTipoPregunta().get_id());
+
+            List<OpcionDto> opcionDtos = new ArrayList<>();
+            preguntaCatSubcatDto.getFkPregunta().setListOpciones(opcionDtos);
+
+            if (pcs.getFkPregunta().getFkTipoPregunta().get_id() == 1){
+                return Response.ok().entity(pcs).build();
+            }
+            else {
+               List<PosibleRespuestaEntity> pr = null;
+               try {
+                   pr = daoPosibleRespuesta.getAllOptions(id);
+
+                   for (PosibleRespuestaEntity pre: pr) {
+                       OpcionDto opcionDto = new OpcionDto();
+                       if (pcs.getFkPregunta().getFkTipoPregunta().get_id() == 5){
+                           opcionDto.setRangoInicial(pre.getFkOpcion().getRangoInicial());
+                           opcionDto.setRangoFinal(pre.getFkOpcion().getRangoFinal());
+                       }
+                       else {
+                           opcionDto.setValor(pre.getFkOpcion().getValor());
+                       }
+                       opcionDto.set_id(pre.getFkOpcion().get_id());
+                       preguntaCatSubcatDto.getFkPregunta().getListOpciones().add(opcionDto);
+                   }
+                   return Response.ok().entity(preguntaCatSubcatDto).build();
+               }
+               catch (NullPointerException e){
+                    return Response.status(Response.Status.NOT_FOUND).build();
+               }
+            }
+        }
+        catch (NullPointerException | IndexDatabaseException e){
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
     @POST
     @Path("/add")
     public PreguntaCatSubcatEntity addQuestion(PreguntaCatSubcatDto preguntaCatSubcatDto){
@@ -55,11 +124,11 @@ public class QuestionService {
 
         PreguntaEntity pregunta = new PreguntaEntity();
 
-        TipoPreguntaEntity tp = daoTipoPregunta.find(preguntaCatSubcatDto.getFkPregunta().getFkTipo().get_id(),
+        TipoPreguntaEntity tp = daoTipoPregunta.find(preguntaCatSubcatDto.getFkPregunta().getFkTipoPregunta().get_id(),
                 TipoPreguntaEntity.class);
 
         pregunta.setFkTipoPregunta(tp);
-        pregunta.setStatus(preguntaCatSubcatDto.getFkPregunta().getStatus());
+        pregunta.setStatus(1);
         pregunta.setPregunta(preguntaCatSubcatDto.getFkPregunta().getPregunta());
         daoPregunta.insert(pregunta);
 
@@ -84,7 +153,7 @@ public class QuestionService {
 
         /* Selection */
         if (pregunta.getFkTipoPregunta().get_id() == 2 || pregunta.getFkTipoPregunta().get_id() == 3){
-            List<OpcionDto> opcionDto = preguntaCatSubcatDto.getListOpciones();
+            List<OpcionDto> opcionDto = preguntaCatSubcatDto.getFkPregunta().getListOpciones();
 
             for (OpcionDto opcion: opcionDto) {
                 OpcionEntity op = new OpcionEntity();
@@ -113,7 +182,7 @@ public class QuestionService {
 
         }
         else if (pregunta.getFkTipoPregunta().get_id() == 5){
-            OpcionDto opcionDto = preguntaCatSubcatDto.getListOpciones().get(0);
+            OpcionDto opcionDto = preguntaCatSubcatDto.getFkPregunta().getListOpciones().get(0);
             OpcionEntity opcion = new OpcionEntity();
             opcion.setRangoInicial(opcionDto.getRangoInicial());
             opcion.setRangoFinal(opcionDto.getRangoFinal());
@@ -145,11 +214,13 @@ public class QuestionService {
         CategoriaEntity categoria = null;
         SubcategoriaEntity subcategoria = null;
 
+        Boolean modified = false;
+
         try {
             pcs = daoPreguntaCategoriaSubcategoria.find(id, PreguntaCatSubcatEntity.class);
             pregunta = daoPregunta.find(preguntaCatSubcatDto.getFkPregunta().get_id(),
                     PreguntaEntity.class);
-            tp = daoTipoPregunta.find(preguntaCatSubcatDto.getFkPregunta().getFkTipo().get_id(),
+            tp = daoTipoPregunta.find(preguntaCatSubcatDto.getFkPregunta().getFkTipoPregunta().get_id(),
                     TipoPreguntaEntity.class);
             categoria = daoCategoria.find(preguntaCatSubcatDto.getFkCategoria().get_id(),
                     CategoriaEntity.class);
@@ -167,14 +238,16 @@ public class QuestionService {
         *           5. Any selection -> Simple text = DELETE ALL OPTIONS
         *           6. V/F -> Anything else or viceversa = DELETE ALL OPTIONS
         * */
-        if (pregunta.getFkTipoPregunta().get_id() != preguntaCatSubcatDto.getFkPregunta().getFkTipo().get_id()){
+        if (pregunta.getFkTipoPregunta().get_id() != preguntaCatSubcatDto.getFkPregunta().getFkTipoPregunta().get_id()){
+            modified = true;
+
             if (pregunta.getFkTipoPregunta().get_id() == 2 &&
-                    preguntaCatSubcatDto.getFkPregunta().getFkTipo().get_id() != 3){
+                    preguntaCatSubcatDto.getFkPregunta().getFkTipoPregunta().get_id() != 3){
                 this.deleteAllOptions(pregunta.get_id());
             }
 
             else if (pregunta.getFkTipoPregunta().get_id() == 3 &&
-                    preguntaCatSubcatDto.getFkPregunta().getFkTipo().get_id() != 2){
+                    preguntaCatSubcatDto.getFkPregunta().getFkTipoPregunta().get_id() != 2){
                 this.deleteAllOptions(pregunta.get_id());
             }
 
@@ -184,7 +257,7 @@ public class QuestionService {
         }
 
         pregunta.setFkTipoPregunta(tp);
-        pregunta.setStatus(preguntaCatSubcatDto.getFkPregunta().getStatus());
+        pregunta.setStatus(1);
         pregunta.setPregunta(preguntaCatSubcatDto.getFkPregunta().getPregunta());
         daoPregunta.update(pregunta);
 
@@ -195,12 +268,12 @@ public class QuestionService {
             try{
                 subcategoria = daoSubcategoria.find(preguntaCatSubcatDto.getFkSubcategoria().get_id(),
                         SubcategoriaEntity.class);
+                pcs.setFkSubcategoria(subcategoria);
             }
             catch (NullPointerException e){
                 return Response.status(Response.Status.NOT_FOUND).build();
             }
 
-            pcs.setFkSubcategoria(subcategoria);
         }
         else {
             pcs.setFkPregunta(null);
@@ -210,22 +283,76 @@ public class QuestionService {
         daoPreguntaCategoriaSubcategoria.update(pcs);
 
         /* Selection */
-        if (pregunta.getFkTipoPregunta().get_id() == 2 || pregunta.getFkTipoPregunta().get_id() == 3 ||
-            pregunta.getFkTipoPregunta().get_id() == 4){
-            List<OpcionDto> opcionDto = preguntaCatSubcatDto.getListOpciones();
+
+        if ((pregunta.getFkTipoPregunta().get_id() == 2 || pregunta.getFkTipoPregunta().get_id() == 3 ||
+            pregunta.getFkTipoPregunta().get_id() == 4)
+                && preguntaCatSubcatDto.getFkPregunta().getListOpciones().size() > 0 && !modified){
+
+            List<OpcionDto> opcionDto = preguntaCatSubcatDto.getFkPregunta().getListOpciones();
 
             for (OpcionDto opcion: opcionDto) {
-                OpcionEntity op = daoOpcion.find(opcion.get_id(), OpcionEntity.class);
-                op.setValor(opcion.getValor());
-                daoOpcion.update(op);
+                if (opcion.get_id() != 0){
+                    OpcionEntity op = daoOpcion.find(opcion.get_id(), OpcionEntity.class);
+                    op.setValor(opcion.getValor());
+                    daoOpcion.update(op);
+                }
+
+                else {
+                    OpcionEntity op = new OpcionEntity();
+                    op.setValor(opcion.getValor());
+                    daoOpcion.insert(op);
+
+                    PosibleRespuestaEntity pr = new PosibleRespuestaEntity();
+                    pr.setFkOpcion(op);
+                    pr.setFkPregunta(pregunta);
+                    daoPosibleRespuesta.insert(pr);
+                }
             }
         }
-        else if (pregunta.getFkTipoPregunta().get_id() == 5){
-            OpcionDto opcionDto = preguntaCatSubcatDto.getListOpciones().get(0);
+        else if ((pregunta.getFkTipoPregunta().get_id() == 2 || pregunta.getFkTipoPregunta().get_id() == 3)
+                && preguntaCatSubcatDto.getFkPregunta().getListOpciones().size() > 0 && modified){
+
+            List<OpcionDto> opcionDto = preguntaCatSubcatDto.getFkPregunta().getListOpciones();
+
+            for (OpcionDto opcion: opcionDto) {
+                if (opcion.get_id() != 0){
+                    OpcionEntity op = new OpcionEntity();
+                    op.setValor(opcion.getValor());
+                    daoOpcion.insert(op);
+
+                    PosibleRespuestaEntity pr = new PosibleRespuestaEntity();
+                    pr.setFkOpcion(op);
+                    pr.setFkPregunta(pregunta);
+                    daoPosibleRespuesta.insert(pr);
+                }
+            }
+        }
+        else if (pregunta.getFkTipoPregunta().get_id() == 4 && modified){
+            List<OpcionEntity> opciones = new ArrayList<>();
+            opciones.add(new OpcionEntity("Verdadero"));
+            opciones.add(new OpcionEntity("Falso"));
+
+            for (OpcionEntity opcion: opciones) {
+                daoOpcion.insert(opcion);
+                PosibleRespuestaEntity pr = new PosibleRespuestaEntity();
+                pr.setFkOpcion(opcion);
+                pr.setFkPregunta(pregunta);
+                daoPosibleRespuesta.insert(pr);
+            }
+        }
+        else if (pregunta.getFkTipoPregunta().get_id() == 5 && !modified){
+            OpcionDto opcionDto = preguntaCatSubcatDto.getFkPregunta().getListOpciones().get(0);
             OpcionEntity opcion = daoOpcion.find(opcionDto.get_id(), OpcionEntity.class);
             opcion.setRangoInicial(opcionDto.getRangoInicial());
             opcion.setRangoFinal(opcionDto.getRangoFinal());
             daoOpcion.update(opcion);
+        }
+        else if (pregunta.getFkTipoPregunta().get_id() == 5 && modified){
+            OpcionDto opcionDto = preguntaCatSubcatDto.getFkPregunta().getListOpciones().get(0);
+            OpcionEntity opcion = new OpcionEntity();
+            opcion.setRangoInicial(opcionDto.getRangoInicial());
+            opcion.setRangoFinal(opcionDto.getRangoFinal());
+            daoOpcion.insert(opcion);
         }
 
         return Response.ok().entity(pcs).build();
