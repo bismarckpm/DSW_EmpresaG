@@ -7,6 +7,7 @@ import { serverURL } from '../constants/serverURL';
 import { map, catchError } from 'rxjs/operators';
 import { ProcessHttpMessageService } from '../services/process-http-message.service';
 import { StudyWithFilter } from '../classes/study_with_filter';
+import { QuestionCategorySubcategory } from '../classes/question_category_subcategory';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,16 @@ export class StudiesService {
 
   getStudies(): Observable<StudyWithFilter[]> {
     return this.http.get<StudyWithFilter[]>(serverURL + 'studies/existing')
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
+  getStudy(study_id): Observable<StudyWithFilter>{
+    return this.http.get<StudyWithFilter>(serverURL + 'studies/filters/' + study_id)
+    .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
+  getStudyQuestions(study_id): Observable<QuestionCategorySubcategory[]>{
+    return this.http.get<QuestionCategorySubcategory[]>(serverURL + 'studies/questions/' + study_id)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
@@ -35,13 +46,6 @@ export class StudiesService {
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  getStudy(sid): Observable<Study>{
-    return this.http.get<Study>(baseURL + 'studies', {params: {
-      id: sid
-    }})
-    .pipe(map(study => study[0]))
-    .pipe(catchError(this.processHTTPMessageService.handleError))
-  }
 
   putStudy(study): Observable<Study>{
     const httpOptions = {

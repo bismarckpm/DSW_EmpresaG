@@ -99,12 +99,12 @@
                             </td>
 
                             <td class="p-text-center">
-                                <button type="button" routerLink="../view" [queryParams]="{sid:estudio.fkEstudio._id}" pButton
+                                <button type="button" routerLink="../view" [queryParams]="{studyId:estudio.fkEstudio._id}" pButton
                                     pRipple icon="pi pi-eye" class="p-button-rounded p-mr-2" pTooltip="Vista previa"
                                     tooltipPosition="bottom"></button>
-                                <button *ngIf="estudio.id_estado != 3" type="button" pButton pRipple icon="pi pi-pencil"
+                                <button *ngIf="estudio.fkEstudio.estado != 2" type="button" pButton pRipple icon="pi pi-pencil"
                                     class="p-button-rounded p-mr-2" pTooltip="Editar estudio" routerLink="../edit"
-                                    [queryParams]="{sid:estudio.fkEstudio._id}" tooltipPosition="bottom"></button>
+                                    [queryParams]="{studyId:estudio.fkEstudio._id}" tooltipPosition="bottom"></button>
                             </td>
                         </tr>
                     </ng-template>

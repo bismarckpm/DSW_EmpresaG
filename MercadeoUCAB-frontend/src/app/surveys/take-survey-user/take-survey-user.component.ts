@@ -80,7 +80,7 @@ export class TakeSurveyUserComponent implements OnInit {
 
         this.studiesService.getStudy(this.current_study).subscribe((study) => {
           this.loading = false;
-          this.estudio = study;
+          //this.estudio = study;
           this.spinner.hide();
           this.createForm();
         }, errorMessage => {

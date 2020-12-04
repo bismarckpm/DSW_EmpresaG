@@ -1,5 +1,3 @@
-import { Academic } from '../constants/academics';
-import { SocialStatus } from '../constants/social_status';
 import { AcademicLevel } from './academic_level';
 import { Category } from './category';
 import { CivilStatus } from './civil_status';

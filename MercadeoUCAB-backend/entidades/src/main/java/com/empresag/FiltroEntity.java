@@ -103,18 +103,6 @@ public class FiltroEntity extends BaseEntity{
     }
 
     @ManyToOne
-    @JoinColumn(name = "fk_grupo_familiar")
-    private GrupoFamiliarEntity fkGrupoFamiliar;
-
-    public GrupoFamiliarEntity getFkGrupoFamiliar() {
-        return fkGrupoFamiliar;
-    }
-
-    public void setFkGrupoFamiliar(GrupoFamiliarEntity fkGrupoFamiliar) {
-        this.fkGrupoFamiliar = fkGrupoFamiliar;
-    }
-
-    @ManyToOne
     @JoinColumn(name = "fk_lugar")
     private LugarEntity fkLugar;
 

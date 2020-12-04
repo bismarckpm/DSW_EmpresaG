@@ -575,3 +575,7 @@ INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, eda
 INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_grupo_familiar, fk_lugar, fk_categoria, fk_subcategoria) VALUES (4, 4, 2, 14, 28, 3, null, null, null, null, 3, 5, 6);
 INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_grupo_familiar, fk_lugar, fk_categoria, fk_subcategoria) VALUES (5, 5, null, null, null, 3, null, 1, null, null, null, 4, 4);
 INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_grupo_familiar, fk_lugar, fk_categoria, fk_subcategoria) VALUES (6, 6, 1, 1, 100, 3, 1, 2, 1, null, 1, 5, 6);
+
+INSERT INTO empresag.pregunta_estudio (id, requerido, fk_estudio, fk_pregunta) VALUES (1, 1, 1, 1);
+INSERT INTO empresag.pregunta_estudio (id, requerido, fk_estudio, fk_pregunta) VALUES (2, 1, 1, 13);
+INSERT INTO empresag.pregunta_estudio (id, requerido, fk_estudio, fk_pregunta) VALUES (1, 1, 1, 21);

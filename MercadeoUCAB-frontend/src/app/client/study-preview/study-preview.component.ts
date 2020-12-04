@@ -38,7 +38,7 @@ export class StudyPreviewComponent implements OnInit {
           this.router.navigate(['404']);
         }
 
-        this.estudio = study;
+        //this.estudio = study;
 
         this.spinner.hide();
         this.loading = false;
