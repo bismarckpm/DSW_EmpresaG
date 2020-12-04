@@ -1,6 +1,11 @@
+import { SocioEconomicStatus } from './socioeconomic_status';
+
 export class Place {
     _id?: number;
     nombre?: string;
+    tipo?: number;
+    fkNivelSocioeconomico?: SocioEconomicStatus;
+    fkLugar?: Place;
     label: string;
     value: number;
 }
