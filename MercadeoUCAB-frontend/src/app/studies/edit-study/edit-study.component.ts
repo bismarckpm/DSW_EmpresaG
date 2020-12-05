@@ -26,6 +26,7 @@ import { Table } from 'primeng/table';
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RxwebValidators } from '@rxweb/reactive-form-validators'
+import { CivilStatus } from 'src/app/classes/civil_status';
 
 @Component({
   selector: 'app-edit-study',
@@ -119,7 +120,6 @@ export class EditStudyComponent implements OnInit {
 
 
       this.studiesService.getStudy(this.current_study).subscribe((study) => {
-        console.log(study)
         this.estudio = study;
         // IF STUDY EXISTS
         if (this.estudio) {
@@ -156,7 +156,6 @@ export class EditStudyComponent implements OnInit {
 
           this.studiesService.getStudyQuestions(this.current_study).subscribe((questions) => {
             this.preguntas = questions
-            console.log(questions)
 
             /* If study is finished it cannot be modified */
             if (this.estudio.fkEstudio.estado == 2) {
@@ -424,6 +423,11 @@ export class EditStudyComponent implements OnInit {
       this.estudio.fkNivelSocioeconomico._id = this.studyForm.value.nivel_socioeconomico
     }
 
+    if (this.studyForm.value.estado_civil) {
+      this.estudio.fkEdoCivil = new CivilStatus();
+      this.estudio.fkEdoCivil._id = this.studyForm.value.estado_civil
+    }
+
     if (this.studyForm.value.genero) {
       this.estudio.fkGenero = new Gender();
       this.estudio.fkGenero._id = this.studyForm.value.genero
@@ -452,7 +456,7 @@ export class EditStudyComponent implements OnInit {
 
     console.log(this.estudio)
     if (this.studyForm.valid) {
-      //this.putStudy();
+      this.putStudy();
     }
 
     else {

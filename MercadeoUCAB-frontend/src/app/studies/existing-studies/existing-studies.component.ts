@@ -28,7 +28,6 @@ export class ExistingStudiesComponent implements OnInit {
     this.loading = true;
     this.studiesService.getStudies().subscribe((studies) => {
       this.estudios = studies;
-      console.log(studies);
     }, errorMessage => {
       this.loading = false;
       this.estudiosErrorMessage = errorMessage;

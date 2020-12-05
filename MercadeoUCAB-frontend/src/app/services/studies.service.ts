@@ -32,6 +32,17 @@ export class StudiesService {
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
+  putStudy(study): Observable<StudyWithFilter>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+    };
+
+    return this.http.put<StudyWithFilter>(serverURL + 'studies/update/' + study._id, study, httpOptions)
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
   getInProgressStudies(): Observable<Study[]> {
     return this.http.get<Study[]>(baseURL + 'studies', {params: {
       id_estado: "2"
@@ -43,18 +54,6 @@ export class StudiesService {
     return this.http.get<Study[]>(baseURL + 'studies', {params: {
       id_estado: "3"
     }})
-      .pipe(catchError(this.processHTTPMessageService.handleError))
-  }
-
-
-  putStudy(study): Observable<Study>{
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      }),
-    };
-
-    return this.http.put<Study>(baseURL + 'studies/' + study.id, study, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 

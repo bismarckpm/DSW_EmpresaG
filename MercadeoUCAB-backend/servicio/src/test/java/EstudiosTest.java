@@ -1,4 +1,5 @@
 import com.empresag.*;
+import org.junit.Assert;
 import org.junit.Test;
 
 import javax.persistence.EntityManager;
@@ -72,14 +73,21 @@ public class EstudiosTest {
         DaoCategoria daoCategoria = new DaoCategoria();
         DaoSubcategoria daoSubcategoria = new DaoSubcategoria();
         DaoEdoCivil daoEdoCivil = new DaoEdoCivil();
+        DaoNivelAcademico daoNivelAcademico = new DaoNivelAcademico();
+        DaoNivelSocioeconomico daoNivelSocioeconomico = new DaoNivelSocioeconomico();
+        DaoGenero daoGenero = new DaoGenero();
+        DaoLugar daoLugar = new DaoLugar();
 
-
-        FiltroEntity filtro = new FiltroEntity();
+        FiltroEntity filtro = daoFiltro.find(1L, FiltroEntity.class);
         CategoriaEntity categoria = daoCategoria.find(2L, CategoriaEntity.class);
         SubcategoriaEntity subcategoria = daoSubcategoria.find(2L, SubcategoriaEntity.class);
         EstudioEntity estudio = daoEstudio.find(1L, EstudioEntity.class);
         EdoCivilEntity estadoCivil = daoEdoCivil.find(1L, EdoCivilEntity.class);
-
+        GeneroEntity genero = daoGenero.find(1L, GeneroEntity.class);
+        NivelAcademicoEntity nivelAcademico = daoNivelAcademico.find(1L, NivelAcademicoEntity.class);
+        NivelSocioeconomicoEntity nivelSocioeconomico =
+                daoNivelSocioeconomico.find(1L, NivelSocioeconomicoEntity.class);
+        LugarEntity lugar = daoLugar.find(2L, LugarEntity.class);
 
         filtro.setFkEstudio(estudio);
         filtro.setEdadMinima(66);
@@ -87,9 +95,13 @@ public class EstudiosTest {
         filtro.setFkCategoria(categoria);
         filtro.setFkSubcategoria(subcategoria);
         filtro.setFkEdoCivil(estadoCivil);
-        //filtro.setFkGenero();
-        //filtro.setFkNivelAcademico();
-        //filtro.setFkNivelSocioeconomico();
-        //filtro.setFkLugar();
+        filtro.setFkGenero(genero);
+        filtro.setFkNivelAcademico(nivelAcademico);
+        filtro.setFkNivelSocioeconomico(nivelSocioeconomico);
+        filtro.setTipoFiltroLugar(2);
+        filtro.setFkLugar(lugar);
+        daoFiltro.update(filtro);
+
+        Assert.assertNotEquals(0, filtro.get_id());
     }
 }
