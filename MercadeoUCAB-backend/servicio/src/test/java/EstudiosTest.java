@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 public class EstudiosTest {
@@ -103,5 +104,25 @@ public class EstudiosTest {
         daoFiltro.update(filtro);
 
         Assert.assertNotEquals(0, filtro.get_id());
+    }
+
+    @Test
+    public void linkCreatedQuestion(){
+        DaoPreguntaEstudio daoPreguntaEstudio = new DaoPreguntaEstudio();
+        DaoPreguntaCategoriaSubcategoria daoPreguntaCategoriaSubcategoria = new DaoPreguntaCategoriaSubcategoria();
+        DaoEstudio daoEstudio = new DaoEstudio();
+
+        PreguntaCatSubcatEntity pcs = null;
+        EstudioEntity estudio = null;
+
+        pcs = daoPreguntaCategoriaSubcategoria.find(35L, PreguntaCatSubcatEntity.class);
+        estudio = daoEstudio.find(1L, EstudioEntity.class);
+
+        PreguntaEstudioEntity pe = new PreguntaEstudioEntity();
+        pe.setFkEstudio(estudio);
+        pe.setFkPregunta(pcs.getFkPregunta());
+        daoPreguntaEstudio.insert(pe);
+
+        Assert.assertNotEquals(0, pe.get_id());
     }
 }

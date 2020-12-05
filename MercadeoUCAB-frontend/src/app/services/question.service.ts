@@ -21,9 +21,7 @@ export class QuestionService {
   }
 
   getQuestionsByCategory(category_id): Observable<QuestionCategorySubcategory[]>{
-    return this.http.get<QuestionCategorySubcategory[]>(serverURL + 'questions', {params: {
-      id_categoria: category_id
-    }})
+    return this.http.get<QuestionCategorySubcategory[]>(serverURL + 'questions/all-by-category/' + category_id)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
@@ -40,6 +38,16 @@ export class QuestionService {
     };
 
     return this.http.post<QuestionCategorySubcategory>(serverURL + 'questions/add', question, httpOptions)
+  }
+
+  cloneQuestion(question): Observable<QuestionCategorySubcategory>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    return this.http.post<QuestionCategorySubcategory>(serverURL + 'questions/clone/' + question._id , question, httpOptions)
   }
 
   putQuestion(question): Observable<QuestionCategorySubcategory>{

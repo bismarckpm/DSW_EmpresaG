@@ -396,16 +396,31 @@ export class EditStudyComponent implements OnInit {
     })
   }
 
+  linkPoolQuestion(question) {
+    this.display_modify_study_features = false;
+    this.sent_form = false;
+    this.display_pool = false;
+    this.display_new = false;
+  }
+
+  linkCreatedQuestion(question) {
+    this.studiesService.linkCreatedQuestionToStudy(this.estudio.fkEstudio._id, question.fkPregunta._id).subscribe((question) => {
+      this.display_modify_study_features = false;
+      this.sent_form = false;
+      this.display_pool = false;
+      this.display_new = false;
+      this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Pregunta añadida con éxito' });
+    })
+  }
+
   getSelectedQuestion(question) {
-    /*if (!this.estudio.preguntas) {
-      this.estudio.preguntas = [];
-      this.estudio.preguntas.push(question);
+    if (!this.preguntas) {
+      this.preguntas = [];
+      this.preguntas.push(question);
     }
 
     else
-      this.estudio.preguntas.push(question);
-
-    this.putStudy();*/
+      this.preguntas.push(question);
   }
 
   onSubmit() {

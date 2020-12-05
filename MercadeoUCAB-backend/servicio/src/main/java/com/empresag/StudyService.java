@@ -42,6 +42,37 @@ public class StudyService {
         }
     }
 
+    @POST
+    @Path("/questions/{studyId}/link/{questionId}")
+    public Response linkCreatedQuestionToStudy(@PathParam("studyId") long studyId,
+                                               @PathParam("questionId") long questionId){
+        DaoPreguntaEstudio daoPreguntaEstudio = new DaoPreguntaEstudio();
+        DaoPreguntaCategoriaSubcategoria daoPreguntaCategoriaSubcategoria = new DaoPreguntaCategoriaSubcategoria();
+        DaoEstudio daoEstudio = new DaoEstudio();
+
+        PreguntaCatSubcatEntity pcs = null;
+        EstudioEntity estudio = null;
+
+        try {
+            pcs = daoPreguntaCategoriaSubcategoria.find(questionId,
+                    PreguntaCatSubcatEntity.class);
+
+            estudio = daoEstudio.find(studyId, EstudioEntity.class);
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        PreguntaEstudioEntity pe = new PreguntaEstudioEntity();
+        pe.setFkEstudio(estudio);
+        pe.setFkPregunta(pcs.getFkPregunta());
+        pe.setRequerido(1);
+        daoPreguntaEstudio.insert(pe);
+
+        return Response.ok().entity(pe).build();
+    }
+
     @PUT
     @Path("/update/{id}")
     public Response updateStudyFilters(@PathParam("id") long id, FiltroDto filtroDto){
