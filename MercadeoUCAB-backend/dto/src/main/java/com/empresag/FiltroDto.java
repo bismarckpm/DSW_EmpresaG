@@ -9,7 +9,6 @@ public class FiltroDto extends BaseDto {
     private EdoCivilDto fkEdoCivil;
     private NivelAcademicoDto fkNivelAcademico;
     private GeneroDto fkGenero;
-    private GrupoFamiliarDto fkGrupoFamiliar;
     private LugarDto fkLugar;
     private CategoriaDto fkCategoria;
     private SubcategoriaDto fkSubcategoria;
@@ -76,14 +75,6 @@ public class FiltroDto extends BaseDto {
 
     public void setFkGenero(GeneroDto fkGenero) {
         this.fkGenero = fkGenero;
-    }
-
-    public GrupoFamiliarDto getFkGrupoFamiliar() {
-        return fkGrupoFamiliar;
-    }
-
-    public void setFkGrupoFamiliar(GrupoFamiliarDto fkGrupoFamiliar) {
-        this.fkGrupoFamiliar = fkGrupoFamiliar;
     }
 
     public LugarDto getFkLugar() {

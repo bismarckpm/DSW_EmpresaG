@@ -1,21 +1,54 @@
 package com.empresag;
 
+import javax.json.bind.annotation.JsonbDateFormat;
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.Objects;
 
 @Entity
 @Table(name = "persona", schema = "empresag", catalog = "")
 public class PersonaEntity extends BaseEntity{
+    @Basic
+    @Column(name = "documento_identidad")
     private String documentoIdentidad;
+    @Basic
+    @Column(name = "primer_nombre")
     private String primerNombre;
+    @Basic
+    @Column(name = "segundo_nombre")
     private String segundoNombre;
+    @Basic
+    @Column(name = "primer_apellido")
     private String primerApellido;
+    @Basic
+    @Column(name = "segundo_apellido")
     private String segundoApellido;
+    @Basic
+    @Column(name = "fecha_nacimiento")
+    @JsonbDateFormat(value = "dd/MM/yyyy")
     private Date fechaNacimiento;
+    @ManyToOne
+    @JoinColumn(name = "fk_genero")
     private GeneroEntity fkGenero;
+    @ManyToOne
+    @JoinColumn(name = "fk_edo_civil")
     private EdoCivilEntity fkEdoCivil;
+    @ManyToOne
+    @JoinColumn(name = "fk_persona")
     private PersonaEntity fkPersona;
+
+    @Basic
+    @Column(name = "numero_personas_encasa")
+    private int numero_personas_encasa;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_lugar")
+    private LugarEntity fkLugar;
+
+
+    public PersonaEntity() {
+
+    }
+
 
     @Basic
     @Column(name = "documento_identidad")
@@ -106,5 +139,26 @@ public class PersonaEntity extends BaseEntity{
     public void setFkPersona(PersonaEntity fkPersona) {
         this.fkPersona = fkPersona;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "fk_lugar")
+    public LugarEntity getFkLugar() {
+        return fkLugar;
+    }
+
+    public void setFkLugar(LugarEntity fkLugar) {
+        this.fkLugar = fkLugar;
+    }
+
+    @Basic
+    @Column(name = "numero_personas_encasa")
+    public int getNumero_personas_encasa() {
+        return numero_personas_encasa;
+    }
+
+    public void setNumero_personas_encasa(int numero_personas_encasa) {
+        this.numero_personas_encasa = numero_personas_encasa;
+    }
+
 
 }

@@ -2,12 +2,16 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MessageService, SelectItem } from 'primeng/api';
 import { GENDERS } from '../../constants/gender';
 import { CIVIL_STATUSES } from '../../constants/civil_status';
+import {replaceKeyWithValue} from '../../functions/common_functions';
 import { Router } from '@angular/router'
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisterService } from '../../services/register.service';
 import { RxwebValidators } from '@rxweb/reactive-form-validators'
+import { GeneroService } from '../../services/genero.service';
+import { EdocivilService } from '../../services/edocivil.service';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-account',
@@ -67,9 +71,17 @@ export class AccountComponent implements OnInit {
   constructor(private router: Router,
     private fb: FormBuilder,
     private registerService: RegisterService,
-    private messageService: MessageService) { 
-    this.generos = GENDERS;
-    this.estados_civiles = CIVIL_STATUSES;
+    private messageService: MessageService,
+    private generoService: GeneroService,
+    private edocivilService: EdocivilService) { 
+    // this.generos = GENDERS;
+    this.generoService.getGeneros().subscribe((genres) => {
+      this.generos = replaceKeyWithValue(genres);
+    });
+    // this.estados_civiles = CIVIL_STATUSES;
+    this.edocivilService.getEdosCiviles().subscribe((edosciviles) => {
+      this.estados_civiles = replaceKeyWithValue(edosciviles);
+    });
     this.createForm();
   }
 
@@ -89,13 +101,13 @@ export class AccountComponent implements OnInit {
   createForm(){
     this.accountForm = this.fb.group({
       correo_electronico: [
-        this.registerService.user.correo_electronico,
+        this.registerService.user.email,
         [
           Validators.required,
           Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
         ]
       ],
-      clave: [this.registerService.user.clave,
+      clave: [this.registerService.user.password,
         [
           Validators.required,
           Validators.pattern(/^(?=.*\d)(?=.*[a-zA-Z])(?=.*[\W_]).{8,40}$/)
@@ -108,30 +120,30 @@ export class AccountComponent implements OnInit {
           RxwebValidators.compare({fieldName: 'clave'})
         ]
       ],
-      primer_nombre: [this.registerService.user.primer_nombre,
+      primer_nombre: [this.registerService.user.fkPersona.primerNombre,
       [
         Validators.required,
         Validators.minLength(2),
         Validators.maxLength(50)
       ]],
       primer_apellido: [
-        this.registerService.user.primer_apellido,
+        this.registerService.user.fkPersona.primerApellido,
         [
           Validators.required,
           Validators.minLength(2),
           Validators.maxLength(50)
         ]
       ],
-      documento_de_identificacion: [this.registerService.user.documento_de_identificacion,
+      documento_de_identificacion: [this.registerService.user.fkPersona.documentoIdentidad,
         [
           Validators.required,
           Validators.minLength(8),
           Validators.maxLength(50)
         ]
       ],
-      genero: this.registerService.user.genero,
-      estado_civil: this.registerService.user.estado_civil,
-      fecha_de_nacimiento: this.registerService.user.fecha_de_nacimiento
+      genero: this.registerService.user.fkPersona.fkGenero,
+      estado_civil: this.registerService.user.fkPersona.fkEdoCivil,
+      fecha_de_nacimiento: this.registerService.user.fkPersona.fechaNacimiento
     });
 
     
@@ -172,17 +184,28 @@ export class AccountComponent implements OnInit {
 
 
   onSubmit(){
-    this.registerService.user.correo_electronico = this.accountForm.value.correo_electronico;
-    this.registerService.user.clave = this.accountForm.value.clave;
+    console.log(this.accountForm.value.correo_electronico);
+    console.log(this.accountForm.value.clave);
+    console.log(this.accountForm.value.confirmar_clave);
+    console.log(this.accountForm.value.primer_nombre);
+    console.log(this.accountForm.value.primer_apellido);
+    console.log(this.accountForm.value.documento_de_identificacion);
+    console.log(this.accountForm.value.genero);
+    console.log(this.accountForm.value.estado_civil);
+    console.log(this.accountForm.value.fecha_de_nacimiento);
+    
+    this.registerService.user.email = this.accountForm.value.correo_electronico;
+    this.registerService.user.password = this.accountForm.value.clave;
     this.registerService.user.confirmar_clave = this.accountForm.value.confirmar_clave;
-    this.registerService.user.primer_nombre = this.accountForm.value.primer_nombre;
-    this.registerService.user.primer_apellido = this.accountForm.value.primer_apellido;
-    this.registerService.user.documento_de_identificacion = this.accountForm.value.documento_de_identificacion;
-    this.registerService.user.genero = this.accountForm.value.genero;
-    this.registerService.user.estado_civil = this.accountForm.value.estado_civil;
-    this.registerService.user.fecha_de_nacimiento = this.accountForm.value.fecha_de_nacimiento;
+    this.registerService.user.fkPersona.primerNombre = this.accountForm.value.primer_nombre;
+    this.registerService.user.fkPersona.primerApellido = this.accountForm.value.primer_apellido;
+    this.registerService.user.fkPersona.documentoIdentidad = this.accountForm.value.documento_de_identificacion;
+    this.registerService.user.fkPersona.fkGenero._id = this.accountForm.value.genero;
+    this.registerService.user.fkPersona.fkEdoCivil._id = this.accountForm.value.estado_civil;
+    this.registerService.user.fkPersona.fechaNacimiento = this.accountForm.value.fecha_de_nacimiento;
 
     if (this.accountForm.valid){
+      console.log('epa, pasaste');
       this.nextPage();
     }
     else{

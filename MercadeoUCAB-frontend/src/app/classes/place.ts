@@ -1,6 +1,6 @@
 export class Place {
-    label: string;
-    value: number;
+    nombre: string;
+    _id: number;
 }
 
 export class State {

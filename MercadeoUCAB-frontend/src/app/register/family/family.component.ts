@@ -7,6 +7,9 @@ import { Child } from '../../classes/child';
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisterService } from '../../services/register.service';
+import { GeneroService } from 'src/app/services/genero.service';
+import { replaceKeyWithValue } from 'src/app/functions/common_functions';
+import { Genero } from 'src/app/classes/genero';
 
 @Component({
   selector: 'app-family',
@@ -18,6 +21,11 @@ export class FamilyComponent implements OnInit {
   generos: SelectItem[];
   hijos: Child[] = [];
   
+  genero_h: Genero = {
+    _id: 0,
+    nombre: '',
+  };
+
   /* Form */
   familyForm: FormGroup;
   @ViewChild('fform') familyFormDirective;
@@ -60,8 +68,12 @@ export class FamilyComponent implements OnInit {
   es: any;
 
 
-  constructor(private router: Router, private registerService: RegisterService, private fb: FormBuilder) { 
-    this.generos = GENDERS;
+  constructor(private router: Router, private registerService: RegisterService,
+    private generoService: GeneroService, private fb: FormBuilder) { 
+    // this.generos = GENDERS;
+    this.generoService.getGeneros().subscribe((genres) => {
+      this.generos = replaceKeyWithValue(genres);
+    });
     this.tieneHijos = [
     {
       label: 'Si',
@@ -76,8 +88,8 @@ export class FamilyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.registerService.user.hijos)
-      this.hijos = this.registerService.user.hijos;
+    if (this.registerService.user.fkPersona.hijos)
+      this.hijos = this.registerService.user.fkPersona.hijos;
 
     this.es = {
         firstDayOfWeek: 1,
@@ -94,13 +106,13 @@ export class FamilyComponent implements OnInit {
   createForm(){
     this.familyForm = this.fb.group({
       personas_hogar: [
-        this.registerService.user.personas_hogar,
+        this.registerService.user.fkPersona.numero_personas_encasa,
         [
           Validators.min(1),
           Validators.pattern('^[0-9]*$')
         ]
       ],
-      tiene_hijos: this.registerService.user.tiene_hijos,
+      tiene_hijos: this.registerService.user.fkPersona.tiene_hijos,
       nombre_hijo: ['',
         [
           Validators.required,
@@ -182,13 +194,18 @@ export class FamilyComponent implements OnInit {
 
   validateAddKidForm(){
     if (this.familyForm.valid){
+      this.genero_h._id = this.familyForm.value.genero_hijo;
       this.hijos.push({
-        primer_nombre: this.familyForm.value.nombre_hijo,
-        primer_apellido: this.familyForm.value.apellido_hijo,
-        genero: this.familyForm.value.genero_hijo,
-        fecha_de_nacimiento: this.familyForm.value.fecha_de_nacimiento_hijo
+        primerNombre: this.familyForm.value.nombre_hijo,
+        primerApellido: this.familyForm.value.apellido_hijo,
+        fkGenero: this.genero_h,
+        fechaNacimiento: this.familyForm.value.fecha_de_nacimiento_hijo
     });
-    this.hideAddKidForm();
+      this.genero_h = {
+        _id: 0,
+        nombre: '',
+      };
+      this.hideAddKidForm();
     }
   }
 
@@ -199,9 +216,9 @@ export class FamilyComponent implements OnInit {
   }
 
   onSubmit(){
-    this.registerService.user.personas_hogar = this.familyForm.value.personas_hogar;
-    this.registerService.user.tiene_hijos = this.familyForm.value.tiene_hijos;
-    this.registerService.user.hijos = this.hijos;
+    this.registerService.user.fkPersona.numero_personas_encasa = this.familyForm.value.personas_hogar;
+    this.registerService.user.fkPersona.tiene_hijos = this.familyForm.value.tiene_hijos;
+    this.registerService.user.fkPersona.hijos = this.hijos;
 
     if (this.formErrors.personas_hogar == ''){
       this.nextPage();
