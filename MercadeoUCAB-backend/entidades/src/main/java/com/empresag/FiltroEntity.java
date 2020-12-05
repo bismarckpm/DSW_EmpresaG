@@ -6,6 +6,18 @@ import java.util.Objects;
 @Entity
 @Table(name = "filtro", schema = "empresag")
 public class FiltroEntity extends BaseEntity{
+    private EstudioEntity fkEstudio;
+    private Integer tipoFiltroLugar;
+    private Integer edadMinima;
+    private Integer edadMaxima;
+    private NivelSocioeconomicoEntity fkNivelSocioeconomico;
+    private EdoCivilEntity fkEdoCivil;
+    private NivelAcademicoEntity fkNivelAcademico;
+    private GeneroEntity fkGenero;
+    private LugarEntity fkLugar;
+    private CategoriaEntity fkCategoria;
+    private SubcategoriaEntity fkSubcategoria;
+
     @ManyToOne
     @JoinColumn(name = "fk_estudio")
     private EstudioEntity fkEstudio;

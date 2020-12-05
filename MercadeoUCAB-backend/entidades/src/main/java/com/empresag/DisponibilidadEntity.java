@@ -8,7 +8,11 @@ import java.util.Objects;
 @Table(name = "disponibilidad", schema = "empresag", catalog = "")
 public class DisponibilidadEntity extends BaseEntity{
 
+    @Basic
+    @Column(name = "hora_inicial")
     private Time horaInicial;
+    @Basic
+    @Column(name = "hora_final")
     private Time horaFinal;
 
 

@@ -12,7 +12,6 @@
         <class>com.empresag.EstudioEntity</class>
         <class>com.empresag.FiltroEntity</class>
         <class>com.empresag.GeneroEntity</class>
-        <class>com.empresag.GrupoFamiliarEntity</class>
         <class>com.empresag.LugarEntity</class>
         <class>com.empresag.MarcaEntity</class>
         <class>com.empresag.MarcaTipoEntity</class>
@@ -23,7 +22,6 @@
         <class>com.empresag.PersonaDisponibilidadEntity</class>
         <class>com.empresag.PersonaDispositivoEntity</class>
         <class>com.empresag.PersonaEntity</class>
-        <class>com.empresag.PersonaGrupofamiliarEntity</class>
         <class>com.empresag.PersonaNvlacademicoEntity</class>
         <class>com.empresag.PersonaOcupacionEntity</class>
         <class>com.empresag.PosibleRespuestaEntity</class>
@@ -48,7 +46,7 @@
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/empresag"/>
             <property name="javax.persistence.jdbc.user" value="root"/>
-            <property name="javax.persistence.jdbc.password" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="12345678"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <property name="eclipselink.logging.level" value="FINE"/>
         </properties>

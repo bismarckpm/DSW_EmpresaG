@@ -7,6 +7,8 @@ import java.util.Objects;
 @Table(name = "telefono", schema = "empresag", catalog = "")
 public class TelefonoEntity extends BaseEntity{
     private String numero;
+    @ManyToOne
+    @JoinColumn(name = "fk_persona")
     private PersonaEntity fkPersona;
 
     @Basic

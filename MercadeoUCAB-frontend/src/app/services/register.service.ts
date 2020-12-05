@@ -1,22 +1,91 @@
 import { Injectable } from '@angular/core';
 import { Person } from '../classes/person';
+import { persondata } from '../classes/persondata';
 import { Child } from '../classes/child';
-import { Observable } from 'rxjs';
+import { serverURL } from '../constants/serverURL';
+import { from, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { baseURL } from '../constants/baseURL';
 import { map, catchError } from 'rxjs/operators';
 import { ProcessHttpMessageService } from '../services/process-http-message.service';
+import { EdoCivil } from '../classes/edocivil';
+import { NumberValueAccessor } from '@angular/forms';
+import { Genero } from '../classes/genero';
+import { Place } from '../classes/place';
+import { telefono } from '../classes/telefono';
+import { Disponibilidad } from '../classes/disponibilidad';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegisterService {
   hijos: Child[] = null;
+  edocivil: EdoCivil = {
+    _id: 0,
+    nombre: '',
+  };
+  genero: Genero = {
+    _id: 0,
+    nombre: '',
+  };
+
+  pais: Place = {
+    _id: 0,
+    nombre: '',
+  };
+  estado: Place = {
+    _id: 0,
+    nombre: '',
+  };
+  ciudad: Place = {
+    _id: 0,
+    nombre: '',
+  };
+  parroquia: Place = {
+    _id: 0,
+    nombre: '',
+  };
+  lugar: Place = {
+    _id: 0,
+    nombre: '',
+  };
+
+  telefono: telefono = {
+    numero: 0,
+  };
+
+  
+
+  horario_ini: Disponibilidad = {
+    _id: 0,
+    horaInicial: null,
+    horaFinal: null,
+  };
+  horario_fin: Disponibilidad = {
+    _id: 0,
+    horaInicial: null,
+    horaFinal: null,
+  };
+
+  personaData: persondata = {
+    hijos: this.hijos,
+    fkEdoCivil: this.edocivil,
+    fkGenero: this.genero,
+    id_pais: this.pais,
+    id_estado: this.estado,
+    id_ciudad: this.ciudad,
+    id_parroquia: this.parroquia,
+    fkLugar: this.lugar,
+    codigo_pais: 0,
+    telefono: this.telefono,
+    id_horario_inicial: this.horario_ini,
+    id_horario_final: this.horario_fin
+  };
 
   user: Person = {
-    correo_electronico: '',
-    clave: '',
-    hijos: this.hijos
+    email: '',
+    password: '',
+    fkPersona: this.personaData
   };
 
   constructor(private http: HttpClient,
@@ -30,7 +99,8 @@ export class RegisterService {
       })
     };
 
-    return this.http.post<Person>(baseURL + 'register', this.user, httpOptions)
+    // return this.http.post<Person>(baseURL + 'register', this.user, httpOptions)
+    return this.http.post<Person>(serverURL + 'sesion/register', this.user, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 }

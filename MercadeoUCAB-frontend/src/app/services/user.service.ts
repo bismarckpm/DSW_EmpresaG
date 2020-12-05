@@ -9,6 +9,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { baseURL } from '../constants/baseURL';
 import { map, catchError } from 'rxjs/operators';
 import { ProcessHttpMessageService } from '../services/process-http-message.service';
+import { persondata } from '../classes/persondata';
+import { Genero } from '../classes/genero';
+import { EdoCivil } from '../classes/edocivil';
+import { Place } from '../classes/place';
+import { telefono } from '../classes/telefono';
+import { Disponibilidad } from '../classes/disponibilidad';
 
 @Injectable({
   providedIn: 'root'
@@ -19,29 +25,80 @@ export class UserService {
 
   device: Device[] = null;
 
+  // genero: Genero = null;
+  // edoCivil: EdoCivil = null;
 
-  persona: Person = {
-    correo_electronico: '',
-    clave: '',
-    primer_nombre: '',
-    primer_apellido: '',
-    documento_de_identificacion: '',
-    genero: '',
-    estado_civil: '',
-    fecha_de_nacimiento: '',
-    id_pais: 0,
-    id_ciudad: 0,
-    id_parroquia: 0,
-    id_estado: 0,
-    telefono: 0,
+  // pais: Place = null;
+  // ciudad: Place = null;
+  // estado: Place = null;
+  // Parroquia: Place = null;
+  edoCivil: EdoCivil = {
+    nombre: '',
+    _id: 0,
+  };
+  genero: Genero = {
+    nombre: '',
+    _id: 0,
+  };
+
+  pais: Place = {
+    nombre: '',
+    _id: 0,
+  };
+  estado: Place = {
+    nombre: '',
+    _id: 0,
+  };
+  ciudad: Place = {
+    nombre: '',
+    _id: 0,
+  };
+  Parroquia: Place = {
+    nombre: '',
+    _id: 0,
+  };
+
+  Telefono: telefono = {
+    numero: 0,
+  }
+
+  horario_ini: Disponibilidad = {
+    _id: 0,
+    horaInicial: null,
+    horaFinal: null,
+  };
+  horario_fin: Disponibilidad = {
+    _id: 0,
+    horaInicial: null,
+    horaFinal: null,
+  };
+
+  personadata: persondata = {
+    primerNombre: '',
+    primerApellido: '',
+    documentoIdentidad: '',
+    fkGenero: this.genero,
+    fkEdoCivil: this.edoCivil,
+    fechaNacimiento: '',
+    id_pais: this.pais,
+    id_ciudad: this.ciudad,
+    id_parroquia: this.Parroquia,
+    id_estado: this.estado,
+    telefono: this.Telefono,
     ocupacion: '',
-    personas_hogar: 0,
+    numero_personas_encasa: 0,
     hijos: this.hijos,
     id_nivel_academico: 0,
     id_nivel_socioeconomico: 0,
     dispositivos: this.device,
-    id_horario_inicial: 0,
-    id_horario_final: 0
+    id_horario_inicial: this.horario_ini,
+    id_horario_final: this.horario_fin
+  }
+
+  persona: Person = {
+    email: '',
+    password: '',
+    fkPersona: this.personadata
   };
 
   // Me falta ROL
@@ -100,7 +157,7 @@ export class UserService {
   }
 
   deleteUser(user): Observable<Person>{
-    return this.http.delete<Person>(baseURL + 'register/' + user.id)
+    return this.http.delete<Person>(baseURL + 'register/' + user.documento_de_identificacion)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 

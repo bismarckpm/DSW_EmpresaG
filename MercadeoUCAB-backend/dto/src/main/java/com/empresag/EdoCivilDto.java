@@ -18,4 +18,11 @@ public class EdoCivilDto extends BaseDto {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    @Override
+    public String toString() {
+        return "EdoCivilDto{" +
+                "nombre='" + nombre + '\'' +
+                '}';
+    }
 }

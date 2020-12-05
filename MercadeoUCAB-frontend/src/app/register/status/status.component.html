@@ -1,20 +1,25 @@
 <div class="demo-container p-p-0 p-p-sm-4 p-p-md-6 p-p-lg-4">
     <form novalidate [formGroup]="statusForm" (ngSubmit)="onSubmit()">
         <div class="p-grid p-mt-4">
-            <div class="p-col-12 p-md-6 p-mb-5">
+            <!-- <div class="p-col-12 p-md-6 p-mb-5">
                 <span class="p-float-label">
                     <input id="ocupacion" class="p-inputtext-lg fill-width" formControlName="ocupacion" type="text" pInputText>
                     <label for="ocupacion">Ocupación</label>
                 </span>
+            </div> -->
+
+
+            <div class="p-col-12 p-md-6 p-mb-5">
+                <p-dropdown [options]="ocupaciones" placeholder="Ocupación" formControlName="ocupacion" ></p-dropdown>
             </div>
 
             <div class="p-col-12 p-md-6 p-mb-5">
                 <p-dropdown [options]="niveles_academicos" placeholder="Último grado académico obtenido" formControlName="nivel_academico"></p-dropdown>
             </div>
 
-            <div class="p-col-12 p-md-6 p-mb-5">
+            <!-- <div class="p-col-12 p-md-6 p-mb-5">
                 <p-dropdown [options]="niveles_socioeconomicos" placeholder="Nivel socioeconómico" formControlName="nivel_socioeconomico"></p-dropdown>
-            </div>
+            </div> -->
 
             <div class="p-col-12 p-md-6 p-mb-5">
                 <p-multiSelect [options]="dispositivos" formControlName="dispositivos" defaultLabel="Dispositivos que utiliza" emptyFilterMessage="No se encontraron resultados" selectedItemsLabel="{} items seleccionados"></p-multiSelect>

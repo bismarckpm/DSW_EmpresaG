@@ -89,7 +89,7 @@ export class CreateRequestComponent implements OnInit {
     this.spinner.show();
     
     this.placeService.getCountries().subscribe((countries) => {
-      this.paises = countries;
+      this.paises = replaceKeyWithValue(countries);
       this.loading = false;
       this.spinner.hide();
     }, errorMessage => {
@@ -155,7 +155,7 @@ export class CreateRequestComponent implements OnInit {
 
   getStates(country_id) {
     this.placeService.getStates(country_id).subscribe((states) => {
-      this.estados = states;
+      this.estados = replaceKeyWithValue(states);
     }, errorMessage => {
       this.placesErrorMessage = errorMessage;
     })

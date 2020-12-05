@@ -68,87 +68,49 @@
   ],
   "register": [
     {
-      "correo_electronico": "cverde22@gmail.com",
-      "clave": "Caracas1.",
-      "hijos": [],
-      "confirmar_clave": "Caracas1.",
-      "primer_nombre": "Carlos",
-      "primer_apellido": "Verde",
-      "documento_de_identificacion": "A58469874",
-      "genero": 1,
-      "estado_civil": 4,
-      "fecha_de_nacimiento": "03/03/1997",
-      "id_pais": 1,
-      "id_estado": 2,
-      "id_ciudad": 5,
-      "id_parroquia": 9,
-      "codigo_pais": 1,
-      "telefono": "04241458802",
-      "personas_hogar": "2",
-      "tiene_hijos": true,
-      "ocupacion": "Mesonero",
-      "id_nivel_academico": 6,
-      "id_nivel_socioeconomico": 2,
-      "dispositivos": [
-        4,
-        2
-      ],
-      "id_horario_inicial": 6,
-      "id_horario_final": 16,
+      "email": "cverde22@gmail.com",
+      "password": "Caracas1.",
+      "fkPersona":
+      {
+        "hijos": [],
+        "confirmar_clave": "Caracas1.",
+        "primerNombre": "Carlos",
+        "primerApellido": "Verde",
+        "documentoIdentidad": "A58469874",
+        "fkGenero": {
+          "value":2
+        },
+        "fkEdocivil": {
+          "value":3
+        },
+        "fechaNacimiento": "03/03/1997",
+        "id_pais": {
+          "value":1
+        },
+        "id_estado": {
+          "value":2
+        },
+        "id_ciudad": {
+          "value":5
+        },
+        "id_parroquia": {
+          "value":9
+        },
+        "codigo_pais": 1,
+        "telefono": "04241458802",
+        "personas_hogar": "2",
+        "tiene_hijos": true,
+        "ocupacion": "Mesonero",
+        "id_nivel_academico": 6,
+        "id_nivel_socioeconomico": 2,
+        "dispositivos": [
+          4,
+          2
+        ],
+        "id_horario_inicial": 6,
+        "id_horario_final": 16
+      },
       "id": 1
-    },
-    {
-      "correo_electronico": "angel99castillo@gmail.com",
-      "clave": "AngelC99.",
-      "hijos": [],
-      "confirmar_clave": "AngelC99.",
-      "primer_nombre": "Angel",
-      "primer_apellido": "Castillo",
-      "documento_de_identificacion": "27547065",
-      "genero": 1,
-      "estado_civil": 1,
-      "fecha_de_nacimiento": "10/11/1999",
-      "id_pais": null,
-      "id_estado": null,
-      "id_ciudad": null,
-      "id_parroquia": null,
-      "codigo_pais": null,
-      "telefono": null,
-      "personas_hogar": null,
-      "tiene_hijos": null,
-      "ocupacion": null,
-      "id_nivel_academico": null,
-      "id_nivel_socioeconomico": null,
-      "dispositivos": null,
-      "id_horario_inicial": 9,
-      "id_horario_final": 24,
-      "id": 2
-    },
-    {
-      "correo_electronico": "angel99castillo@gmail.com",
-      "clave": "AngelC99.",
-      "primer_nombre": "Angel",
-      "primer_apellido": "Castillo",
-      "documento_de_identificacion": "27547065",
-      "genero": 2,
-      "estado_civil": 1,
-      "fecha_de_nacimiento": "10/11/1999",
-      "id_pais": 1,
-      "id_ciudad": 5,
-      "id_parroquia": 9,
-      "id_estado": 2,
-      "telefono": "01234556",
-      "ocupacion": "NADA",
-      "personas_hogar": "080",
-      "hijos": [],
-      "id_nivel_academico": 6,
-      "id_nivel_socioeconomico": 2,
-      "id_horario_inicial": 9,
-      "id_horario_final": 24,
-      "confirmar_clave": "AngelC99.",
-      "tiene_hijos": false,
-      "codigo_pais": 1,
-      "id": 3
     }
   ],
   "recovery": [

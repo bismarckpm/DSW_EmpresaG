@@ -192,7 +192,7 @@ export class EditStudyComponent implements OnInit {
     }
 
     placeService.getCountries().subscribe((countries) => {
-      this.paises = countries;
+      this.paises = replaceKeyWithValue(countries);
     }, errorMessage => {
       this.placesErrorMessage = errorMessage;
     })
@@ -248,7 +248,7 @@ export class EditStudyComponent implements OnInit {
 
   getStates(country_id) {
     this.placeService.getStates(country_id).subscribe((states) => {
-      this.estados = states;
+      this.estados = replaceKeyWithValue(states);
     }, errorMessage => {
       this.placesErrorMessage = errorMessage;
     })
