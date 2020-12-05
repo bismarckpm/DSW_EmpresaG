@@ -1,5 +1,5 @@
 
 export class Genero {
-    value: number;
-    label: string;
+    nombre: string;
+    _id: number;
 }

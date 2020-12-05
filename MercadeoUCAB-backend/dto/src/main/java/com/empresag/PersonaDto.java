@@ -16,7 +16,14 @@ public class PersonaDto extends BaseDto {
     private EdoCivilDto fkEdoCivil;
     private PersonaDto fkPersona;
     private LugarDto fkLugar;
+    private int numero_personas_encasa;
     private PersonaDto[] hijos;
+    private int[] dispositivos;
+    private String telefono;
+    private DisponibilidadDto id_horario_inicial;
+    private DisponibilidadDto id_horario_final;
+    private long id_nivel_academico;
+    private long ocupacion;
 
     public String getDocumentoIdentidad() {
         return documentoIdentidad;
@@ -98,12 +105,68 @@ public class PersonaDto extends BaseDto {
         this.fkLugar = fkLugar;
     }
 
+    public int getNumero_personas_encasa() {
+        return numero_personas_encasa;
+    }
+
+    public void setNumero_personas_encasa(int numero_personas_encasa) {
+        this.numero_personas_encasa = numero_personas_encasa;
+    }
+
     public PersonaDto[] getHijos() {
         return hijos;
     }
 
     public void setHijos(PersonaDto[] hijos) {
         this.hijos = hijos;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public int[] getDispositivos() {
+        return dispositivos;
+    }
+
+    public void setDispositivos(int[] dispositivos) {
+        this.dispositivos = dispositivos;
+    }
+
+    public DisponibilidadDto getId_horario_inicial() {
+        return id_horario_inicial;
+    }
+
+    public void setId_horario_inicial(DisponibilidadDto id_horario_inicial) {
+        this.id_horario_inicial = id_horario_inicial;
+    }
+
+    public DisponibilidadDto getId_horario_final() {
+        return id_horario_final;
+    }
+
+    public void setId_horario_final(DisponibilidadDto id_horario_final) {
+        this.id_horario_final = id_horario_final;
+    }
+
+    public long getId_nivel_academico() {
+        return id_nivel_academico;
+    }
+
+    public void setId_nivel_academico(long id_nivel_academico) {
+        this.id_nivel_academico = id_nivel_academico;
+    }
+
+    public long getOcupacion() {
+        return ocupacion;
+    }
+
+    public void setOcupacion(long ocupacion) {
+        this.ocupacion = ocupacion;
     }
 
     @Override
@@ -119,7 +182,13 @@ public class PersonaDto extends BaseDto {
                 ", fkEdoCivil=" + fkEdoCivil +
                 ", fkPersona=" + fkPersona +
                 ", fkLugar=" + fkLugar +
+                ", numero_personas_encasa=" + numero_personas_encasa +
                 ", hijos=" + Arrays.toString(hijos) +
+                ", dispositivos=" + Arrays.toString(dispositivos) +
+                ", telefono=" + telefono +
+                ", id_horario_inicial=" + id_horario_inicial +
+                ", id_horario_final=" + id_horario_final +
+                ", id_nivel_academico=" + id_nivel_academico +
                 '}';
     }
 }

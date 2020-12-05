@@ -9,6 +9,12 @@ import { Router } from '@angular/router';
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisterService } from '../../services/register.service';
+import { OcupacionService } from 'src/app/services/ocupacion.service';
+import { replaceDateWithValue, replaceKeyWithValue } from 'src/app/functions/common_functions';
+import { NivelAcademicoService } from 'src/app/services/nivel-academico.service';
+import { DeviceService } from 'src/app/services/device.service';
+import { GENDERS } from 'src/app/constants/gender';
+import { DisponibilidadService } from 'src/app/services/disponibilidad.service';
 
 @Component({
   selector: 'app-status',
@@ -17,8 +23,9 @@ import { RegisterService } from '../../services/register.service';
   providers: [MessageService]
 })
 export class StatusComponent implements OnInit {
+  ocupaciones: SelectItem[];
   niveles_academicos: SelectItem[];
-  niveles_socioeconomicos: SelectItem[];
+  // niveles_socioeconomicos: SelectItem[];
   dispositivos: SelectItem[];
   horario_inicial: SelectItem[];
   horario_final: SelectItem[];
@@ -29,13 +36,33 @@ export class StatusComponent implements OnInit {
   
   constructor(private router: Router, 
     private registerService: RegisterService, 
+    private ocupacionService: OcupacionService,
+    private nivelAcademicoService: NivelAcademicoService,
+    private deviceService: DeviceService,
+    private disponibilidadService: DisponibilidadService,
     private fb: FormBuilder,
     private messageService: MessageService) {
-    this.niveles_academicos = ACADEMICS;
-    this.niveles_socioeconomicos = SOCIAL_STATUSES;
-    this.dispositivos = DEVICES;
-    this.horario_inicial = SCHEDULES;
-    this.horario_final = SCHEDULES;
+
+    this.ocupacionService.getOcupaciones().subscribe((ocupations) => {
+      this.ocupaciones = replaceKeyWithValue(ocupations);
+    });
+    this.nivelAcademicoService.getNivelesAcademicos().subscribe((niveles) => {
+      this.niveles_academicos = replaceKeyWithValue(niveles);
+    });
+    this.deviceService.getDevices().subscribe((devices) => {
+      this.dispositivos = replaceKeyWithValue(devices);
+    });
+    this.disponibilidadService.getDisponibilidades().subscribe((disponibilidades) => {
+      console.log(replaceDateWithValue(disponibilidades));
+      this.horario_inicial = replaceDateWithValue(disponibilidades);
+      this.horario_final = replaceDateWithValue(disponibilidades);
+    });
+    // this.ocupaciones = GENDERS;
+    // this.niveles_academicos = ACADEMICS;
+    // this.niveles_socioeconomicos = SOCIAL_STATUSES;
+    // this.dispositivos = DEVICES;
+    // this.horario_inicial = SCHEDULES;
+    // this.horario_final = SCHEDULES;
     this.createForm();
   }
 
@@ -47,7 +74,7 @@ export class StatusComponent implements OnInit {
     this.statusForm = this.fb.group({
       ocupacion: this.registerService.user.fkPersona.ocupacion,
       nivel_academico: this.registerService.user.fkPersona.id_nivel_academico,
-      nivel_socioeconomico: this.registerService.user.fkPersona.id_nivel_socioeconomico,
+      // nivel_socioeconomico: this.registerService.user.fkPersona.id_nivel_socioeconomico,
       dispositivos: this.registerService.user.fkPersona.dispositivos,
       horario_inicial: this.registerService.user.fkPersona.id_horario_inicial,
       horario_final: this.registerService.user.fkPersona.id_horario_final,
@@ -58,10 +85,10 @@ export class StatusComponent implements OnInit {
     this.sent_form = true;
     this.registerService.user.fkPersona.ocupacion = this.statusForm.value.ocupacion;
     this.registerService.user.fkPersona.id_nivel_academico = this.statusForm.value.nivel_academico;
-    this.registerService.user.fkPersona.id_nivel_socioeconomico = this.statusForm.value.nivel_socioeconomico;
+    // this.registerService.user.fkPersona.id_nivel_socioeconomico = this.statusForm.value.nivel_socioeconomico;
     this.registerService.user.fkPersona.dispositivos = this.statusForm.value.dispositivos;
-    this.registerService.user.fkPersona.id_horario_inicial = this.statusForm.value.horario_inicial;
-    this.registerService.user.fkPersona.id_horario_final = this.statusForm.value.horario_final;
+    this.registerService.user.fkPersona.id_horario_inicial._id = this.statusForm.value.horario_inicial;
+    this.registerService.user.fkPersona.id_horario_final._id = this.statusForm.value.horario_final;
 
     if (this.registerService.user.email && this.registerService.user.password
       && this.registerService.user.confirmar_clave && this.registerService.user.fkPersona.primerNombre
@@ -71,7 +98,9 @@ export class StatusComponent implements OnInit {
       /* SUBMIT FORM */
       this.registerService.postRegister(this.registerService.user)
         .subscribe(person => {
-          console.log("REGISTERED")
+          console.log(person);
+          // console.log("Bien");
+          this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Registro completado satisfactoriamente.'});
         },
         errorMessage => {
           this.sent_form = false;

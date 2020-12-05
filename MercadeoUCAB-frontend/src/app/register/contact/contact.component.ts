@@ -65,13 +65,13 @@ export class ContactComponent implements OnInit {
 
   createForm(){
     this.contactForm = this.fb.group({
-      // pais: this.registerService.user.fkPersona.id_pais,
-      // estado: this.registerService.user.fkPersona.id_estado,
-      // ciudad: this.registerService.user.fkPersona.id_ciudad,
-      // parroquia: this.registerService.user.fkPersona.id_parroquia,
-      codigo_pais: this.registerService.user.fkPersona.codigo_pais,
+      pais: this.registerService.user.fkPersona.id_pais._id,
+      estado: this.registerService.user.fkPersona.id_estado._id,
+      ciudad: this.registerService.user.fkPersona.id_ciudad._id,
+      parroquia: this.registerService.user.fkPersona.id_parroquia._id,
+      // codigo_pais: this.registerService.user.fkPersona.codigo_pais,
       telefono: [
-        this.registerService.user.fkPersona.telefono,
+        this.registerService.user.fkPersona.telefono.numero,
         [
           Validators.pattern('^[0-9]*$')
         ]
@@ -152,16 +152,25 @@ export class ContactComponent implements OnInit {
   }
 
   onSubmit(){
-    // this.registerService.user.fkPersona.id_pais = this.contactForm.value.pais;
-    // this.registerService.user.fkPersona.id_estado = this.contactForm.value.estado;
-    // this.registerService.user.fkPersona.id_ciudad = this.contactForm.value.ciudad;
-    // this.registerService.user.fkPersona.id_parroquia = this.contactForm.value.parroquia;
+    this.registerService.user.fkPersona.id_pais._id = this.contactForm.value.pais;
+    this.registerService.user.fkPersona.id_estado._id = this.contactForm.value.estado;
+    this.registerService.user.fkPersona.id_ciudad._id = this.contactForm.value.ciudad;
+    this.registerService.user.fkPersona.id_parroquia._id = this.contactForm.value.parroquia;
 
     if (this.parroquia){
-
+      this.registerService.user.fkPersona.fkLugar._id = this.contactForm.value.parroquia;
+    }
+    else if (this.ciudad){
+      this.registerService.user.fkPersona.fkLugar._id = this.contactForm.value.ciudad;
+    }
+    else if (this.estado){
+      this.registerService.user.fkPersona.fkLugar._id = this.contactForm.value.estado;
+    }
+    else{ 
+      this.registerService.user.fkPersona.fkLugar._id = this.contactForm.value.pais;
     }
 
-    this.registerService.user.fkPersona.codigo_pais = this.contactForm.value.codigo_pais;
+    // this.registerService.user.fkPersona.codigo_pais = this.contactForm.value.codigo_pais;
     this.registerService.user.fkPersona.telefono = this.contactForm.value.telefono;
 
     if (this.contactForm.valid)

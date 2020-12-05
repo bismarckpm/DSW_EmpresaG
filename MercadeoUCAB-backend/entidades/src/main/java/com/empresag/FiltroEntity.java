@@ -14,7 +14,6 @@ public class FiltroEntity extends BaseEntity{
     private EdoCivilEntity fkEdoCivil;
     private NivelAcademicoEntity fkNivelAcademico;
     private GeneroEntity fkGenero;
-    private GrupoFamiliarEntity fkGrupoFamiliar;
     private LugarEntity fkLugar;
     private CategoriaEntity fkCategoria;
     private SubcategoriaEntity fkSubcategoria;
@@ -97,16 +96,6 @@ public class FiltroEntity extends BaseEntity{
 
     public void setFkGenero(GeneroEntity fkGenero) {
         this.fkGenero = fkGenero;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "fk_grupo_familiar")
-    public GrupoFamiliarEntity getFkGrupoFamiliar() {
-        return fkGrupoFamiliar;
-    }
-
-    public void setFkGrupoFamiliar(GrupoFamiliarEntity fkGrupoFamiliar) {
-        this.fkGrupoFamiliar = fkGrupoFamiliar;
     }
 
     @ManyToOne

@@ -6,7 +6,11 @@ import java.util.Objects;
 @Entity
 @Table(name = "persona_nvlacademico", schema = "empresag", catalog = "")
 public class PersonaNvlacademicoEntity extends BaseEntity{
+    @ManyToOne
+    @JoinColumn(name = "fk_persona")
     private PersonaEntity fkPersona;
+    @ManyToOne
+    @JoinColumn(name = "fk_nivel_academico")
     private NivelAcademicoEntity fkNivelAcademico;
 
     @ManyToOne

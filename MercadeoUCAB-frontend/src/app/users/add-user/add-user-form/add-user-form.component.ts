@@ -23,6 +23,7 @@ import { SOCIAL_STATUSES } from 'src/app/constants/social_status';
 import { ACADEMICS } from 'src/app/constants/academics';
 import { PhoneService } from 'src/app/services/phone.service';
 import { PlaceService } from 'src/app/services/place.service';
+import { replaceKeyWithValue } from 'src/app/functions/common_functions';
 
 
 @Component({
@@ -231,7 +232,7 @@ export class AddUserFormComponent implements OnInit {
       }];
 
       this.placeService.getCountries().subscribe((countries) => {
-        this.paises = countries;
+        this.paises = replaceKeyWithValue(countries);
       });
   
       this.phoneService.getCodes().subscribe((codes) => {
@@ -256,8 +257,8 @@ export class AddUserFormComponent implements OnInit {
     this.userService.getPerson(1).subscribe((p) => {
       this.persona = p;
       this.loading = false;
-      this.selectedGenreValue = p.fkPersona.fkGenero.value;  
-      this.selectedEdoCivilValue = p.fkPersona.fkEdoCivil.value;
+      this.selectedGenreValue = p.fkPersona.fkGenero._id;  
+      this.selectedEdoCivilValue = p.fkPersona.fkEdoCivil._id;
       this.fecha_nacimiento = new Date(p.fkPersona.fechaNacimiento);
       this.hasKids = p.fkPersona.tiene_hijos;
       this.hijos = p.fkPersona.hijos;
@@ -317,7 +318,7 @@ export class AddUserFormComponent implements OnInit {
         ]
       ],
       personas_hogar: [
-        this.userService.persona.fkPersona.personas_hogar,
+        this.userService.persona.fkPersona.numero_personas_encasa,
         [
           Validators.min(1),
           Validators.pattern('^[0-9]*$')
@@ -435,7 +436,7 @@ export class AddUserFormComponent implements OnInit {
     this.userService.persona.fkPersona.id_nivel_academico = this.userForm.value.nivel_academico;
     this.userService.persona.fkPersona.id_nivel_socioeconomico = this.userForm.value.nivel_socioeconomico;
 // Informacion familiar
-    this.userService.persona.fkPersona.personas_hogar = this.userForm.value.personas_hogar;
+    this.userService.persona.fkPersona.numero_personas_encasa = this.userForm.value.personas_hogar;
     this.userService.persona.fkPersona.tiene_hijos = this.userForm.value.tiene_hijos;
     this.userService.persona.fkPersona.hijos = this.hijos;
 // Informacion de contacto
@@ -457,7 +458,7 @@ export class AddUserFormComponent implements OnInit {
       && this.userService.persona.fkPersona.id_nivel_academico && this.userService.persona.fkPersona.id_nivel_socioeconomico
       // && this.userService.persona.fkPersona.id_pais 
       && this.userService.persona.fkPersona.codigo_pais && this.userService.persona.fkPersona.telefono
-      && this.userService.persona.fkPersona.personas_hogar){
+      && this.userService.persona.fkPersona.numero_personas_encasa){
 
       // this.userService.persona.id_estado && this.userService.persona.id_ciudad && this.userService.persona.id_parroquia
     // if(this.userForm.valid){
@@ -499,7 +500,7 @@ export class AddUserFormComponent implements OnInit {
       this.hijos.push({
         primerNombre: this.userForm.value.nombre_hijo,
         primerApellido: this.userForm.value.apellido_hijo,
-        genero: this.userForm.value.genero_hijo,
+        fkGenero: this.userForm.value.genero_hijo,
         fechaNacimiento: this.userForm.value.fecha_de_nacimiento_hijo
     });
     this.hideAddKidForm();
@@ -516,20 +517,20 @@ export class AddUserFormComponent implements OnInit {
     this.ciudades = [];
     this.parroquias = [];
     this.placeService.getStates(event.value).subscribe((states) => {
-      this.estados = states;
+      this.estados = replaceKeyWithValue(states);
     })
   }
 
   getCities(event){
     this.parroquias = [];
     this.placeService.getCities(event.value).subscribe((cities) => {
-      this.ciudades = cities;
+      this.ciudades = replaceKeyWithValue(cities);
     })
   }
 
   getCounties(event){
     this.placeService.getCounties(event.value).subscribe((counties) => {
-      this.parroquias = counties;
+      this.parroquias = replaceKeyWithValue(counties);
     })
   }
 

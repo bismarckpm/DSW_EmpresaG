@@ -1,5 +1,5 @@
 
 export class EdoCivil {
-    value: number;
-    label: string;
+    nombre: string;
+    _id: number;
 }

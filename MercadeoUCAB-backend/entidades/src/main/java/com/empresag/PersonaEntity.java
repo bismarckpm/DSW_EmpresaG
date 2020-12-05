@@ -7,11 +7,23 @@ import java.sql.Date;
 @Entity
 @Table(name = "persona", schema = "empresag", catalog = "")
 public class PersonaEntity extends BaseEntity{
+    @Basic
+    @Column(name = "documento_identidad")
     private String documentoIdentidad;
+    @Basic
+    @Column(name = "primer_nombre")
     private String primerNombre;
+    @Basic
+    @Column(name = "segundo_nombre")
     private String segundoNombre;
+    @Basic
+    @Column(name = "primer_apellido")
     private String primerApellido;
+    @Basic
+    @Column(name = "segundo_apellido")
     private String segundoApellido;
+    @Basic
+    @Column(name = "fecha_nacimiento")
     @JsonbDateFormat(value = "dd/MM/yyyy")
     private Date fechaNacimiento;
     @ManyToOne
@@ -24,15 +36,14 @@ public class PersonaEntity extends BaseEntity{
     @JoinColumn(name = "fk_persona")
     private PersonaEntity fkPersona;
 
+    @Basic
+    @Column(name = "numero_personas_encasa")
+    private int numero_personas_encasa;
+
     @ManyToOne
     @JoinColumn(name = "fk_lugar")
     private LugarEntity fkLugar;
 
-    private PersonaEntity[] hijos;
-
-    public PersonaEntity(PersonaEntity[] hijos) {
-        this.hijos = hijos;
-    }
 
     public PersonaEntity() {
 
@@ -139,11 +150,15 @@ public class PersonaEntity extends BaseEntity{
         this.fkLugar = fkLugar;
     }
 
-    public PersonaEntity[] getHijos() {
-        return hijos;
+    @Basic
+    @Column(name = "numero_personas_encasa")
+    public int getNumero_personas_encasa() {
+        return numero_personas_encasa;
     }
 
-    public void setHijos(PersonaEntity[] hijos) {
-        this.hijos = hijos;
+    public void setNumero_personas_encasa(int numero_personas_encasa) {
+        this.numero_personas_encasa = numero_personas_encasa;
     }
+
+
 }

@@ -66,8 +66,8 @@ export class ProfileComponent implements OnInit {
     this.profileService.getPerson(1).subscribe((p) => {
       this.persona = p;
       this.loading = false;
-      this.selectedGenreValue = p.fkPersona.fkGenero.value;
-      this.selectedEdoCivilValue = p.fkPersona.fkEdoCivil.value;
+      this.selectedGenreValue = p.fkPersona.fkGenero._id;
+      this.selectedEdoCivilValue = p.fkPersona.fkEdoCivil._id;
       this.fecha_nacimiento = new Date(p.fkPersona.fechaNacimiento);
       this.hasKids = p.fkPersona.tiene_hijos;
 

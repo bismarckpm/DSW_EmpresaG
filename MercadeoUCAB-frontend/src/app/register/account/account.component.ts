@@ -184,17 +184,28 @@ export class AccountComponent implements OnInit {
 
 
   onSubmit(){
+    console.log(this.accountForm.value.correo_electronico);
+    console.log(this.accountForm.value.clave);
+    console.log(this.accountForm.value.confirmar_clave);
+    console.log(this.accountForm.value.primer_nombre);
+    console.log(this.accountForm.value.primer_apellido);
+    console.log(this.accountForm.value.documento_de_identificacion);
+    console.log(this.accountForm.value.genero);
+    console.log(this.accountForm.value.estado_civil);
+    console.log(this.accountForm.value.fecha_de_nacimiento);
+    
     this.registerService.user.email = this.accountForm.value.correo_electronico;
     this.registerService.user.password = this.accountForm.value.clave;
     this.registerService.user.confirmar_clave = this.accountForm.value.confirmar_clave;
     this.registerService.user.fkPersona.primerNombre = this.accountForm.value.primer_nombre;
     this.registerService.user.fkPersona.primerApellido = this.accountForm.value.primer_apellido;
     this.registerService.user.fkPersona.documentoIdentidad = this.accountForm.value.documento_de_identificacion;
-    this.registerService.user.fkPersona.fkGenero.value = this.accountForm.value.genero;
-    this.registerService.user.fkPersona.fkEdoCivil.value = this.accountForm.value.estado_civil;
+    this.registerService.user.fkPersona.fkGenero._id = this.accountForm.value.genero;
+    this.registerService.user.fkPersona.fkEdoCivil._id = this.accountForm.value.estado_civil;
     this.registerService.user.fkPersona.fechaNacimiento = this.accountForm.value.fecha_de_nacimiento;
 
     if (this.accountForm.valid){
+      console.log('epa, pasaste');
       this.nextPage();
     }
     else{

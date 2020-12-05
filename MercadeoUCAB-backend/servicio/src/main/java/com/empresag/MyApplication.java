@@ -23,14 +23,17 @@ public class MyApplication extends Application {
         h.add( SubcategoryService.class );
         h.add( BrandService.class );
         h.add( TypeService.class );
-        h.add ( PresentationService.class );
+        h.add( PresentationService.class );
         h.add( SesionService.class );
         h.add( GeneroService.class );
         h.add( EdoCivilService.class );
         h.add( LugarService.class );
-        h.add( PresentationService.class );
         h.add( QuestionService.class );
         h.add( OptionService.class );
+        h.add( OcupacionService.class );
+        h.add( NivelAcademicoService.class );
+        h.add( DisponibilidadService.class );
+        h.add( RolService.class );
         return h;
     }
 }

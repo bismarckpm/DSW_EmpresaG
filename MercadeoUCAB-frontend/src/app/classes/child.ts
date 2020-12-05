@@ -1,6 +1,8 @@
+import { Genero } from './genero';
+
 export class Child {
     primerNombre?: string;
     primerApellido?: string;
-    genero?: string;
+    fkGenero?: Genero;
     fechaNacimiento?: string;
 }
