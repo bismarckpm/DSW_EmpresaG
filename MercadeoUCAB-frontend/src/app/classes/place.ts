@@ -6,8 +6,8 @@ export class Place {
     tipo?: number;
     fkNivelSocioeconomico?: SocioEconomicStatus;
     fkLugar?: Place;
-    label: string;
-    value: number;
+    label?: string;
+    value?: number;
 }
 
 export class State {

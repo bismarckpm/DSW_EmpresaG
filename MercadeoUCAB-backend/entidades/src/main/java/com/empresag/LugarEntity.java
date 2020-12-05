@@ -6,17 +6,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "lugar", schema = "empresag", catalog = "")
 public class LugarEntity extends BaseEntity{
-    private String nombre;
-    @Basic
-    @Column(name = "tipo")
-    private int tipo;
-    @ManyToOne
-    @JoinColumn(name = "fk_nivel_socioeconomico")
-    private NivelSocioeconomicoEntity fkNivelSocioeconomico;
-    @ManyToOne
-    @JoinColumn(name = "fk_lugar")
-    private LugarEntity fkLugar;
-
     @Basic
     @Column(name = "nombre")
     private String nombre;

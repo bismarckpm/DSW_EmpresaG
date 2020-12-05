@@ -145,7 +145,7 @@ public class QuestionService {
             pcs.setFkSubcategoria(subcategoria);
         }
         else {
-            pcs.setFkPregunta(null);
+            pcs.setFkSubcategoria(null);
         }
 
         pcs.setFkPregunta(new PreguntaEntity(pregunta.get_id()));
