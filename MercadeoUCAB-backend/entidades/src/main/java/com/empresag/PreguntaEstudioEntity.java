@@ -4,14 +4,12 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "pregunta_estudio", schema = "empresag", catalog = "")
+@Table(name = "pregunta_estudio", schema = "empresag")
 public class PreguntaEstudioEntity extends BaseEntity{
-    private int requerido;
-    private EstudioEntity fkEstudio;
-    private PreguntaEntity fkPregunta;
-
     @Basic
     @Column(name = "requerido")
+    private int requerido;
+
     public int getRequerido() {
         return requerido;
     }
@@ -22,6 +20,8 @@ public class PreguntaEstudioEntity extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "fk_estudio")
+    private EstudioEntity fkEstudio;
+
     public EstudioEntity getFkEstudio() {
         return fkEstudio;
     }
@@ -32,6 +32,8 @@ public class PreguntaEstudioEntity extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "fk_pregunta")
+    private PreguntaEntity fkPregunta;
+
     public PreguntaEntity getFkPregunta() {
         return fkPregunta;
     }

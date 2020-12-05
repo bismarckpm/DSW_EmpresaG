@@ -49,7 +49,7 @@ export class MyRequestsComponent implements OnInit {
   getRequests(){
     this.requestsService.getRequests().subscribe((studies) => {
       this.loading = false;
-      this.estudios = studies;
+      //this.estudios = studies;
     }, errorMessage => {
       this.loading = false;
       this.estudiosErrorMessage = errorMessage;

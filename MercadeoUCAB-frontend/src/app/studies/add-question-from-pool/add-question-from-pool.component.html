@@ -15,7 +15,7 @@
 
         <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
             <input id="pregunta" class="p-inputtext-lg fill-width" type="text" pInputText
-                (input)="dt.filter($event.target.value, 'pregunta', 'contains')" placeholder="Pregunta">
+                (input)="dt.filter($event.target.value, 'fkPregunta.pregunta', 'contains')" placeholder="Pregunta">
         </div>
     </div>
     <div class="p-grid p-mt-5 p-mx-lg-5">
@@ -27,7 +27,7 @@
 
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width: 6rem" pSortableColumn="tipo" class="p-text-center">Tipo<p-sortIcon
+                    <th style="width: 9rem" pSortableColumn="tipo" class="p-text-center">Tipo<p-sortIcon
                             field="tipo">
                         </p-sortIcon>
                     </th>
@@ -49,20 +49,20 @@
                 <tr class="p-selectable-row">
                     <td class="p-text-center">
                         <span class="p-column-title">Tipo</span>
-                        {{pregunta.tipo}}
+                        {{pregunta.fkPregunta.fkTipoPregunta.nombre}}
                     </td>
                     <td class="p-text-center">
                         <span class="p-column-title">Pregunta</span>
-                        <span class="image-text">{{pregunta.pregunta}}</span>
+                        <span class="image-text">{{pregunta.fkPregunta.pregunta}}</span>
                     </td>
                     <td class="p-text-center">
                         <span class="p-column-title">Categoría</span>
-                        <span class="image-text">{{pregunta.categoria}}</span>
+                        <span class="image-text">{{pregunta.fkCategoria.nombre}}</span>
                     </td>
                     <td class="p-text-center">
                         <span class="p-column-title">Subcategoria</span>
-                        <span class="image-text">{{pregunta.subcategoria}}</span>
-                        <span class="image-text" *ngIf="!pregunta.subcategoria">N/A</span>
+                        <span class="image-text" *ngIf="pregunta.fkSubcategoria">{{pregunta.fkSubcategoria.nombre}}</span>
+                        <span class="image-text" *ngIf="!pregunta.fkSubcategoria">N/A</span>
                     </td>
 
                     <td class="p-text-center">
