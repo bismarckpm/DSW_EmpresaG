@@ -15,6 +15,7 @@ import { EdoCivil } from '../classes/edocivil';
 import { Place } from '../classes/place';
 import { telefono } from '../classes/telefono';
 import { Disponibilidad } from '../classes/disponibilidad';
+import { serverURL } from '../constants/serverURL';
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +58,11 @@ export class UserService {
     nombre: '',
     _id: 0,
   };
+  lugar: Place = {
+    nombre: '',
+    _id: 0,
+  };
+
 
   Telefono: telefono = {
     numero: 0,
@@ -82,6 +88,7 @@ export class UserService {
     id_ciudad: this.ciudad,
     id_parroquia: this.Parroquia,
     id_estado: this.estado,
+    fkLugar: this.lugar,
     telefono: this.Telefono,
     ocupacion: '',
     numero_personas_encasa: 0,
@@ -121,7 +128,7 @@ export class UserService {
   }
   
   getPersons(): Observable<Person[]>{
-    return this.http.get<Person[]>(baseURL + 'register')
+    return this.http.get<Person[]>(serverURL + 'user')
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 

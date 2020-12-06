@@ -23,7 +23,11 @@ import { SOCIAL_STATUSES } from 'src/app/constants/social_status';
 import { ACADEMICS } from 'src/app/constants/academics';
 import { PhoneService } from 'src/app/services/phone.service';
 import { PlaceService } from 'src/app/services/place.service';
-import { replaceKeyWithValue } from 'src/app/functions/common_functions';
+import { replaceDateWithValue, replaceKeyWithValue } from 'src/app/functions/common_functions';
+import { OcupacionService } from 'src/app/services/ocupacion.service';
+import { NivelAcademicoService } from 'src/app/services/nivel-academico.service';
+import { DeviceService } from 'src/app/services/device.service';
+import { DisponibilidadService } from 'src/app/services/disponibilidad.service';
 
 
 @Component({
@@ -61,8 +65,12 @@ export class AddUserFormComponent implements OnInit {
   selectedEdoCivilValue: number;
   selectedStatus: number;
   hasKids: boolean;
+  ocupaciones: SelectItem[];
   sent_form: boolean = false;
   es: any;
+  estado: boolean;
+  ciudad: boolean;
+  parroquia: boolean;
 
   /* Form */
   userForm: FormGroup;
@@ -209,6 +217,10 @@ export class AddUserFormComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private userService: UserService,
     private placeService: PlaceService, 
+    private ocupacionService: OcupacionService,
+    private nivelAcademicoService: NivelAcademicoService,
+    private deviceService: DeviceService,
+    private disponibilidadService: DisponibilidadService,
     private phoneService: PhoneService,
     private messageService: MessageService) {
     this.createForm();
@@ -238,10 +250,26 @@ export class AddUserFormComponent implements OnInit {
       this.phoneService.getCodes().subscribe((codes) => {
         this.codigos = codes;
       });
+
+      this.ocupacionService.getOcupaciones().subscribe((ocupations) => {
+        this.ocupaciones = replaceKeyWithValue(ocupations);
+      });
+      this.nivelAcademicoService.getNivelesAcademicos().subscribe((niveles) => {
+        this.niveles_academicos = replaceKeyWithValue(niveles);
+      });
+      this.deviceService.getDevices().subscribe((devices) => {
+        this.dispositivos = replaceKeyWithValue(devices);
+      });
+      this.disponibilidadService.getDisponibilidades().subscribe((disponibilidades) => {
+        console.log(replaceDateWithValue(disponibilidades));
+        this.horario_inicial = replaceDateWithValue(disponibilidades);
+        this.horario_final = replaceDateWithValue(disponibilidades);
+      });
   }
+  
 
   ngOnInit(): void {
-    this.spinner.show();
+    // this.spinner.show();
     this.es = {
       firstDayOfWeek: 1,
       dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
@@ -253,25 +281,32 @@ export class AddUserFormComponent implements OnInit {
       clear: 'Borrar'
     }
 
-    this.loading = true;
-    this.userService.getPerson(1).subscribe((p) => {
-      this.persona = p;
-      this.loading = false;
-      this.selectedGenreValue = p.fkPersona.fkGenero._id;  
-      this.selectedEdoCivilValue = p.fkPersona.fkEdoCivil._id;
-      this.fecha_nacimiento = new Date(p.fkPersona.fechaNacimiento);
-      this.hasKids = p.fkPersona.tiene_hijos;
-      this.hijos = p.fkPersona.hijos;
+    // this.loading = true;
+    // this.userService.getPerson(1).subscribe((p) => {
+    //   this.persona = p;
+    //   this.loading = false;
+    //   this.selectedGenreValue = p.fkPersona.fkGenero._id;  
+    //   this.selectedEdoCivilValue = p.fkPersona.fkEdoCivil._id;
+    //   this.fecha_nacimiento = new Date(p.fkPersona.fechaNacimiento);
+    //   this.hasKids = p.fkPersona.tiene_hijos;
+    //   this.hijos = p.fkPersona.hijos;
 
+    this.estado = true;
+    this.ciudad = true;
+    this.parroquia = true;
+
+    this.placeService.getCountries().subscribe((countries) => {
+      this.paises = replaceKeyWithValue(countries);
+    });
 
 
       this.createForm();
-      this.spinner.hide();
-    }, errorMessage => {
-      this.loading = false;
-      this.spinner.hide();
-      this.personErrorMessage = errorMessage;
-    })
+    //   this.spinner.hide();
+    // }, errorMessage => {
+    //   this.loading = false;
+    //   this.spinner.hide();
+    //   this.personErrorMessage = errorMessage;
+    // })
   }
 
   createForm(){
@@ -361,21 +396,15 @@ export class AddUserFormComponent implements OnInit {
       horario_final: this.userService.persona.fkPersona.id_horario_final,
       nivel_academico: this.userService.persona.fkPersona.id_nivel_academico,
       nivel_socioeconomico: this.userService.persona.fkPersona.id_nivel_socioeconomico,
-
-      // pais: 0,
-      // estado: 0,
-      // ciudad: 0,
-      // parroquia: 0,
-
-      // pais: this.userService.persona.fkPersona.id_pais,
-      // estado: this.userService.persona.fkPersona.id_estado,
-      // ciudad: this.userService.persona.fkPersona.id_ciudad,
-      // parroquia: this.userService.persona.fkPersona.id_parroquia,
+      pais: this.userService.persona.fkPersona.id_pais,
+      estado: this.userService.persona.fkPersona.id_estado,
+      ciudad: this.userService.persona.fkPersona.id_ciudad,
+      parroquia: this.userService.persona.fkPersona.id_parroquia,
       codigo_pais: this.userService.persona.fkPersona.codigo_pais,
       ocupacion: this.userService.persona.fkPersona.ocupacion,
 
       telefono: [
-        this.userService.persona.fkPersona.telefono,
+        this.userService.persona.fkPersona.telefono.numero,
         [
           Validators.pattern('^[0-9]*$')
         ]
@@ -517,20 +546,38 @@ export class AddUserFormComponent implements OnInit {
     this.ciudades = [];
     this.parroquias = [];
     this.placeService.getStates(event.value).subscribe((states) => {
-      this.estados = replaceKeyWithValue(states);
+      if (states.length){
+        this.estado = true;
+        this.estados = replaceKeyWithValue(states);        
+      }
+      else{
+        this.estado = false;
+      }
     })
   }
 
   getCities(event){
     this.parroquias = [];
     this.placeService.getCities(event.value).subscribe((cities) => {
-      this.ciudades = replaceKeyWithValue(cities);
+      if (cities.length){
+        this.ciudad = true;
+        this.ciudades = replaceKeyWithValue(cities);
+      }
+      else{
+        this.ciudad = false;
+      }
     })
   }
 
   getCounties(event){
     this.placeService.getCounties(event.value).subscribe((counties) => {
-      this.parroquias = replaceKeyWithValue(counties);
+      if (counties.length){
+        this.parroquia = true;
+        this.parroquias = replaceKeyWithValue(counties);
+      }
+      else{
+        this.parroquia = false;
+      }
     })
   }
 
