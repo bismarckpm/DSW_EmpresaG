@@ -4,8 +4,7 @@ import java.sql.Time;
 
 public class DisponibilidadDto extends BaseDto {
 
-    private Time horaInicial;
-    private Time horaFinal;
+    private Time hora;
 
     public DisponibilidadDto() {
     }
@@ -14,19 +13,11 @@ public class DisponibilidadDto extends BaseDto {
         super(id);
     }
 
-    public Time getHoraInicial() {
-        return horaInicial;
+    public Time getHora() {
+        return hora;
     }
 
-    public void setHoraInicial(Time horaInicial) {
-        this.horaInicial = horaInicial;
-    }
-
-    public Time getHoraFinal() {
-        return horaFinal;
-    }
-
-    public void setHoraFinal(Time horaFinal) {
-        this.horaFinal = horaFinal;
+    public void setHora(Time hora) {
+        this.hora = hora;
     }
 }

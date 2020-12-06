@@ -12,6 +12,7 @@ public class FiltroDto extends BaseDto {
     private LugarDto fkLugar;
     private CategoriaDto fkCategoria;
     private SubcategoriaDto fkSubcategoria;
+    private SolicitudDto fkSolicitud;
 
     public EstudioDto getFkEstudio() {
         return fkEstudio;
@@ -99,5 +100,13 @@ public class FiltroDto extends BaseDto {
 
     public void setFkSubcategoria(SubcategoriaDto fkSubcategoria) {
         this.fkSubcategoria = fkSubcategoria;
+    }
+
+    public SolicitudDto getFkSolicitud() {
+        return fkSolicitud;
+    }
+
+    public void setFkSolicitud(SolicitudDto fkSolicitud) {
+        this.fkSolicitud = fkSolicitud;
     }
 }

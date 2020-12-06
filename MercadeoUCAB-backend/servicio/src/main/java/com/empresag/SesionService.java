@@ -60,6 +60,18 @@ public class SesionService {
             LugarEntity lugarPersona = daoLugar.find(usuarioDto.getFkPersona().getFkLugar().get_id(), LugarEntity.class);
             persona.setFkLugar(lugarPersona);
 
+//            OBTENER DISPONIBILIDAD
+            DisponibilidadDto dispo_inicial = usuarioDto.getFkPersona().getId_horario_inicial();
+            DisponibilidadDto dispo_final = usuarioDto.getFkPersona().getId_horario_final();
+            DaoDisponibilidad daoDisponibilidad = new DaoDisponibilidad();
+
+            DisponibilidadEntity disponibilidadEntity_i = daoDisponibilidad.find(dispo_inicial.get_id(), DisponibilidadEntity.class);
+            DisponibilidadEntity disponibilidadEntity_f = daoDisponibilidad.find(dispo_final.get_id(), DisponibilidadEntity.class);
+
+//            INSERTAR DISPONIBILIDAD
+            persona.setFkDisponibilidadInicial(disponibilidadEntity_i);
+            persona.setFkDisponibilidadFinal(disponibilidadEntity_f);
+
 //            INSERTAR PERSONA
             DaoPersona daoPersona = new DaoPersona();
             PersonaEntity personaResul = daoPersona.insert(persona);
@@ -135,27 +147,6 @@ public class SesionService {
             DaoPersonaNvlacademico daoPersonaNvlacademico = new DaoPersonaNvlacademico();
             daoPersonaNvlacademico.insert(personaNvlacademico);
 
-//            OBTENER DISPONIBILIDAD
-            DisponibilidadDto dispo_inicial = usuarioDto.getFkPersona().getId_horario_inicial();
-            DisponibilidadDto dispo_final = usuarioDto.getFkPersona().getId_horario_final();
-
-            DaoDisponibilidad daoDisponibilidad = new DaoDisponibilidad();
-
-            DisponibilidadEntity disponibilidadEntity_i = daoDisponibilidad.find(dispo_inicial.get_id(), DisponibilidadEntity.class);
-            DisponibilidadEntity disponibilidadEntity_f = daoDisponibilidad.find(dispo_final.get_id(), DisponibilidadEntity.class);
-
-//            INSERTAR DISPONIBILIDAD
-            PersonaDisponibilidadEntity personaDisponibilidad_i = new PersonaDisponibilidadEntity();
-            personaDisponibilidad_i.setFkPersona(personaResul);
-            personaDisponibilidad_i.setFkDisponibilidad(disponibilidadEntity_i);
-
-            PersonaDisponibilidadEntity personaDisponibilidad_f = new PersonaDisponibilidadEntity();
-            personaDisponibilidad_f.setFkPersona(personaResul);
-            personaDisponibilidad_f.setFkDisponibilidad(disponibilidadEntity_f);
-
-            DaoPersonaDisponibilidad daoPersonaDisponibilidad = new DaoPersonaDisponibilidad();
-            daoPersonaDisponibilidad.insert(personaDisponibilidad_i);
-            daoPersonaDisponibilidad.insert(personaDisponibilidad_f);
 
             resultado.set_id(resul.get_id());
         }
@@ -171,7 +162,7 @@ public class SesionService {
     public Response checkRegistro ( UsuarioDto usuarioDto ) {
 
         DaoUsuario daoUsuario = new DaoUsuario();
-        List<UsuarioEntity> usuario = daoUsuario.emailExist(usuarioDto.getEmail());
+//        List<UsuarioEntity> usuario = daoUsuario.emailExist(usuarioDto.getEmail());
 
         return Response.status(Response.Status.NOT_FOUND).build();
 
