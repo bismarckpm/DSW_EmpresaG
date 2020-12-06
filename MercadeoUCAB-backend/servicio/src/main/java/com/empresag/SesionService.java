@@ -5,6 +5,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("/sesion")
 @Produces( MediaType.APPLICATION_JSON )
@@ -161,6 +163,17 @@ public class SesionService {
             e.printStackTrace();
         }
         return resultado;
+
+    }
+
+    @POST
+    @Path("/validRegister")
+    public Response checkRegistro ( UsuarioDto usuarioDto ) {
+
+        DaoUsuario daoUsuario = new DaoUsuario();
+        List<UsuarioEntity> usuario = daoUsuario.emailExist(usuarioDto.getEmail());
+
+        return Response.status(Response.Status.NOT_FOUND).build();
 
     }
 

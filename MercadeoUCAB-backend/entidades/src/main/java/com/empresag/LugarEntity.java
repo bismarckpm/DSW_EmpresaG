@@ -57,4 +57,13 @@ public class LugarEntity extends BaseEntity{
         this.fkLugar = fkLugar;
     }
 
+    @Override
+    public String toString() {
+        return "LugarEntity{" +
+                "nombre='" + nombre + '\'' +
+                ", tipo=" + tipo +
+                ", fkNivelSocioeconomico=" + fkNivelSocioeconomico +
+                ", fkLugar=" + fkLugar +
+                '}';
+    }
 }
