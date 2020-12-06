@@ -162,7 +162,7 @@ public class SesionService {
     public Response checkRegistro ( UsuarioDto usuarioDto ) {
 
         DaoUsuario daoUsuario = new DaoUsuario();
-//        List<UsuarioEntity> usuario = daoUsuario.emailExist(usuarioDto.getEmail());
+        List<UsuarioEntity> usuario = daoUsuario.emailExist(usuarioDto.getEmail());
 
         return Response.status(Response.Status.NOT_FOUND).build();
 

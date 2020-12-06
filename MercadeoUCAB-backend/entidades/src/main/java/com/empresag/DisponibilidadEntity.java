@@ -1,5 +1,6 @@
 package com.empresag;
 
+import javax.json.bind.annotation.JsonbDateFormat;
 import javax.persistence.*;
 import java.sql.Time;
 
@@ -9,6 +10,7 @@ public class DisponibilidadEntity extends BaseEntity{
 
     @Basic
     @Column(name = "hora")
+    @JsonbDateFormat(value = "HH:mm a")
     private Time hora;
 
 

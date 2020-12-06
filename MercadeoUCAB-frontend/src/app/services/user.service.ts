@@ -64,13 +64,11 @@ export class UserService {
 
   horario_ini: Disponibilidad = {
     _id: 0,
-    horaInicial: null,
-    horaFinal: null,
+    hora: null,
   };
   horario_fin: Disponibilidad = {
     _id: 0,
-    horaInicial: null,
-    horaFinal: null,
+    hora: null,
   };
 
   personadata: persondata = {

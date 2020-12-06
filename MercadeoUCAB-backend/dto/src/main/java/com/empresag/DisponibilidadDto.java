@@ -1,9 +1,11 @@
 package com.empresag;
 
+import javax.json.bind.annotation.JsonbDateFormat;
 import java.sql.Time;
 
 public class DisponibilidadDto extends BaseDto {
 
+    @JsonbDateFormat(value = "HH:mm a")
     private Time hora;
 
     public DisponibilidadDto() {
