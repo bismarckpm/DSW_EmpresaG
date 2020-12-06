@@ -85,7 +85,7 @@ public class LugarService {
         return getSuperior(id);
     }
 
-    private LugarDto getSuperior(long id){
+    public LugarDto getSuperior(long id){
 
         DaoLugar daoLugar = new DaoLugar();
         LugarEntity lugar = daoLugar.find(id, LugarEntity.class);

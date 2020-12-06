@@ -193,7 +193,7 @@ public class UserService {
             usuarioPersona.setFechaNacimiento(persona.getFechaNacimiento());
             usuarioPersona.setNumero_personas_encasa(persona.getNumero_personas_encasa());
 
-//          Busqueda de disponibilidad Inicial de Persona
+//          Busqueda de disponibilidad Inicial y Final de Persona
             DaoDisponibilidad daoDisponibilidad = new DaoDisponibilidad();
             DisponibilidadEntity dispoInicial = daoDisponibilidad
                     .find(persona.getFkDisponibilidadInicial().get_id(), DisponibilidadEntity.class);
@@ -202,7 +202,9 @@ public class UserService {
             DisponibilidadDto dispoInicialDto = new DisponibilidadDto();
             DisponibilidadDto dispoFinalDto = new DisponibilidadDto();
             dispoInicialDto.setHora(dispoInicial.getHora());
+            dispoInicialDto.set_id(dispoInicial.get_id());
             dispoFinalDto.setHora(dispoFinal.getHora());
+            dispoFinalDto.set_id(dispoFinal.get_id());
 
             usuarioPersona.setId_horario_inicial(dispoInicialDto);
             usuarioPersona.setId_horario_final(dispoFinalDto);
@@ -255,10 +257,9 @@ public class UserService {
 //          Busqueda de lugar de Persona
             DaoLugar daoLugar = new DaoLugar();
             LugarEntity lugarPersona = daoLugar.find(persona.getFkLugar().get_id(), LugarEntity.class);
-            LugarDto usuarioLugar = new LugarDto();
-            usuarioLugar.set_id(lugarPersona.get_id());
-            usuarioLugar.setTipo(lugarPersona.getTipo());
-            usuarioLugar.setNombre(lugarPersona.getNombre());
+            LugarService lugarService = new LugarService();
+            LugarDto usuarioLugar = lugarService.getSuperior(lugarPersona.get_id());
+            usuarioPersona.setFkLugar(usuarioLugar);
 
 //          Busqueda de telefono de Persona
             DaoTelefono daoTelefonoPersona = new DaoTelefono();
@@ -297,6 +298,9 @@ public class UserService {
 
         }
         catch (IndexDatabaseException e){
+            e.printStackTrace();
+        }
+        catch (NullPointerException e){
             e.printStackTrace();
         }
 
