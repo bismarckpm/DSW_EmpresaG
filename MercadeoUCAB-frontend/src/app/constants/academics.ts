@@ -5,27 +5,31 @@ export class Academic {
 
 export const ACADEMICS = [
   {
-    label: 'Primaria',
+    label: 'Ninguno',
     value: 1
   },
   {
-    label: 'Secundaria',
+    label: 'Primaria',
     value: 2
   },
   {
-    label: 'Técnico Superior',
+    label: 'Secundaria',
     value: 3
   },
   {
-    label: 'Universitario',
+    label: 'Técnico Superior',
     value: 4
   },
   {
-    label: 'Maestría',
+    label: 'Universitario',
     value: 5
   },
   {
-    label: 'Doctorado',
+    label: 'Maestría',
     value: 6
+  },
+  {
+    label: 'Doctorado',
+    value: 7
   },
 ];

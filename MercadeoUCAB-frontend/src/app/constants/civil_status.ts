@@ -1,8 +1,3 @@
-export class CivilStatus {
-  label: string;
-  value: number;
-}
-
 export const CIVIL_STATUSES = [
   {
     label: 'Soltero',

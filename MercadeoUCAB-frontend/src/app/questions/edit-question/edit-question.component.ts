@@ -334,7 +334,7 @@ export class EditQuestionComponent implements OnInit {
     /* 3 = No es ninguno de los anteriores */
     this.questionService.putQuestion(this.pregunta).subscribe((res) => {
       let redirect_to = this.Activatedroute.snapshot.queryParamMap.get('origin') || 0
-      let study_origin = this.Activatedroute.snapshot.queryParamMap.get('sid') || 0
+      let study_origin = this.Activatedroute.snapshot.queryParamMap.get('studyId') || 0
       /* If it comes from questions go to questions table */
       if (redirect_to == 'questions' || redirect_to == 0) {
         this.router.navigate(['questions'])
@@ -342,7 +342,7 @@ export class EditQuestionComponent implements OnInit {
 
       /* If it comes from a study edit, go back to editing the study */
       if (redirect_to == 'study') {
-        this.router.navigate(['studies/edit'], { queryParams: { sid: study_origin } })
+        this.router.navigate(['studies/edit'], { queryParams: { studyId: study_origin } })
       }
     }, errorMessage => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });

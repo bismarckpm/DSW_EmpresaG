@@ -1,8 +1,3 @@
-export class Gender {
-    label: string;
-    value: number;
-}
-
 export const GENDERS = [
   {
     label: 'Masculino',

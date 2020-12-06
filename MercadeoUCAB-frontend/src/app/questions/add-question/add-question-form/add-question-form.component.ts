@@ -233,12 +233,17 @@ export class AddQuestionFormComponent implements OnInit {
     this.pregunta = new QuestionCategorySubcategory();
     this.pregunta.fkCategoria = new Category();
     this.pregunta.fkCategoria._id = this.questionForm.value.categoria;
-    this.pregunta.fkSubcategoria = new Subcategory();
-    this.pregunta.fkSubcategoria._id = this.questionForm.value.subcategoria;
+
+    if (this.questionForm.value.subcategoria){
+      this.pregunta.fkSubcategoria = new Subcategory();
+      this.pregunta.fkSubcategoria._id = this.questionForm.value.subcategoria;
+    }
+
     this.pregunta.fkPregunta = new Question();
     this.pregunta.fkPregunta.pregunta = this.questionForm.value.pregunta;
     this.pregunta.fkPregunta.fkTipoPregunta = new QuestionType();
     this.pregunta.fkPregunta.fkTipoPregunta._id = this.questionForm.value.tipo_de_pregunta;
+    this.pregunta.fkPregunta.fkTipoPregunta.nombre = this.tipos_pregunta.find(o => o.value == this.pregunta.fkPregunta.fkTipoPregunta._id).label;
 
     
     if (type_of_option == 1){
@@ -259,7 +264,10 @@ export class AddQuestionFormComponent implements OnInit {
       this.pregunta.fkPregunta.listOpciones = qoption;
     }
 
+
     this.questionService.postQuestion(this.pregunta).subscribe((res)=>{
+      this.pregunta._id = res._id
+      this.pregunta.fkPregunta._id = res.fkPregunta._id
       this.nextForm()
     }, errorMessage => {
       this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});

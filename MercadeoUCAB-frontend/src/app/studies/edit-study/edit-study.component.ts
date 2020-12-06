@@ -3,22 +3,30 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
 import { StudiesService } from '../../services/studies.service';
 import { PlaceService } from '../../services/place.service';
-import { Study } from '../../classes/study';
 import { Question } from '../../classes/question';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { QuestionService } from '../../services/question.service';
 import { CategoryService } from '../../services/category.service';
 import { SubcategoryService } from '../../services/subcategory.service';
-import { ACADEMICS } from '../../constants/academics';
 import { SOCIAL_STATUSES } from '../../constants/social_status';
-import { GENDERS } from '../../constants/gender';
 import { MenuItem } from 'primeng/api';
 import { replaceKeyWithValue } from '../../functions/common_functions';
+import { StudyWithFilter } from 'src/app/classes/study_with_filter';
+import { QuestionCategorySubcategory } from 'src/app/classes/question_category_subcategory';
+import { NivelAcademicoService } from 'src/app/services/nivel-academico.service';
+import { GeneroService } from 'src/app/services/genero.service';
+import { EdocivilService } from 'src/app/services/edocivil.service';
+import { Gender } from 'src/app/classes/gender';
+import { Place } from 'src/app/classes/place';
+import { SocioEconomicStatus } from 'src/app/classes/socioeconomic_status';
+import { AcademicLevel } from 'src/app/classes/academic_level';
+import { Table } from 'primeng/table';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RxwebValidators } from '@rxweb/reactive-form-validators'
+import { CivilStatus } from 'src/app/classes/civil_status';
 
 @Component({
   selector: 'app-edit-study',
@@ -27,22 +35,24 @@ import { RxwebValidators } from '@rxweb/reactive-form-validators'
   providers: [ConfirmationService, MessageService]
 })
 export class EditStudyComponent implements OnInit {
-  current_study: number;
-  estudio: Study;
-  display: boolean = false;
-  has_to_clear_questions: boolean = false // If category changes questions are no longer valid
-  display_modify_study_features: boolean = false;
-  niveles_academicos: MenuItem[] = ACADEMICS;
-  generos: MenuItem[] = GENDERS;
-  niveles_socioeconomicos: MenuItem[] = SOCIAL_STATUSES;
-  filtro_pais: boolean = false;
-  filtro_estado: boolean = false;
-  filtro_ciudad: boolean = false;
+  estudio: StudyWithFilter;
+  preguntas: QuestionCategorySubcategory[];
+  categorias: MenuItem[];
+  subcategorias: any[];
+  generos: MenuItem[];
+  niveles_academicos: MenuItem[];
+  estados_civiles: MenuItem[];
   paises: MenuItem[];
   estados: MenuItem[];
-  categorias: MenuItem[];
-  subcategorias: MenuItem[];
-  temporal_state_id: number;
+  niveles_socioeconomicos = SOCIAL_STATUSES;
+
+  @ViewChild('dt') table: Table;
+
+  current_study: number;
+
+  display: boolean = false;
+  display_modify_study_features: boolean = false;
+  sent_form: boolean = false;
 
   /* Style of question adding */
   style: string;
@@ -54,11 +64,14 @@ export class EditStudyComponent implements OnInit {
 
   /* States */
   loading: boolean = false;
+  preguntaErrorMessage: string;
   studyErrorMessage: string;
   subcategoriesErrorMessage: string;
   categoriesErrorMessage: string;
+  academicLevelsErrorMessage: string;
+  gendersErrorMessage: string;
   placesErrorMessage: string;
-  sent_form: boolean = false;
+  civilStatusErrorMessage: string;
 
   /* Form */
   studyForm: FormGroup;
@@ -83,6 +96,9 @@ export class EditStudyComponent implements OnInit {
   constructor(private Activatedroute: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
+    private academicLevelService: NivelAcademicoService,
+    private genderService: GeneroService,
+    private civilStatusService: EdocivilService,
     private placeService: PlaceService,
     private categoryService: CategoryService,
     private subcategoryService: SubcategoryService,
@@ -92,7 +108,7 @@ export class EditStudyComponent implements OnInit {
     private studiesService: StudiesService,
     private spinner: NgxSpinnerService) {
     /* If query is empty return 404 */
-    if ((this.Activatedroute.snapshot.queryParamMap.get('sid') || 0) == 0) {
+    if ((this.Activatedroute.snapshot.queryParamMap.get('studyId') || 0) == 0) {
       this.router.navigate(['404']);
     }
 
@@ -100,75 +116,127 @@ export class EditStudyComponent implements OnInit {
     else {
       this.loading = true;
       this.spinner.show();
+      this.current_study = parseInt(this.Activatedroute.snapshot.queryParamMap.get('studyId'));
 
-      this.current_study = parseInt(this.Activatedroute.snapshot.queryParamMap.get('sid'));
+
       this.studiesService.getStudy(this.current_study).subscribe((study) => {
         this.estudio = study;
         // IF STUDY EXISTS
         if (this.estudio) {
-          /* If study is finished it can't be modified */
-          if (this.estudio.id_estado == 3) {
-            this.router.navigate(['404']);
-          }
-
-          //console.log(this.estudio)
-
-          subcategoryService.getSubcategories(this.estudio.id_categoria).subscribe((subcategories) => {
-            this.subcategorias = replaceKeyWithValue(subcategories);
+          this.categoryService.getCategories().subscribe((categories) => {
+            this.categorias = replaceKeyWithValue(categories)
           }, errorMessage => {
-            this.subcategoriesErrorMessage = errorMessage;
+            this.categoriesErrorMessage = errorMessage;
           })
 
-          this.createForm();
-          this.studyForm.patchValue({
-            nivel_academico: this.estudio.id_nivel_academico,
-            nivel_socioeconomico: this.estudio.id_nivel_socioeconomico
+          this.academicLevelService.getNivelesAcademicos().subscribe((levels) => {
+            this.niveles_academicos = replaceKeyWithValue(levels);
+          }, errorMessage => {
+            this.academicLevelsErrorMessage = errorMessage;
           })
 
-          /* Determine type of location filter */
-          if (this.estudio.tipo_filtro_geografico == 'paises') {
-            this.studyForm.patchValue({
-              pais: this.estudio.id_lugares
-            })
-          }
+          this.genderService.getGeneros().subscribe((genders) => {
+            this.generos = replaceKeyWithValue(genders);
+          }, errorMessage => {
+            this.gendersErrorMessage = errorMessage;
+          })
 
-          else if (this.estudio.tipo_filtro_geografico == 'estados') {
-            this.placeService.getState(this.estudio.id_lugares[0]).subscribe((stateresult) => {
-              this.getStates(stateresult.country_id);
+          this.placeService.getCountries().subscribe((countries) => {
+            this.paises = replaceKeyWithValue(countries);
+          }, errorMessage => {
+            this.placesErrorMessage = errorMessage;
+          })
+
+          this.civilStatusService.getEdosCiviles().subscribe((statuses) => {
+            this.estados_civiles = replaceKeyWithValue(statuses);
+          }, errorMessage => {
+            this.civilStatusErrorMessage = errorMessage;
+          })
+
+
+          this.studiesService.getStudyQuestions(this.current_study).subscribe((questions) => {
+            this.preguntas = questions
+
+            /* If study is finished it cannot be modified */
+            if (this.estudio.fkEstudio.estado == 2) {
+              this.router.navigate(['404']);
+            }
+
+            /* Get current subcategory */
+            this.getSubcategories(this.estudio.fkCategoria._id)
+
+            this.createForm();
+
+            /* Age type filter */
+            if (this.estudio.edadMinima && this.estudio.edadMaxima) {
               this.studyForm.patchValue({
-                pais: stateresult.country_id,
-                estado: this.estudio.id_lugares
+                edad_minima: this.estudio.edadMinima,
+                edad_maxima: this.estudio.edadMaxima
               })
-            }, errorMessage => {
-              this.placesErrorMessage = errorMessage;
-            })
-          }
+            }
 
-          this.spinner.hide();
-          this.loading = false;
+            /* Academic status filter */
+            if (this.estudio.fkNivelAcademico) {
+              this.studyForm.patchValue({
+                nivel_academico: this.estudio.fkNivelAcademico._id
+              })
+            }
+
+            /* Socioeconomic status filter */
+            if (this.estudio.fkNivelSocioeconomico) {
+              this.studyForm.patchValue({
+                nivel_socioeconomico: this.estudio.fkNivelSocioeconomico._id
+              })
+            }
+
+            /* Gender filter */
+
+            if (this.estudio.fkGenero) {
+              this.studyForm.patchValue({
+                genero: this.estudio.fkGenero._id
+              })
+            }
+
+            /* Civil status filter */
+
+            if (this.estudio.fkEdoCivil) {
+              this.studyForm.patchValue({
+                estado_civil: this.estudio.fkEdoCivil._id
+              })
+            }
+
+            if (this.estudio.tipoFiltroLugar) {
+              /* Place type filter */
+              if (this.estudio.tipoFiltroLugar == 1) {
+                this.studyForm.patchValue({
+                  tipo_de_filtro: this.estudio.tipoFiltroLugar,
+                  pais: this.estudio.fkLugar._id
+                })
+              }
+
+              else if (this.estudio.tipoFiltroLugar == 2) {
+                this.placeService.getStates(this.estudio.fkLugar.fkLugar._id).subscribe((states) => {
+                  this.estados = replaceKeyWithValue(states)
+                })
+
+                this.studyForm.patchValue({
+                  tipo_de_filtro: this.estudio.tipoFiltroLugar,
+                  pais: this.estudio.fkLugar.fkLugar._id,
+                  estado: this.estudio.fkLugar._id
+                })
+              }
+            }
+            this.spinner.hide();
+            this.loading = false;
+          })
         } // END IF STUDY EXISTS
 
         else {
-          this.router.navigate(['404']);
         }
       }, errorMessage => {
-        this.loading = false;
-        this.spinner.hide();
-        this.studyErrorMessage = errorMessage;
+        this.router.navigate(['404']);
       });
     }
-
-    placeService.getCountries().subscribe((countries) => {
-      this.paises = replaceKeyWithValue(countries);
-    }, errorMessage => {
-      this.placesErrorMessage = errorMessage;
-    })
-
-    categoryService.getCategories().subscribe((categories) => {
-      this.categorias = replaceKeyWithValue(categories);
-    }, errorMessage => {
-      this.categoriesErrorMessage = errorMessage;
-    })
   }
 
   ngOnInit(): void {
@@ -178,33 +246,40 @@ export class EditStudyComponent implements OnInit {
     this.display = true;
   }
 
-  getSubcategories() {
-    this.subcategoryService.getSubcategories(this.studyForm.value.categoria).subscribe((subcategories) => {
-      this.subcategorias = replaceKeyWithValue(subcategories);
-    }, errorMessage => {
-      this.subcategoriesErrorMessage = errorMessage;
+  getSubcategories(category_id) {
+    this.subcategoryService.getSubcategories(category_id).subscribe((subcategories) => {
+      this.subcategorias = [];
+      for (var i = 0; i < subcategories.length; i++) {
+        this.subcategorias.push({
+          _id: subcategories[i].fkSubcategoria._id,
+          nombre: subcategories[i].fkSubcategoria.nombre
+        })
+      }
+
+      this.subcategorias = replaceKeyWithValue(this.subcategorias);
     })
   }
 
   createForm() {
     this.studyForm = this.fb.group({
-      'categoria': this.estudio.id_categoria,
-      'subcategoria': this.estudio.id_subcategoria,
+      'categoria': this.estudio.fkCategoria._id,
+      'subcategoria': this.estudio.fkSubcategoria._id,
       'nivel_academico': null,
       'nivel_socioeconomico': null,
-      'genero': this.estudio.id_genero,
-      'tipo_de_filtro': this.estudio.tipo_filtro_geografico,
+      'estado_civil': null,
+      'genero': null,
+      'tipo_de_filtro': null,
       'pais': null,
       'estado': null,
       'edad_minima': [
-        this.estudio.edad_minima,
+        null,
         [
           Validators.pattern('^[0-9]*$'),
           RxwebValidators.lessThan({ fieldName: 'edad_maxima' })
         ]
       ],
       'edad_maxima': [
-        this.estudio.edad_maxima,
+        null,
         [
           Validators.pattern('^[0-9]*$'),
           RxwebValidators.greaterThan({ fieldName: 'edad_minima' })
@@ -230,32 +305,22 @@ export class EditStudyComponent implements OnInit {
   clearPlaces() {
     this.studyForm.patchValue({
       pais: null,
-      estado: null,
-      ciudad: null
+      estado: null
     })
-    this.estudio.id_lugares = [];
-  }
-
-  clearQuestions(id_categoria) {
-    if (id_categoria != this.studyForm.value.categoria) {
-      this.has_to_clear_questions = true;
-    }
-    else {
-      this.has_to_clear_questions = false;
-    }
+    //this.estudio.id_lugares = [];
   }
 
   deleteQuestion(question) {
     this.confirmationService.confirm({
-      message: 'La siguiente pregunta: <code>' + question.pregunta + '</code> está apunto de ser eliminada, ¿Desea continuar?',
+      message: 'La siguiente pregunta: <code>' + question.fkPregunta.pregunta + '</code> está apunto de ser eliminada, ¿Desea continuar?',
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.questionService.deleteQuestion(question).subscribe((q) => {
 
-          let index = this.estudio.preguntas.indexOf(question)
+          let index = this.preguntas.indexOf(question)
           if (index > -1)
-            this.estudio.preguntas.splice(index, 1);
+            this.preguntas.splice(index, 1);
 
           this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Pregunta eliminada con éxito' });
 
@@ -331,40 +396,80 @@ export class EditStudyComponent implements OnInit {
     })
   }
 
+  linkPoolQuestion(question) {
+    this.display_modify_study_features = false;
+    this.sent_form = false;
+    this.display_pool = false;
+    this.display_new = false;
+  }
+
+  linkCreatedQuestion(question) {
+    this.studiesService.linkCreatedQuestionToStudy(this.estudio.fkEstudio._id, question.fkPregunta._id).subscribe((question) => {
+      this.display_modify_study_features = false;
+      this.sent_form = false;
+      this.display_pool = false;
+      this.display_new = false;
+      this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Pregunta añadida con éxito' });
+    })
+  }
+
   getSelectedQuestion(question) {
-    if (!this.estudio.preguntas) {
-      this.estudio.preguntas = [];
-      this.estudio.preguntas.push(question);
+    if (!this.preguntas) {
+      this.preguntas = [];
+      this.preguntas.push(question);
     }
 
     else
-      this.estudio.preguntas.push(question);
-
-    this.putStudy();
+      this.preguntas.push(question);
   }
 
   onSubmit() {
     this.sent_form = true;
-    this.estudio.id_categoria = this.studyForm.value.categoria
-    this.estudio.id_subcategoria = this.studyForm.value.subcategoria
-    this.estudio.id_nivel_academico = this.studyForm.value.nivel_academico
-    this.estudio.id_nivel_socioeconomico = this.studyForm.value.nivel_socioeconomico
-    this.estudio.id_genero = this.studyForm.value.genero
-    this.estudio.tipo_filtro_geografico = this.studyForm.value.tipo_de_filtro
-    this.estudio.edad_minima = parseInt(this.studyForm.value.edad_minima)
-    this.estudio.edad_maxima = parseInt(this.studyForm.value.edad_maxima)
+    this.estudio.fkCategoria._id = this.studyForm.value.categoria
+    this.estudio.fkSubcategoria._id = this.studyForm.value.subcategoria
 
-    if (this.has_to_clear_questions) {
-      this.estudio.preguntas = [];
+    if (this.studyForm.value.nivel_academico) {
+      this.estudio.fkNivelAcademico = new AcademicLevel();
+      this.estudio.fkNivelAcademico._id = this.studyForm.value.nivel_academico
     }
 
-    if (this.estudio.tipo_filtro_geografico == 'paises') {
-      this.estudio.id_lugares = this.studyForm.value.pais
-    }
-    else if (this.estudio.tipo_filtro_geografico == 'estados') {
-      this.estudio.id_lugares = this.studyForm.value.estado
+    if (this.studyForm.value.nivel_socioeconomico) {
+      this.estudio.fkNivelSocioeconomico = new SocioEconomicStatus();
+      this.estudio.fkNivelSocioeconomico._id = this.studyForm.value.nivel_socioeconomico
     }
 
+    if (this.studyForm.value.estado_civil) {
+      this.estudio.fkEdoCivil = new CivilStatus();
+      this.estudio.fkEdoCivil._id = this.studyForm.value.estado_civil
+    }
+
+    if (this.studyForm.value.genero) {
+      this.estudio.fkGenero = new Gender();
+      this.estudio.fkGenero._id = this.studyForm.value.genero
+    }
+
+    if (this.studyForm.value.tipo_de_filtro)
+      this.estudio.tipoFiltroLugar = this.studyForm.value.tipo_de_filtro
+
+    if (this.studyForm.value.edad_minima && this.studyForm.value.edad_maxima) {
+      this.estudio.edadMinima = parseInt(this.studyForm.value.edad_minima)
+      this.estudio.edadMaxima = parseInt(this.studyForm.value.edad_maxima)
+    }
+
+    if (this.studyForm.value.tipo_de_filtro) {
+      this.estudio.tipoFiltroLugar = this.studyForm.value.tipo_de_filtro
+
+      if (this.estudio.tipoFiltroLugar == 1) {
+        this.estudio.fkLugar = new Place();
+        this.estudio.fkLugar._id = this.studyForm.value.pais
+      }
+      else if (this.estudio.tipoFiltroLugar == 2) {
+        this.estudio.fkLugar = new Place();
+        this.estudio.fkLugar._id = this.studyForm.value.estado
+      }
+    }
+
+    console.log(this.estudio)
     if (this.studyForm.valid) {
       this.putStudy();
     }

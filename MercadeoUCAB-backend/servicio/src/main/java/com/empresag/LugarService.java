@@ -64,6 +64,7 @@ public class LugarService {
 
                 resul_dto.set_id(lugar.get_id());
                 resul_dto.setNombre(lugar.getNombre());
+                resul_dto.setTipo(lugar.getTipo());
 
                 resultado.add(resul_dto);
             }

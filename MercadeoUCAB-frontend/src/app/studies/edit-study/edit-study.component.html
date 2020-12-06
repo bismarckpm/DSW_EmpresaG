@@ -27,12 +27,9 @@
         <div *ngIf="display_modify_study_features">
             <form novalidate [formGroup]="studyForm" #sform="ngForm" (ngSubmit)="onSubmit()">
                 <h4 class="p-mx-5">Filtros de producto</h4>
-                <small class="error-msg p-mx-5">ADVERTENCIA: Si cambia la categoría y guarda los cambios las preguntas
-                    se eliminarán pues ya no serán válidas para este tipo de estudio</small>
                 <div class="p-grid p-mx-5 p-mt-2">
                     <div class="p-col-12 p-md-6 p-lg-4">
-                        <p-dropdown [options]="categorias"
-                            (onChange)="getSubcategories(); clearQuestions(estudio.id_categoria)"
+                        <p-dropdown [options]="categorias" (onChange)="getSubcategories($event.value)"
                             formControlName="categoria" placeholder="Categoría"></p-dropdown>
                     </div>
 
@@ -63,29 +60,32 @@
                 <h4 class="p-mx-5">Filtros de población</h4>
                 <div class="p-grid p-mx-5 p-mt-2">
                     <div class="p-col-12 p-md-6 p-lg-4">
-                        <p-multiSelect [options]="niveles_academicos" formControlName="nivel_academico"
-                            defaultLabel="Nivel académico" emptyFilterMessage="No se encontraron resultados"
-                            selectedItemsLabel="{} items seleccionados"></p-multiSelect>
+                        <p-dropdown [options]="niveles_academicos" formControlName="nivel_academico"
+                            placeholder="Nivel académico mínimo"></p-dropdown>
                     </div>
 
                     <div class="p-col-12 p-md-6 p-lg-4">
-                        <p-multiSelect [options]="niveles_socioeconomicos" formControlName="nivel_socioeconomico"
-                            defaultLabel="Nivel socioeconómico" emptyFilterMessage="No se encontraron resultados"
-                            selectedItemsLabel="{} items seleccionados"></p-multiSelect>
+                        <p-dropdown [options]="niveles_socioeconomicos" formControlName="nivel_socioeconomico"
+                            placeholder="Nivel socioeconómico mínimo"></p-dropdown>
                     </div>
 
                     <div class="p-col-12 p-md-6 p-lg-4">
                         <p-dropdown [options]="generos" formControlName="genero" placeholder="Genero"></p-dropdown>
                     </div>
+
+                    <div class="p-col-12 p-md-6 p-lg-4">
+                        <p-dropdown [options]="estados_civiles" formControlName="estado_civil"
+                            placeholder="Estado Civil"></p-dropdown>
+                    </div>
                 </div>
 
                 <h4 class="p-mx-5">Filtros geográficos</h4>
                 <div class="p-grid p-mx-5 p-mt-2">
-                    <p-radioButton value="paises" (onClick)="clearPlaces()" formControlName="tipo_de_filtro"
+                    <p-radioButton value="1" (onClick)="clearPlaces()" formControlName="tipo_de_filtro"
                         label="Filtrar por países" class="p-mb-3"></p-radioButton>
                 </div>
                 <div class="p-grid p-mx-5 p-mt-2">
-                    <p-radioButton value="estados" (onClick)="clearPlaces()" label="Filtrar por estados"
+                    <p-radioButton value="2" (onClick)="clearPlaces()" label="Filtrar por estados"
                         formControlName="tipo_de_filtro" class="p-mb-3"></p-radioButton>
                 </div>
                 <div class="p-grid p-mx-5 p-mt-2">
@@ -98,35 +98,20 @@
                 <div>
                     <div class="p-grid p-mx-5 p-mt-2">
                         <div class="p-col-12 p-md-6 p-lg-4">
-                            <p-multiSelect *ngIf="studyForm.value.tipo_de_filtro == 'paises'" [options]="paises"
-                                defaultLabel="Países" emptyFilterMessage="No se encontraron resultados"
-                                selectedItemsLabel="{} items seleccionados" formControlName="pais"></p-multiSelect>
+                            <p-dropdown [options]="paises" *ngIf="studyForm.value.tipo_de_filtro == 1"
+                                formControlName="pais" placeholder="País"></p-dropdown>
 
                             <p-dropdown [options]="paises" formControlName="pais"
-                                *ngIf="studyForm.value.tipo_de_filtro == 'estados'"
-                                placeholder="País" (onChange)="getStates($event.value)"></p-dropdown>
+                                *ngIf="studyForm.value.tipo_de_filtro == 2" placeholder="País"
+                                (onChange)="getStates($event.value)"></p-dropdown>
                         </div>
 
                         <div class="p-col-12 p-md-6 p-lg-4">
-                            <p-multiSelect *ngIf="studyForm.value.tipo_de_filtro == 'estados'" [options]="estados"
-                                defaultLabel="Estados" emptyFilterMessage="No se encontraron resultados"
-                                formControlName="estado" selectedItemsLabel="{} items seleccionados"></p-multiSelect>
-
-                            <p-dropdown [options]="estados" formControlName="estado"
-                                *ngIf="studyForm.value.tipo_de_filtro == 'ciudades'" placeholder="Estado"></p-dropdown>
-
-                        </div>
-
-                        <div class="p-col-12 p-md-6 p-lg-4">
-                            <p-multiSelect *ngIf="studyForm.value.tipo_de_filtro == 'ciudades'" formControlName="ciudad"
-                                [options]="ciudades" defaultLabel="Ciudades"
-                                emptyFilterMessage="No se encontraron resultados"
-                                selectedItemsLabel="{} items seleccionados"></p-multiSelect>
+                            <p-dropdown [options]="estados" *ngIf="studyForm.value.tipo_de_filtro == 2"
+                                formControlName="estado" placeholder="Estado"></p-dropdown>
                         </div>
                     </div>
                 </div>
-
-
 
                 <!-- BOTONES -->
                 <div class="p-grid p-jc-end p-mt-3 p-mb-6 p-mr-4">
@@ -144,96 +129,75 @@
             </form>
         </div>
 
-        <div *ngIf="estudio && estudio.preguntas && !display_new && !display_pool">
-            <div class="p-mx-5 p-mt-5" *ngFor="let pregunta of estudio.preguntas">
-                <div class="p-grid">
-                    <div class="p-col-12 p-lg-10">
-                        <p>{{pregunta.pregunta}}</p>
-                        <small *ngIf="pregunta.id_tipo == 5">Valores permitidos: Desde
-                            {{pregunta.opciones[0].rango_inicial}} hasta {{pregunta.opciones[0].rango_final}}</small>
-                        <!-- RESPONSES OPEN TEXT -->
-                        <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.id_tipo == 1">
-                            <div class="p-col-12 p-lg-6">
-                                <label for="float-input">Respuesta</label>
-                                <input [disabled]="true" class="p-inputtext-lg fill-width" type="text" pInputText>
-                            </div>
-                        </div>
+        <div *ngIf="estudio && preguntas && !display_new && !display_pool" class="p-mx-6 p-mt-6">
+            <p-table #dt [value]="preguntas" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
+                [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
+                [paginator]="true"
+                currentPageReportTemplate="Mostrando desde {first} hasta {last} de {totalRecords} resultados"
+                [filterDelay]="0" [globalFilterFields]="['tipo', 'categoria', 'pregunta']">
 
-                        <!-- RESPONSES SIMPLE SELECTION -->
-                        <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.id_tipo == 2">
-                            <div class="p-col-12" *ngFor="let opcion of pregunta.opciones">
-                                <p-radioButton [label]="opcion.valor" [disabled]="true" class="p-mb-3"></p-radioButton>
-                            </div>
-                        </div>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 10rem" pSortableColumn="tipo" class="p-text-center">Tipo<p-sortIcon
+                                field="tipo">
+                            </p-sortIcon>
+                        </th>
+                        <th class="p-text-center">Pregunta
+                        </th>
+                        <th style="width: 11rem"></th>
+                    </tr>
 
-                        <!-- RESPONSES MULTIPLE SELECTION -->
-                        <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.id_tipo == 3">
-                            <div class="p-col-12" *ngFor="let opcion of pregunta.opciones">
-                                <p-checkbox [label]="opcion.valor" [disabled]="true" class="p-mb-3"></p-checkbox>
-                            </div>
-                        </div>
+                </ng-template>
+                <ng-template pTemplate="body" let-pregunta>
+                    <tr class="p-selectable-row">
+                        <td class="p-text-center">
+                            <span class="p-column-title">Tipo</span>
+                            {{pregunta.fkPregunta.fkTipoPregunta.nombre}}
+                        </td>
+                        <td class="p-text-center">
+                            <span class="p-column-title">Pregunta</span>
+                            <span class="image-text">{{pregunta.fkPregunta.pregunta}}</span>
+                        </td>
 
-                        <!-- RESPONSES TRUE/FALSE -->
-                        <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.id_tipo == 4">
-                            <div class="p-col-12">
-                                <p-radioButton label="Verdadero" [disabled]="true" class="p-mb-3"></p-radioButton>
-                            </div>
-                            <div class="p-col-12">
-                                <p-radioButton label="Falso" [disabled]="true" class="p-mb-3"></p-radioButton>
-                            </div>
-                        </div>
-
-                        <!-- RESPONSES RANGE -->
-                        <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.id_tipo == 5">
-                            <div class="p-col-12 p-lg-6">
-                                <label for="float-input">Desde</label>
-                                <input [disabled]="true" class="p-inputtext-lg fill-width" type="text" pInputText>
-                            </div>
-                            <div class="p-col-12 p-lg-6">
-                                <label for="float-input">Hasta</label>
-                                <input [disabled]="true" class="p-inputtext-lg fill-width" type="text" pInputText>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- OPTIONS -->
-                    <div class="p-col p-lg-2">
-                        <div class="p-grid p-jc-end p-mr-5">
-                            <i class="pi pi-fw pi-pencil p-mr-2" routerLink="../../questions/edit"
-                                [queryParams]="{qid: pregunta.id, origin: 'study', sid: estudio.id}"
-                                style="cursor: pointer;"></i>
-                            <i class="pi pi-fw pi-trash" (click)="deleteQuestion(pregunta)"
-                                style="cursor: pointer;"></i>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="p-grid p-jc-end p-mt-1 p-mr-4">
-                <div class="p-grid p-formgrid p-fluid">
-                    <div class="p-mb-2 p-col-12 p-mb-lg-0">
-                        <button pButton pRipple type="button" routerLink="../../studies/existing" label="Atrás"
-                            class="p-button-secondary"></button>
-                    </div>
-                </div>
-            </div>
+                        <td class="p-text-center">
+                            <button type="button" pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-mr-2"
+                                pTooltip="Editar pregunta" routerLink="../../questions/edit"
+                                [queryParams]="{questionId:pregunta._id , origin: 'study', studyId: estudio.fkEstudio._id}"
+                                tooltipPosition="bottom"></button>
+                            <button type="button" pButton pRipple icon="pi pi-trash" class="p-button-rounded"
+                                pTooltip="Eliminar pregunta" tooltipPosition="bottom"
+                                (click)="deleteQuestion(pregunta)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No se encontraron preguntas</td>
+                    </tr>
+                </ng-template>
+            </p-table>
         </div>
 
         <!-- ADD QUESTION -->
         <div *ngIf="display_pool" class="p-mx-5 p-mt-2">
-            <app-add-question-from-pool [category_id]="estudio.id_categoria" (onViewClose)="display_pool = false" (onQuestionSelect)="getSelectedQuestion($event)"></app-add-question-from-pool>
+            <app-add-question-from-pool [category_id]="estudio.fkCategoria._id" (onViewClose)="display_pool = false"
+                (onQuestionSelect)="getSelectedQuestion($event); linkPoolQuestion($event)"></app-add-question-from-pool>
         </div>
 
-        <div *ngIf="display_new" class="p-mx-5 p-mt-2"> 
-            <app-add-question-form [category_id]="estudio.id_categoria" [subcategory_id]="estudio.id_subcategoria" (onViewClose)="display_new = false" (onQuestionCreate)="getSelectedQuestion($event)"></app-add-question-form>
+        <div *ngIf="display_new" class="p-mx-5 p-mt-2">
+            <app-add-question-form [category_id]="estudio.fkCategoria._id" [subcategory_id]="estudio.fkSubcategoria._id"
+                (onViewClose)="display_new = false" (onQuestionCreate)="getSelectedQuestion($event); linkCreatedQuestion($event)">
+            </app-add-question-form>
         </div>
 
         <p-dialog header="Agregar pregunta" [(visible)]="display">
             <div>
-                <p-radioButton label="Quiero crear una nueva pregunta" [(ngModel)]="style" value="new" class="p-mb-3"></p-radioButton>
+                <p-radioButton label="Quiero crear una nueva pregunta" [(ngModel)]="style" value="new" class="p-mb-3">
+                </p-radioButton>
             </div>
             <div>
-                <p-radioButton label="Quiero seleccionar una pregunta del pool" value="pool" [(ngModel)]="style" class="p-mb-3"></p-radioButton>
+                <p-radioButton label="Quiero seleccionar una pregunta del pool" value="pool" [(ngModel)]="style"
+                    class="p-mb-3"></p-radioButton>
             </div>
 
             <div class="p-grid p-jc-end p-mt-1 p-mr-4">
@@ -243,7 +207,7 @@
             </div>
         </p-dialog>
 
-        <div *ngIf="!estudio && !loading && studyErrorMessage">
+        <div *ngIf="!estudio && !loading && preguntaErrorMessage">
             <app-server-disconnected></app-server-disconnected>
         </div>
 

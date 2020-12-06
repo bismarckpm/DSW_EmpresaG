@@ -21,11 +21,6 @@ export class PlaceService {
   }
 
   getStates(country_id): Observable<Place[]>{
-    // return this.http.get<Place[]>(baseURL + 'states', {
-    //   params: {
-    //     country_id: country_id
-    //   }
-    // }).pipe(catchError(this.processHTTPMessageService.handleError))
     return this.http.get<Place[]>(serverURL + 'lugar/consulta/'+country_id)
     .pipe(catchError(this.processHTTPMessageService.handleError))
   }
