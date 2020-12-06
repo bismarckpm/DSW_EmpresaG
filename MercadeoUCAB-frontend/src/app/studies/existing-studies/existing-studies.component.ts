@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { Study } from '../../classes/study';
 import { CategoryService } from '../../services/category.service';
 import { StudiesService } from '../../services/studies.service';
 import { replaceKey } from '../../functions/common_functions';
 import { STUDY_STATES } from '../../constants/study_states'
+import { StudyWithFilter } from 'src/app/classes/study_with_filter';
 
 @Component({
   selector: 'app-existing-studies',
@@ -13,11 +13,11 @@ import { STUDY_STATES } from '../../constants/study_states'
   styleUrls: ['./existing-studies.component.scss']
 })
 export class ExistingStudiesComponent implements OnInit {
-  estudios: Study[];
+  estudios: StudyWithFilter[];
   estudiosErrorMessage: string;
   categorias: MenuItem[];
   categoriasErrorMessage: string;
-  estados: MenuItem[] = STUDY_STATES;
+  estados = STUDY_STATES;
   loading: boolean = false;
   @ViewChild('dt') table: Table;
 
@@ -43,11 +43,11 @@ export class ExistingStudiesComponent implements OnInit {
   }
 
   onCategoryChange(event){
-    this.table.filter(event.value, 'categoria', 'in')
+    this.table.filter(event.value, 'fkCategoria.nombre', 'in')
   }
 
   onStateChange(event){
-    this.table.filter(event.value, 'estado', 'in')
+    this.table.filter(event.value, 'fkEstudio.estado', 'in')
   }
 
 }

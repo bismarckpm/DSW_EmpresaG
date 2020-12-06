@@ -3,9 +3,11 @@ import { Analytics } from '../classes/analytics';
 import { Person } from './person';
 
 export class Study {
-    id: number;
-    id_estado?: number;
-    estado?: string;
+    _id: number;
+    estado: number;
+    fechaRealizacion: string;
+    fechaCulminacion?: string;
+
 
     /* TO MODIFY / ADD VALUES */
     

@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { Question } from '../../classes/question';
 import { Table } from 'primeng/table';
-import { MenuItem } from 'primeng/api';
 import { QUESTION_TYPES } from '../../constants/question_types';
 import { QuestionService } from '../../services/question.service';
 import { SubcategoryService } from '../../services/subcategory.service';
@@ -21,7 +19,7 @@ export class AddQuestionFromPoolComponent implements OnInit {
   preguntas: QuestionCategorySubcategory[];
   questionsErrorMessage: string;
   categoryErrorMessage: string;
-  subcategorias: MenuItem[];
+  subcategorias: any[];
   question_types = QUESTION_TYPES;
 
   /* Table */
@@ -38,39 +36,47 @@ export class AddQuestionFromPoolComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.questionService.getQuestionsByCategory(this.category_id).subscribe((questions) => {
-        this.preguntas = questions; 
-        this.loading = false;
-      },
+      this.preguntas = questions;
+      this.loading = false;
+    },
       errorMessage => {
         this.loading = false;
         this.questionsErrorMessage = errorMessage;
       })
 
     this.subcategoryService.getSubcategories(this.category_id).subscribe((subcategories) => {
-      this.subcategorias = replaceKey(subcategories);
+      this.subcategorias = [];
+      for (var i = 0; i < subcategories.length; i++) {
+        this.subcategorias.push({
+          value: subcategories[i].fkSubcategoria._id,
+          label: subcategories[i].fkSubcategoria.nombre
+        })
+      }
     },
-    errorMessage => {
-      this.categoryErrorMessage = errorMessage;
-    })
+      errorMessage => {
+        this.categoryErrorMessage = errorMessage;
+      })
   }
 
-  onSubcategoryChange(event){
-    this.table.filter(event.value, 'categoria', 'in')
+  onSubcategoryChange(event) {
+    this.table.filter(event.value, 'fkSubcategoria._id', 'in')
   }
 
-  onQuestionTypeChange(event){
-    this.table.filter(event.value, 'tipo', 'in')
+  onQuestionTypeChange(event) {
+    this.table.filter(event.value, 'fkPregunta.fkTipoPregunta._id', 'in')
   }
 
-  closeView(){
+  closeView() {
     this.onViewClose.emit(1);
   }
 
-  selectQuestion(question){
-    delete question['id'];
-    /* Clone question so the modification doesn't affect other studies */
-    this.questionService.postQuestion(question).subscribe((q) => {
-      this.onQuestionSelect.emit(q);
+  selectQuestion(question: QuestionCategorySubcategory) {
+    /* STATUS = 2: Cloned question
+    Clone question so the modification doesn't affect other studies */
+    this.questionService.cloneQuestion(question).subscribe((q) => {
+      question._id = q._id;
+      question.fkPregunta._id = q.fkPregunta._id
+      this.onQuestionSelect.emit(question);
     })
   }
 

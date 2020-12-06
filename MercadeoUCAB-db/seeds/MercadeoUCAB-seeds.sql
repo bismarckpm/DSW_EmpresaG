@@ -506,3 +506,76 @@ VALUES (22, 47);
 INSERT INTO empresag.posible_respuesta (fk_pregunta, fk_opcion)
 VALUES (22, 48);
 
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (1, 'Estados Unidos', 1, null, null);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (2, 'Louisiana', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (3, 'California', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (4, 'Florida', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (5, 'Alabama', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (6, 'Arkansas', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (7, 'Ohio', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (8, 'Alaska', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (9, 'Texas', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (10, 'Washington', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (11, 'Oregon', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (12, 'Virginia', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (13, 'West Virginia', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (14, 'South Dakota', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (15, 'North Dakota', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (16, 'North Carolina', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (17, 'South Carolina', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (18, 'Kansas', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (19, 'Nebraska', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (20, 'Delaware', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (21, 'Vermont', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (22, 'Distrct of Columbia', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (23, 'Tennessee', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (24, 'Massachusetts', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (25, 'Hawaii', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (26, 'Minnesotta', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (27, 'Maryland', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (28, 'Michigan', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (29, 'Iowa', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (30, 'Idaho', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (31, 'Ohio', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (32, 'Pennsylvania', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (33, 'Montana', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (34, 'Rhode Island', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (35, 'Maine', 2, null, 1);
+INSERT INTO empresag.lugar (id, nombre, tipo, fk_nivel_socioeconomico, fk_lugar) VALUES (36, 'Nevada', 2, null, 1);
+
+INSERT INTO empresag.nivel_socioeconomico (id, nombre) VALUES (1, 'Alto');
+INSERT INTO empresag.nivel_socioeconomico (id, nombre) VALUES (2, 'Medio-Alto');
+INSERT INTO empresag.nivel_socioeconomico (id, nombre) VALUES (3, 'Medio');
+INSERT INTO empresag.nivel_socioeconomico (id, nombre) VALUES (4, 'Medio-Bajo');
+INSERT INTO empresag.nivel_socioeconomico (id, nombre) VALUES (5, 'Bajo');
+INSERT INTO empresag.nivel_socioeconomico (id, nombre) VALUES (6, 'Extrema Pobreza');
+
+INSERT INTO empresag.nivel_academico (id, nombre) VALUES (1, 'Ninguno');
+INSERT INTO empresag.nivel_academico (id, nombre) VALUES (2, 'Primaria');
+INSERT INTO empresag.nivel_academico (id, nombre) VALUES (3, 'Secundaria');
+INSERT INTO empresag.nivel_academico (id, nombre) VALUES (4, 'Técnico Superior');
+INSERT INTO empresag.nivel_academico (id, nombre) VALUES (5, 'Universitario');
+INSERT INTO empresag.nivel_academico (id, nombre) VALUES (6, 'Maestría');
+INSERT INTO empresag.nivel_academico (id, nombre) VALUES (7, 'Doctorado');
+
+INSERT INTO empresag.genero (id, nombre) VALUES (1, 'Masculino');
+INSERT INTO empresag.genero (id, nombre) VALUES (2, 'Femenino');
+INSERT INTO empresag.genero (id, nombre) VALUES (3, 'Otro');
+
+INSERT INTO empresag.estudio (id, fecha_realizacion, fecha_culminacion, estado, fk_analisis) VALUES (1, '2020-12-04', null, 1, null);
+INSERT INTO empresag.estudio (id, fecha_realizacion, fecha_culminacion, estado, fk_analisis) VALUES (2, '2020-07-02', null, 1, null);
+INSERT INTO empresag.estudio (id, fecha_realizacion, fecha_culminacion, estado, fk_analisis) VALUES (3, '2020-07-03', null, 1, null);
+INSERT INTO empresag.estudio (id, fecha_realizacion, fecha_culminacion, estado, fk_analisis) VALUES (4, '2018-03-02', null, 1, null);
+INSERT INTO empresag.estudio (id, fecha_realizacion, fecha_culminacion, estado, fk_analisis) VALUES (5, '2017-03-03', null, 1, null);
+INSERT INTO empresag.estudio (id, fecha_realizacion, fecha_culminacion, estado, fk_analisis) VALUES (6, '2020-06-05', null, 1, null);
+
+INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_grupo_familiar, fk_lugar, fk_categoria, fk_subcategoria) VALUES (1, 1, 1, 15, 45, 3, null, 2, 1, null, 1, 1, 1);
+INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_grupo_familiar, fk_lugar, fk_categoria, fk_subcategoria) VALUES (2, 2, 1, null, null, 3, null, 2, 1, null, 1, 2, 2);
+INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_grupo_familiar, fk_lugar, fk_categoria, fk_subcategoria) VALUES (3, 3, 2, 14, 28, 3, null, 2, null, null, 2, 3, 3);
+INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_grupo_familiar, fk_lugar, fk_categoria, fk_subcategoria) VALUES (4, 4, 2, 14, 28, 3, null, null, null, null, 3, 5, 6);
+INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_grupo_familiar, fk_lugar, fk_categoria, fk_subcategoria) VALUES (5, 5, null, null, null, 3, null, 1, null, null, null, 4, 4);
+INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_grupo_familiar, fk_lugar, fk_categoria, fk_subcategoria) VALUES (6, 6, 1, 1, 100, 3, 1, 2, 1, null, 1, 5, 6);
+
+INSERT INTO empresag.pregunta_estudio (id, requerido, fk_estudio, fk_pregunta) VALUES (1, 1, 1, 1);
+INSERT INTO empresag.pregunta_estudio (id, requerido, fk_estudio, fk_pregunta) VALUES (2, 1, 1, 13);
+INSERT INTO empresag.pregunta_estudio (id, requerido, fk_estudio, fk_pregunta) VALUES (1, 1, 1, 21);

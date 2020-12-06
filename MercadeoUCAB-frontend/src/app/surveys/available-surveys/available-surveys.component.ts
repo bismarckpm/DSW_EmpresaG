@@ -28,13 +28,13 @@ export class AvailableSurveysComponent implements OnInit {
     this.loading = true;
     // TODO: Get on progress studies that haven't been taken before
     this.studiesService.getStudies().subscribe((studies) => {
-      this.estudios = studies.map(
+      /*this.estudios = studies.map(
         function (obj){
           return Object.assign(obj, 
             {
               n_preguntas: obj.preguntas.length, 
               tiempo_estimado: obj.preguntas.length + (Math.floor(Math.random()*10)+1)
-            })});
+            })});*/
     }, errorMessage => {
       this.loading = false;
       this.estudiosErrorMessage = errorMessage;

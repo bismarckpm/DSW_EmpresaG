@@ -27,7 +27,7 @@ export class AnalysisRequestsComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.studiesService.getStudies().subscribe((studies) => {
-      this.estudios = studies;
+      //this.estudios = studies;
     }, errorMessage => {
       this.loading = false;
       this.estudiosErrorMessage = errorMessage;

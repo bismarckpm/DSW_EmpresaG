@@ -31,6 +31,7 @@ public class MyApplication extends Application {
         h.add( QuestionService.class );
         h.add( OptionService.class );
         h.add( UserService.class );
+        h.add( StudyService.class );
         h.add( OcupacionService.class );
         h.add( NivelAcademicoService.class );
         h.add( DisponibilidadService.class );

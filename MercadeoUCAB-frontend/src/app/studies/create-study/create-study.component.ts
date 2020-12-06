@@ -80,16 +80,14 @@ export class CreateStudyComponent implements OnInit {
 
       this.current_study = parseInt(this.Activatedroute.snapshot.queryParamMap.get('requestId'));
 
-      /* Create study based on request */
+      /* Create study based on request 
       this.requestsService.getRequest(this.current_study).subscribe((request) => {
-        /* In progress studies cannot be recreated */
         this.estudio = request as Study;
         if (this.estudio.estado == "En progreso"){
           this.router.navigate(['404']);
         }
         else {
           this.estudio.estado = "En progreso";
-          /* Update request's status before turning it into a study */
           this.requestsService.putRequest(this.estudio).subscribe((request) => {
             delete this.estudio['id'];
             this.studiesService.postStudy(this.estudio).subscribe((study) => {
@@ -109,7 +107,7 @@ export class CreateStudyComponent implements OnInit {
       }, errorMessage => {
         this.requestErrorMessage = errorMessage;
         this.router.navigate(['404']);
-      })
+      })*/
     }
   }
 

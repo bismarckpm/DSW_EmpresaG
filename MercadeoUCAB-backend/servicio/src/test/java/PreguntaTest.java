@@ -32,6 +32,25 @@ public class PreguntaTest {
     }
 
     @Test
+    public void allActiveQuestionsThatDontExistInStudyByCategory(){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
+        EntityManager em = emf.createEntityManager();
+
+        JPQL = "SELECT pcs FROM PreguntaCatSubcatEntity pcs WHERE pcs.fkPregunta.status = 1" +
+                " AND pcs.fkCategoria._id = :idCategoria";
+        q = em.createQuery(JPQL);
+        q.setParameter("idCategoria", 1);
+        pcs = q.getResultList();
+
+        for (PreguntaCatSubcatEntity pcse: pcs) {
+            System.out.print(pcse.getFkPregunta().get_id()+" ");
+            System.out.println(pcse.getFkPregunta());
+            System.out.println(pcse.getFkCategoria());
+            System.out.println(pcse.getFkSubcategoria());
+        }
+    }
+
+    @Test
     public void addOpenTextQuestion(){
         DaoPregunta daoPregunta = new DaoPregunta();
         DaoPreguntaCategoriaSubcategoria daoPreguntaCategoriaSubcategoria = new DaoPreguntaCategoriaSubcategoria();
