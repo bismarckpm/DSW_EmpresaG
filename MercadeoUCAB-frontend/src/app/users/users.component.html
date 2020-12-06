@@ -62,15 +62,15 @@
                         <tr class="p-selectable-row">
                             <td class="p-text-center">
                                 <span class="p-column-title">Nombre</span>
-                                {{persona.primer_nombre + " " + persona.primer_apellido}}
+                                {{persona.fkPersona.primerNombre + " " + persona.fkPersona.primerApellido}}
                             </td> 
                             <td class="p-text-center">
                                 <span class="p-column-title">Email</span>
-                                <span class="image-text">{{persona.correo_electronico}}</span>
+                                <span class="image-text">{{persona.email}}</span>
                             </td> 
                             <td class="p-text-center">
                                 <span class="p-column-title">Estado</span>
-                                <span class="image-text">{{persona.estado_civil}}</span>
+                                <span class="image-text">{{persona.fkPersona.fkEdoCivil.nombre}}</span>
                             </td>
                             <td class="p-text-center">
                                 <button type="button" pButton pRipple icon="pi pi-pencil"

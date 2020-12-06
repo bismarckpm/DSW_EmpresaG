@@ -5,6 +5,10 @@ import { ConfirmationService } from 'primeng/api';
 import { Person } from '../classes/person';
 import { UserService } from '../services/user.service';
 import { replaceKey } from '../functions/common_functions';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ProcessHttpMessageService } from '../services/process-http-message.service';
+
+
 
 
 @Component({
@@ -42,7 +46,6 @@ export class UsersComponent implements OnInit {
     })
   }
 
-  // El doc de identificacion no sirvio
   deleteUser(person){
     this.confirmationService.confirm({
       message: 'El siguiente usuario: <code>' + person.correo_electronico + '</code> está apunto de ser eliminado, ¿Desea continuar?',
