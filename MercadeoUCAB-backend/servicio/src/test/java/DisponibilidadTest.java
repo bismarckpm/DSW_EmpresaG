@@ -29,8 +29,7 @@ public class DisponibilidadTest {
                 Date date = (Date)formatter.parse(fecha);
 
                 DisponibilidadDto disponibilidadDto = new DisponibilidadDto();
-                disponibilidadDto.setHoraInicial(new Time(date.getTime()));
-                disponibilidadDto.setHoraFinal(new Time(date.getTime()));
+                disponibilidadDto.setHora(new Time(date.getTime()));
 
                 service.addDisponibilidad(disponibilidadDto);
             }
