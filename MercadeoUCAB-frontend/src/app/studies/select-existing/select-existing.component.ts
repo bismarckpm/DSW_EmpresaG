@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { StudiesService } from '../../services/studies.service';
 import { RequestsService } from '../../services/requests.service';
 import { Study } from '../../classes/study';
-import { Request } from '../../classes/request';
+import { StudyRequest } from '../../classes/study_request';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { CategoryService } from '../../services/category.service';
@@ -56,7 +56,7 @@ export class SelectExistingComponent implements OnInit {
 
       this.requestsService.getRequest(this.current_study).subscribe((request) => {
         /* In progress studies cannot be recreated */
-        this.request = request;
+        //this.request = request;
         /*if (this.request.estado == "En progreso") {
           this.router.navigate(['404']);
         }

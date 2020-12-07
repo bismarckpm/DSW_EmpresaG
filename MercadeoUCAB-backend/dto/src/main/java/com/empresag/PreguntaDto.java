@@ -46,4 +46,12 @@ public class PreguntaDto extends BaseDto {
     public void setListOpciones(List<OpcionDto> listOpciones) {
         this.listOpciones = listOpciones;
     }
+
+    @Override
+    public String toString() {
+        return "PreguntaDto{" +
+                "pregunta='" + pregunta + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }

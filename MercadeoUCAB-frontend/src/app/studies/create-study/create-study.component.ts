@@ -4,7 +4,6 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { StudiesService } from '../../services/studies.service';
 import { RequestsService } from '../../services/requests.service';
 import { PlaceService } from '../../services/place.service';
-import { Study } from '../../classes/study';
 import { Question } from '../../classes/question';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
@@ -17,7 +16,10 @@ import { GENDERS } from '../../constants/gender';
 import { MenuItem } from 'primeng/api';
 
 /* Form */
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
+import { RequestWithFilter } from 'src/app/classes/request_with_filter';
+import { StudyWithFilter } from 'src/app/classes/study_with_filter';
+import { QuestionCategorySubcategory } from 'src/app/classes/question_category_subcategory';
 
 @Component({
   selector: 'app-create-study',
@@ -25,11 +27,16 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./create-study.component.scss'],
   providers: [ConfirmationService, MessageService]
 })
+
 export class CreateStudyComponent implements OnInit {
-  current_study: number;
-  estudio: Study;
+  current_request: number;
+  solicitud: RequestWithFilter;
+  estudio: StudyWithFilter;
+  preguntas: QuestionCategorySubcategory[];
+
+  sent_form: boolean = false;
+
   display: boolean = false;
-  has_to_clear_questions: boolean = false // If category changes questions are no longer valid
   display_modify_study_features: boolean = false;
   niveles_academicos: MenuItem[] = ACADEMICS;
   generos: MenuItem[] = GENDERS;
@@ -73,33 +80,31 @@ export class CreateStudyComponent implements OnInit {
       this.router.navigate(['404']);
     }
 
-    /* Get current study */
+    /* Get current request */
     else {
       this.loading = true;
       this.spinner.show();
 
-      this.current_study = parseInt(this.Activatedroute.snapshot.queryParamMap.get('requestId'));
+      this.current_request = parseInt(this.Activatedroute.snapshot.queryParamMap.get('requestId'));
 
-      /* Create study based on request 
-      this.requestsService.getRequest(this.current_study).subscribe((request) => {
-        this.estudio = request as Study;
-        if (this.estudio.estado == "En progreso"){
+      /* Create study based on request */
+      this.requestsService.getRequest(this.current_request).subscribe((request) => {
+        this.solicitud = request;
+        
+        if (this.solicitud.fkSolicitud.estado == 1){
+          //console.log(this.solicitud)
           this.router.navigate(['404']);
         }
         else {
-          this.estudio.estado = "En progreso";
-          this.requestsService.putRequest(this.estudio).subscribe((request) => {
-            delete this.estudio['id'];
-            this.studiesService.postStudy(this.estudio).subscribe((study) => {
-              this.estudio = study;
-              this.loading = false;
-              this.spinner.hide();
-            }, errorMessage => {
-              this.loading = false;
-              this.spinner.hide();
-              this.studyErrorMessage = errorMessage;
-            })
+          this.solicitud.fkSolicitud.estado = 1
+          this.requestsService.updateStatus(this.solicitud.fkSolicitud).subscribe((study) => {
+            this.estudio = study;
+            this.loading = false;
+            this.spinner.hide();
+
           }, errorMessage => {
+            this.loading = false;
+            this.spinner.hide();
             this.requestErrorMessage = errorMessage
           })
         }
@@ -107,7 +112,7 @@ export class CreateStudyComponent implements OnInit {
       }, errorMessage => {
         this.requestErrorMessage = errorMessage;
         this.router.navigate(['404']);
-      })*/
+      })
     }
   }
 
@@ -120,15 +125,15 @@ export class CreateStudyComponent implements OnInit {
 
   deleteQuestion(question) {
     this.confirmationService.confirm({
-      message: 'La siguiente pregunta: <code>' + question.pregunta + '</code> está apunto de ser eliminada, ¿Desea continuar?',
+      message: 'La siguiente pregunta: <code>' + question.fkPregunta.pregunta + '</code> está apunto de ser eliminada, ¿Desea continuar?',
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.questionService.deleteQuestion(question).subscribe((q) => {
 
-          let index = this.estudio.preguntas.indexOf(question)
+          let index = this.preguntas.indexOf(question)
           if (index > -1)
-            this.estudio.preguntas.splice(index, 1);
+            this.preguntas.splice(index, 1);
 
           this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Pregunta eliminada con éxito' });
 
@@ -158,25 +163,42 @@ export class CreateStudyComponent implements OnInit {
     this.studiesService.putStudy(this.estudio).subscribe((study) => {
       this.display_pool = false;
       this.display_modify_study_features = false;
+      this.sent_form = false;
       this.display_new = false;
-      this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Pregunta añadida con éxito' });
+      this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Información modificada con éxito' });
     }, errorMessage => {
       this.display_modify_study_features = false;
+      this.sent_form = false;
       this.display_pool = false;
       this.display_new = false;
       this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
     })
   }
 
+  linkPoolQuestion(question) {
+    this.display_modify_study_features = false;
+    this.sent_form = false;
+    this.display_pool = false;
+    this.display_new = false;
+  }
+
+  linkCreatedQuestion(question) {
+    this.studiesService.linkCreatedQuestionToStudy(this.estudio.fkEstudio._id, question.fkPregunta._id).subscribe((question) => {
+      this.display_modify_study_features = false;
+      this.sent_form = false;
+      this.display_pool = false;
+      this.display_new = false;
+      this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Pregunta añadida con éxito' });
+    })
+  }
+
   getSelectedQuestion(question) {
-    if (!this.estudio.preguntas) {
-      this.estudio.preguntas = [];
-      this.estudio.preguntas.push(question);
+    if (!this.preguntas) {
+      this.preguntas = [];
+      this.preguntas.push(question);
     }
 
     else
-      this.estudio.preguntas.push(question);
-
-    this.putStudy();
+      this.preguntas.push(question);
   }
 }

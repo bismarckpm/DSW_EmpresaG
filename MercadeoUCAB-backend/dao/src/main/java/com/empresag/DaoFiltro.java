@@ -42,4 +42,17 @@ public class DaoFiltro extends Dao<FiltroEntity> {
         q.setParameter("estudio", estudio);
         return (FiltroEntity) q.getSingleResult();
     }
+
+    public FiltroEntity getCurrentRequest(long id){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
+        EntityManager em = emf.createEntityManager();
+        DaoSolicitud daoSolicitud = new DaoSolicitud();
+
+        SolicitudEntity solicitud = daoSolicitud.find(id, SolicitudEntity.class);
+
+        JPQL = "SELECT e FROM FiltroEntity e WHERE e.fkSolicitud = :solicitud AND e.fkEstudio IS NULL";
+        q = em.createQuery(JPQL);
+        q.setParameter("solicitud", solicitud);
+        return (FiltroEntity) q.getSingleResult();
+    }
 }

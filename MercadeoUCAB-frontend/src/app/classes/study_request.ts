@@ -1,7 +1,7 @@
 import { Analytics } from './analytics';
 import { Users } from './users';
 
-export class Request {
+export class StudyRequest {
     _id: number;
     estado: number;
     fkUsuario: Users;

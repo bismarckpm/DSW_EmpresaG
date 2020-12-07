@@ -94,16 +94,16 @@
 
                             <td class="p-text-center">
                                 <button type="button" pButton
-                                    pRipple icon="pi pi-plus" routerLink="../create" [queryParams]="{requestId:solicitud.fkSolicitud._id}" class="p-button-rounded p-mr-2" pTooltip="Crear solicitud"
+                                    pRipple icon="pi pi-plus" routerLink="../create" [queryParams]="{requestId:solicitud.fkSolicitud._id}" class="p-button-rounded p-mr-2" pTooltip="Crear estudio"
                                     tooltipPosition="bottom"></button>
                                 <button type="button" pButton pRipple icon="pi pi-clone"
-                                    class="p-button-rounded p-mr-2" routerLink="../select-existing" [queryParams]="{requestId:solicitud.fkSolicitud._id}" pTooltip="Asignar solicitud existente" tooltipPosition="bottom"></button>
+                                    class="p-button-rounded p-mr-2" routerLink="../select-existing" [queryParams]="{requestId:solicitud.fkSolicitud._id}" pTooltip="Asignar estudio existente" tooltipPosition="bottom"></button>
                             </td>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="emptymessage">
                         <tr>
-                            <td colspan="8">No se encontraron solicituds</td>
+                            <td colspan="8">No se encontraron solicitudes</td>
                         </tr>
                     </ng-template>
                 </p-table>

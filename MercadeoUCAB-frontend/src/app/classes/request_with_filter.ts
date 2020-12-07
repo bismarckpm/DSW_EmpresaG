@@ -3,6 +3,7 @@ import { Category } from './category';
 import { CivilStatus } from './civil_status';
 import { Gender } from './gender';
 import { Place } from './place';
+import { StudyRequest } from './study_request';
 import { SocioEconomicStatus } from './socioeconomic_status';
 import { Subcategory } from './subcategory';
 
@@ -11,7 +12,7 @@ export class RequestWithFilter{
     edadMinima?: number;
     edadMaxima?: number;
     fkCategoria?: Category;
-    fkSolicitud: Request;
+    fkSolicitud: StudyRequest;
     fkEdoCivil?: CivilStatus;
     fkGenero?: Gender;
     fkLugar?: Place;

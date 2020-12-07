@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Request } from '../classes/request';
+import { StudyRequest } from '../classes/study_request';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { baseURL } from '../constants/baseURL';
@@ -7,6 +7,7 @@ import { map, catchError } from 'rxjs/operators';
 import { ProcessHttpMessageService } from '../services/process-http-message.service';
 import { RequestWithFilter } from '../classes/request_with_filter';
 import { serverURL } from '../constants/serverURL';
+import { StudyWithFilter } from '../classes/study_with_filter';
 
 @Injectable({
   providedIn: 'root'
@@ -21,11 +22,19 @@ export class RequestsService {
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  getRequest(rid): Observable<Request>{
-    return this.http.get<Request>(baseURL + 'requests', {params: {
-      id: rid
-    }})
-      .pipe(map(request => request[0]))
+  getRequest(rid): Observable<RequestWithFilter>{
+    return this.http.get<RequestWithFilter>(serverURL + 'requests/find/' + rid)
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
+  updateStatus(study_request): Observable<StudyWithFilter>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+    };
+
+    return this.http.put<StudyWithFilter>(serverURL + 'requests/update-status/' + study_request._id, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
