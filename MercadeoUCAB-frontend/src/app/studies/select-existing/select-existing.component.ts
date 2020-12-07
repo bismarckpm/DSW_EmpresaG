@@ -50,7 +50,7 @@ export class SelectExistingComponent implements OnInit {
     private studiesService: StudiesService) {
     /* If query is empty return 404 */
     if ((this.Activatedroute.snapshot.queryParamMap.get('requestId') || 0) == 0) {
-      this.router.navigate(['404']);
+      //this.router.navigate(['404']);
     }
 
     /* Get current study */
@@ -69,27 +69,25 @@ export class SelectExistingComponent implements OnInit {
         this.solicitud = request;
         
         if (this.solicitud.fkSolicitud.estado == 1){
-          this.router.navigate(['404']);
+          //this.router.navigate(['404']);
         }
         else {
           this.solicitud.fkSolicitud.estado = 1
           this.requestsService.updateStatus(this.solicitud.fkSolicitud).subscribe((study) => {
             this.estudio = study;
-
-
-            /* Get similar studies */
-            this.studiesService.getSimilarStudies(this.solicitud.fkCategoria._id).subscribe((studies) => {
-              this.estudios = studies;
-              this.loading = false;
-            }, errorMessage => {
-              this.studyErrorMessage = errorMessage;
-            })
-
           }, errorMessage => {
             this.loading = false;
             this.requestErrorMessage = errorMessage
           })
         }
+
+        /* Get similar studies */
+        this.studiesService.getSimilarStudies(this.solicitud.fkCategoria._id).subscribe((studies) => {
+          this.estudios = studies;
+          this.loading = false;
+        }, errorMessage => {
+          this.studyErrorMessage = errorMessage;
+        })
 
       }, errorMessage => {
         this.requestErrorMessage = errorMessage;

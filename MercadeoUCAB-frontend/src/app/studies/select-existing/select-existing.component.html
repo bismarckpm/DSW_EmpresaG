@@ -101,7 +101,7 @@
                             </td>
 
                             <td class="p-text-center">
-                                <button type="button" routerLink="../view" [queryParams]="{sid:estudio.id}" pButton
+                                <button type="button" routerLink="../view" [queryParams]="{studyId:estudio.fkEstudio._id}" pButton
                                     pRipple icon="pi pi-eye" class="p-button-rounded p-mr-2" pTooltip="Vista previa"
                                     tooltipPosition="bottom"></button>
                                 <button type="button" pButton pRipple icon="pi pi-check" (click)="assignStudy(estudio)"
