@@ -65,11 +65,13 @@ public class StudyService {
             estudio.setEstado(1);
             daoEstudio.insert(estudio);
 
-            studyToClone = daoFiltro.getCurrentStudy(id);
+            studyToClone = daoFiltro.getCurrentRequest(rid);
             solicitud = daoSolicitud.find(rid, SolicitudEntity.class);
-            studyToClone.setFkSolicitud(solicitud);
+            solicitud.setEstado(1);
+            daoSolicitud.update(solicitud);
+
             studyToClone.setFkEstudio(estudio);
-            daoFiltro.insert(studyToClone);
+            daoFiltro.update(studyToClone);
 
             daoEstudio.cloneStudy(id, estudio.get_id());
 

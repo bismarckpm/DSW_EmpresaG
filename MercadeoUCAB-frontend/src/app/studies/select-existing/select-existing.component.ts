@@ -50,7 +50,7 @@ export class SelectExistingComponent implements OnInit {
     private studiesService: StudiesService) {
     /* If query is empty return 404 */
     if ((this.Activatedroute.snapshot.queryParamMap.get('requestId') || 0) == 0) {
-      //this.router.navigate(['404']);
+      this.router.navigate(['404']);
     }
 
     /* Get current study */
@@ -67,28 +67,21 @@ export class SelectExistingComponent implements OnInit {
       /* Create study based on request */
       this.requestsService.getRequest(this.current_request).subscribe((request) => {
         this.solicitud = request;
-        
-        if (this.solicitud.fkSolicitud.estado == 1){
-          //this.router.navigate(['404']);
+
+        if (this.solicitud.fkSolicitud.estado == 1) {
+          this.router.navigate(['404'])
         }
+
         else {
-          this.solicitud.fkSolicitud.estado = 1
-          this.requestsService.updateStatus(this.solicitud.fkSolicitud).subscribe((study) => {
-            this.estudio = study;
-          }, errorMessage => {
+          /* Get similar studies */
+          this.studiesService.getSimilarStudies(this.solicitud.fkCategoria._id).subscribe((studies) => {
+            this.estudios = studies;
             this.loading = false;
-            this.requestErrorMessage = errorMessage
+
+          }, errorMessage => {
+            this.studyErrorMessage = errorMessage;
           })
         }
-
-        /* Get similar studies */
-        this.studiesService.getSimilarStudies(this.solicitud.fkCategoria._id).subscribe((studies) => {
-          this.estudios = studies;
-          this.loading = false;
-        }, errorMessage => {
-          this.studyErrorMessage = errorMessage;
-        })
-
       }, errorMessage => {
         this.requestErrorMessage = errorMessage;
         this.router.navigate(['404']);
@@ -104,14 +97,14 @@ export class SelectExistingComponent implements OnInit {
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-          this.studiesService.cloneStudy(study.fkEstudio._id, this.current_request).subscribe((s) => {
-            this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Estudio asignado con éxito' });
-            this.router.navigate(['studies/existing'])
+        this.studiesService.cloneStudy(study.fkEstudio._id, this.current_request).subscribe((s) => {
+          this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Estudio asignado con éxito' });
+          this.router.navigate(['studies/existing'])
 
-          }, errorMessage => {
-            this.selected_study = false;
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
-          })
+        }, errorMessage => {
+          this.selected_study = false;
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
+        })
       },
       reject: () => {
         this.selected_study = false;
