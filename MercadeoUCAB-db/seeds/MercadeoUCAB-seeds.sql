@@ -257,6 +257,13 @@ INSERT INTO empresag.genero (id, nombre) VALUES (1, 'Masculino');
 INSERT INTO empresag.genero (id, nombre) VALUES (2, 'Femenino');
 INSERT INTO empresag.genero (id, nombre) VALUES (3, 'Otro');
 
+INSERT INTO empresag.edo_civil (id, nombre) VALUES (1, 'Soltero');
+INSERT INTO empresag.edo_civil (id, nombre) VALUES (2, 'Casado');
+INSERT INTO empresag.edo_civil (id, nombre) VALUES (3, 'Divorciado');
+INSERT INTO empresag.edo_civil (id, nombre) VALUES (4, 'Unión libre o Concubinato');
+INSERT INTO empresag.edo_civil (id, nombre) VALUES (5, 'Separado');
+INSERT INTO empresag.edo_civil (id, nombre) VALUES (6, 'Viudo');
+
 INSERT INTO empresag.estudio (id, fecha_realizacion, fecha_culminacion, estado, fk_analisis) VALUES (1, '2020-12-04', null, 1, null);
 INSERT INTO empresag.estudio (id, fecha_realizacion, fecha_culminacion, estado, fk_analisis) VALUES (2, '2020-07-02', null, 1, null);
 INSERT INTO empresag.estudio (id, fecha_realizacion, fecha_culminacion, estado, fk_analisis) VALUES (3, '2020-07-03', null, 1, null);
@@ -264,23 +271,18 @@ INSERT INTO empresag.estudio (id, fecha_realizacion, fecha_culminacion, estado, 
 INSERT INTO empresag.estudio (id, fecha_realizacion, fecha_culminacion, estado, fk_analisis) VALUES (5, '2017-03-03', null, 1, null);
 INSERT INTO empresag.estudio (id, fecha_realizacion, fecha_culminacion, estado, fk_analisis) VALUES (6, '2020-06-05', null, 1, null);
 
-INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_grupo_familiar, fk_lugar, fk_categoria, fk_subcategoria) VALUES (1, 1, 1, 15, 45, 3, null, 2, 1, null, 1, 1, 1);
-INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_grupo_familiar, fk_lugar, fk_categoria, fk_subcategoria) VALUES (2, 2, 1, null, null, 3, null, 2, 1, null, 1, 2, 2);
-INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_grupo_familiar, fk_lugar, fk_categoria, fk_subcategoria) VALUES (3, 3, 2, 14, 28, 3, null, 2, null, null, 2, 3, 3);
-INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_grupo_familiar, fk_lugar, fk_categoria, fk_subcategoria) VALUES (4, 4, 2, 14, 28, 3, null, null, null, null, 3, 5, 6);
-INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_grupo_familiar, fk_lugar, fk_categoria, fk_subcategoria) VALUES (5, 5, null, null, null, 3, null, 1, null, null, null, 4, 4);
-INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_grupo_familiar, fk_lugar, fk_categoria, fk_subcategoria) VALUES (6, 6, 1, 1, 100, 3, 1, 2, 1, null, 1, 5, 6);
+INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_lugar, fk_categoria, fk_subcategoria) VALUES (1, 1, 1, 15, 45, 3, null, 2, 1, 1, 1, 1);
+INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_lugar, fk_categoria, fk_subcategoria) VALUES (2, 2, 1, null, null, 3, null, 2, 1, 1, 2, 2);
+INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_lugar, fk_categoria, fk_subcategoria) VALUES (3, 3, 2, 14, 28, 3, null, 2,  null, 2, 3, 3);
+INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_lugar, fk_categoria, fk_subcategoria) VALUES (4, 4, 2, 14, 28, 3, null, null, null, 3, 5, 6);
+INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_lugar, fk_categoria, fk_subcategoria) VALUES (5, 5, null, null, null, 3, null, 1, null, null, 4, 4);
+INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_lugar, fk_categoria, fk_subcategoria) VALUES (6, 6, 1, 1, 100, 3, 1, 2, 1, 1, 5, 6);
+
 
 INSERT INTO empresag.pregunta_estudio (id, requerido, fk_estudio, fk_pregunta) VALUES (1, 1, 1, 1);
 INSERT INTO empresag.pregunta_estudio (id, requerido, fk_estudio, fk_pregunta) VALUES (2, 1, 1, 13);
-INSERT INTO empresag.pregunta_estudio (id, requerido, fk_estudio, fk_pregunta) VALUES (1, 1, 1, 21);
+INSERT INTO empresag.pregunta_estudio (id, requerido, fk_estudio, fk_pregunta) VALUES (3, 1, 1, 21);
 
-INSERT INTO empresag.edo_civil (id, nombre) VALUES (1, 'Soltero');
-INSERT INTO empresag.edo_civil (id, nombre) VALUES (2, 'Casado');
-INSERT INTO empresag.edo_civil (id, nombre) VALUES (3, 'Divorciado');
-INSERT INTO empresag.edo_civil (id, nombre) VALUES (4, 'Unión libre o Concubinato');
-INSERT INTO empresag.edo_civil (id, nombre) VALUES (5, 'Separado');
-INSERT INTO empresag.edo_civil (id, nombre) VALUES (6, 'Viudo');
 
 INSERT INTO empresag.rol (id, nombre) VALUES (1, 'Administrador');
 INSERT INTO empresag.rol (id, nombre) VALUES (2, 'Analista');
