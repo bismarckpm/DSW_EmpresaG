@@ -19,7 +19,7 @@ public class EstudiosTest {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
         EntityManager em = emf.createEntityManager();
 
-        JPQL = "SELECT e FROM FiltroEntity e";
+        JPQL = "SELECT e FROM FiltroEntity e WHERE e.fkEstudio IS NOT NULL";
         estudios = em.createQuery(JPQL).getResultList();
 
         for (FiltroEntity estudio: estudios) {

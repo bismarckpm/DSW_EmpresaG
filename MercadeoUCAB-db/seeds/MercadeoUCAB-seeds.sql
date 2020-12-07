@@ -271,14 +271,6 @@ INSERT INTO empresag.estudio (id, fecha_realizacion, fecha_culminacion, estado, 
 INSERT INTO empresag.estudio (id, fecha_realizacion, fecha_culminacion, estado, fk_analisis) VALUES (5, '2017-03-03', null, 1, null);
 INSERT INTO empresag.estudio (id, fecha_realizacion, fecha_culminacion, estado, fk_analisis) VALUES (6, '2020-06-05', null, 1, null);
 
-INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_lugar, fk_categoria, fk_subcategoria) VALUES (1, 1, 1, 15, 45, 3, null, 2, 1, 1, 1, 1);
-INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_lugar, fk_categoria, fk_subcategoria) VALUES (2, 2, 1, null, null, 3, null, 2, 1, 1, 2, 2);
-INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_lugar, fk_categoria, fk_subcategoria) VALUES (3, 3, 2, 14, 28, 3, null, 2,  null, 2, 3, 3);
-INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_lugar, fk_categoria, fk_subcategoria) VALUES (4, 4, 2, 14, 28, 3, null, null, null, 3, 5, 6);
-INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_lugar, fk_categoria, fk_subcategoria) VALUES (5, 5, null, null, null, 3, null, 1, null, null, 4, 4);
-INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_lugar, fk_categoria, fk_subcategoria) VALUES (6, 6, 1, 1, 100, 3, 1, 2, 1, 1, 5, 6);
-
-
 INSERT INTO empresag.pregunta_estudio (id, requerido, fk_estudio, fk_pregunta) VALUES (1, 1, 1, 1);
 INSERT INTO empresag.pregunta_estudio (id, requerido, fk_estudio, fk_pregunta) VALUES (2, 1, 1, 13);
 INSERT INTO empresag.pregunta_estudio (id, requerido, fk_estudio, fk_pregunta) VALUES (3, 1, 1, 21);
@@ -300,3 +292,17 @@ INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) V
 INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (3, 'eternalwaltz@gmail.ca', '123456789', 1, 3, 3);
 INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (4, 'saintfaline@gmail.ca', '123456789', 1, 4, 4);
 INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (5, 'yungtricky@gmail.ca', '123456789', 1, 5, 3);
+
+INSERT INTO empresag.solicitud (id, estado, fk_usuario) VALUES (1, 0, 3);
+INSERT INTO empresag.solicitud (id, estado, fk_usuario) VALUES (2, 0, 5);
+INSERT INTO empresag.solicitud (id, estado, fk_usuario) VALUES (3, 0, 5);
+
+INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_lugar, fk_categoria, fk_subcategoria, fk_solicitud) VALUES (1, 1, 1, 15, 45, 3, null, 2, 1, 1, 1, 1, null);
+INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_lugar, fk_categoria, fk_subcategoria, fk_solicitud) VALUES (2, 2, 1, null, null, 3, null, 2, 1, 1, 2, 2, null);
+INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_lugar, fk_categoria, fk_subcategoria, fk_solicitud) VALUES (3, 3, 2, 14, 28, 3, null, 2, null, 2, 3, 3, null);
+INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_lugar, fk_categoria, fk_subcategoria, fk_solicitud) VALUES (4, 4, 2, 14, 28, 3, null, null, null, 3, 5, 6, null);
+INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_lugar, fk_categoria, fk_subcategoria, fk_solicitud) VALUES (5, 5, null, null, null, 3, null, 1, null, null, 4, 4, null);
+INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_lugar, fk_categoria, fk_subcategoria, fk_solicitud) VALUES (6, 6, 1, 1, 100, 3, 1, 2, 1, 1, 5, 6, null);
+INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_lugar, fk_categoria, fk_subcategoria, fk_solicitud) VALUES (7, null, 1, 1, 100, 1, 1, 1, 1, 1, 1, 1, 1);
+INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_lugar, fk_categoria, fk_subcategoria, fk_solicitud) VALUES (8, null, null, null, null, null, null, null, null, null, 2, 2, 2);
+INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_lugar, fk_categoria, fk_subcategoria, fk_solicitud) VALUES (9, null, null, 10, 30, 3, null, null, null, null, 3, 3, 3);

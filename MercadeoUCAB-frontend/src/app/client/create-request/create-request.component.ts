@@ -228,7 +228,7 @@ export class CreateRequestComponent implements OnInit {
     this.study_request.tipo_filtro_geografico = this.studyForm.value.tipo_de_filtro
     this.study_request.edad_minima = parseInt(this.studyForm.value.edad_minima)
     this.study_request.edad_maxima = parseInt(this.studyForm.value.edad_maxima)
-    this.study_request.id_estado = 1;
+    //this.study_request.id_estado = 1;
 
     if (this.study_request.tipo_filtro_geografico == 'paises') {
       this.study_request.id_lugares = this.studyForm.value.pais

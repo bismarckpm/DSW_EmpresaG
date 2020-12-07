@@ -13,7 +13,7 @@ public class StudyService {
     @Path("/existing")
     public List<FiltroEntity> allExistingStudies(){
         DaoFiltro daoFiltro = new DaoFiltro();
-        return daoFiltro.findAll(FiltroEntity.class);
+        return daoFiltro.getAllStudies();
     }
 
     @GET

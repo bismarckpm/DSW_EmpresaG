@@ -57,11 +57,11 @@ export class SelectExistingComponent implements OnInit {
       this.requestsService.getRequest(this.current_study).subscribe((request) => {
         /* In progress studies cannot be recreated */
         this.request = request;
-        if (this.request.estado == "En progreso") {
+        /*if (this.request.estado == "En progreso") {
           this.router.navigate(['404']);
         }
-        else {
-          /* Get studies table */
+        else {*/
+          /* Get studies table 
           //TODO: Change this request to get similar studies ONLY
           this.studiesService.getStudies().subscribe((studies) => {
             this.loading = false;
@@ -84,7 +84,7 @@ export class SelectExistingComponent implements OnInit {
       }, errorMessage => {
         this.requestErrorMessage = errorMessage;
         this.router.navigate(['404']);
-      })
+      */})
     }
   }
 
@@ -96,7 +96,7 @@ export class SelectExistingComponent implements OnInit {
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.request.estado = "En progreso";
+        //this.request.estado = "En progreso";
         /* Update request's status before turning it into a study 
         this.requestsService.putRequest(this.request).subscribe((request) => {
           this.estudio_generado = this.request as Study;

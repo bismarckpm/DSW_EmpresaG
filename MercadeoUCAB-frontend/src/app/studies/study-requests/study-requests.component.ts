@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { Request } from '../../classes/request';
 import { CategoryService } from '../../services/category.service';
 import { RequestsService } from '../../services/requests.service';
-import { replaceKey } from '../../functions/common_functions';
+import { replaceKeyWithValue } from '../../functions/common_functions';
+import { RequestWithFilter } from 'src/app/classes/request_with_filter';
 
 @Component({
   selector: 'app-study-requests',
@@ -12,8 +12,8 @@ import { replaceKey } from '../../functions/common_functions';
   styleUrls: ['./study-requests.component.scss']
 })
 export class StudyRequestsComponent implements OnInit {
-  estudios: Request[];
-  estudiosErrorMessage: string;
+  solicitudes: RequestWithFilter[];
+  solicitudesErrorMessage: string;
   categorias: MenuItem[];
   categoriasErrorMessage: string;
   loading: boolean = false;
@@ -23,24 +23,23 @@ export class StudyRequestsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.requestsService.getRequests().subscribe((studies) => {
-      this.estudios = studies;
+    this.requestsService.getRequests().subscribe((requests) => {
+      this.solicitudes = requests;
+      this.loading = false;
     }, errorMessage => {
       this.loading = false;
-      this.estudiosErrorMessage = errorMessage;
+      this.solicitudesErrorMessage = errorMessage;
     })
 
     this.categoryService.getCategories().subscribe((categories) => {
-      this.categorias = replaceKey(categories);
-      this.loading = false;
+      this.categorias = replaceKeyWithValue(categories);
     }, errorMessage => {
-      this.loading = false;
       this.categoriasErrorMessage = errorMessage;
     })
   }
 
   onCategoryChange(event){
-    this.table.filter(event.value, 'categoria', 'in')
+    this.table.filter(event.value, 'fkCategoria._id', 'in')
   }
 
 }

@@ -5,6 +5,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { baseURL } from '../constants/baseURL';
 import { map, catchError } from 'rxjs/operators';
 import { ProcessHttpMessageService } from '../services/process-http-message.service';
+import { RequestWithFilter } from '../classes/request_with_filter';
+import { serverURL } from '../constants/serverURL';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +16,8 @@ export class RequestsService {
   constructor(private http: HttpClient,
     private processHTTPMessageService: ProcessHttpMessageService) { }
 
-  getRequests(): Observable<Request[]> {
-    return this.http.get<Request[]>(baseURL + 'requests')
+  getRequests(): Observable<RequestWithFilter[]> {
+    return this.http.get<RequestWithFilter[]>(serverURL + 'requests/all')
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
