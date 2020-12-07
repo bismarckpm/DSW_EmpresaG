@@ -23,6 +23,18 @@ public class DaoFiltro extends Dao<FiltroEntity> {
         return em.createQuery(JPQL).getResultList();
     }
 
+    public List<FiltroEntity> getSimilarStudies(long category_id){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
+        EntityManager em = emf.createEntityManager();
+        DaoCategoria daoCategoria = new DaoCategoria();
+        CategoriaEntity categoria = daoCategoria.find(category_id, CategoriaEntity.class);
+
+        JPQL = "SELECT e FROM FiltroEntity e WHERE e.fkEstudio IS NOT NULL AND e.fkCategoria = :categoria";
+        q = em.createQuery(JPQL);
+        q.setParameter("categoria", categoria);
+        return q.getResultList();
+    }
+
     public List<FiltroEntity> getAllRequests(){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
         EntityManager em = emf.createEntityManager();

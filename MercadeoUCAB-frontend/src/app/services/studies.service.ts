@@ -55,6 +55,16 @@ export class StudiesService {
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
+  getSimilarStudies(category_id): Observable<StudyWithFilter[]>{
+    return this.http.get<StudyWithFilter[]>(serverURL + 'studies/similar/' + category_id)
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
+  cloneStudy(cloned_id, request_id): Observable<StudyWithFilter>{
+    return this.http.post<StudyWithFilter>(serverURL + 'studies/assign/' + cloned_id + '/' + request_id, 0)
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
   getInProgressStudies(): Observable<Study[]> {
     return this.http.get<Study[]>(baseURL + 'studies', {params: {
       id_estado: "2"

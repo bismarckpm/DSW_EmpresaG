@@ -2,11 +2,9 @@ import com.empresag.*;
 import org.junit.Assert;
 import org.junit.Test;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import javax.persistence.*;
 import javax.ws.rs.core.Response;
+import java.sql.Date;
 import java.util.List;
 
 public class EstudiosTest {
@@ -65,6 +63,39 @@ public class EstudiosTest {
         for (PreguntaCatSubcatEntity pcse: pcs) {
             System.out.println(pcse.getFkPregunta());
         }
+    }
+
+    @Test
+    public void assignStudy(){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
+        EntityManager em = emf.createEntityManager();
+
+        DaoEstudio daoEstudio = new DaoEstudio();
+        DaoSolicitud daoSolicitud = new DaoSolicitud();
+        DaoFiltro daoFiltro = new DaoFiltro();
+        FiltroEntity studyToClone = null;
+        SolicitudEntity solicitud = null;
+        EstudioEntity estudio = null;
+
+        estudio = new EstudioEntity();
+        estudio.setFechaRealizacion(new Date(System.currentTimeMillis()));
+        estudio.setEstado(1);
+        daoEstudio.insert(estudio);
+
+        studyToClone = daoFiltro.getCurrentStudy(1);
+        solicitud = daoSolicitud.find(1L, SolicitudEntity.class);
+        studyToClone.setFkSolicitud(solicitud);
+        studyToClone.setFkEstudio(estudio);
+        daoFiltro.insert(studyToClone);
+
+        StoredProcedureQuery query = em.createStoredProcedureQuery("CLONE_STUDY");
+        query.registerStoredProcedureParameter("study_id", Integer.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter("cloned_study_id", Integer.class, ParameterMode.IN);
+        query.setParameter("study_id", 1);
+        query.setParameter("cloned_study_id", estudio.get_id());
+        query.execute();
+
+        //Assert.assertNotEquals(0, studyToClone.get_id());
     }
 
     @Test

@@ -10,8 +10,10 @@ import { CategoryService } from '../../services/category.service';
 import { SubcategoryService } from '../../services/subcategory.service';
 import { MenuItem } from 'primeng/api';
 import { STUDY_STATES } from '../../constants/study_states';
-import { replaceKey } from '../../functions/common_functions';
+import { replaceKey, replaceKeyWithValue } from '../../functions/common_functions';
 import { Table } from 'primeng/table';
+import { RequestWithFilter } from 'src/app/classes/request_with_filter';
+import { StudyWithFilter } from 'src/app/classes/study_with_filter';
 
 @Component({
   selector: 'app-select-existing',
@@ -20,9 +22,10 @@ import { Table } from 'primeng/table';
   providers: [ConfirmationService, MessageService]
 })
 export class SelectExistingComponent implements OnInit {
-  current_study: number;
-  estudios: Study[];
-  estudio_generado: Study;
+  current_request: number;
+  solicitud: RequestWithFilter;
+  estudio: StudyWithFilter;
+  estudios: StudyWithFilter[];
   request: Request;
   categorias: MenuItem[];
   categoriasErrorMessage: string;
@@ -52,73 +55,68 @@ export class SelectExistingComponent implements OnInit {
 
     /* Get current study */
     else {
-      this.current_study = parseInt(this.Activatedroute.snapshot.queryParamMap.get('requestId'));
 
-      this.requestsService.getRequest(this.current_study).subscribe((request) => {
-        /* In progress studies cannot be recreated */
-        //this.request = request;
-        /*if (this.request.estado == "En progreso") {
+      this.categoryService.getCategories().subscribe((categories) => {
+        this.categorias = replaceKeyWithValue(categories);
+      }, errorMessage => {
+        this.categoriasErrorMessage = errorMessage;
+      })
+
+      this.current_request = parseInt(this.Activatedroute.snapshot.queryParamMap.get('requestId'));
+
+      /* Create study based on request */
+      this.requestsService.getRequest(this.current_request).subscribe((request) => {
+        this.solicitud = request;
+        
+        if (this.solicitud.fkSolicitud.estado == 1){
           this.router.navigate(['404']);
         }
-        else {*/
-          /* Get studies table 
-          //TODO: Change this request to get similar studies ONLY
-          this.studiesService.getStudies().subscribe((studies) => {
-            this.loading = false;
-            //this.estudios = studies;
+        else {
+          this.solicitud.fkSolicitud.estado = 1
+          this.requestsService.updateStatus(this.solicitud.fkSolicitud).subscribe((study) => {
+            this.estudio = study;
+
+
+            /* Get similar studies */
+            this.studiesService.getSimilarStudies(this.solicitud.fkCategoria._id).subscribe((studies) => {
+              this.estudios = studies;
+              this.loading = false;
+            }, errorMessage => {
+              this.studyErrorMessage = errorMessage;
+            })
+
           }, errorMessage => {
             this.loading = false;
-            this.studyErrorMessage = errorMessage;
+            this.requestErrorMessage = errorMessage
           })
-
-          this.categoryService.getCategories().subscribe((categories) => {
-            this.categorias = replaceKey(categories);
-            this.loading = false;
-          }, errorMessage => {
-            this.loading = false;
-            this.categoriasErrorMessage = errorMessage;
-          })
-
         }
 
       }, errorMessage => {
         this.requestErrorMessage = errorMessage;
         this.router.navigate(['404']);
-      */})
+      })
     }
   }
 
-  assignStudy(study) {
+  assignStudy(study: StudyWithFilter) {
     this.selected_study = true;
     console.log(study)
     this.confirmationService.confirm({
-      message: 'El estudio acerca de: <code>' + study.categoria + '</code> será asignado a la solicitud ¿Desea continuar?',
+      message: 'El estudio acerca de: <code>' + study.fkCategoria.nombre + '</code> será asignado a la solicitud ¿Desea continuar?',
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        //this.request.estado = "En progreso";
-        /* Update request's status before turning it into a study 
-        this.requestsService.putRequest(this.request).subscribe((request) => {
-          this.estudio_generado = this.request as Study;
-          this.estudio_generado.preguntas = study.preguntas;
-          console.log(this.estudio_generado)
-          delete this.estudio_generado['id'];
-
-          this.studiesService.postStudy(this.estudio_generado).subscribe((s) => {
+          this.studiesService.cloneStudy(study.fkEstudio._id, this.current_request).subscribe((s) => {
             this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Estudio asignado con éxito' });
-            //this.router.navigate(['studies/existing'])
+            this.router.navigate(['studies/existing'])
 
           }, errorMessage => {
             this.selected_study = false;
             this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
           })
-        }, errorMessage => {
-          this.selected_study = false;
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
-        })*/
       },
       reject: () => {
-        //
+        this.selected_study = false;
       }
     }
     )
@@ -128,10 +126,10 @@ export class SelectExistingComponent implements OnInit {
   }
 
   onCategoryChange(event) {
-    this.table.filter(event.value, 'categoria', 'in')
+    this.table.filter(event.value, 'fkCategoria._id', 'in')
   }
 
   onStateChange(event) {
-    this.table.filter(event.value, 'estado', 'in')
+    this.table.filter(event.value, 'fkEstudio.estado', 'in')
   }
 }

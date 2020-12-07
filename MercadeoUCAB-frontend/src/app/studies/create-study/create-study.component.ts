@@ -38,17 +38,6 @@ export class CreateStudyComponent implements OnInit {
 
   display: boolean = false;
   display_modify_study_features: boolean = false;
-  niveles_academicos: MenuItem[] = ACADEMICS;
-  generos: MenuItem[] = GENDERS;
-  niveles_socioeconomicos: MenuItem[] = SOCIAL_STATUSES;
-  filtro_pais: boolean = false;
-  filtro_estado: boolean = false;
-  filtro_ciudad: boolean = false;
-  paises: MenuItem[];
-  estados: MenuItem[];
-  categorias: MenuItem[];
-  subcategorias: MenuItem[];
-  temporal_state_id: number;
 
   /* Style of question adding */
   style: string;
