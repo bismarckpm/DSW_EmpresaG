@@ -65,4 +65,14 @@ public class UsuarioEntity extends BaseEntity{
         this.fk_Rol = fkRol;
     }
 
+    @Override
+    public String toString() {
+        return "UsuarioEntity{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", estado=" + estado +
+                ", fk_Persona=" + fk_Persona.toString() +
+                ", fk_Rol=" + fk_Rol.toString() +
+                '}';
+    }
 }

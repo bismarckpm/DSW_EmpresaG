@@ -160,5 +160,24 @@ public class PersonaEntity extends BaseEntity{
         this.numero_personas_encasa = numero_personas_encasa;
     }
 
+    @Override
+    public String toString() {
+        String FK_Persona = "";
+        if (fkPersona != null)
+            FK_Persona = fkPersona.toString();
 
+        return "PersonaEntity{" +
+                "documentoIdentidad='" + documentoIdentidad + '\'' +
+                ", primerNombre='" + primerNombre + '\'' +
+                ", segundoNombre='" + segundoNombre + '\'' +
+                ", primerApellido='" + primerApellido + '\'' +
+                ", segundoApellido='" + segundoApellido + '\'' +
+                ", fechaNacimiento=" + fechaNacimiento +
+                ", fkGenero=" + fkGenero.toString() +
+                ", fkEdoCivil=" + fkEdoCivil.toString() +
+                ", fkPersona=" + FK_Persona +
+                ", numero_personas_encasa=" + numero_personas_encasa +
+                ", fkLugar=" + fkLugar.toString() +
+                '}';
+    }
 }

@@ -35,6 +35,7 @@ public class MyApplication extends Application {
         h.add( NivelAcademicoService.class );
         h.add( DisponibilidadService.class );
         h.add( RolService.class );
+        h.add( LoginService.class );
         return h;
     }
 }
