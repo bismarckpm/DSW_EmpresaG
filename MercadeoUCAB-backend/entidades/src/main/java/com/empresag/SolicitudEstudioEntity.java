@@ -6,23 +6,10 @@ import java.util.Objects;
 @Entity
 @Table(name = "solicitud_estudio", schema = "empresag", catalog = "")
 public class SolicitudEstudioEntity extends BaseEntity{
-    private int estado;
-    private int fkSolicitud;
-    private int fkEstudio;
-
-
-    @Basic
-    @Column(name = "estado")
-    public int getEstado() {
-        return estado;
-    }
-
-    public void setEstado(int estado) {
-        this.estado = estado;
-    }
-
     @Basic
     @Column(name = "fk_solicitud")
+    private int fkSolicitud;
+
     public int getFkSolicitud() {
         return fkSolicitud;
     }
@@ -33,6 +20,8 @@ public class SolicitudEstudioEntity extends BaseEntity{
 
     @Basic
     @Column(name = "fk_estudio")
+    private int fkEstudio;
+
     public int getFkEstudio() {
         return fkEstudio;
     }

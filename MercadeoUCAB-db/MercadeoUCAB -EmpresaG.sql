@@ -216,10 +216,16 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `empresag`.`SOLICITUD` (
   `id` INT NOT NULL AUTO_INCREMENT,
+  `estado` INT NOT NULL,
   `fk_usuario` INT NOT NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`),
+  INDEX `fk_solicitud_usuario_idx` (`fk_usuario` ASC) VISIBLE,
+  CONSTRAINT `fk_solicitud_usuario`
+    FOREIGN KEY (`fk_usuario`)
+    REFERENCES `empresag`.`USUARIO` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `empresag`.`ANALISIS`
@@ -255,7 +261,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `empresag`.`SOLICITUD_ESTUDIO` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `estado` INT NOT NULL,
   `fk_solicitud` INT NOT NULL,
   `fk_estudio` INT NOT NULL,
   PRIMARY KEY (`id`),
