@@ -107,7 +107,7 @@ public class EstudiosTest {
             np.setFkPregunta(new PreguntaDto());
             np.getFkPregunta().setStatus(pregunta.getFkPregunta().getStatus());
             np.getFkPregunta().setPregunta(pregunta.getFkPregunta().getPregunta());
-            np.getFkPregunta().set_id(pregunta.get_id());
+            np.getFkPregunta().set_id(pregunta.getFkPregunta().get_id());
 
             np.getFkPregunta().setFkTipoPregunta(new TipoPreguntaDto());
             np.getFkPregunta().getFkTipoPregunta().set_id(pregunta.getFkPregunta().getFkTipoPregunta().get_id());
@@ -118,6 +118,7 @@ public class EstudiosTest {
                 PosibleRespuestaDto op = new PosibleRespuestaDto();
                 op.set_id(opcion.get_id());
                 op.setFkOpcion(new OpcionDto());
+                op.getFkOpcion().set_id(opcion.getFkOpcion().get_id());
                 op.getFkOpcion().setValor(opcion.getFkOpcion().getValor());
                 op.getFkOpcion().setRangoInicial(opcion.getFkOpcion().getRangoInicial());
                 op.getFkOpcion().setRangoFinal(opcion.getFkOpcion().getRangoFinal());

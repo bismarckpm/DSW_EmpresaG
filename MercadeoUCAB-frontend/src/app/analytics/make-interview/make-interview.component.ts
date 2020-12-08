@@ -5,13 +5,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { StudiesService } from 'src/app/services/studies.service';
 import { UserSurveyService } from '../../services/user-survey.service';
-import { Study } from '../../classes/study';
-import { Answer } from 'src/app/classes/answer';
 import { MessageService } from 'primeng/api';
 import { Person } from 'src/app/classes/person';
-import { QuestionCategorySubcategory } from 'src/app/classes/question_category_subcategory';
-import { Question } from 'src/app/classes/question';
 import { StudyQuestion } from 'src/app/classes/study_question';
+import { Survey } from 'src/app/classes/survey';
+import { PossibleAnswer } from 'src/app/classes/possible_answers';
+import { Option } from 'src/app/classes/options';
+import { AnalystService } from 'src/app/services/analyst.service';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-make-interview',
@@ -20,9 +21,9 @@ import { StudyQuestion } from 'src/app/classes/study_question';
   providers: [MessageService]
 })
 export class MakeInterviewComponent implements OnInit {
-  estudio: Study;
   persona: Person;
   preguntas: StudyQuestion[];
+  respuestas: Survey[];
   current_study: number;
   current_user: number;
   sent_form: boolean = false;
@@ -63,13 +64,14 @@ export class MakeInterviewComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
     private router: Router,
     private userSurveyService: UserSurveyService,
+    private analystService: AnalystService,
     private studiesService: StudiesService,
     private messageService: MessageService,
     private fb: FormBuilder,
     private spinner: NgxSpinnerService) {
     /* If query is empty return 404 */
     if ((this.activatedRoute.snapshot.queryParamMap.get('surveyId') || 0) == 0) {
-      //this.router.navigate(['404']);
+      this.router.navigate(['404']);
     }
 
     else {
@@ -78,16 +80,20 @@ export class MakeInterviewComponent implements OnInit {
 
       this.studiesService.getStudyQuestionsWithOptions(this.current_study).subscribe((questions) => {
         this.preguntas = questions;
-        console.log(questions)
         /* TODO: Is current user part of the available population? */
         if ((this.activatedRoute.snapshot.queryParamMap.get('personId') || 0) == 0) {
-          //this.router.navigate(['404']);
+          this.router.navigate(['404']);
         }
         else {
           this.current_user = parseInt(this.activatedRoute.snapshot.queryParamMap.get('personId'));
-          this.loading = false;
-          this.spinner.hide();
-          this.createForm();
+
+          this.analystService.isPersonPartOfAvailablePopulation(this.current_study, this.current_user).subscribe((res) => {
+            this.loading = false;
+            this.spinner.hide();
+            this.createForm();
+          }, errorMessage => {
+            this.router.navigate(['404']);
+          })
         }
 
       }, errorMessage => {
@@ -170,7 +176,7 @@ export class MakeInterviewComponent implements OnInit {
   }
 
   postAnswers() {
-    this.userSurveyService.postAnswers(this.estudio).subscribe((study) => {
+    this.userSurveyService.postAnswers(this.current_study, this.current_user, this.respuestas).subscribe((study) => {
       this.router.navigate(["analysis-requests"])
     }, errorMessage => {
       this.sent_form = false;
@@ -180,20 +186,55 @@ export class MakeInterviewComponent implements OnInit {
 
   onSubmit() {
     this.sent_form = true;
-    for (var index = 0; index < this.answers.controls.length; index++) {
-      this.estudio.preguntas[index].respuestas = new Answer();
-      if (this.answers.controls[index].value.respuesta_texto) {
-        this.estudio.preguntas[index].respuestas.respuesta_texto = this.answers.controls[index].value.respuesta_texto;
-      }
-      else if (this.answers.controls[index].value.opcion_seleccionada) {
-        this.estudio.preguntas[index].respuestas.opcion_seleccionada = this.answers.controls[index].value.opcion_seleccionada;
-      }
-      else if (this.answers.controls[index].value.rango_inicial && this.answers.controls[index].value.rango_final) {
-        this.estudio.preguntas[index].respuestas.rango_inicial = parseInt(this.answers.controls[index].value.rango_inicial);
-        this.estudio.preguntas[index].respuestas.rango_final = parseInt(this.answers.controls[index].value.rango_final);
-      }
+    this.respuestas = [];
 
-      this.estudio.preguntas[index].respuestas.usuario_id = this.current_user;
+    for (var index = 0; index < this.answers.controls.length; index++) {
+      let currentAnswer: Survey;
+      if (this.answers.controls[index].value.respuesta_texto) {
+        currentAnswer = new Survey();
+        currentAnswer.respuestaTexto = this.answers.controls[index].value.respuesta_texto;
+        currentAnswer.fkPregunta = this.preguntas[index].fkPregunta;
+        currentAnswer.id_persona = this.current_user;
+        currentAnswer.id_estudio = this.current_study;
+        this.respuestas.push(currentAnswer);
+      }
+      // SIMPLE SELECTION
+      else if (this.answers.controls[index].value.opcion_seleccionada != null && !Array.isArray(this.answers.controls[index].value.opcion_seleccionada)) {
+        currentAnswer = new Survey();
+        currentAnswer.fkPregunta = this.preguntas[index].fkPregunta;
+        currentAnswer.fkPosibleRespuesta = new PossibleAnswer();
+        currentAnswer.fkPosibleRespuesta.fkOpcion = new Option();
+        currentAnswer.fkPosibleRespuesta.fkOpcion._id = this.answers.controls[index].value.opcion_seleccionada;
+        currentAnswer.fkPosibleRespuesta._id = this.preguntas[index].fkPregunta.listPosibleRespuestas.find(val => val.fkOpcion._id == this.answers.controls[index].value.opcion_seleccionada)._id;
+        currentAnswer.id_persona = this.current_user;
+        currentAnswer.id_estudio = this.current_study;
+        this.respuestas.push(currentAnswer);
+      }
+      // MULTIPLE SELECTION
+      else if (this.answers.controls[index].value.opcion_seleccionada && Array.isArray(this.answers.controls[index].value.opcion_seleccionada)) {
+        for (var j = 0; j < this.answers.controls[index].value.opcion_seleccionada.length; j++) {
+          currentAnswer = new Survey();
+          currentAnswer.fkPregunta = this.preguntas[index].fkPregunta;
+          currentAnswer.fkPosibleRespuesta = new PossibleAnswer();
+          currentAnswer.fkPosibleRespuesta.fkOpcion = new Option();
+          currentAnswer.fkPosibleRespuesta.fkOpcion._id = this.answers.controls[index].value.opcion_seleccionada[j];
+          currentAnswer.fkPosibleRespuesta._id = this.preguntas[index].fkPregunta.listPosibleRespuestas.find(val => val.fkOpcion._id == this.answers.controls[index].value.opcion_seleccionada[j])._id;
+          currentAnswer.id_persona = this.current_user;
+          this.respuestas.push(currentAnswer);
+        }
+      }
+      // RANGE
+      else if (this.answers.controls[index].value.rango_inicial && this.answers.controls[index].value.rango_final) {
+        currentAnswer = new Survey();
+        currentAnswer.fkPregunta = this.preguntas[index].fkPregunta;
+        currentAnswer.fkPosibleRespuesta = new PossibleAnswer();
+        currentAnswer.respuestaRangoInicial = parseInt(this.answers.controls[index].value.rango_inicial);
+        currentAnswer.respuestaRangoFinal = parseInt(this.answers.controls[index].value.rango_final);
+        currentAnswer.fkPosibleRespuesta._id = this.preguntas[index].fkPregunta.listPosibleRespuestas[0]._id
+        currentAnswer.id_persona = this.current_user;
+        currentAnswer.id_estudio = this.current_study;
+        this.respuestas.push(currentAnswer);
+      }
     }
 
     if (this.surveyForm.valid) {

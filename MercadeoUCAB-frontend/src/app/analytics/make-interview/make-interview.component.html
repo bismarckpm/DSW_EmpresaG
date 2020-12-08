@@ -10,7 +10,7 @@
         </div>
         <hr>
         <!-- SURVEY -->
-        <div *ngIf="preguntas">
+        <div *ngIf="preguntas && !loading">
             <form novalidate [formGroup]="surveyForm" #sform="ngForm" (ngSubmit)="onSubmit()">
                 <div formArrayName="answers">
                     <div *ngFor="let alias of surveyForm.get('answers').controls; let i=index; trackBy:track"
@@ -36,7 +36,7 @@
                         <!-- RESPONSES SIMPLE SELECTION -->
                         <div class="p-grid p-mx-6 p-mt-4" *ngIf="preguntas[i].fkPregunta.fkTipoPregunta._id == 2">
                             <div class="p-col-12" *ngFor="let opcion of preguntas[i].fkPregunta.listPosibleRespuestas">
-                                <p-radioButton formControlName="opcion_seleccionada" [value]="opcion.fkOpcion.valor"
+                                <p-radioButton formControlName="opcion_seleccionada" [value]="opcion.fkOpcion._id"
                                     [label]="opcion.fkOpcion.valor" class="p-mb-3"></p-radioButton>
                                 <span class="error-msg"
                                     *ngIf="answers.controls[i].get('opcion_seleccionada').touched && answers.controls[i].get('opcion_seleccionada').errors?.required"><small>{{validationMessages.opcion_seleccionada.required}}</small></span>
@@ -47,7 +47,7 @@
                         <div class="p-grid p-mx-6 p-mt-4" *ngIf="preguntas[i].fkPregunta.fkTipoPregunta._id == 3">
                             <div class="p-col-12" *ngFor="let opcion of preguntas[i].fkPregunta.listPosibleRespuestas">
                                 <p-checkbox formControlName="opcion_seleccionada" [label]="opcion.fkOpcion.valor"
-                                    [value]="opcion.fkOpcion.valor" class="p-mb-3"></p-checkbox>
+                                    [value]="opcion.fkOpcion._id" class="p-mb-3"></p-checkbox>
                             </div>
                             <div class="p-col-12">
                                 <span class="error-msg"
@@ -57,12 +57,8 @@
 
                         <!-- RESPONSES TRUE/FALSE -->
                         <div class="p-grid p-mx-6 p-mt-4" *ngIf="preguntas[i].fkPregunta.fkTipoPregunta._id == 4">
-                            <div class="p-col-12">
-                                <p-radioButton formControlName="opcion_seleccionada" label="Verdadero" [value]="true"
-                                    class="p-mb-3"></p-radioButton>
-                            </div>
-                            <div class="p-col-12">
-                                <p-radioButton label="Falso" formControlName="opcion_seleccionada" [value]="false"
+                            <div class="p-col-12" *ngFor="let opcion of preguntas[i].fkPregunta.listPosibleRespuestas">
+                                <p-radioButton formControlName="opcion_seleccionada" [label]="opcion.fkOpcion.valor" [value]="opcion.fkOpcion._id"
                                     class="p-mb-3"></p-radioButton>
                             </div>
                             <div class="p-col-12">

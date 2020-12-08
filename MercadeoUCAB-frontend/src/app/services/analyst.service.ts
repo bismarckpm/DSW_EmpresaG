@@ -27,4 +27,9 @@ export class AnalystService {
     return this.http.get<persondata[]>(serverURL + 'survey/available-population/' + study_id)
     .pipe(catchError(this.processHTTPMessageService.handleError))
   }
+
+  isPersonPartOfAvailablePopulation(study_id, person_id): Observable<any>{
+    return this.http.get<any>(serverURL + 'survey/available-population/' + study_id + '/' + person_id)
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
 }

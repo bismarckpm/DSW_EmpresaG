@@ -59,7 +59,7 @@ public class DaoPreguntaEstudio extends Dao<PreguntaEstudioEntity> {
             np.setFkPregunta(new PreguntaDto());
             np.getFkPregunta().setStatus(pregunta.getFkPregunta().getStatus());
             np.getFkPregunta().setPregunta(pregunta.getFkPregunta().getPregunta());
-            np.getFkPregunta().set_id(pregunta.get_id());
+            np.getFkPregunta().set_id(pregunta.getFkPregunta().get_id());
 
             np.getFkPregunta().setFkTipoPregunta(new TipoPreguntaDto());
             np.getFkPregunta().getFkTipoPregunta().set_id(pregunta.getFkPregunta().getFkTipoPregunta().get_id());
@@ -78,10 +78,6 @@ public class DaoPreguntaEstudio extends Dao<PreguntaEstudioEntity> {
             }
 
             resultSet.add(np);
-        }
-
-        for (PreguntaEstudioDto pregunta: resultSet) {
-            System.out.println(pregunta.getFkPregunta());
         }
         return resultSet;
     }

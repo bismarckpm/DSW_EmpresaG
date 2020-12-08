@@ -517,14 +517,21 @@ CREATE TABLE IF NOT EXISTS `empresag`.`ENCUESTA` (
   `respuesta_rango_final` INT NULL,
   `fk_posible_respuesta` INT NULL,
   `fk_pregunta` INT NOT NULL,
+  `fk_estudio` INT NOT NULL,
   `fk_persona` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_encuesta_posiblerespuesta_idx` (`fk_posible_respuesta` ASC) VISIBLE,
   INDEX `fk_encuesta_pregunta_idx` (`fk_pregunta` ASC) VISIBLE,
+  INDEX `fk_encuesta_estudio_idx` (`fk_estudio` ASC) VISIBLE,
   INDEX `fk_encuesta_persona_idx` (`fk_persona` ASC) VISIBLE,
   CONSTRAINT `fk_encuesta_posiblerespuesta`
     FOREIGN KEY (`fk_posible_respuesta`)
     REFERENCES `empresag`.`POSIBLE_RESPUESTA` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_encuesta_estudio`
+    FOREIGN KEY (`fk_estudio`)
+    REFERENCES `empresag`.`ESTUDIO` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_encuesta_pregunta`

@@ -31,6 +31,30 @@ public class EncuestaEntity extends BaseEntity{
         this.respuestaTexto = respuestaTexto;
     }
 
+    @Basic
+    @Column(name = "respuesta_rango_inicial")
+    private Integer respuestaRangoInicial;
+
+    public Integer getRespuestaRangoInicial() {
+        return respuestaRangoInicial;
+    }
+
+    public void setRespuestaRangoInicial(Integer respuestaRangoInicial) {
+        this.respuestaRangoInicial = respuestaRangoInicial;
+    }
+
+    @Basic
+    @Column(name = "respuesta_rango_final")
+    private Integer respuestaRangoFinal;
+
+    public Integer getRespuestaRangoFinal() {
+        return respuestaRangoFinal;
+    }
+
+    public void setRespuestaRangoFinal(Integer respuestaRangoFinal) {
+        this.respuestaRangoFinal = respuestaRangoFinal;
+    }
+
     @ManyToOne
     @JoinColumn(name = "fk_posible_respuesta")
     private PosibleRespuestaEntity fkPosibleRespuesta;
@@ -55,5 +79,27 @@ public class EncuestaEntity extends BaseEntity{
         this.fkPregunta = fkPregunta;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "fk_persona")
+    private PersonaEntity fkPersona;
 
+    public PersonaEntity getFkPersona() {
+        return fkPersona;
+    }
+
+    public void setFkPersona(PersonaEntity fkPersona) {
+        this.fkPersona = fkPersona;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "fk_estudio")
+    private EstudioEntity fkEstudio;
+
+    public EstudioEntity getFkEstudio() {
+        return fkEstudio;
+    }
+
+    public void setFkEstudio(EstudioEntity fkEstudio) {
+        this.fkEstudio = fkEstudio;
+    }
 }

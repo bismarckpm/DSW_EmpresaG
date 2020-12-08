@@ -286,12 +286,20 @@ INSERT INTO empresag.persona (id, documento_identidad, primer_nombre, segundo_no
 INSERT INTO empresag.persona (id, documento_identidad, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, fecha_nacimiento, fk_genero, fk_edo_civil, fk_persona, fk_lugar, numero_personas_encasa, fk_disponibilidad_inicial, fk_disponibilidad_final) VALUES (3, 'GF5R56D6W4', 'Edward', null, 'Meyer', null, '1986-07-02', 1, 2, null, 1, 3, null, null);
 INSERT INTO empresag.persona (id, documento_identidad, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, fecha_nacimiento, fk_genero, fk_edo_civil, fk_persona, fk_lugar, numero_personas_encasa, fk_disponibilidad_inicial, fk_disponibilidad_final) VALUES (4, 'DF4R5E8W7R', 'Nathan', null, 'Graves', null, '2000-06-08', 1, 3, null, 1, 1, null, null);
 INSERT INTO empresag.persona (id, documento_identidad, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, fecha_nacimiento, fk_genero, fk_edo_civil, fk_persona, fk_lugar, numero_personas_encasa, fk_disponibilidad_inicial, fk_disponibilidad_final) VALUES (5, 'DVFD5R65G4', 'Nick', null, 'Kromaneyer', null, '1997-06-10', 1, 1, null, 1, null, null, null);
+INSERT INTO empresag.persona (id, documento_identidad, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, fecha_nacimiento, fk_genero, fk_edo_civil, fk_persona, fk_lugar, numero_personas_encasa, fk_disponibilidad_inicial, fk_disponibilidad_final) VALUES (6, 'VNRUEUSK55', 'Johan', null, 'Watzke', null, '1985-06-04', 1, null, null, 1, 1, null, null);
+INSERT INTO empresag.persona (id, documento_identidad, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, fecha_nacimiento, fk_genero, fk_edo_civil, fk_persona, fk_lugar, numero_personas_encasa, fk_disponibilidad_inicial, fk_disponibilidad_final) VALUES (7, 'DS4FDF6E5E', 'Allison', null, 'Matchwitz', null, '2020-06-03', 2, 2, null, 1, 1, null, null);
+INSERT INTO empresag.persona (id, documento_identidad, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, fecha_nacimiento, fk_genero, fk_edo_civil, fk_persona, fk_lugar, numero_personas_encasa, fk_disponibilidad_inicial, fk_disponibilidad_final) VALUES (8, 'DSEU55353A', 'Rick', null, 'Derringer', null, '1999-06-07', 1, 1, null, null, 4, null, null);
+INSERT INTO empresag.persona (id, documento_identidad, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, fecha_nacimiento, fk_genero, fk_edo_civil, fk_persona, fk_lugar, numero_personas_encasa, fk_disponibilidad_inicial, fk_disponibilidad_final) VALUES (9, 'DSSFDE3535', 'Peter', null, 'Nopsycho', null, '2020-06-05', 1, 1, null, null, 2, null, null);
 
 INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (1, 'hyperschnell11@outlook.sk', '123456789', 1, 1, 1);
 INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (2, 'tatelangdon@gmail.ca', '123456789', 1, 2, 2);
 INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (3, 'eternalwaltz@gmail.ca', '123456789', 1, 3, 3);
 INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (4, 'saintfaline@gmail.ca', '123456789', 1, 4, 4);
 INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (5, 'yungtricky@gmail.ca', '123456789', 1, 5, 3);
+INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (6, 'jhwatzke@gmail.ca', '123456789', 1, 6, 4);
+INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (7, 'bumpsindanight@gmail.ca', '123456789', 1, 7, 4);
+INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (8, 'skthereaper@gmail.ca', '123456789', 1, 8, 4);
+INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (9, 'iamnopsycho@protonmail.com', '123456789', 1, 9, 4);
 
 INSERT INTO empresag.solicitud (id, estado, fk_usuario) VALUES (1, 0, 3);
 INSERT INTO empresag.solicitud (id, estado, fk_usuario) VALUES (2, 0, 5);

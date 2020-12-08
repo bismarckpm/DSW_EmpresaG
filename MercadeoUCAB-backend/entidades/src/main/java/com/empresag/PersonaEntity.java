@@ -199,4 +199,8 @@ public class PersonaEntity extends BaseEntity{
                 ", fechaNacimiento=" + fechaNacimiento +
                 '}';
     }
+
+    public Integer age(Date fechaNacimiento){
+        return 1;
+    }
 }
