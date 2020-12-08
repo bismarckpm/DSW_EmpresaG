@@ -43,7 +43,7 @@
             </p>
         </div>
 
-        <div *ngIf="estudio && preguntas && !display_new && !display_pool" class="p-mx-6 p-mt-6">
+        <div *ngIf="estudio && preguntas" class="p-mx-6 p-mt-6">
             <p-table #dt [value]="preguntas" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
                 [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
                 [paginator]="true"
