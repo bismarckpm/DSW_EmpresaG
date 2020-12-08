@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
 import { StudiesService } from '../../services/studies.service';
-import { Study } from '../../classes/study';
 import { Location } from '@angular/common';
+import { StudyWithFilter } from 'src/app/classes/study_with_filter';
+import { QuestionCategorySubcategory } from 'src/app/classes/question_category_subcategory';
 
 @Component({
   selector: 'app-view-study',
@@ -13,8 +14,10 @@ import { Location } from '@angular/common';
 export class ViewStudyComponent implements OnInit {
   loading: boolean = true;
   current_study: number;
-  estudio: Study;
+  estudio: StudyWithFilter;
+  preguntas: QuestionCategorySubcategory[];
   studyErrorMessage: string;
+  questionsErrorMessage: string;
 
   constructor(private Activatedroute: ActivatedRoute,
     private router: Router,
@@ -22,7 +25,7 @@ export class ViewStudyComponent implements OnInit {
     private studiesService: StudiesService,
     private spinner: NgxSpinnerService) {
     /* If query is empty return 404 */
-    if ((this.Activatedroute.snapshot.queryParamMap.get('sid') || 0) == 0) {
+    if ((this.Activatedroute.snapshot.queryParamMap.get('studyId') || 0) == 0) {
       this.router.navigate(['404']);
     }
 
@@ -30,17 +33,24 @@ export class ViewStudyComponent implements OnInit {
     else {
       this.spinner.show();
 
-      this.current_study = parseInt(this.Activatedroute.snapshot.queryParamMap.get('sid'));
+      this.current_study = parseInt(this.Activatedroute.snapshot.queryParamMap.get('studyId'));
       this.studiesService.getStudy(this.current_study).subscribe((study) => {
         
         if (!study) {
           this.router.navigate(['404']);
         }
 
-        //this.estudio = study;
+        this.estudio = study;
 
         this.spinner.hide();
         this.loading = false;
+
+        this.studiesService.getStudyQuestions(this.current_study).subscribe((questions) => {
+          this.preguntas = questions;
+        }, errorMessage => {
+          this.questionsErrorMessage = errorMessage;
+        })
+        
       }, errorMessage => {
         this.loading = false;
         this.spinner.hide();

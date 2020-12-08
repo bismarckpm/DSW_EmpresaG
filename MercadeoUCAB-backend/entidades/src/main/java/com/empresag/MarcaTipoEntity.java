@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "marca_tipo", schema = "empresag", catalog = "")
+@Table(name = "marca_tipo", schema = "empresag")
 public class MarcaTipoEntity extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "fk_marca")

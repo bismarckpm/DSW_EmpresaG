@@ -11,7 +11,7 @@ import { GENDERS } from '../../constants/gender';
 import { MenuItem } from 'primeng/api';
 import { replaceKeyWithValue } from '../../functions/common_functions';
 import { RequestsService } from 'src/app/services/requests.service';
-import { Request } from 'src/app/classes/request';
+import { StudyRequest } from 'src/app/classes/study_request';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -25,7 +25,7 @@ import { RxwebValidators } from '@rxweb/reactive-form-validators'
 })
 export class CreateRequestComponent implements OnInit {
   current_request: number;
-  study_request: Request;
+  study_request: StudyRequest;
   niveles_academicos: MenuItem[] = ACADEMICS;
   generos: MenuItem[] = GENDERS;
   niveles_socioeconomicos: MenuItem[] = SOCIAL_STATUSES;
@@ -219,7 +219,7 @@ export class CreateRequestComponent implements OnInit {
 
   onSubmit() {
     this.sent_form = true;
-    this.study_request = new Request();
+    this.study_request = new StudyRequest();
     this.study_request.id_categoria = this.studyForm.value.categoria
     this.study_request.id_subcategoria = this.studyForm.value.subcategoria
     this.study_request.id_nivel_academico = this.studyForm.value.nivel_academico
@@ -228,7 +228,7 @@ export class CreateRequestComponent implements OnInit {
     this.study_request.tipo_filtro_geografico = this.studyForm.value.tipo_de_filtro
     this.study_request.edad_minima = parseInt(this.studyForm.value.edad_minima)
     this.study_request.edad_maxima = parseInt(this.studyForm.value.edad_maxima)
-    this.study_request.id_estado = 1;
+    //this.study_request.id_estado = 1;
 
     if (this.study_request.tipo_filtro_geografico == 'paises') {
       this.study_request.id_lugares = this.studyForm.value.pais

@@ -10,20 +10,20 @@
         </div>
         <hr>
         <!-- SURVEY -->
-        <div *ngIf="estudio">
+        <div *ngIf="preguntas && !loading">
             <form novalidate [formGroup]="surveyForm" #sform="ngForm" (ngSubmit)="onSubmit()">
                 <div formArrayName="answers">
                     <div *ngFor="let alias of surveyForm.get('answers').controls; let i=index; trackBy:track"
                         [formGroupName]="i">
                         <div class="p-mx-5">
-                            <p>{{estudio.preguntas[i].pregunta}}</p>
-                            <small *ngIf="estudio.preguntas[i].id_tipo == 5">Valores permitidos: Desde
-                                {{estudio.preguntas[i].opciones[0].rango_inicial}} hasta
-                                {{estudio.preguntas[i].opciones[0].rango_final}}</small>
+                            <p>{{preguntas[i].fkPregunta.pregunta}}</p>
+                            <small *ngIf="preguntas[i].fkPregunta.fkTipoPregunta._id == 5">Valores permitidos: Desde
+                                {{preguntas[i].fkPregunta.listPosibleRespuestas[0].fkOpcion.rangoInicial}} hasta
+                                {{preguntas[i].fkPregunta.listPosibleRespuestas[0].fkOpcion.rangoFinal}}</small>
                         </div>
 
                         <!-- RESPONSES OPEN TEXT -->
-                        <div class="p-grid p-mx-5 p-mt-4" *ngIf="estudio.preguntas[i].id_tipo == 1">
+                        <div class="p-grid p-mx-5 p-mt-4" *ngIf="preguntas[i].fkPregunta.fkTipoPregunta._id == 1">
                             <div class="p-col-12 p-lg-6">
                                 <label for="float-input">Respuesta</label>
                                 <input class="p-inputtext-lg fill-width" formControlName="respuesta_texto" type="text"
@@ -34,20 +34,20 @@
                         </div>
 
                         <!-- RESPONSES SIMPLE SELECTION -->
-                        <div class="p-grid p-mx-6 p-mt-4" *ngIf="estudio.preguntas[i].id_tipo == 2">
-                            <div class="p-col-12" *ngFor="let opcion of estudio.preguntas[i].opciones">
-                                <p-radioButton formControlName="opcion_seleccionada" [value]="opcion.valor"
-                                    [label]="opcion.valor" class="p-mb-3"></p-radioButton>
+                        <div class="p-grid p-mx-6 p-mt-4" *ngIf="preguntas[i].fkPregunta.fkTipoPregunta._id == 2">
+                            <div class="p-col-12" *ngFor="let opcion of preguntas[i].fkPregunta.listPosibleRespuestas">
+                                <p-radioButton formControlName="opcion_seleccionada" [value]="opcion.fkOpcion._id"
+                                    [label]="opcion.fkOpcion.valor" class="p-mb-3"></p-radioButton>
                                 <span class="error-msg"
                                     *ngIf="answers.controls[i].get('opcion_seleccionada').touched && answers.controls[i].get('opcion_seleccionada').errors?.required"><small>{{validationMessages.opcion_seleccionada.required}}</small></span>
                             </div>
                         </div>
 
                         <!-- RESPONSES MULTIPLE SELECTION -->
-                        <div class="p-grid p-mx-6 p-mt-4" *ngIf="estudio.preguntas[i].id_tipo == 3">
-                            <div class="p-col-12" *ngFor="let opcion of estudio.preguntas[i].opciones">
-                                <p-checkbox formControlName="opcion_seleccionada" [label]="opcion.valor"
-                                    [value]="opcion.valor" class="p-mb-3"></p-checkbox>
+                        <div class="p-grid p-mx-6 p-mt-4" *ngIf="preguntas[i].fkPregunta.fkTipoPregunta._id == 3">
+                            <div class="p-col-12" *ngFor="let opcion of preguntas[i].fkPregunta.listPosibleRespuestas">
+                                <p-checkbox formControlName="opcion_seleccionada" [label]="opcion.fkOpcion.valor"
+                                    [value]="opcion.fkOpcion._id" class="p-mb-3"></p-checkbox>
                             </div>
                             <div class="p-col-12">
                                 <span class="error-msg"
@@ -56,13 +56,9 @@
                         </div>
 
                         <!-- RESPONSES TRUE/FALSE -->
-                        <div class="p-grid p-mx-6 p-mt-4" *ngIf="estudio.preguntas[i].id_tipo == 4">
-                            <div class="p-col-12">
-                                <p-radioButton formControlName="opcion_seleccionada" label="Verdadero" [value]="true"
-                                    class="p-mb-3"></p-radioButton>
-                            </div>
-                            <div class="p-col-12">
-                                <p-radioButton label="Falso" formControlName="opcion_seleccionada" [value]="false"
+                        <div class="p-grid p-mx-6 p-mt-4" *ngIf="preguntas[i].fkPregunta.fkTipoPregunta._id == 4">
+                            <div class="p-col-12" *ngFor="let opcion of preguntas[i].fkPregunta.listPosibleRespuestas">
+                                <p-radioButton formControlName="opcion_seleccionada" [label]="opcion.fkOpcion.valor" [value]="opcion.fkOpcion._id"
                                     class="p-mb-3"></p-radioButton>
                             </div>
                             <div class="p-col-12">
@@ -72,7 +68,7 @@
                         </div>
 
                         <!-- RESPONSES RANGE -->
-                        <div class="p-grid p-mx-5 p-mt-4" *ngIf="estudio.preguntas[i].id_tipo == 5">
+                        <div class="p-grid p-mx-5 p-mt-4" *ngIf="preguntas[i].fkPregunta.fkTipoPregunta._id == 5">
                             <div class="p-col-12 p-lg-6">
                                 <label for="float-input">Desde</label>
                                 <input formControlName="rango_inicial" class="p-inputtext-lg fill-width" type="text" pInputText>
@@ -86,7 +82,6 @@
                                 *ngIf="answers.controls[i].get('rango_inicial').touched && answers.controls[i].get('rango_inicial').errors?.min"><small>{{validationMessages.rango_inicial.min}}</small></span>
                                 <span class="error-msg"
                                 *ngIf="answers.controls[i].get('rango_inicial').touched && answers.controls[i].get('rango_inicial').errors?.max"><small>{{validationMessages.rango_inicial.max}}</small></span>
-                            
                             </div>
                             <div class="p-col-12 p-lg-6">
                                 <label for="float-input">Hasta</label>
@@ -101,7 +96,6 @@
                                 *ngIf="answers.controls[i].get('rango_final').touched && answers.controls[i].get('rango_final').errors?.min"><small>{{validationMessages.rango_final.min}}</small></span>
                                 <span class="error-msg"
                                 *ngIf="answers.controls[i].get('rango_final').touched && answers.controls[i].get('rango_final').errors?.max"><small>{{validationMessages.rango_final.max}}</small></span>
-                            
                             </div>
                         </div>
                     </div>
@@ -125,7 +119,7 @@
         </div>
 
         
-        <div *ngIf="!estudio && !loading && estudioErrorMessage">
+        <div *ngIf="!preguntas && !loading && questionsErrorMessage">
             <app-server-disconnected></app-server-disconnected>
         </div>
         
