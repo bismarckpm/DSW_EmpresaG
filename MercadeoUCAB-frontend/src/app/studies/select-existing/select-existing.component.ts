@@ -91,7 +91,6 @@ export class SelectExistingComponent implements OnInit {
 
   assignStudy(study: StudyWithFilter) {
     this.selected_study = true;
-    console.log(study)
     this.confirmationService.confirm({
       message: 'El estudio acerca de: <code>' + study.fkCategoria.nombre + '</code> será asignado a la solicitud ¿Desea continuar?',
       header: 'Confirmación',
