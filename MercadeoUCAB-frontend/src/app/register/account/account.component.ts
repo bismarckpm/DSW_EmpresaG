@@ -205,8 +205,15 @@ export class AccountComponent implements OnInit {
     this.registerService.user.fkPersona.fechaNacimiento = this.accountForm.value.fecha_de_nacimiento;
 
     if (this.accountForm.valid){
-      console.log('epa, pasaste');
-      this.nextPage();
+      console.log('epa, achantate...');
+
+      if (this.registerService.postValidRegister(this.registerService.user)){
+        this.nextPage();
+      }
+      else{
+        this.messageService.add({severity:'error', summary: 'Error', detail: 'El correo utilizado ya se encuentra registrado.'});
+      }
+
     }
     else{
       this.messageService.add({severity:'error', summary: 'Error', detail: 'Hubo datos inválidos o incompletos en el formulario'});

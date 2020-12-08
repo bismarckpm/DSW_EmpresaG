@@ -164,7 +164,12 @@ public class SesionService {
         DaoUsuario daoUsuario = new DaoUsuario();
         List<UsuarioEntity> usuario = daoUsuario.emailExist(usuarioDto.getEmail());
 
-        return Response.status(Response.Status.NOT_FOUND).build();
+
+        if (usuario.size() == 0)
+            return Response.status(200,"Usuario no encontrado").build();
+        else
+            return Response.status(302,"El correo utilizado ya se encuentra registrado.").build();
+
 
     }
 
