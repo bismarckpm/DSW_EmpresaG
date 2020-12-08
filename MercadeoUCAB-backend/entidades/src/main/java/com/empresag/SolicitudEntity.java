@@ -4,23 +4,24 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "solicitud", schema = "empresag", catalog = "")
+@Table(name = "solicitud", schema = "empresag")
 public class SolicitudEntity extends BaseEntity{
-    private String tipo;
-    private UsuarioEntity fkUsuario;
-
     @Basic
-    @Column(name = "tipo")
-    public String getTipo() {
-        return tipo;
+    @Column(name = "estado")
+    private Integer estado;
+
+    public Integer getEstado() {
+        return estado;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setEstado(Integer estado) {
+        this.estado = estado;
     }
 
     @ManyToOne
     @JoinColumn(name = "fk_usuario")
+    private UsuarioEntity fkUsuario;
+
     public UsuarioEntity getFkUsuario() {
         return fkUsuario;
     }
