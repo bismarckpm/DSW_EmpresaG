@@ -14,12 +14,13 @@ import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { GENDERS } from '../../constants/gender';
 import { CIVIL_STATUSES } from '../../constants/civil_status';
 import { DEVICES } from '../../constants/device';
-import { ROLES } from '../../constants/rol';
+import { Rol } from '../../classes/rol';
 import { STUDY_STATES } from '../../constants/study_states'; // Se usara NO borrar
 import { SOCIAL_STATUSES } from '../../constants/social_status';
 import { SCHEDULES } from '../../constants/schedule';
 import { ACADEMICS } from '../../constants/academics';
 import { ACCOUNT_XTATUS } from 'src/app/constants/account_status';
+import { RolService } from 'src/app/services/rol.service';
 
 
 @Component({
@@ -202,6 +203,7 @@ export class EditUserComponent implements OnInit {
     private router:Router,
     private messageService: MessageService,
     private userService: UserService,
+    private rolService: RolService,
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
     private placeService: PlaceService, 
@@ -216,7 +218,10 @@ export class EditUserComponent implements OnInit {
       this.niveles_academicos = ACADEMICS;
       this.niveles_socioeconomicos = SOCIAL_STATUSES;
       this.estado_cuenta = ACCOUNT_XTATUS;
-      this.roles = ROLES;  
+      // this.roles = ROLES;  
+      this.rolService.getRoles().subscribe((roles) => {
+        this.roles = replaceKeyWithValue(roles);
+      });
       this.tieneHijos = [
         {
           label: 'Si',
@@ -379,6 +384,7 @@ export class EditUserComponent implements OnInit {
       parroquia: this.persona.fkPersona.id_parroquia,
       codigo_pais: this.persona.fkPersona.codigo_pais,
       ocupacion: this.persona.fkPersona.ocupacion,
+      rol: this.userService.persona.fkRol._id,
       telefono: [
         this.persona.fkPersona.telefono,
         [

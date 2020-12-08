@@ -8,7 +8,6 @@ import java.util.List;
 @Path("/user")
 @Produces( MediaType.APPLICATION_JSON )
 @Consumes( MediaType.APPLICATION_JSON )
-
 public class UserService {
 
     @POST
@@ -34,118 +33,127 @@ public class UserService {
             rolEntity = daoRol.find(usuarioDto.getFkRol().get_id(), RolEntity.class);
             usuario.setFk_Rol(rolEntity);
 
-            PersonaEntity persona = new PersonaEntity();
-            persona.setDocumentoIdentidad(usuarioDto.getFkPersona().getDocumentoIdentidad());
-            persona.setPrimerNombre(usuarioDto.getFkPersona().getPrimerNombre());
-            persona.setSegundoNombre(usuarioDto.getFkPersona().getSegundoNombre());
-            persona.setPrimerApellido(usuarioDto.getFkPersona().getPrimerApellido());
-            persona.setSegundoApellido(usuarioDto.getFkPersona().getSegundoApellido());
-            persona.setFechaNacimiento(usuarioDto.getFkPersona().getFechaNacimiento());
-            persona.setNumero_personas_encasa(usuarioDto.getFkPersona().getNumero_personas_encasa());
+
+            DaoUsuario daoUsuario = new DaoUsuario();
+            UsuarioEntity resul;
+            if (usuarioDto.getFkRol().get_id() == 1){
+
+                PersonaEntity persona = new PersonaEntity();
+                persona.setDocumentoIdentidad(usuarioDto.getFkPersona().getDocumentoIdentidad());
+                persona.setPrimerNombre(usuarioDto.getFkPersona().getPrimerNombre());
+                persona.setSegundoNombre(usuarioDto.getFkPersona().getSegundoNombre());
+                persona.setPrimerApellido(usuarioDto.getFkPersona().getPrimerApellido());
+                persona.setSegundoApellido(usuarioDto.getFkPersona().getSegundoApellido());
+                persona.setFechaNacimiento(usuarioDto.getFkPersona().getFechaNacimiento());
+                persona.setNumero_personas_encasa(usuarioDto.getFkPersona().getNumero_personas_encasa());
 
 //            OBTENER GENERO
-            DaoGenero daoGenero = new DaoGenero();
-            GeneroEntity generoPersona = daoGenero.find(usuarioDto.getFkPersona().getFkGenero().get_id(), GeneroEntity.class);
-            persona.setFkGenero(generoPersona);
+                DaoGenero daoGenero = new DaoGenero();
+                GeneroEntity generoPersona = daoGenero.find(usuarioDto.getFkPersona().getFkGenero().get_id(), GeneroEntity.class);
+                persona.setFkGenero(generoPersona);
 
 //            OBTENER EDO CIVIL
-            DaoEdoCivil daoEdoCivil = new DaoEdoCivil();
-            EdoCivilEntity edoCivilPersona = daoEdoCivil.find(usuarioDto.getFkPersona().getFkEdoCivil().get_id(), EdoCivilEntity.class);
-            persona.setFkEdoCivil(edoCivilPersona);
+                DaoEdoCivil daoEdoCivil = new DaoEdoCivil();
+                EdoCivilEntity edoCivilPersona = daoEdoCivil.find(usuarioDto.getFkPersona().getFkEdoCivil().get_id(), EdoCivilEntity.class);
+                persona.setFkEdoCivil(edoCivilPersona);
 
 //            OBTENER LUGAR
-            DaoLugar daoLugar = new DaoLugar();
-            LugarEntity lugarPersona = daoLugar.find(usuarioDto.getFkPersona().getFkLugar().get_id(), LugarEntity.class);
-            persona.setFkLugar(lugarPersona);
+                DaoLugar daoLugar = new DaoLugar();
+                LugarEntity lugarPersona = daoLugar.find(usuarioDto.getFkPersona().getFkLugar().get_id(), LugarEntity.class);
+                persona.setFkLugar(lugarPersona);
 
 
 //            OBTENER DISPONIBILIDAD
-            DisponibilidadDto dispo_inicial = usuarioDto.getFkPersona().getId_horario_inicial();
-            DisponibilidadDto dispo_final = usuarioDto.getFkPersona().getId_horario_final();
+                DisponibilidadDto dispo_inicial = usuarioDto.getFkPersona().getId_horario_inicial();
+                DisponibilidadDto dispo_final = usuarioDto.getFkPersona().getId_horario_final();
 
-            DaoDisponibilidad daoDisponibilidad = new DaoDisponibilidad();
+                DaoDisponibilidad daoDisponibilidad = new DaoDisponibilidad();
 
-            DisponibilidadEntity disponibilidadEntity_i = daoDisponibilidad.find(dispo_inicial.get_id(), DisponibilidadEntity.class);
-            DisponibilidadEntity disponibilidadEntity_f = daoDisponibilidad.find(dispo_final.get_id(), DisponibilidadEntity.class);
+                DisponibilidadEntity disponibilidadEntity_i = daoDisponibilidad.find(dispo_inicial.get_id(), DisponibilidadEntity.class);
+                DisponibilidadEntity disponibilidadEntity_f = daoDisponibilidad.find(dispo_final.get_id(), DisponibilidadEntity.class);
 
-            persona.setFkDisponibilidadInicial(disponibilidadEntity_i);
-            persona.setFkDisponibilidadFinal(disponibilidadEntity_f);
+                persona.setFkDisponibilidadInicial(disponibilidadEntity_i);
+                persona.setFkDisponibilidadFinal(disponibilidadEntity_f);
 
 //            INSERTAR PERSONA
-            DaoPersona daoPersona = new DaoPersona();
-            PersonaEntity personaResul = daoPersona.insert(persona);
+                DaoPersona daoPersona = new DaoPersona();
+                PersonaEntity personaResul = daoPersona.insert(persona);
 
-            usuario.setFk_Persona(personaResul);
-            DaoUsuario daoUsuario = new DaoUsuario();
-            UsuarioEntity resul = daoUsuario.insert(usuario);
+                usuario.setFk_Persona(personaResul);
+                resul = daoUsuario.insert(usuario);
 
 //            INSERTAR HIJOS
-            for (int i = 0; i < usuarioDto.getFkPersona().getHijos().length; i++) {
-                PersonaDto hijoDto = usuarioDto.getFkPersona().getHijos()[i];
-                PersonaEntity hijo = new PersonaEntity();
-                hijo.setDocumentoIdentidad(hijoDto.getDocumentoIdentidad());
-                hijo.setPrimerNombre(hijoDto.getPrimerNombre());
-                hijo.setSegundoNombre(hijoDto.getSegundoNombre());
-                hijo.setPrimerApellido(hijoDto.getPrimerApellido());
-                hijo.setSegundoApellido(hijoDto.getSegundoApellido());
-                hijo.setFechaNacimiento(hijoDto.getFechaNacimiento());
-                hijo.setFkPersona(personaResul);
+                for (int i = 0; i < usuarioDto.getFkPersona().getHijos().length; i++) {
+                    PersonaDto hijoDto = usuarioDto.getFkPersona().getHijos()[i];
+                    PersonaEntity hijo = new PersonaEntity();
+                    hijo.setDocumentoIdentidad(hijoDto.getDocumentoIdentidad());
+                    hijo.setPrimerNombre(hijoDto.getPrimerNombre());
+                    hijo.setSegundoNombre(hijoDto.getSegundoNombre());
+                    hijo.setPrimerApellido(hijoDto.getPrimerApellido());
+                    hijo.setSegundoApellido(hijoDto.getSegundoApellido());
+                    hijo.setFechaNacimiento(hijoDto.getFechaNacimiento());
+                    hijo.setFkPersona(personaResul);
 
-                GeneroEntity generoHijo = daoGenero.find(hijoDto.getFkGenero().get_id(), GeneroEntity.class);
-                hijo.setFkGenero(generoHijo);
+                    GeneroEntity generoHijo = daoGenero.find(hijoDto.getFkGenero().get_id(), GeneroEntity.class);
+                    hijo.setFkGenero(generoHijo);
 
-                DaoPersona daoHijo = new DaoPersona();
-                daoHijo.insert(hijo);
+                    DaoPersona daoHijo = new DaoPersona();
+                    daoHijo.insert(hijo);
 
-            }
+                }
 
 //            INSERTAR DISPOSITIVOS USADOS
-            for (int i = 0; i < usuarioDto.getFkPersona().getDispositivos().length; i++) {
-                DaoDispositivo daoDispositivo = new DaoDispositivo();
+                for (int i = 0; i < usuarioDto.getFkPersona().getDispositivos().length; i++) {
+                    DaoDispositivo daoDispositivo = new DaoDispositivo();
 
-                DispositivoEntity dispositivo = daoDispositivo.find((long) usuarioDto.getFkPersona().getDispositivos()[i], DispositivoEntity.class);
+                    DispositivoEntity dispositivo = daoDispositivo.find((long) usuarioDto.getFkPersona().getDispositivos()[i], DispositivoEntity.class);
 
-                PersonaDispositivoEntity personaDispositivo = new PersonaDispositivoEntity();
-                personaDispositivo.setFkPersona(personaResul);
-                personaDispositivo.setFkDispositivo(dispositivo);
+                    PersonaDispositivoEntity personaDispositivo = new PersonaDispositivoEntity();
+                    personaDispositivo.setFkPersona(personaResul);
+                    personaDispositivo.setFkDispositivo(dispositivo);
 
-                DaoPersonaDispositivo daoPersonaDispositivo = new DaoPersonaDispositivo();
-                daoPersonaDispositivo.insert(personaDispositivo);
+                    DaoPersonaDispositivo daoPersonaDispositivo = new DaoPersonaDispositivo();
+                    daoPersonaDispositivo.insert(personaDispositivo);
 
-            }
+                }
 
 //            INSERTAR NUMERO DE TELEFONO
-            TelefonoEntity telefonoPersona = new TelefonoEntity();
-            telefonoPersona.setNumero(usuarioDto.getFkPersona().getTelefono());
-            telefonoPersona.setFkPersona(personaResul);
-            DaoTelefono daoTelefono = new DaoTelefono();
-            daoTelefono.insert(telefonoPersona);
+                TelefonoEntity telefonoPersona = new TelefonoEntity();
+                telefonoPersona.setNumero(usuarioDto.getFkPersona().getTelefono());
+                telefonoPersona.setFkPersona(personaResul);
+                DaoTelefono daoTelefono = new DaoTelefono();
+                daoTelefono.insert(telefonoPersona);
 
 //            OBTENER OCUPACION
-            DaoOcupacion daoOcupacion = new DaoOcupacion();
-            OcupacionEntity ocupacion = daoOcupacion.find(usuarioDto.getFkPersona().getOcupacion(), OcupacionEntity.class);
+                DaoOcupacion daoOcupacion = new DaoOcupacion();
+                OcupacionEntity ocupacion = daoOcupacion.find(usuarioDto.getFkPersona().getOcupacion(), OcupacionEntity.class);
 
 //            INSERTAR PERSONA OCUPACION
-            PersonaOcupacionEntity personaOcupacion = new PersonaOcupacionEntity();
-            personaOcupacion.setFkOcupacion(ocupacion);
-            personaOcupacion.setFkPersona(personaResul);
+                PersonaOcupacionEntity personaOcupacion = new PersonaOcupacionEntity();
+                personaOcupacion.setFkOcupacion(ocupacion);
+                personaOcupacion.setFkPersona(personaResul);
 
-            DaoPersonaOcupacion daoPersonaOcupacion = new DaoPersonaOcupacion();
-            daoPersonaOcupacion.insert(personaOcupacion);
+                DaoPersonaOcupacion daoPersonaOcupacion = new DaoPersonaOcupacion();
+                daoPersonaOcupacion.insert(personaOcupacion);
 
 
 //            OBTENER NIVEL ACADEMICO
-            DaoNivelAcademico daoNivelAcademico = new DaoNivelAcademico();
-            NivelAcademicoEntity nivelAcademicoPersona = daoNivelAcademico.find(usuarioDto.getFkPersona().getId_nivel_academico(), NivelAcademicoEntity.class);
+                DaoNivelAcademico daoNivelAcademico = new DaoNivelAcademico();
+                NivelAcademicoEntity nivelAcademicoPersona = daoNivelAcademico.find(usuarioDto.getFkPersona().getId_nivel_academico(), NivelAcademicoEntity.class);
 
 //            INSERTAR NIVEL ACADEMICO
-            PersonaNvlacademicoEntity personaNvlacademico = new PersonaNvlacademicoEntity();
-            personaNvlacademico.setFkNivelAcademico(nivelAcademicoPersona);
-            personaNvlacademico.setFkPersona(personaResul);
+                PersonaNvlacademicoEntity personaNvlacademico = new PersonaNvlacademicoEntity();
+                personaNvlacademico.setFkNivelAcademico(nivelAcademicoPersona);
+                personaNvlacademico.setFkPersona(personaResul);
 
-            DaoPersonaNvlacademico daoPersonaNvlacademico = new DaoPersonaNvlacademico();
-            daoPersonaNvlacademico.insert(personaNvlacademico);
+                DaoPersonaNvlacademico daoPersonaNvlacademico = new DaoPersonaNvlacademico();
+                daoPersonaNvlacademico.insert(personaNvlacademico);
 
+
+            }
+            else{
+                resul = daoUsuario.insert(usuario);
+            }
 
             resultado.set_id(resul.get_id());
 

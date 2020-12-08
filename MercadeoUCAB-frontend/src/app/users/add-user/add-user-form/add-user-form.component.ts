@@ -5,7 +5,7 @@ import { UserService } from '../../../services/user.service';
 import { GENDERS } from '../../../constants/gender';
 import { DEVICES } from '../../../constants/device';
 import { CIVIL_STATUSES } from '../../../constants/civil_status';
-import { ROLES } from '../../../constants/rol';
+// import { ROLES } from '../../../constants/rol';
 import { ACCOUNT_XTATUS } from '../../../constants/account_status';
 import { Child } from '../../../classes/child';
 
@@ -28,6 +28,8 @@ import { OcupacionService } from 'src/app/services/ocupacion.service';
 import { NivelAcademicoService } from 'src/app/services/nivel-academico.service';
 import { DeviceService } from 'src/app/services/device.service';
 import { DisponibilidadService } from 'src/app/services/disponibilidad.service';
+import { RolService } from 'src/app/services/rol.service';
+import { persondata } from 'src/app/classes/persondata';
 
 
 @Component({
@@ -71,6 +73,7 @@ export class AddUserFormComponent implements OnInit {
   estado: boolean;
   ciudad: boolean;
   parroquia: boolean;
+  rol: boolean;
 
   /* Form */
   userForm: FormGroup;
@@ -217,6 +220,7 @@ export class AddUserFormComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private userService: UserService,
     private placeService: PlaceService, 
+    private rolService: RolService,
     private ocupacionService: OcupacionService,
     private nivelAcademicoService: NivelAcademicoService,
     private deviceService: DeviceService,
@@ -232,7 +236,10 @@ export class AddUserFormComponent implements OnInit {
     this.niveles_academicos = ACADEMICS;
     this.niveles_socioeconomicos = SOCIAL_STATUSES;
     this.estado_cuenta = ACCOUNT_XTATUS;
-    this.roles = ROLES;
+    // this.roles = ROLES;
+    this.rolService.getRoles().subscribe((roles) => {
+      this.roles = replaceKeyWithValue(roles);
+    });
     this.tieneHijos = [
       {
         label: 'Si',
@@ -402,7 +409,7 @@ export class AddUserFormComponent implements OnInit {
       parroquia: this.userService.persona.fkPersona.id_parroquia,
       codigo_pais: this.userService.persona.fkPersona.codigo_pais,
       ocupacion: this.userService.persona.fkPersona.ocupacion,
-
+      rol: this.userService.persona.fkRol._id,
       telefono: [
         this.userService.persona.fkPersona.telefono.numero,
         [
@@ -450,14 +457,18 @@ export class AddUserFormComponent implements OnInit {
     this.sent_form = true;
 // Informacion basica
     this.userService.persona.email = this.userForm.value.correo_electronico;
+    this.userService.persona.fkRol._id = this.userForm.value.rol;
     this.userService.persona.password = this.userForm.value.clave;
     this.userService.persona.confirmar_clave = this.userForm.value.confirmar_clave;
-    // this.userService.persona.estado_cuenta = this.userForm.value.estado_cuenta;
+    
+// Si ES ENCUESTADO
+    if (this.rol){
+      // this.userService.persona.estado_cuenta = this.userForm.value.estado_cuenta;
     this.userService.persona.fkPersona.primerNombre = this.userForm.value.primer_nombre;
     this.userService.persona.fkPersona.primerApellido = this.userForm.value.primer_apellido;
     this.userService.persona.fkPersona.documentoIdentidad = this.userForm.value.documento_de_identificacion;
-    this.userService.persona.fkPersona.fkGenero = this.userForm.value.genero;
-    this.userService.persona.fkPersona.fkEdoCivil = this.userForm.value.estado_civil;
+    this.userService.persona.fkPersona.fkGenero._id = this.userForm.value.genero;
+    this.userService.persona.fkPersona.fkEdoCivil._id = this.userForm.value.estado_civil;
     this.userService.persona.fkPersona.fechaNacimiento = this.userForm.value.fecha_de_nacimiento;
     this.userService.persona.fkPersona.dispositivos = this.userForm.value.dispositivos;
 // Informacion socioeconomica
@@ -476,38 +487,79 @@ export class AddUserFormComponent implements OnInit {
     this.userService.persona.fkPersona.codigo_pais = this.userForm.value.codigo_pais;
     this.userService.persona.fkPersona.telefono = this.userForm.value.telefono;
 // Informacion de tiempo disponible
-    this.userService.persona.fkPersona.id_horario_inicial = this.userForm.value.horario_inicial;
-    this.userService.persona.fkPersona.id_horario_final = this.userForm.value.horario_final;
+    this.userService.persona.fkPersona.id_horario_inicial._id = this.userForm.value.horario_inicial;
+    this.userService.persona.fkPersona.id_horario_final._id = this.userForm.value.horario_final;
 
-
-    if (this.userService.persona.email && this.userService.persona.password
-      && this.userService.persona.confirmar_clave && this.userService.persona.fkPersona.primerNombre
-      && this.userService.persona.fkPersona.primerApellido && this.userService.persona.fkPersona.documentoIdentidad
-      && this.userService.persona.fkPersona.fechaNacimiento && this.userService.persona.fkPersona.fkGenero
-      && this.userService.persona.fkPersona.id_nivel_academico && this.userService.persona.fkPersona.id_nivel_socioeconomico
-      // && this.userService.persona.fkPersona.id_pais 
-      && this.userService.persona.fkPersona.codigo_pais && this.userService.persona.fkPersona.telefono
-      && this.userService.persona.fkPersona.numero_personas_encasa){
-
-      // this.userService.persona.id_estado && this.userService.persona.id_ciudad && this.userService.persona.id_parroquia
-    // if(this.userForm.valid){
-      /* SUBMIT FORM */
-      this.userService.postPerson(this.userService.persona)
-        .subscribe(person => {
-          console.log("REGISTERED")
-          this.previousPage();
-        },
-        errorMessage => {
-          console.log("FALLO")
-          this.sent_form = false;
-          this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
-        })
+    if (this.parroquia){
+      this.userService.persona.fkPersona.fkLugar._id = this.userForm.value.parroquia;
     }
-    else {
-      this.showError()
-      this.sent_form = false;
+    else if (this.ciudad){
+      this.userService.persona.fkPersona.fkLugar._id = this.userForm.value.ciudad;
     }
-  }
+    else if (this.estado){
+      this.userService.persona.fkPersona.fkLugar._id = this.userForm.value.estado;
+    }
+    else{ 
+      this.userService.persona.fkPersona.fkLugar._id = this.userForm.value.pais;
+    }
+
+      if (this.userService.persona.email && this.userService.persona.password
+        && this.userService.persona.confirmar_clave && this.userService.persona.fkPersona.primerNombre
+        && this.userService.persona.fkPersona.primerApellido && this.userService.persona.fkPersona.documentoIdentidad
+        && this.userService.persona.fkPersona.fechaNacimiento && this.userService.persona.fkPersona.fkGenero
+        && this.userService.persona.fkPersona.id_nivel_academico
+        && this.userService.persona.fkRol._id
+        && this.userService.persona.fkPersona.telefono
+        && this.userService.persona.fkPersona.numero_personas_encasa){
+          console.log(this.userService.persona)
+        // this.userService.persona.id_estado && this.userService.persona.id_ciudad && this.userService.persona.id_parroquia
+      // if(this.userForm.valid){
+        /* SUBMIT FORM */
+        this.userService.postPerson(this.userService.persona)
+          .subscribe(person => {
+            console.log("REGISTERED")
+            this.previousPage();
+          },
+          errorMessage => {
+            console.log("FALLO")
+            this.sent_form = false;
+            this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
+          })
+      }
+      else {
+        this.showError()
+        this.sent_form = false;
+      }
+    }
+    else{
+      this.userService.persona.fkPersona = this.userService.personadata;
+// Si NO es ENCUESTADO
+      if(this.userService.persona.email && this.userService.persona.password
+        && this.userService.persona.confirmar_clave && this.userService.persona.fkRol._id){
+
+          console.log(this.userService.persona)
+  
+        /* SUBMIT FORM */
+        this.userService.postPerson(this.userService.persona)
+          .subscribe(person => {
+            console.log("REGISTERED")
+            this.previousPage();
+          },
+          errorMessage => {
+            console.log("FALLO")
+            this.sent_form = false;
+            this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
+          })
+      }
+      else {
+        this.showError()
+        this.sent_form = false;
+      }
+
+      }
+
+    }
+  
 
   userHasKids(event){
     if (event.value == false){
@@ -579,6 +631,15 @@ export class AddUserFormComponent implements OnInit {
         this.parroquia = false;
       }
     })
+  }
+
+  checkRol(event){
+    if (event.value == 1){
+      this.rol = true;
+    }
+    else{
+      this.rol = false;
+    }
   }
 
   showError() {

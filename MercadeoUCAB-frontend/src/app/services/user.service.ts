@@ -14,6 +14,7 @@ import { Genero } from '../classes/genero';
 import { EdoCivil } from '../classes/edocivil';
 import { Place } from '../classes/place';
 import { telefono } from '../classes/telefono';
+import { Rol } from '../classes/rol';
 import { Disponibilidad } from '../classes/disponibilidad';
 import { serverURL } from '../constants/serverURL';
 
@@ -83,14 +84,14 @@ export class UserService {
     documentoIdentidad: '',
     fkGenero: this.genero,
     fkEdoCivil: this.edoCivil,
-    fechaNacimiento: '',
+    fechaNacimiento: '01/01/1900',
     id_pais: this.pais,
     id_ciudad: this.ciudad,
     id_parroquia: this.Parroquia,
     id_estado: this.estado,
     fkLugar: this.lugar,
     telefono: this.Telefono,
-    ocupacion: '',
+    ocupacion: '0',
     numero_personas_encasa: 0,
     hijos: this.hijos,
     id_nivel_academico: 0,
@@ -100,10 +101,16 @@ export class UserService {
     id_horario_final: this.horario_fin
   }
 
+  rol: Rol = {
+    _id: 0,
+    nombre: '',
+  }
+
   persona: Person = {
     email: '',
     password: '',
-    fkPersona: this.personadata
+    fkPersona: this.personadata,
+    fkRol: this.rol,
   };
 
   // Me falta ROL
@@ -147,7 +154,8 @@ export class UserService {
       })
     };
 
-    return this.http.post<Person>(baseURL + 'register', person, httpOptions)
+    return this.http.post<Person>(serverURL + 'user/add', person, httpOptions)
+    .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
   postRegPerson(user: Person): Observable<Person>{
