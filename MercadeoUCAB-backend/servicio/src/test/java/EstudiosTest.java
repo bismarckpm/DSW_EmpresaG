@@ -26,6 +26,20 @@ public class EstudiosTest {
     }
 
     @Test
+    public void allActiveStudies(){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
+        EntityManager em = emf.createEntityManager();
+
+        JPQL = "SELECT e FROM FiltroEntity e, EstudioEntity ee WHERE e.fkEstudio " +
+                "IS NOT NULL AND e.fkEstudio = ee AND ee.estado = 1";
+        List<FiltroEntity> estudios = em.createQuery(JPQL).getResultList();
+
+        for (FiltroEntity estudio: estudios) {
+            System.out.println(estudio.getFkEstudio());
+        }
+    }
+
+    @Test
     public void getCurrentStudy(){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
         EntityManager em = emf.createEntityManager();

@@ -18,6 +18,13 @@ public class StudyService {
     }
 
     @GET
+    @Path("/active")
+    public List<FiltroEntity> allActiveStudies(){
+        DaoFiltro daoFiltro = new DaoFiltro();
+        return daoFiltro.getAllActiveStudies();
+    }
+
+    @GET
     @Path("/similar/{idCategoria}")
     public List<FiltroEntity> getSimilarStudies(@PathParam("idCategoria") long id){
         DaoFiltro daoFiltro = new DaoFiltro();

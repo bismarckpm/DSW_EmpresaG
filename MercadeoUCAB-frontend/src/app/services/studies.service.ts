@@ -65,10 +65,8 @@ export class StudiesService {
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  getInProgressStudies(): Observable<Study[]> {
-    return this.http.get<Study[]>(baseURL + 'studies', {params: {
-      id_estado: "2"
-    }})
+  getInProgressStudies(): Observable<StudyWithFilter[]> {
+    return this.http.get<StudyWithFilter[]>(serverURL + 'studies/active')
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 

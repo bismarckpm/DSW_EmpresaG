@@ -51,7 +51,9 @@
                             <th class="p-text-center">
                                 Filtros adicionales
                             </th>
-                           
+                            <th pSortableColumn="estado" class="p-text-center">Estado<p-sortIcon field="estado">
+                            </p-sortIcon>
+                        </th>
                             <th style="width: 11rem"></th>
                         </tr>
 
@@ -61,29 +63,38 @@
                         <tr class="p-selectable-row">
                             <td class="p-text-center">
                                 <span class="p-column-title">Categoría</span>
-                                {{estudio.categoria}}
+                                {{estudio.fkCategoria.nombre}}
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Subcategoría</span>
-                                <span class="image-text">{{estudio.subcategoria}}</span>
-                            </td>
-                            <td class="p-text-center">
-                                <span class="p-column-title">Rango de edades</span>
-                                <span class="image-text" *ngIf="estudio.edad_minima && estudio.edad_maxima">De {{estudio.edad_minima}} hasta {{estudio.edad_maxima}}</span>
-                            </td>
-                            <td class="p-text-center">
-                                <span class="p-column-title">Lugares</span>
-                                <span class="image-text">{{estudio.lugares}}</span>
+                                <span class="image-text"
+                                    *ngIf="estudio.fkSubcategoria">{{estudio.fkSubcategoria.nombre}}</span>
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Filtros adicionales</span>
-                                <span class="image-text" *ngIf="estudio.nivel_socioeconomico"><strong>Nivel
-                                        socioeconómico: </strong>{{estudio.nivel_socioeconomico}}&nbsp;</span>
-                                <span class="image-text" *ngIf="estudio.nivel_academico"><strong>Nivel académico:
-                                    </strong>{{estudio.nivel_academico}}&nbsp;</span>
-                                <span class="image-text" *ngIf="estudio.genero"><strong>Género: </strong>
-                                    {{estudio.genero}}&nbsp;</span>
+                                <span class="image-text" *ngIf="estudio.fkNivelSocioeconomico"><strong>Nivel
+                                        socioeconómico: </strong>{{estudio.fkNivelSocioeconomico.nombre}}&nbsp;</span>
+                                <span class="image-text" *ngIf="estudio.fkNivelAcademico"><strong>Nivel académico:
+                                    </strong>{{estudio.fkNivelAcademico.nombre}}&nbsp;</span>
+                                <span class="image-text" *ngIf="estudio.fkGenero"><strong>Género: </strong>
+                                    {{estudio.fkGenero.nombre}}&nbsp;</span>
+                                <span class="image-text" *ngIf="estudio.fkEdoCivil"><strong>Estado Civil: </strong>
+                                    {{estudio.fkEdoCivil.nombre}}&nbsp;</span>
 
+                            </td>
+                            <td class="p-text-center">
+                                <span class="p-column-title">Rango de edades</span>
+                                <span class="image-text" *ngIf="estudio.edadMinima && estudio.edadMaxima">De
+                                    {{estudio.edadMinima}} hasta {{estudio.edadMaxima}}</span>
+                            </td>
+                            <td class="p-text-center">
+                                <span class="p-column-title">Lugares</span>
+                                <span class="image-text" *ngIf="estudio.fkLugar">{{estudio.fkLugar.nombre}}</span>
+                            </td>
+                            <td class="p-text-center">
+                                <span class="p-column-title">Estado</span>
+                                <span class="image-text" *ngIf="estudio.fkEstudio.estado == 1">En progreso</span>
+                                <span class="image-text" *ngIf="estudio.fkEstudio.estado == 2">Culminado</span>
                             </td>
 
                             <td class="p-text-center">
