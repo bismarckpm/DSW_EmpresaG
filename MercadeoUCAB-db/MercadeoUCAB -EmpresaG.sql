@@ -513,6 +513,8 @@ CREATE TABLE IF NOT EXISTS `empresag`.`ENCUESTA` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `fecha` TIMESTAMP NOT NULL,
   `respuesta_texto` TEXT NULL,
+  `respuesta_rango_inicial` INT NULL,
+  `respuesta_rango_final` INT NULL,
   `fk_posible_respuesta` INT NULL,
   `fk_pregunta` INT NOT NULL,
   `fk_persona` INT NOT NULL,
