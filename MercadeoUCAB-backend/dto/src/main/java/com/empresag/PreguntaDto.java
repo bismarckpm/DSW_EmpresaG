@@ -7,6 +7,7 @@ public class PreguntaDto extends BaseDto {
     private int status;
     private TipoPreguntaDto fkTipoPregunta;
     private List<OpcionDto> listOpciones;
+    private List<PosibleRespuestaDto> listPosibleRespuestas;
 
     public PreguntaDto() {
     }
@@ -45,6 +46,14 @@ public class PreguntaDto extends BaseDto {
 
     public void setListOpciones(List<OpcionDto> listOpciones) {
         this.listOpciones = listOpciones;
+    }
+
+    public List<PosibleRespuestaDto> getListPosibleRespuestas() {
+        return listPosibleRespuestas;
+    }
+
+    public void setListPosibleRespuestas(List<PosibleRespuestaDto> listPosibleRespuestas) {
+        this.listPosibleRespuestas = listPosibleRespuestas;
     }
 
     @Override

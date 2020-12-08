@@ -57,6 +57,19 @@ public class StudyService {
         }
     }
 
+    @GET
+    @Path("/questions-with-options/{id}")
+    public Response getStudyQuestionsWithOptions(@PathParam("id") long id){
+        DaoPreguntaEstudio daoPreguntaEstudio = new DaoPreguntaEstudio();
+        try {
+            List<PreguntaEstudioDto> preguntas = daoPreguntaEstudio.getStudyQuestionsWithOptions(id);
+            return Response.ok().entity(preguntas).build();
+        }
+        catch (NullPointerException | IndexDatabaseException e){
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
     @POST
     @Path("/assign/{clonedId}/{requestId}")
     public Response assignStudy(@PathParam("clonedId") long id, @PathParam("requestId") long rid){

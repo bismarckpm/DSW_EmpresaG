@@ -9,6 +9,7 @@ import { ProcessHttpMessageService } from '../services/process-http-message.serv
 import { StudyWithFilter } from '../classes/study_with_filter';
 import { QuestionCategorySubcategory } from '../classes/question_category_subcategory';
 import { Question } from '../classes/question';
+import { StudyQuestion } from '../classes/study_question';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,11 @@ export class StudiesService {
 
   getStudyQuestions(study_id): Observable<QuestionCategorySubcategory[]>{
     return this.http.get<QuestionCategorySubcategory[]>(serverURL + 'studies/questions/' + study_id)
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
+  getStudyQuestionsWithOptions(study_id): Observable<StudyQuestion[]>{
+    return this.http.get<StudyQuestion[]>(serverURL + 'studies/questions-with-options/' + study_id)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 

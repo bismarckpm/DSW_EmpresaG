@@ -514,10 +514,12 @@ CREATE TABLE IF NOT EXISTS `empresag`.`ENCUESTA` (
   `fecha` TIMESTAMP NOT NULL,
   `respuesta_texto` TEXT NULL,
   `fk_posible_respuesta` INT NULL,
-  `fk_pregunta` INT NULL,
+  `fk_pregunta` INT NOT NULL,
+  `fk_persona` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_encuesta_posiblerespuesta_idx` (`fk_posible_respuesta` ASC) VISIBLE,
   INDEX `fk_encuesta_pregunta_idx` (`fk_pregunta` ASC) VISIBLE,
+  INDEX `fk_encuesta_persona_idx` (`fk_persona` ASC) VISIBLE,
   CONSTRAINT `fk_encuesta_posiblerespuesta`
     FOREIGN KEY (`fk_posible_respuesta`)
     REFERENCES `empresag`.`POSIBLE_RESPUESTA` (`id`)
@@ -526,6 +528,11 @@ CREATE TABLE IF NOT EXISTS `empresag`.`ENCUESTA` (
   CONSTRAINT `fk_encuesta_pregunta`
     FOREIGN KEY (`fk_pregunta`)
     REFERENCES `empresag`.`PREGUNTA` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_encuesta_persona`
+    FOREIGN KEY (`fk_persona`)
+    REFERENCES `empresag`.`PERSONA` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
