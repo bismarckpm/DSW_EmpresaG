@@ -10,11 +10,11 @@ import javax.ws.rs.core.Response;
 @Consumes( MediaType.APPLICATION_JSON )
 public class LoginService {
     @POST
-    @Path("/verify")
-    public UsuarioEntity currentUser(String email, String password){
+    @Path("/{email}/link/{password}")
+    public UsuarioEntity currentUser(@PathParam("email") String email,@PathParam("password") String password){
         DaoUsuario usuarioDao = new DaoUsuario();
         UsuarioEntity user;
-        List<UsuarioEntity> users = usuarioDao.findUsuarioLogin(email, password);
+        List<UsuarioEntity> users = usuarioDao.findUsuarioLogin(email,password);
 
         if (!users.isEmpty()){
             user = users.get(0);

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Person } from '../classes/person';
+import { Users } from '../classes/users';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { baseURL } from '../constants/baseURL';
+import { serverURL } from '../constants/serverURL';
 import { map, catchError } from 'rxjs/operators';
 import { ProcessHttpMessageService } from '../services/process-http-message.service';
 
@@ -14,14 +14,14 @@ export class LoginService {
   constructor(private http: HttpClient,
     private processHTTPMessageService: ProcessHttpMessageService) { }
 
-  validateLogin(user: Person): Observable<Person> {
+  validateLogin(user: Users): Observable<Users> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
 
-    return this.http.post<Person>(baseURL + 'login', user, httpOptions)
+    return this.http.post<Users>(serverURL + 'login/' + user.email + '/link/' + user.password, user, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 

@@ -12,7 +12,7 @@ public class LoginTest {
 
 
         String userString = "";
-        UsuarioEntity user = login.currentUser("angel99castillo@gmail.com","Am101199.");
+        UsuarioEntity user = login.currentUser("angel99castillo@gmail.com", "Am101199.");
         if (user != null)
             userString = user.toString();
 
