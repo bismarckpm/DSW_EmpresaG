@@ -58,7 +58,7 @@ export class MyRequestsComponent implements OnInit {
 
   getInProgressStudies(){
     this.studiesService.getInProgressStudies().subscribe((studies) => {
-      this.estudios = studies;
+      //this.estudios = studies;
       this.loading = false;
     }, errorMessage => {
       this.loading = false;

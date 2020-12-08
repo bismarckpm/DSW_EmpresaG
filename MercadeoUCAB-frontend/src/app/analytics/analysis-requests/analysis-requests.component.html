@@ -99,10 +99,10 @@
 
                             <td class="p-text-center">
                                 <button type="button" pButton
-                                    pRipple icon="pi pi-chart-bar" routerLink="../stats" [queryParams]="{studyId:estudio.id}" class="p-button-rounded p-mr-2" pTooltip="Estadísticas"
+                                    pRipple icon="pi pi-chart-bar" routerLink="../stats" [queryParams]="{studyId:estudio.fkEstudio._id}" class="p-button-rounded p-mr-2" pTooltip="Estadísticas"
                                     tooltipPosition="bottom"></button>
                                 <button type="button" pButton pRipple icon="pi pi-users"
-                                    class="p-button-rounded p-mr-2" routerLink="../available-population" [queryParams]="{studyId:estudio.id}" pTooltip="Visualizar población de muestra disponible" tooltipPosition="bottom"></button>
+                                    class="p-button-rounded p-mr-2" routerLink="../available-population" [queryParams]="{studyId:estudio.fkEstudio._id}" pTooltip="Visualizar población de muestra disponible" tooltipPosition="bottom"></button>
                             </td>
                         </tr>
                     </ng-template>

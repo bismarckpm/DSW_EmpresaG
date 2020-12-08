@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Table } from 'primeng/table';
+import { persondata } from 'src/app/classes/persondata';
 import { Study } from 'src/app/classes/study';
 import { AnalystService } from 'src/app/services/analyst.service';
 
@@ -11,10 +12,11 @@ import { AnalystService } from 'src/app/services/analyst.service';
   styleUrls: ['./available-population.component.scss']
 })
 export class AvailablePopulationComponent implements OnInit {
+  people: persondata[];
   estudio: Study;
   current_study: number;
   loading: boolean = false;
-  estudioErrorMessage: string;
+  peopleErrorMessage: boolean = false;
   @ViewChild('dt') table: Table;
 
   constructor(
@@ -33,22 +35,18 @@ export class AvailablePopulationComponent implements OnInit {
     else {
       this.current_study = parseInt(this.activatedRoute.snapshot.queryParamMap.get('studyId'));
 
-      this.analystService.getAvailablePopulation(this.current_study).subscribe((study) => {
-        if (study){
-          //console.log(study)
-          this.estudio = study;
+      this.analystService.getAvailablePopulation(this.current_study).subscribe((people) => {
+        if (people){
+          this.people = people;
           this.loading = false;
           this.spinner.hide();
         }
-
-        else {
-          this.router.navigate(['404']);
-        }
         
       }, errorMessage => {
+        this.router.navigate(['404']);
         this.spinner.hide();
         this.loading = false;
-        this.estudioErrorMessage = errorMessage;
+        this.peopleErrorMessage = errorMessage;
       })
     }
   }

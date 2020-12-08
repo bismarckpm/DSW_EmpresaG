@@ -306,3 +306,9 @@ INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, eda
 INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_lugar, fk_categoria, fk_subcategoria, fk_solicitud) VALUES (7, null, 1, 1, 100, 1, 1, 1, 1, 1, 1, 1, 1);
 INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_lugar, fk_categoria, fk_subcategoria, fk_solicitud) VALUES (8, null, null, null, null, null, null, null, null, null, 2, 2, 2);
 INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_lugar, fk_categoria, fk_subcategoria, fk_solicitud) VALUES (9, null, null, 10, 30, 3, null, null, null, null, 3, 3, 3);
+
+INSERT INTO empresag.persona_nvlacademico (id, fk_persona, fk_nivel_academico) VALUES (1, 1, 3);
+INSERT INTO empresag.persona_nvlacademico (id, fk_persona, fk_nivel_academico) VALUES (2, 2, 1);
+INSERT INTO empresag.persona_nvlacademico (id, fk_persona, fk_nivel_academico) VALUES (3, 3, 2);
+INSERT INTO empresag.persona_nvlacademico (id, fk_persona, fk_nivel_academico) VALUES (4, 4, 3);
+INSERT INTO empresag.persona_nvlacademico (id, fk_persona, fk_nivel_academico) VALUES (5, 5, 1);

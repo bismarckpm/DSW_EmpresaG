@@ -38,6 +38,7 @@ public class MyApplication extends Application {
         h.add( RolService.class );
         h.add( StudyRequestService.class );
         h.add( AnalyticsService.class );
+        h.add( SurveyService.class );
         return h;
     }
 }

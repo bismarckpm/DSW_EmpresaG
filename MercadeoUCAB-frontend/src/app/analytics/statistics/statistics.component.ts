@@ -106,7 +106,7 @@ export class StatisticsComponent implements OnInit {
         }
 
         else {
-          this.router.navigate(['404']);
+          //this.router.navigate(['404']);
         }
         
         // TODO: Get open text responses in a table

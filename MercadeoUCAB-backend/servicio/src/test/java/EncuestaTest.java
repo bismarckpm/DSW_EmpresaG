@@ -1,4 +1,7 @@
-package com.empresag;
+import com.empresag.DaoEstudio;
+import com.empresag.EstudioEntity;
+import com.empresag.PersonaEntity;
+import org.junit.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -6,21 +9,16 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import java.util.List;
 
-public class DaoEncuesta extends Dao<EncuestaEntity> {
-
+public class EncuestaTest {
     String JPQL = null;
     Query q = null;
-    static DaoHandler _handler = new DaoHandler();
 
-    public DaoEncuesta( ) {
-        super(_handler);
-    }
-
-    public List<PersonaEntity> getAvailablePopulation(long id){
+    @Test
+    public void getAvailablePopulation(){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
         EntityManager em = emf.createEntityManager();
         DaoEstudio daoEstudio = new DaoEstudio();
-        EstudioEntity estudio = daoEstudio.find(id, EstudioEntity.class);
+        EstudioEntity estudio = daoEstudio.find(1L, EstudioEntity.class);
 
         JPQL = "SELECT p FROM PersonaEntity p, FiltroEntity f, PersonaNvlacademicoEntity pna " +
                 "WHERE f.fkEstudio = :estudio AND pna.fkPersona = p " +
@@ -32,6 +30,9 @@ public class DaoEncuesta extends Dao<EncuestaEntity> {
         q = em.createQuery(JPQL);
         q.setParameter("estudio", estudio);
 
-        return q.getResultList();
+        List<PersonaEntity> personas = q.getResultList();
+        for (PersonaEntity persona: personas) {
+            System.out.println(persona);
+        }
     }
 }
