@@ -18,40 +18,36 @@
         <div *ngIf="usuarios || loading">
             <p class="p-mx-5">Búsqueda avanzada</p>
             <div class="p-grid p-mx-5 p-mt-3">
-                <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
-                    <p-multiSelect [options]="primer_nombre" defaultLabel="Usuarios activos"
+                <!-- <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
+                    <p-multiSelect [options]="estado" defaultLabel="Usuarios activos"
                         emptyFilterMessage="No se encontraron resultados" 
                         selectedItemsLabel="{} items seleccionados"></p-multiSelect>
+                </div> -->
+                <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
+                    <input id="estado" class="p-inputtext-lg fill-width" type="text" pInputText
+                        (input)="dt.filter($event.target.value, 'estado', 'contains')" placeholder="Estado">
+                </div>
+                <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
+                    <input id="correo_electronico" class="p-inputtext-lg fill-width" type="text" pInputText
+                        (input)="dt.filter($event.target.value, 'email', 'contains')" placeholder="Email">
                 </div>
 
-                <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
-                    <input id="nombre" class="p-inputtext-lg fill-width" type="text" pInputText
-                        (input)="dt.filter($event.target.value, 'primer_nombre', 'contains')" placeholder="Nombre">
-                </div>
-                <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
-                    <input id="apellido" class="p-inputtext-lg fill-width" type="text" pInputText
-                        (input)="dt.filter($event.target.value, 'primer_apellido', 'contains')" placeholder="Apellido">
-                </div>
             </div>
             <div class="p-grid p-mt-5 p-mx-5">
                 <p-table #dt [value]="usuarios" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
                     [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
                     [paginator]="true"
                     currentPageReportTemplate="Mostrando desde {first} hasta {last} de {totalRecords} resultados"
-                    [filterDelay]="0" [globalFilterFields]="['nombre', 'correo_electronico', 'estado_civil']">
-                                                                            <!-- OJO: Estado civil solo es una prueba ....  -->
+                    [filterDelay]="0" [globalFilterFields]="[ 'correo_electronico', 'estado']">
+
                     <ng-template pTemplate="header">
                         <tr>
-                            <th style="width: 6rem" pSortableColumn="nombre" class="p-text-center">Nombre<p-sortIcon
-                                    field="nombre">
-                                </p-sortIcon>
-                            </th>
                             <th pSortableColumn="correo_electronico" class="p-text-center">Email<p-sortIcon
                                     field="correo_electronico">
                                 </p-sortIcon>
                             </th>
-                            <th pSortableColumn="estado_civil" class="p-text-center">Estado<p-sortIcon
-                                    field="estado_civil">
+                            <th pSortableColumn="estado" class="p-text-center">Estado<p-sortIcon
+                                    field="estado">
                                 </p-sortIcon>
                             </th>
                             <th style="width: 11rem"></th>
@@ -61,16 +57,12 @@
                     <ng-template pTemplate="body" let-persona>
                         <tr class="p-selectable-row">
                             <td class="p-text-center">
-                                <span class="p-column-title">Nombre</span>
-                                {{persona.fkPersona.primerNombre + " " + persona.fkPersona.primerApellido}}
-                            </td> 
-                            <td class="p-text-center">
                                 <span class="p-column-title">Email</span>
                                 <span class="image-text">{{persona.email}}</span>
                             </td> 
                             <td class="p-text-center">
                                 <span class="p-column-title">Estado</span>
-                                <span class="image-text">{{persona.fkPersona.fkEdoCivil.nombre}}</span>
+                                <span class="image-text">{{convertStatus(persona.estado)}}</span>
                             </td>
                             <td class="p-text-center">
                                 <button type="button" pButton pRipple icon="pi pi-pencil"

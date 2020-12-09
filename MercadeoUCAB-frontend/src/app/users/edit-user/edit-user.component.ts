@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MenuItem, SelectItem } from 'primeng/api';
 import { MessageService } from 'primeng/api';
-import { replaceKeyWithValue } from '../../functions/common_functions';
+import { replaceDateWithValue, replaceKeyWithValue } from '../../functions/common_functions';
 import { NgxSpinnerService } from "ngx-spinner";
 import { Person } from '../../classes/person';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -21,6 +21,11 @@ import { SCHEDULES } from '../../constants/schedule';
 import { ACADEMICS } from '../../constants/academics';
 import { ACCOUNT_XTATUS } from 'src/app/constants/account_status';
 import { RolService } from 'src/app/services/rol.service';
+import { GeneroService } from 'src/app/services/genero.service';
+import { EdocivilService } from 'src/app/services/edocivil.service';
+import { DeviceService } from 'src/app/services/device.service';
+import { DisponibilidadService } from 'src/app/services/disponibilidad.service';
+import { NivelAcademicoService } from 'src/app/services/nivel-academico.service';
 
 
 @Component({
@@ -207,20 +212,43 @@ export class EditUserComponent implements OnInit {
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
     private placeService: PlaceService, 
-    private phoneService: PhoneService
+    private phoneService: PhoneService,
+    private generoService: GeneroService,
+    private edoCivilService: EdocivilService,
+    private deviceService: DeviceService,
+    private disponibilidadService: DisponibilidadService,
+    private nivelAcademicoService: NivelAcademicoService,
     ) { 
-
-      this.generos = GENDERS;
-      this.edos_civil = CIVIL_STATUSES;
-      this.dispositivos = DEVICES;
-      this.horario_inicial = SCHEDULES;
-      this.horario_final = SCHEDULES;
-      this.niveles_academicos = ACADEMICS;
-      this.niveles_socioeconomicos = SOCIAL_STATUSES;
+     
+      // this.niveles_socioeconomicos = SOCIAL_STATUSES;
       this.estado_cuenta = ACCOUNT_XTATUS;
+
+      // this.niveles_academicos = ACADEMICS;
+      this.nivelAcademicoService.getNivelesAcademicos().subscribe((niveles) => {
+        this.niveles_academicos = replaceKeyWithValue(niveles);
+      });
+      // this.horario_inicial = SCHEDULES;
+      // this.horario_final = SCHEDULES;
+      this.disponibilidadService.getDisponibilidades().subscribe((disponibilidades) => {
+        console.log(replaceDateWithValue(disponibilidades));
+        this.horario_inicial = replaceDateWithValue(disponibilidades);
+        this.horario_final = replaceDateWithValue(disponibilidades);
+      });
+      // this.dispositivos = DEVICES;
+      this.deviceService.getDevices().subscribe((devices) => {
+        this.dispositivos = replaceKeyWithValue(devices);
+      });
+      // this.edos_civil = CIVIL_STATUSES;
+      this.edoCivilService.getEdosCiviles().subscribe((edos) => {
+        this.edos_civil = replaceKeyWithValue(edos);
+      });
       // this.roles = ROLES;  
       this.rolService.getRoles().subscribe((roles) => {
         this.roles = replaceKeyWithValue(roles);
+      });
+      // this.generos = GENDERS;
+      this.generoService.getGeneros().subscribe((generos) => {
+        this.generos = replaceKeyWithValue(generos);
       });
       this.tieneHijos = [
         {
@@ -235,9 +263,9 @@ export class EditUserComponent implements OnInit {
         this.paises = replaceKeyWithValue(countries);
       });
   
-      this.phoneService.getCodes().subscribe((codes) => {
-        this.codigos = codes;
-      });
+      // this.phoneService.getCodes().subscribe((codes) => {
+      //   this.codigos = codes;
+      // });
 
       // this.selectedStatus = STATUS_CODES;
 
@@ -373,7 +401,7 @@ export class EditUserComponent implements OnInit {
       // dispositivos: this.persona.dispositivos,
       estado_civil: this.persona.fkPersona.fkEdoCivil,
       fecha_de_nacimiento: this.persona.fkPersona.fechaNacimiento,
-      estado_cuenta: this.userService.user.status, 
+      estado_cuenta: this.userService.user.estado, 
       horario_inicial: this.persona.fkPersona.id_horario_inicial,
       horario_final: this.persona.fkPersona.id_horario_final,
       nivel_academico: this.persona.fkPersona.id_nivel_academico,
