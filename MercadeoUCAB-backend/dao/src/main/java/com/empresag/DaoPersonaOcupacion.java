@@ -27,4 +27,15 @@ public class DaoPersonaOcupacion extends Dao<PersonaOcupacionEntity> {
 
         return q.getResultList();
     }
+
+    public List<PersonaOcupacionEntity> findOcupacionPersona(long id){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
+        EntityManager em = emf.createEntityManager();
+        JPQL = "SELECT peo FROM PersonaOcupacionEntity peo " +
+                "WHERE peo.fkPersona._id = :id  ";
+        q = em.createQuery(JPQL);
+        q.setParameter("id", id);
+
+        return q.getResultList();
+    }
 }

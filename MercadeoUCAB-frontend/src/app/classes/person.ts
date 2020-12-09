@@ -5,6 +5,7 @@ import { persondata } from './persondata';
 
 export class Person {
     email: string;
+    estado?: number;
     password: string;
     confirmar_clave?: string;
     fkPersona: persondata;

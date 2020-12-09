@@ -2,9 +2,9 @@ import { Component, OnInit, ViewChild} from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { Person } from '../../../classes/person';
 import { UserService } from '../../../services/user.service';
-import { GENDERS } from '../../../constants/gender';
-import { DEVICES } from '../../../constants/device';
-import { CIVIL_STATUSES } from '../../../constants/civil_status';
+// import { GENDERS } from '../../../constants/gender';
+// import { DEVICES } from '../../../constants/device';
+// import { CIVIL_STATUSES } from '../../../constants/civil_status';
 // import { ROLES } from '../../../constants/rol';
 import { ACCOUNT_XTATUS } from '../../../constants/account_status';
 import { Child } from '../../../classes/child';
@@ -18,10 +18,10 @@ import { Router } from '@angular/router'
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SCHEDULES } from 'src/app/constants/schedule';
-import { SOCIAL_STATUSES } from 'src/app/constants/social_status';
-import { ACADEMICS } from 'src/app/constants/academics';
-import { PhoneService } from 'src/app/services/phone.service';
+// import { SCHEDULES } from 'src/app/constants/schedule';
+// import { SOCIAL_STATUSES } from 'src/app/constants/social_status';
+// import { ACADEMICS } from 'src/app/constants/academics';
+// import { PhoneService } from 'src/app/services/phone.service';
 import { PlaceService } from 'src/app/services/place.service';
 import { replaceDateWithValue, replaceKeyWithValue } from 'src/app/functions/common_functions';
 import { OcupacionService } from 'src/app/services/ocupacion.service';
@@ -30,6 +30,8 @@ import { DeviceService } from 'src/app/services/device.service';
 import { DisponibilidadService } from 'src/app/services/disponibilidad.service';
 import { RolService } from 'src/app/services/rol.service';
 import { persondata } from 'src/app/classes/persondata';
+import { GeneroService } from 'src/app/services/genero.service';
+import { EdocivilService } from 'src/app/services/edocivil.service';
 
 
 @Component({
@@ -225,16 +227,24 @@ export class AddUserFormComponent implements OnInit {
     private nivelAcademicoService: NivelAcademicoService,
     private deviceService: DeviceService,
     private disponibilidadService: DisponibilidadService,
-    private phoneService: PhoneService,
+    private generoService: GeneroService,
+    private edoCivilService: EdocivilService,
+    // private phoneService: PhoneService,
     private messageService: MessageService) {
     this.createForm();
-    this.generos = GENDERS;
-    this.dispositivos = DEVICES;
-    this.horario_inicial = SCHEDULES;
-    this.horario_final = SCHEDULES;
-    this.edos_civil = CIVIL_STATUSES;
-    this.niveles_academicos = ACADEMICS;
-    this.niveles_socioeconomicos = SOCIAL_STATUSES;
+    // this.generos = GENDERS;
+    this.generoService.getGeneros().subscribe((generos) => {
+      this.generos = replaceKeyWithValue(generos);
+    });
+    // this.dispositivos = DEVICES;
+    // this.horario_inicial = SCHEDULES;
+    // this.horario_final = SCHEDULES;
+    // this.edos_civil = CIVIL_STATUSES;
+    this.edoCivilService.getEdosCiviles().subscribe((edos) => {
+      this.edos_civil = replaceKeyWithValue(edos);
+    });
+    // this.niveles_academicos = ACADEMICS;
+    // this.niveles_socioeconomicos = SOCIAL_STATUSES;
     this.estado_cuenta = ACCOUNT_XTATUS;
     // this.roles = ROLES;
     this.rolService.getRoles().subscribe((roles) => {
@@ -253,11 +263,6 @@ export class AddUserFormComponent implements OnInit {
       this.placeService.getCountries().subscribe((countries) => {
         this.paises = replaceKeyWithValue(countries);
       });
-  
-      this.phoneService.getCodes().subscribe((codes) => {
-        this.codigos = codes;
-      });
-
       this.ocupacionService.getOcupaciones().subscribe((ocupations) => {
         this.ocupaciones = replaceKeyWithValue(ocupations);
       });
@@ -398,7 +403,7 @@ export class AddUserFormComponent implements OnInit {
       dispositivos: this.userService.persona.fkPersona.dispositivos,
       estado_civil: this.userService.persona.fkPersona.fkEdoCivil,
       fecha_de_nacimiento: this.userService.persona.fkPersona.fechaNacimiento,
-      estado_cuenta: this.userService.user.status,
+      estado_cuenta: this.userService.user.estado,
       horario_inicial: this.userService.persona.fkPersona.id_horario_inicial,
       horario_final: this.userService.persona.fkPersona.id_horario_final,
       nivel_academico: this.userService.persona.fkPersona.id_nivel_academico,
@@ -518,6 +523,7 @@ export class AddUserFormComponent implements OnInit {
         this.userService.postPerson(this.userService.persona)
           .subscribe(person => {
             console.log("REGISTERED")
+            this.userForm.reset;
             this.previousPage();
           },
           errorMessage => {
@@ -543,6 +549,7 @@ export class AddUserFormComponent implements OnInit {
         this.userService.postPerson(this.userService.persona)
           .subscribe(person => {
             console.log("REGISTERED")
+            this.userForm.reset;
             this.previousPage();
           },
           errorMessage => {

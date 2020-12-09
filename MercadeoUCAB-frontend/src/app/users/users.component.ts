@@ -37,8 +37,8 @@ export class UsersComponent implements OnInit {
 
     this.loading = true;
     this.userService.getPersons().subscribe((person) => {
-    this.usuarios = person; 
-    this.loading = false;
+      this.usuarios = person; 
+      this.loading = false;
     },
     errorMessage => {
       this.loading = false;
@@ -46,9 +46,11 @@ export class UsersComponent implements OnInit {
     })
   }
 
+  
+
   deleteUser(person){
     this.confirmationService.confirm({
-      message: 'El siguiente usuario: <code>' + person.correo_electronico + '</code> está apunto de ser eliminado, ¿Desea continuar?',
+      message: 'El siguiente usuario: <code>' + person.email + '</code> está apunto de ser eliminado, ¿Desea continuar?',
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
@@ -68,7 +70,16 @@ export class UsersComponent implements OnInit {
           //
       }
   });
+  }
 
+  convertStatus(status){
+
+    if (status == 0) 
+      return "Inactivo"
+    else if (status == 1)
+      return "Activo"
+    else 
+      return "N/A"
   }
 
 }
