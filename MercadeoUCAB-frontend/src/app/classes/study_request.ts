@@ -1,9 +1,10 @@
 import { Analytics } from './analytics';
+import { Users } from './users';
 
-export class Request {
-    id: number;
-    estado?: string;
-    id_estado: number;
+export class StudyRequest {
+    _id: number;
+    estado: number;
+    fkUsuario: Users;
     
     /* TO MODIFY / ADD VALUES */
     id_autor?: number;

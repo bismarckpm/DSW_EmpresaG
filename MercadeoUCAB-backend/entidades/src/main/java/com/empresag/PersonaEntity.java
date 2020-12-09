@@ -187,4 +187,20 @@ public class PersonaEntity extends BaseEntity{
     public void setFkDisponibilidadFinal(DisponibilidadEntity fkDisponibilidadFinal) {
         this.fkDisponibilidadFinal = fkDisponibilidadFinal;
     }
+
+    @Override
+    public String toString() {
+        return "PersonaEntity{" +
+                "documentoIdentidad='" + documentoIdentidad + '\'' +
+                ", primerNombre='" + primerNombre + '\'' +
+                ", segundoNombre='" + segundoNombre + '\'' +
+                ", primerApellido='" + primerApellido + '\'' +
+                ", segundoApellido='" + segundoApellido + '\'' +
+                ", fechaNacimiento=" + fechaNacimiento +
+                '}';
+    }
+
+    public Integer age(Date fechaNacimiento){
+        return 1;
+    }
 }

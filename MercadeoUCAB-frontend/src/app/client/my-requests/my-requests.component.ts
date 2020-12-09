@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { Request } from '../../classes/request';
+import { StudyRequest } from '../../classes/study_request';
 import { CategoryService } from '../../services/category.service';
 import { RequestsService } from '../../services/requests.service';
 import { replaceKey } from '../../functions/common_functions';
@@ -58,7 +58,7 @@ export class MyRequestsComponent implements OnInit {
 
   getInProgressStudies(){
     this.studiesService.getInProgressStudies().subscribe((studies) => {
-      this.estudios = studies;
+      //this.estudios = studies;
       this.loading = false;
     }, errorMessage => {
       this.loading = false;

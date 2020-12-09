@@ -57,15 +57,17 @@ public class QuestionService {
         DaoPreguntaCategoriaSubcategoria daoPreguntaCategoriaSubcategoria = new DaoPreguntaCategoriaSubcategoria();
         DaoPosibleRespuesta daoPosibleRespuesta = new DaoPosibleRespuesta();
         PreguntaCatSubcatDto preguntaCatSubcatDto = new PreguntaCatSubcatDto();
+        DaoPregunta daoPregunta = new DaoPregunta();
 
         try {
             PreguntaCatSubcatEntity pcs = daoPreguntaCategoriaSubcategoria.find(id, PreguntaCatSubcatEntity.class);
-
             preguntaCatSubcatDto.set_id(pcs.get_id());
 
             CategoriaDto categoriaDto = new CategoriaDto();
             preguntaCatSubcatDto.setFkCategoria(categoriaDto);
             preguntaCatSubcatDto.getFkCategoria().set_id(pcs.getFkCategoria().get_id());
+
+
             if (pcs.getFkSubcategoria() != null){
                 SubcategoriaDto subcategoriaDto = new SubcategoriaDto();
                 preguntaCatSubcatDto.setFkSubcategoria(subcategoriaDto);
@@ -74,19 +76,24 @@ public class QuestionService {
 
             PreguntaDto preguntaDto = new PreguntaDto();
             preguntaCatSubcatDto.setFkPregunta(preguntaDto);
-            preguntaCatSubcatDto.getFkPregunta().set_id(pcs.getFkPregunta().get_id());
-            preguntaCatSubcatDto.getFkPregunta().setPregunta(pcs.getFkPregunta().getPregunta());
+
+            PreguntaEntity pregunta = daoPregunta.find(pcs.getFkPregunta().get_id(),
+                    PreguntaEntity.class);
+
+            preguntaCatSubcatDto.getFkPregunta().set_id(pregunta.get_id());
+            preguntaCatSubcatDto.getFkPregunta().setPregunta(pregunta.getPregunta());
+            preguntaCatSubcatDto.getFkPregunta().setStatus(pregunta.getStatus());
 
             TipoPreguntaDto tipoPreguntaDto = new TipoPreguntaDto();
             preguntaCatSubcatDto.getFkPregunta().setFkTipoPregunta(tipoPreguntaDto);
             preguntaCatSubcatDto.getFkPregunta().getFkTipoPregunta().set_id
-                    (pcs.getFkPregunta().getFkTipoPregunta().get_id());
+                    (pregunta.getFkTipoPregunta().get_id());
 
             List<OpcionDto> opcionDtos = new ArrayList<>();
             preguntaCatSubcatDto.getFkPregunta().setListOpciones(opcionDtos);
 
-            if (pcs.getFkPregunta().getFkTipoPregunta().get_id() == 1){
-                return Response.ok().entity(pcs).build();
+            if (pregunta.getFkTipoPregunta().get_id() == 1){
+                return Response.ok().entity(preguntaCatSubcatDto).build();
             }
             else {
                List<PosibleRespuestaEntity> pr = null;
@@ -95,7 +102,7 @@ public class QuestionService {
 
                    for (PosibleRespuestaEntity pre: pr) {
                        OpcionDto opcionDto = new OpcionDto();
-                       if (pcs.getFkPregunta().getFkTipoPregunta().get_id() == 5){
+                       if (pregunta.getFkTipoPregunta().get_id() == 5){
                            opcionDto.setRangoInicial(pre.getFkOpcion().getRangoInicial());
                            opcionDto.setRangoFinal(pre.getFkOpcion().getRangoFinal());
                        }
@@ -108,7 +115,8 @@ public class QuestionService {
                    return Response.ok().entity(preguntaCatSubcatDto).build();
                }
                catch (NullPointerException e){
-                    return Response.status(Response.Status.NOT_FOUND).build();
+                   e.printStackTrace();
+                   return Response.status(Response.Status.NOT_FOUND).build();
                }
             }
         }

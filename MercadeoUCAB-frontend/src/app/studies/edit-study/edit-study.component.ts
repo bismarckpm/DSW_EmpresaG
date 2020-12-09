@@ -307,7 +307,6 @@ export class EditStudyComponent implements OnInit {
       pais: null,
       estado: null
     })
-    //this.estudio.id_lugares = [];
   }
 
   deleteQuestion(question) {
@@ -365,7 +364,6 @@ export class EditStudyComponent implements OnInit {
 
   showOrHideModifyStudyFeatures() {
     this.display_modify_study_features = !this.display_modify_study_features;
-    //TODO: clear modify form if false
   }
 
   addQuestion() {
