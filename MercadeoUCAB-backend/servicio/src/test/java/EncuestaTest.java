@@ -5,8 +5,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.ws.rs.core.Response;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +20,7 @@ public class EncuestaTest {
         DaoEstudio daoEstudio = new DaoEstudio();
         EstudioEntity estudio = daoEstudio.find(1L, EstudioEntity.class);
 
-        JPQL = "SELECT p FROM PersonaEntity p, FiltroEntity f, PersonaNvlacademicoEntity pna, " +
+        JPQL = "SELECT DISTINCT p FROM PersonaEntity p, FiltroEntity f, PersonaNvlacademicoEntity pna, " +
                 "UsuarioEntity u, RolEntity r " +
                 "WHERE f.fkEstudio = :estudio " +
                 "AND (pna.fkPersona = p OR NOT EXISTS " +

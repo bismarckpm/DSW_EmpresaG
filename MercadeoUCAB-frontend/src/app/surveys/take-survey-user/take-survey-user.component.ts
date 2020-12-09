@@ -163,11 +163,11 @@ export class TakeSurveyUserComponent implements OnInit {
   }
 
   postAnswers(){
-    this.userSurveyService.postAnswers(this.estudio).subscribe((study)=> {
+    /*this.userSurveyService.postAnswers(this.estudio).subscribe((study)=> {
       this.router.navigate(["available-surveys"])
     }, errorMessage => {
       this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
-    })
+    })*/
   }
 
   onSubmit(){

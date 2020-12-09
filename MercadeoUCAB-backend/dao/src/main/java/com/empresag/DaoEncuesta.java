@@ -19,7 +19,7 @@ public class DaoEncuesta extends Dao<EncuestaEntity> {
         DaoEstudio daoEstudio = new DaoEstudio();
         EstudioEntity estudio = daoEstudio.find(id, EstudioEntity.class);
 
-        JPQL = "SELECT p FROM PersonaEntity p, FiltroEntity f, PersonaNvlacademicoEntity pna, " +
+        JPQL = "SELECT DISTINCT p FROM PersonaEntity p, FiltroEntity f, PersonaNvlacademicoEntity pna, " +
                 "UsuarioEntity u, RolEntity r " +
                 "WHERE f.fkEstudio = :estudio " +
                 "AND (pna.fkPersona = p OR NOT EXISTS " +
@@ -45,7 +45,7 @@ public class DaoEncuesta extends Dao<EncuestaEntity> {
         EstudioEntity estudio = daoEstudio.find(studyId, EstudioEntity.class);
         PersonaEntity persona = daoPersona.find(personId, PersonaEntity.class);
 
-        JPQL = "SELECT p FROM PersonaEntity p, FiltroEntity f, PersonaNvlacademicoEntity pna, " +
+        JPQL = "SELECT DISTINCT p FROM PersonaEntity p, FiltroEntity f, PersonaNvlacademicoEntity pna, " +
                 "UsuarioEntity u, RolEntity r " +
                 "WHERE f.fkEstudio = :estudio AND p = :persona " +
                 "AND (pna.fkPersona = p OR NOT EXISTS " +

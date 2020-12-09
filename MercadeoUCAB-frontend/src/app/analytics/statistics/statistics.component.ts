@@ -85,7 +85,7 @@ export class StatisticsComponent implements OnInit {
 
       this.analystService.getStats(this.current_study).subscribe((study) => {
         if (study){
-          //console.log(study)
+          console.log(study)
           this.spinner.hide();
           this.study = study;
           this.open_text_questions = this.study.preguntas.filter(this.isOpenText)
