@@ -9,6 +9,8 @@ import { AnalyticData } from 'src/app/classes/analytic_data';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { StudiesService } from 'src/app/services/studies.service';
+import { Survey } from 'src/app/classes/survey';
+import { QuestionWithStats } from 'src/app/classes/analytics/question_with_stats';
 
 // TODO: Show only X kind of questions
 
@@ -21,10 +23,10 @@ import { StudiesService } from 'src/app/services/studies.service';
 export class StatisticsComponent implements OnInit {
   current_study: number;
   study: Study;
-  open_text_questions: Question[];
-  selection_questions: Question[];
-  true_false_questions: Question[];
-  range_questions: Question[];
+  open_text_questions: QuestionWithStats[];
+  selection_questions: QuestionWithStats[];
+  true_false_questions: QuestionWithStats[];
+  range_questions: QuestionWithStats[];
 
   true_false_dataset: AnalyticData[] = [];
   selection_dataset: AnalyticData[] = [];
@@ -80,8 +82,31 @@ export class StatisticsComponent implements OnInit {
 
     /* Get current question */
     else {
-      this.spinner.show();
+      //this.spinner.show();
       this.current_study = parseInt(this.activatedRoute.snapshot.queryParamMap.get('studyId'));
+
+      this.analystService.getOpenTextAnswers(this.current_study).subscribe((open_text_questions) => {
+        this.open_text_questions = open_text_questions;
+
+        this.analystService.getSelectionAnswers(this.current_study).subscribe((selection_questions) => {
+          this.selection_questions = selection_questions;
+          this.selectionDataset();
+
+          this.analystService.getTrueFalseAnswers(this.current_study).subscribe((true_false) => {
+            this.true_false_questions = true_false;
+            this.trueFalseDataset();
+          })
+
+          this.analystService.getRangeAnswers(this.current_study).subscribe((range) => {
+            this.range_questions = range;
+            this.rangeDataset();
+          })
+        })
+      }, errorMessage => {
+        this.estudioErrorMessage = errorMessage;
+      })
+
+      /*
 
       this.analystService.getStats(this.current_study).subscribe((study) => {
         if (study){
@@ -91,7 +116,7 @@ export class StatisticsComponent implements OnInit {
           this.open_text_questions = this.study.preguntas.filter(this.isOpenText)
   
           this.selection_questions = this.study.preguntas.filter(this.isSelection)
-          this.selectionDataset();
+          
   
           this.true_false_questions = this.study.preguntas.filter(this.isTrueFalse)
           this.trueFalseDataset();
@@ -113,7 +138,7 @@ export class StatisticsComponent implements OnInit {
       }, errorMessage => {
         this.loading = false;
         this.estudioErrorMessage = errorMessage;
-      })
+      })*/
     }
   }
 
@@ -215,11 +240,11 @@ export class StatisticsComponent implements OnInit {
   trueFalseDataset() {
     for (var i = 0; i < this.true_false_questions.length; i++) {
       this.true_false_dataset.push({
-        labels: ['Verdaero', 'Falso'],
+        labels: [this.true_false_questions[i].fkPregunta.listOpciones[0].valor, this.true_false_questions[i].fkPregunta.listOpciones[1].valor],
         datasets: [
           {
-            data: [this.true_false_questions[i].estadisticas.n_personas_verdadero,
-                  this.true_false_questions[i].estadisticas.n_personas_falso],
+            data: [this.true_false_questions[i].fkPregunta.listOpciones[0].numeroDePersonas,
+            this.true_false_questions[i].fkPregunta.listOpciones[1].numeroDePersonas],
             backgroundColor: [
               "#FF6384",
               "#36A2EB",
@@ -235,9 +260,9 @@ export class StatisticsComponent implements OnInit {
       let labels: string[] = [];
       let data: number[] = [];
       let colors: string[] = [];
-      for (var j = 0; j < this.selection_questions[i].opciones.length; j++) {
-        labels.push(this.selection_questions[i].opciones[j].valor)
-        data.push(this.selection_questions[i].opciones[j].estadisticas.n_personas_respondieron)
+      for (var j = 0; j < this.selection_questions[i].fkPregunta.listOpciones.length; j++) {
+        labels.push(this.selection_questions[i].fkPregunta.listOpciones[j].valor)
+        data.push(this.selection_questions[i].fkPregunta.listOpciones[j].numeroDePersonas)
         // Avoid index error if there are more than 10 options
         colors.push(this.background_colors[(this.background_colors.length+j) % this.background_colors.length])
       }
@@ -256,8 +281,8 @@ export class StatisticsComponent implements OnInit {
   rangeDataset(){
     for (var i = 0; i<this.range_questions.length; i++){
       this.range_dataset.push({
-        min_average: this.range_questions[i].opciones[0].estadisticas.promedio_rango_inicial,
-        max_average: this.range_questions[i].opciones[0].estadisticas.promedio_rango_final
+        min_average: this.range_questions[i].promedioRangoInicial,
+        max_average: this.range_questions[i].promedioRangoFinal
       })
     }
   }
