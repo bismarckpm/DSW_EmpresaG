@@ -80,7 +80,6 @@ export class MakeInterviewComponent implements OnInit {
 
       this.studiesService.getStudyQuestionsWithOptions(this.current_study).subscribe((questions) => {
         this.preguntas = questions;
-        /* TODO: Is current user part of the available population? */
         if ((this.activatedRoute.snapshot.queryParamMap.get('personId') || 0) == 0) {
           this.router.navigate(['404']);
         }
