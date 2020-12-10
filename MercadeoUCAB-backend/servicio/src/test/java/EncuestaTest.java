@@ -43,6 +43,35 @@ public class EncuestaTest {
     }
 
     @Test
+    public void getAvailableStudies(){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
+        EntityManager em = emf.createEntityManager();
+        DaoPersona daoPersona = new DaoPersona();
+        PersonaEntity persona = daoPersona.find(70L, PersonaEntity.class);
+
+        JPQL = "SELECT f FROM PersonaEntity p, FiltroEntity f, PersonaNvlacademicoEntity pna, UsuarioEntity u, " +
+                "RolEntity r, EstudioEntity ee " +
+                "WHERE p = :persona AND f.fkEstudio IS NOT NULL AND (pna.fkPersona = p OR NOT EXISTS " +
+                "(SELECT aux FROM PersonaNvlacademicoEntity aux WHERE aux.fkPersona = p)) AND " +
+                "u.fk_Persona = p AND u.fk_Rol = r AND r.nombre = 'Encuestado' " +
+                "AND (f.fkEdoCivil = p.fkEdoCivil OR f.fkEdoCivil IS NULL) " +
+                "AND (f.fkGenero = p.fkGenero OR f.fkGenero IS NULL) " +
+                "AND (f.fkLugar = p.fkLugar OR p.fkLugar IS NULL) " +
+                "AND (f.fkNivelAcademico = pna.fkNivelAcademico OR f.fkNivelAcademico IS NULL) " +
+                "AND NOT EXISTS (SELECT e FROM EncuestaEntity e WHERE e.fkEstudio = f.fkEstudio AND e.fkPersona = p) " +
+                "AND ee = f.fkEstudio AND ee.estado = 1 " +
+                "GROUP BY f.fkEstudio";
+
+        q = em.createQuery(JPQL);
+        q.setParameter("persona", persona);
+        List<FiltroEntity> estudios = q.getResultList();
+
+        for (FiltroEntity estudio: estudios) {
+            System.out.println(estudio.getFkEstudio().get_id());
+        }
+    }
+
+    @Test
     public void takeSurvey() throws IndexDatabaseException {
         DaoEstudio daoEstudio = new DaoEstudio();
         DaoPersona daoPersona = new DaoPersona();
