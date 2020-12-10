@@ -1,4 +1,4 @@
-import { Analytics } from '../classes/analytics'
+import { Analytics } from './analytics/analytics'
 
 export class Option {
     _id?: number;

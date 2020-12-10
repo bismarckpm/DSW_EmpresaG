@@ -212,6 +212,17 @@ public class AnalisisTest {
             System.out.println(pedto.getPromedioRangoInicial());
             System.out.println(pedto.getPromedioRangoFinal());
         }
+    }
 
+    @Test
+    public void postConclusion(){
+        DaoEstudio daoEstudio = new DaoEstudio();
+        DaoAnalisis daoAnalisis = new DaoAnalisis();
+        EstudioEntity estudio = daoEstudio.find(2L, EstudioEntity.class);
+        estudio.setEstado(2);
+        daoEstudio.update(estudio);
+        AnalisisEntity analisis = new AnalisisEntity();
+        analisis.setConclusiones("<p><strong><em><u>Hola</u></em></strong></p>");
+        daoAnalisis.insert(analisis);
     }
 }

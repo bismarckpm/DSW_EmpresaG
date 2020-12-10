@@ -1,9 +1,11 @@
 package com.empresag;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.sql.Date;
 import java.util.List;
 
 @Path("/analytics")
@@ -65,6 +67,46 @@ public class AnalyticsService {
         }
         catch (NullPointerException | IndexDatabaseException e){
             e.printStackTrace();
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    @GET
+    @Path("/find/{studyId}")
+    public Response findConclusion(@PathParam("studyId") long id){
+        DaoAnalisis daoAnalisis = new DaoAnalisis();
+        AnalisisEntity analisis = null;
+        try {
+            analisis = daoAnalisis.getAnalisis(id);
+            return Response.ok().entity(analisis).build();
+        }
+        catch (NoResultException | NullPointerException e){
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    @POST
+    @Path("/add/{studyId}")
+    public Response addConclusion(@PathParam("studyId") long studyId, AnalisisDto analisisDto){
+        DaoEstudio daoEstudio = new DaoEstudio();
+        DaoAnalisis daoAnalisis = new DaoAnalisis();
+
+        try {
+            EstudioEntity estudio = daoEstudio.find(studyId, EstudioEntity.class);
+
+            AnalisisEntity analisis = new AnalisisEntity();
+            analisis.setConclusiones(analisisDto.getConclusiones());
+            daoAnalisis.insert(analisis);
+
+            estudio.setEstado(2);
+            estudio.setFkAnalisis(analisis);
+            estudio.setFechaCulminacion(new Date(System.currentTimeMillis()));
+            daoEstudio.update(estudio);
+
+            return Response.ok().entity(analisis).build();
+        }
+        catch (NullPointerException e){
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }

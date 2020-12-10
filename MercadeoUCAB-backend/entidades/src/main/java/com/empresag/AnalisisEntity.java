@@ -4,12 +4,12 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "analisis", schema = "empresag", catalog = "")
+@Table(name = "analisis", schema = "empresag")
 public class AnalisisEntity extends BaseEntity {
-    private String conclusiones;
-
     @Basic
     @Column(name = "conclusiones")
+    private String conclusiones;
+
     public String getConclusiones() {
         return conclusiones;
     }

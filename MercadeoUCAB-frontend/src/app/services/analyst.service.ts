@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ProcessHttpMessageService } from './process-http-message.service';
 import { baseURL } from '../constants/baseURL';
@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { persondata } from '../classes/persondata';
 import { Survey } from '../classes/survey';
 import { QuestionWithStats } from '../classes/analytics/question_with_stats';
+import { Analytics } from '../classes/analytics/analytics';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +53,22 @@ export class AnalystService {
 
   getRangeAnswers(study_id): Observable<QuestionWithStats[]>{
     return this.http.get<QuestionWithStats[]>(serverURL + 'analytics/range/' + study_id)
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
+  postConclusion(study_id, conclusion): Observable<Analytics>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+    };
+
+    return this.http.post<Analytics>(serverURL + 'analytics/add/' + study_id, conclusion, httpOptions)
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
+  getAnalysis(study_id): Observable<Analytics>{
+    return this.http.get<Analytics>(serverURL + 'analytics/find/' + study_id)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 }

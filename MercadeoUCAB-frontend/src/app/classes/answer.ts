@@ -1,4 +1,4 @@
-import { Analytics } from './analytics';
+import { Analytics } from './analytics/analytics';
 import { Option } from './options'
 
 export class Answer {

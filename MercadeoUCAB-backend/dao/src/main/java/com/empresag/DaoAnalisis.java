@@ -17,6 +17,21 @@ public class DaoAnalisis extends Dao<AnalisisEntity> {
         super(_handler);
     }
 
+    public AnalisisEntity getAnalisis(long studyId){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
+        EntityManager em = emf.createEntityManager();
+        DaoEstudio daoEstudio = new DaoEstudio();
+        EstudioEntity estudio = daoEstudio.find(studyId, EstudioEntity.class);
+        AnalisisEntity analisis = null;
+
+        JPQL = "SELECT a FROM AnalisisEntity a, EstudioEntity e WHERE e.fkAnalisis = a AND e = :estudio";
+        q = em.createQuery(JPQL);
+        q.setParameter("estudio", estudio);
+        analisis = (AnalisisEntity) q.getSingleResult();
+
+        return analisis;
+    }
+
     public List<PreguntaEstudioDto> getOpenTextAnswers(long studyId) throws IndexDatabaseException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
         EntityManager em = emf.createEntityManager();
