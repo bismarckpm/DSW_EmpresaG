@@ -109,6 +109,7 @@ export class UserService {
   persona: Person = {
     email: '',
     password: '',
+    estado: 1,
     fkPersona: this.personadata,
     fkRol: this.rol,
   };
@@ -117,7 +118,7 @@ export class UserService {
     _id: 0,
     email: '',
     password: '',
-    estado: 2,
+    estado: 1,
     persona: this.persona
   };
 
@@ -127,7 +128,7 @@ export class UserService {
 
   getPerson(pid): Observable<Person>{
     return this.http.get<Person>(serverURL + 'user/'+pid)
-      .pipe(map(persona => persona[0]))
+      // .pipe(map(persona => persona[0]))
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
   
@@ -171,8 +172,13 @@ export class UserService {
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  editUser(user): Observable<Person>{
-    return this.http.delete<Person>(serverURL + 'user/edit/' + user._id)
+  putUser(user): Observable<Person>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.put<Person>(serverURL + 'user/edit/' + user._id, user, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 

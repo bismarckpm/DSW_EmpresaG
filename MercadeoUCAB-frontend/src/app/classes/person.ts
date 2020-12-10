@@ -4,11 +4,12 @@ import { Child } from './child';
 import { persondata } from './persondata';
 
 export class Person {
+    _id?: number;
     email: string;
     estado?: number;
     password: string;
     confirmar_clave?: string;
-    fkPersona: persondata;
+    fkPersona?: persondata;
     fkRol?: Rol;
     // primer_nombre?: string;
     // primer_apellido?: string;

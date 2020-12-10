@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MenuItem, SelectItem } from 'primeng/api';
 import { MessageService } from 'primeng/api';
@@ -26,6 +26,8 @@ import { EdocivilService } from 'src/app/services/edocivil.service';
 import { DeviceService } from 'src/app/services/device.service';
 import { DisponibilidadService } from 'src/app/services/disponibilidad.service';
 import { NivelAcademicoService } from 'src/app/services/nivel-academico.service';
+import { persondata } from 'src/app/classes/persondata';
+import { OcupacionService } from 'src/app/services/ocupacion.service';
 
 
 @Component({
@@ -35,6 +37,9 @@ import { NivelAcademicoService } from 'src/app/services/nivel-academico.service'
   providers: [MessageService]
 })
 export class EditUserComponent implements OnInit {
+
+  @Output() onEditUser = new EventEmitter<any>();
+
 
   generos: SelectItem[];
   dispositivos: SelectItem[];
@@ -52,6 +57,7 @@ export class EditUserComponent implements OnInit {
   ciudades: SelectItem[];
   parroquias: SelectItem[];
   codigos: SelectItem[];
+  ocupaciones: SelectItem[];
   fecha_nacimiento: Date;
   persona: Person;
   showKidsForm = false;
@@ -63,6 +69,7 @@ export class EditUserComponent implements OnInit {
   selectedStatus: number;
   hasKids: boolean;
   sent_form: boolean = false;
+  rol: boolean;
   es: any;
   current_user: number;
 
@@ -202,6 +209,7 @@ export class EditUserComponent implements OnInit {
     }
 
   };
+  onModalClose: any;
 
 
   constructor(private Activatedroute:ActivatedRoute,
@@ -216,6 +224,7 @@ export class EditUserComponent implements OnInit {
     private generoService: GeneroService,
     private edoCivilService: EdocivilService,
     private deviceService: DeviceService,
+    private ocupacionService: OcupacionService,
     private disponibilidadService: DisponibilidadService,
     private nivelAcademicoService: NivelAcademicoService,
     ) { 
@@ -223,6 +232,9 @@ export class EditUserComponent implements OnInit {
       // this.niveles_socioeconomicos = SOCIAL_STATUSES;
       this.estado_cuenta = ACCOUNT_XTATUS;
 
+      this.ocupacionService.getOcupaciones().subscribe((ocupations) => {
+        this.ocupaciones = replaceKeyWithValue(ocupations);
+      });
       // this.niveles_academicos = ACADEMICS;
       this.nivelAcademicoService.getNivelesAcademicos().subscribe((niveles) => {
         this.niveles_academicos = replaceKeyWithValue(niveles);
@@ -281,14 +293,30 @@ export class EditUserComponent implements OnInit {
         this.current_user = parseInt(this.Activatedroute.snapshot.queryParamMap.get('pid'));
         this.userService.getPerson(this.current_user).subscribe((persona) => {
             this.persona = persona;
+          
             if (this.persona){
               this.loading = false;
+              if(this.persona.fkRol._id == 1){
+                this.rol = true;
               // this.selectedGenreValue = persona.fkPersona.fkGenero.value;
               // this.selectedEdoCivilValue = persona.fkPersona.fkEdoCivil.value;
-              this.fecha_nacimiento = new Date(persona.fkPersona.fechaNacimiento);
-              this.hasKids = persona.fkPersona.tiene_hijos;
-              this.hijos = persona.fkPersona.hijos;
-        
+                this.fecha_nacimiento = new Date(persona.fkPersona.fechaNacimiento);
+                // this.hasKids = persona.fkPersona.tiene_hijos;
+                this.hijos = persona.fkPersona.hijos;
+                if (this.hijos.length > 0){
+                  this.hasKids = true;
+                  this.persona.fkPersona.tiene_hijos = true;
+                }
+                else{
+                  this.hasKids = false;
+                  this.persona.fkPersona.tiene_hijos = false;                  
+                }
+
+              }
+              else{
+                this.persona.fkPersona = new persondata();
+
+              }
               this.createForm();
               this.spinner.hide();
             }
@@ -325,14 +353,14 @@ export class EditUserComponent implements OnInit {
         ]
       ],
       clave: [
-        this.persona.password,
+        '',
         [
           Validators.required,
           Validators.pattern(/^(?=.*\d)(?=.*[a-zA-Z])(?=.*[\W_]).{8,40}$/)
         ]
       ],
       confirmar_clave: [
-        this.persona.confirmar_clave,
+        '',
         [
           Validators.required,
           RxwebValidators.compare({fieldName: 'clave'})
@@ -368,8 +396,7 @@ export class EditUserComponent implements OnInit {
           Validators.pattern('^[0-9]*$')
         ]
       ],
-      tiene_hijos: 
-      this.persona.fkPersona.tiene_hijos,
+      tiene_hijos: this.persona.fkPersona.tiene_hijos,
       nombre_hijo: ['',
         [
           Validators.required,
@@ -397,22 +424,22 @@ export class EditUserComponent implements OnInit {
           Validators.required
         ]
       ],
-      genero: this.persona.fkPersona.fkGenero,
-      // dispositivos: this.persona.dispositivos,
-      estado_civil: this.persona.fkPersona.fkEdoCivil,
+      genero: this.persona.fkPersona.fkGenero._id,
+      dispositivos: this.persona.fkPersona.dispositivos,
+      estado_civil: this.persona.fkPersona.fkEdoCivil._id,
       fecha_de_nacimiento: this.persona.fkPersona.fechaNacimiento,
-      estado_cuenta: this.userService.user.estado, 
-      horario_inicial: this.persona.fkPersona.id_horario_inicial,
-      horario_final: this.persona.fkPersona.id_horario_final,
+      estado_cuenta: this.persona.estado, 
+      horario_inicial: this.persona.fkPersona.id_horario_inicial._id,
+      horario_final: this.persona.fkPersona.id_horario_final._id,
       nivel_academico: this.persona.fkPersona.id_nivel_academico,
-      nivel_socioeconomico: this.persona.fkPersona.id_nivel_socioeconomico,
-      pais: this.persona.fkPersona.id_pais,
-      estado: this.persona.fkPersona.id_estado,
-      ciudad: this.persona.fkPersona.id_ciudad,
-      parroquia: this.persona.fkPersona.id_parroquia,
-      codigo_pais: this.persona.fkPersona.codigo_pais,
+      // nivel_socioeconomico: this.persona.fkPersona.id_nivel_socioeconomico,
+      pais: 0,
+      estado: 0,
+      ciudad: 0,
+      parroquia: 0,
+      // codigo_pais: this.persona.fkPersona.codigo_pais,
       ocupacion: this.persona.fkPersona.ocupacion,
-      rol: this.userService.persona.fkRol._id,
+      rol: this.persona.fkRol._id,
       telefono: [
         this.persona.fkPersona.telefono,
         [
@@ -456,66 +483,102 @@ export class EditUserComponent implements OnInit {
     }
   }
 
+  putUser(){
+    this.userService.putUser(this.persona).subscribe((p)=>{
+      this.persona = p;
+      this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Usuario actualizado con éxito'});
+      this.sent_form = false;
+      this.editUser();
+      this.closeModal();
+    }, errorMessage => {
+      this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
+      this.sent_form = false;
+    })
+  }
+
+  checkRol(event){
+    if (event.value == 1){
+      this.rol = true;
+    }
+    else{
+      this.rol = false;
+    }
+  }
+
+  closeModal() {
+    this.onModalClose.emit(false);
+  }
+
+  editUser(){
+    this.onEditUser.emit(this.persona);
+  }
+
   onSubmit(){
     this.sent_form = true;
-// Informacion basica
+    // Informacion basica
     this.userService.persona.email = this.userForm.value.correo_electronico;
     this.userService.persona.password = this.userForm.value.clave;
     this.userService.persona.confirmar_clave = this.userForm.value.confirmar_clave;
-    // this.userService.persona.estado_cuenta = this.userForm.value.estado_cuenta;
-    this.userService.persona.fkPersona.primerNombre = this.userForm.value.primer_nombre;
-    this.userService.persona.fkPersona.primerApellido = this.userForm.value.primer_apellido;
-    this.userService.persona.fkPersona.documentoIdentidad = this.userForm.value.documento_de_identificacion;
-    this.userService.persona.fkPersona.fkGenero._id = this.userForm.value.genero;
-    this.userService.persona.fkPersona.fkEdoCivil._id = this.userForm.value.estado_civil;
-    this.userService.persona.fkPersona.fechaNacimiento = this.userForm.value.fecha_de_nacimiento;
-    this.userService.persona.fkPersona.dispositivos = this.userForm.value.dispositivos;
-// Informacion socioeconomica
-    this.userService.persona.fkPersona.ocupacion = this.userForm.value.ocupacion;
-    this.userService.persona.fkPersona.id_nivel_academico = this.userForm.value.nivel_academico;
-    this.userService.persona.fkPersona.id_nivel_socioeconomico = this.userForm.value.nivel_socioeconomico;
-// Informacion familiar
-    this.userService.persona.fkPersona.numero_personas_encasa = this.userForm.value.personas_hogar;
-    this.userService.persona.fkPersona.tiene_hijos = this.userForm.value.tiene_hijos;
-    this.userService.persona.fkPersona.hijos = this.hijos;
-// Informacion de contacto
-    this.userService.persona.fkPersona.id_pais._id = this.userForm.value.pais;
-    this.userService.persona.fkPersona.id_estado._id = this.userForm.value.estado;
-    this.userService.persona.fkPersona.id_ciudad._id = this.userForm.value.ciudad;
-    this.userService.persona.fkPersona.id_parroquia._id = this.userForm.value.parroquia;
-    this.userService.persona.fkPersona.codigo_pais = this.userForm.value.codigo_pais;
-    this.userService.persona.fkPersona.telefono = this.userForm.value.telefono;
-// Informacion de tiempo disponible
-    this.userService.persona.fkPersona.id_horario_inicial = this.userForm.value.horario_inicial;
-    this.userService.persona.fkPersona.id_horario_final = this.userForm.value.horario_final;
+    this.userService.persona.estado = this.userForm.value.estado_cuenta;
 
+    // USUARIO DE TIPO ENCUESTADO
+    if (this.userService.persona.fkRol._id = 1){
+      this.userService.persona.fkPersona.primerNombre = this.userForm.value.primer_nombre;
+      this.userService.persona.fkPersona.primerApellido = this.userForm.value.primer_apellido;
+      this.userService.persona.fkPersona.documentoIdentidad = this.userForm.value.documento_de_identificacion;
+      this.userService.persona.fkPersona.fkGenero._id = this.userForm.value.genero;
+      this.userService.persona.fkPersona.fkEdoCivil._id = this.userForm.value.estado_civil;
+      this.userService.persona.fkPersona.fechaNacimiento = this.userForm.value.fecha_de_nacimiento;
+      this.userService.persona.fkPersona.dispositivos = this.userForm.value.dispositivos;
+  // Informacion socioeconomica
+      this.userService.persona.fkPersona.ocupacion = this.userForm.value.ocupacion;
+      this.userService.persona.fkPersona.id_nivel_academico = this.userForm.value.nivel_academico;
+      this.userService.persona.fkPersona.id_nivel_socioeconomico = this.userForm.value.nivel_socioeconomico;
+  // Informacion familiar
+      this.userService.persona.fkPersona.numero_personas_encasa = this.userForm.value.personas_hogar;
+      this.userService.persona.fkPersona.tiene_hijos = this.userForm.value.tiene_hijos;
+      this.userService.persona.fkPersona.hijos = this.hijos;
+  // Informacion de contacto
+      this.userService.persona.fkPersona.codigo_pais = this.userForm.value.codigo_pais;
+      this.userService.persona.fkPersona.telefono = this.userForm.value.telefono;
+  // Informacion de tiempo disponible
+      this.userService.persona.fkPersona.id_horario_inicial = this.userForm.value.horario_inicial;
+      this.userService.persona.fkPersona.id_horario_final = this.userForm.value.horario_final;
 
-    if (this.userService.persona.email && this.userService.persona.password
-      && this.userService.persona.confirmar_clave && this.userService.persona.fkPersona.primerNombre
-      && this.userService.persona.fkPersona.primerApellido && this.userService.persona.fkPersona.documentoIdentidad
-      && this.userService.persona.fkPersona.fechaNacimiento && this.userService.persona.fkPersona.fkGenero._id
-      && this.userService.persona.fkPersona.id_nivel_academico && this.userService.persona.fkPersona.id_nivel_socioeconomico
-      && this.userService.persona.fkPersona.id_pais 
-      && this.userService.persona.fkPersona.codigo_pais && this.userService.persona.fkPersona.telefono
-      && this.userService.persona.fkPersona.numero_personas_encasa){
-
-      // this.userService.persona.id_estado && this.userService.persona.id_ciudad && this.userService.persona.id_parroquia
-    // if(this.userForm.valid){
-      /* SUBMIT FORM */
-      this.userService.postPerson(this.userService.persona)
-        .subscribe(person => {
-          console.log("REGISTERED")
-          this.previousPage();
-        },
-        errorMessage => {
-          console.log("FAIL")
+      if (this.userService.persona.fkPersona.documentoIdentidad
+        && this.userService.persona.fkPersona.fechaNacimiento && this.userService.persona.fkPersona.fkGenero._id
+        && this.userService.persona.fkPersona.id_nivel_academico && this.userService.persona.fkRol._id
+        && this.userService.persona.fkPersona.id_pais  && this.userService.persona.fkPersona.telefono
+        && this.userService.persona.fkPersona.numero_personas_encasa){
+  
+        /* SUBMIT FORM */
+        this.sent_form = true;
+        if (!this.userForm.valid){
           this.sent_form = false;
-          this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
-        })
+          this.messageService.add({severity:'error', summary: 'Error', detail: 'Debe rellenar los campos requeridos con datos válidos'});
+        }
+        else {
+  
+      // this.persona.fkPersona = this.persona.find(o => o.value == this.persona.fkPersona._id).label;
+    
+        this.putUser();
+        }
+      }
     }
-    else {
-      this.showError()
-      this.sent_form = false;
+    // USUARIO DE TIPO NO ENCUESTADO
+    else{
+      /* SUBMIT FORM */
+      this.sent_form = true;
+      if (!this.userForm.valid){
+        this.sent_form = false;
+        this.messageService.add({severity:'error', summary: 'Error', detail: 'Debe rellenar los campos requeridos con datos válidos'});
+      }
+      else {
+                
+        // this.persona.fkPersona = this.persona.find(o => o.value == this.persona.fkPersona._id).label;
+      
+        this.putUser();
+      }
     }
   }
 
