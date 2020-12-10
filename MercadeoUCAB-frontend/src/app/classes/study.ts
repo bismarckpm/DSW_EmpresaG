@@ -1,5 +1,5 @@
 import { Question } from '../classes/question';
-import { Analytics } from '../classes/analytics';
+import { Analytics } from './analytics/analytics';
 import { Person } from './person';
 
 export class Study {

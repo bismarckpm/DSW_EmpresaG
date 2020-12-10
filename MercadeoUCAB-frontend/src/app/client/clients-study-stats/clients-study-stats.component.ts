@@ -4,7 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AnalystService } from '../../services/analyst.service';
 import { Study } from '../../classes/study';
 import { Question } from 'src/app/classes/question';
-import { AnalyticData } from 'src/app/classes/analytic_data';
+import { AnalyticData } from 'src/app/classes/analytics/analytic_data';
 import { StudiesService } from 'src/app/services/studies.service';
 
 @Component({

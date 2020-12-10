@@ -4,6 +4,7 @@ public class OpcionDto extends BaseDto {
     private String valor;
     private Integer rangoInicial;
     private Integer rangoFinal;
+    private Long numeroDePersonas; // Number of people that answered selecting this question
 
     public OpcionDto() {
     }
@@ -34,6 +35,14 @@ public class OpcionDto extends BaseDto {
 
     public void setRangoFinal(Integer rangoFinal) {
         this.rangoFinal = rangoFinal;
+    }
+
+    public Long getNumeroDePersonas() {
+        return numeroDePersonas;
+    }
+
+    public void setNumeroDePersonas(Long numeroDePersonas) {
+        this.numeroDePersonas = numeroDePersonas;
     }
 
     @Override
