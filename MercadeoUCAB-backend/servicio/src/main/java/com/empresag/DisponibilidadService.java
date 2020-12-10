@@ -24,8 +24,7 @@ public class DisponibilidadService {
             DaoDisponibilidad daoDisponibilidad = new DaoDisponibilidad();
 
             DisponibilidadEntity disponibilidad = new DisponibilidadEntity();
-            disponibilidad.setHoraInicial(disponibilidadDto.getHoraInicial());
-            disponibilidad.setHoraFinal(disponibilidadDto.getHoraFinal());
+            disponibilidad.setHora(disponibilidadDto.getHora());
 
             DisponibilidadEntity resul = daoDisponibilidad.insert(disponibilidad);
             resultado.set_id(resul.get_id());
@@ -55,7 +54,7 @@ public class DisponibilidadService {
                 DisponibilidadDto resul_dto = new DisponibilidadDto();
 
                 resul_dto.set_id(disponibilidad.get_id());
-                resul_dto.setHoraInicial(disponibilidad.getHoraInicial());
+                resul_dto.setHora(disponibilidad.getHora());
 
                 resultado.add(resul_dto);
             }

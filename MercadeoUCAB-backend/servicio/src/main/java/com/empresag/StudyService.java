@@ -3,6 +3,7 @@ package com.empresag;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.sql.Date;
 import java.util.List;
 
 @Path("/studies")
@@ -13,7 +14,21 @@ public class StudyService {
     @Path("/existing")
     public List<FiltroEntity> allExistingStudies(){
         DaoFiltro daoFiltro = new DaoFiltro();
-        return daoFiltro.findAll(FiltroEntity.class);
+        return daoFiltro.getAllStudies();
+    }
+
+    @GET
+    @Path("/active")
+    public List<FiltroEntity> allActiveStudies(){
+        DaoFiltro daoFiltro = new DaoFiltro();
+        return daoFiltro.getAllActiveStudies();
+    }
+
+    @GET
+    @Path("/similar/{idCategoria}")
+    public List<FiltroEntity> getSimilarStudies(@PathParam("idCategoria") long id){
+        DaoFiltro daoFiltro = new DaoFiltro();
+        return daoFiltro.getSimilarStudies(id);
     }
 
     @GET
@@ -38,6 +53,52 @@ public class StudyService {
             return Response.ok().entity(preguntas).build();
         }
         catch (NullPointerException e){
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    @GET
+    @Path("/questions-with-options/{id}")
+    public Response getStudyQuestionsWithOptions(@PathParam("id") long id){
+        DaoPreguntaEstudio daoPreguntaEstudio = new DaoPreguntaEstudio();
+        try {
+            List<PreguntaEstudioDto> preguntas = daoPreguntaEstudio.getStudyQuestionsWithOptions(id);
+            return Response.ok().entity(preguntas).build();
+        }
+        catch (NullPointerException | IndexDatabaseException e){
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    @POST
+    @Path("/assign/{clonedId}/{requestId}")
+    public Response assignStudy(@PathParam("clonedId") long id, @PathParam("requestId") long rid){
+        DaoEstudio daoEstudio = new DaoEstudio();
+        DaoSolicitud daoSolicitud = new DaoSolicitud();
+        DaoFiltro daoFiltro = new DaoFiltro();
+        FiltroEntity studyToClone = null;
+        SolicitudEntity solicitud = null;
+        EstudioEntity estudio = new EstudioEntity();
+
+        try {
+            estudio.setFechaRealizacion(new Date(System.currentTimeMillis()));
+            estudio.setEstado(1);
+            daoEstudio.insert(estudio);
+
+            studyToClone = daoFiltro.getCurrentRequest(rid);
+            solicitud = daoSolicitud.find(rid, SolicitudEntity.class);
+            solicitud.setEstado(1);
+            daoSolicitud.update(solicitud);
+
+            studyToClone.setFkEstudio(estudio);
+            daoFiltro.update(studyToClone);
+
+            daoEstudio.cloneStudy(id, estudio.get_id());
+
+            return Response.ok().entity(studyToClone).build();
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }

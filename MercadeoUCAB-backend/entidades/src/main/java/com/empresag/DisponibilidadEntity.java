@@ -1,39 +1,27 @@
 package com.empresag;
 
+import javax.json.bind.annotation.JsonbDateFormat;
 import javax.persistence.*;
 import java.sql.Time;
-import java.util.Objects;
 
 @Entity
 @Table(name = "disponibilidad", schema = "empresag", catalog = "")
 public class DisponibilidadEntity extends BaseEntity{
 
     @Basic
-    @Column(name = "hora_inicial")
-    private Time horaInicial;
-    @Basic
-    @Column(name = "hora_final")
-    private Time horaFinal;
+    @Column(name = "hora")
+    @JsonbDateFormat(value = "HH:mm a")
+    private Time hora;
 
 
     @Basic
-    @Column(name = "hora_inicial")
-    public Time getHoraInicial() {
-        return horaInicial;
+    @Column(name = "hora")
+    public Time getHora() {
+        return hora;
     }
 
-    public void setHoraInicial(Time horaInicial) {
-        this.horaInicial = horaInicial;
-    }
-
-    @Basic
-    @Column(name = "hora_final")
-    public Time getHoraFinal() {
-        return horaFinal;
-    }
-
-    public void setHoraFinal(Time horaFinal) {
-        this.horaFinal = horaFinal;
+    public void setHora(Time hora) {
+        this.hora = hora;
     }
 
 }

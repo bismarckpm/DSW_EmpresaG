@@ -58,13 +58,11 @@ export class RegisterService {
 
   horario_ini: Disponibilidad = {
     _id: 0,
-    horaInicial: null,
-    horaFinal: null,
+    hora: null,
   };
   horario_fin: Disponibilidad = {
     _id: 0,
-    horaInicial: null,
-    horaFinal: null,
+    hora: null,
   };
 
   personaData: persondata = {
@@ -103,4 +101,25 @@ export class RegisterService {
     return this.http.post<Person>(serverURL + 'sesion/register', this.user, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
+
+  postValidRegister(): Observable<Person>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    // resultado: Boolean;
+
+    // this.http.post(serverURL+"sesion/validRegister", this.user, {observe: 'response'})
+    // .subscribe(resp => {
+    //   console.log("VALOR DEL VALID REGISTER:")
+    //   console.log(resp.status);
+    //   console.log(resp.status.toString);
+    // });
+
+    return this.http.post<Person>(serverURL + 'sesion/validRegister', this.user, httpOptions)
+      .pipe(catchError(this.processHTTPMessageService.handleError));
+  }
+
 }

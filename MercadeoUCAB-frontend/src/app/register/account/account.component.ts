@@ -12,6 +12,7 @@ import { RxwebValidators } from '@rxweb/reactive-form-validators'
 import { GeneroService } from '../../services/genero.service';
 import { EdocivilService } from '../../services/edocivil.service';
 import { from } from 'rxjs';
+import { errorMonitor } from 'events';
 
 @Component({
   selector: 'app-account',
@@ -205,8 +206,20 @@ export class AccountComponent implements OnInit {
     this.registerService.user.fkPersona.fechaNacimiento = this.accountForm.value.fecha_de_nacimiento;
 
     if (this.accountForm.valid){
-      console.log('epa, pasaste');
-      this.nextPage();
+      console.log('epa, achantate...');
+
+      this.registerService.postValidRegister().subscribe((person) =>{
+        this.nextPage();
+      }, errorMessage => {
+        this.messageService.add({severity:'error', summary: 'Error', detail: 'El correo utilizado ya se encuentra registrado.'});
+      });
+
+      // if (this.registerService.postValidRegister()){
+      //   this.nextPage();
+      // }
+      // else{
+      // }
+
     }
     else{
       this.messageService.add({severity:'error', summary: 'Error', detail: 'Hubo datos inválidos o incompletos en el formulario'});

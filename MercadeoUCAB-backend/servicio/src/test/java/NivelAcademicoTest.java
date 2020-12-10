@@ -4,7 +4,7 @@ import com.empresag.NivelAcademicoService;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class NivelAcademicoTest {
+public class  NivelAcademicoTest {
 
     @Test
     public void addOcupacionPrimariaTest(){

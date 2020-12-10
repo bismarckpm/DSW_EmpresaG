@@ -5,6 +5,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("/sesion")
 @Produces( MediaType.APPLICATION_JSON )
@@ -57,6 +59,18 @@ public class SesionService {
             DaoLugar daoLugar = new DaoLugar();
             LugarEntity lugarPersona = daoLugar.find(usuarioDto.getFkPersona().getFkLugar().get_id(), LugarEntity.class);
             persona.setFkLugar(lugarPersona);
+
+//            OBTENER DISPONIBILIDAD
+            DisponibilidadDto dispo_inicial = usuarioDto.getFkPersona().getId_horario_inicial();
+            DisponibilidadDto dispo_final = usuarioDto.getFkPersona().getId_horario_final();
+            DaoDisponibilidad daoDisponibilidad = new DaoDisponibilidad();
+
+            DisponibilidadEntity disponibilidadEntity_i = daoDisponibilidad.find(dispo_inicial.get_id(), DisponibilidadEntity.class);
+            DisponibilidadEntity disponibilidadEntity_f = daoDisponibilidad.find(dispo_final.get_id(), DisponibilidadEntity.class);
+
+//            INSERTAR DISPONIBILIDAD
+            persona.setFkDisponibilidadInicial(disponibilidadEntity_i);
+            persona.setFkDisponibilidadFinal(disponibilidadEntity_f);
 
 //            INSERTAR PERSONA
             DaoPersona daoPersona = new DaoPersona();
@@ -133,34 +147,33 @@ public class SesionService {
             DaoPersonaNvlacademico daoPersonaNvlacademico = new DaoPersonaNvlacademico();
             daoPersonaNvlacademico.insert(personaNvlacademico);
 
-//            OBTENER DISPONIBILIDAD
-            DisponibilidadDto dispo_inicial = usuarioDto.getFkPersona().getId_horario_inicial();
-            DisponibilidadDto dispo_final = usuarioDto.getFkPersona().getId_horario_final();
-
-            DaoDisponibilidad daoDisponibilidad = new DaoDisponibilidad();
-
-            DisponibilidadEntity disponibilidadEntity_i = daoDisponibilidad.find(dispo_inicial.get_id(), DisponibilidadEntity.class);
-            DisponibilidadEntity disponibilidadEntity_f = daoDisponibilidad.find(dispo_final.get_id(), DisponibilidadEntity.class);
-
-//            INSERTAR DISPONIBILIDAD
-            PersonaDisponibilidadEntity personaDisponibilidad_i = new PersonaDisponibilidadEntity();
-            personaDisponibilidad_i.setFkPersona(personaResul);
-            personaDisponibilidad_i.setFkDisponibilidad(disponibilidadEntity_i);
-
-            PersonaDisponibilidadEntity personaDisponibilidad_f = new PersonaDisponibilidadEntity();
-            personaDisponibilidad_f.setFkPersona(personaResul);
-            personaDisponibilidad_f.setFkDisponibilidad(disponibilidadEntity_f);
-
-            DaoPersonaDisponibilidad daoPersonaDisponibilidad = new DaoPersonaDisponibilidad();
-            daoPersonaDisponibilidad.insert(personaDisponibilidad_i);
-            daoPersonaDisponibilidad.insert(personaDisponibilidad_f);
 
             resultado.set_id(resul.get_id());
         }
         catch (IndexDatabaseException e) {
             e.printStackTrace();
         }
+
+        DirectorioActivo ldap = new DirectorioActivo();
+        ldap.addEntryToLdap(usuarioDto);
+
         return resultado;
+
+    }
+
+    @POST
+    @Path("/validRegister")
+    public Response checkRegistro ( UsuarioDto usuarioDto ) {
+
+        DaoUsuario daoUsuario = new DaoUsuario();
+        List<UsuarioEntity> usuario = daoUsuario.emailExist(usuarioDto.getEmail());
+
+
+        if (usuario.size() == 0)
+            return Response.status(Response.Status.OK).build();
+        else
+            return Response.status(Response.Status.FOUND).build();
+
 
     }
 

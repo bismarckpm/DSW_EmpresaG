@@ -1,12 +1,16 @@
+import { Rol } from '../classes/rol';
 import { Child } from './child';
 // import { Device } from '../constants/device';
 import { persondata } from './persondata';
 
 export class Person {
+    _id?: number;
     email: string;
+    estado?: number;
     password: string;
     confirmar_clave?: string;
-    fkPersona: persondata;
+    fkPersona?: persondata;
+    fkRol?: Rol;
     // primer_nombre?: string;
     // primer_apellido?: string;
     // documento_de_identificacion?: string;

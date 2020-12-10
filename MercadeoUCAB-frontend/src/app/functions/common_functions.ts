@@ -9,5 +9,5 @@ export function replaceKeyWithValue(obj){
 }
 
 export function replaceDateWithValue(obj){
-    return obj.map(({ _id: value, horaInicial: label, ...rest }) => ({ value, label, ...rest }));
+    return obj.map(({ _id: value, hora: label, ...rest }) => ({ value, label, ...rest }));
 }

@@ -138,6 +138,18 @@ public class FiltroEntity extends BaseEntity{
         this.fkSubcategoria = fkSubcategoria;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "fk_solicitud")
+    private SolicitudEntity fkSolicitud;
+
+    public SolicitudEntity getFkSolicitud() {
+        return fkSolicitud;
+    }
+
+    public void setFkSolicitud(SolicitudEntity fkSolicitud) {
+        this.fkSolicitud = fkSolicitud;
+    }
+
     @Override
     public String toString() {
         return "FiltroEntity{" +
