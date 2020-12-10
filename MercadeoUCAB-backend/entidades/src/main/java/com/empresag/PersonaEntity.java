@@ -44,6 +44,14 @@ public class PersonaEntity extends BaseEntity{
     @JoinColumn(name = "fk_lugar")
     private LugarEntity fkLugar;
 
+    @ManyToOne
+    @JoinColumn(name = "fk_disponibilidad_inicial")
+    private DisponibilidadEntity fkDisponibilidadInicial;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_disponibilidad_final")
+    private DisponibilidadEntity fkDisponibilidadFinal;
+
 
     public PersonaEntity() {
 
@@ -166,6 +174,28 @@ public class PersonaEntity extends BaseEntity{
         if (fkPersona != null)
             FK_Persona = fkPersona.toString();
 
+    @ManyToOne
+    @JoinColumn(name = "fk_disponibilidad_inicial")
+    public DisponibilidadEntity getFkDisponibilidadInicial() {
+        return fkDisponibilidadInicial;
+    }
+
+    public void setFkDisponibilidadInicial(DisponibilidadEntity fkDisponibilidadInicial) {
+        this.fkDisponibilidadInicial = fkDisponibilidadInicial;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "fk_disponibilidad_final")
+    public DisponibilidadEntity getFkDisponibilidadFinal() {
+        return fkDisponibilidadFinal;
+    }
+
+    public void setFkDisponibilidadFinal(DisponibilidadEntity fkDisponibilidadFinal) {
+        this.fkDisponibilidadFinal = fkDisponibilidadFinal;
+    }
+
+    @Override
+    public String toString() {
         return "PersonaEntity{" +
                 "documentoIdentidad='" + documentoIdentidad + '\'' +
                 ", primerNombre='" + primerNombre + '\'' +
@@ -179,5 +209,10 @@ public class PersonaEntity extends BaseEntity{
                 ", numero_personas_encasa=" + numero_personas_encasa +
                 ", fkLugar=" + fkLugar.toString() +
                 '}';
+    }
+                '}';
+
+    public Integer age(Date fechaNacimiento){
+        return 1;
     }
 }

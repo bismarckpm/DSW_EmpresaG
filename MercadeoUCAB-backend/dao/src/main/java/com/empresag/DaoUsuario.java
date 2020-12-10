@@ -29,4 +29,15 @@ public class DaoUsuario extends Dao<UsuarioEntity> {
 
         return q.getResultList();
     }
+
+    public List<UsuarioEntity> emailExist(String correo){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
+        EntityManager em = emf.createEntityManager();
+
+        JPQL = "SELECT u._id FROM UsuarioEntity u WHERE u.email = :correo ";
+        q = em.createQuery(JPQL);
+        q.setParameter("correo", correo);
+
+        return q.getResultList();
+    }
 }

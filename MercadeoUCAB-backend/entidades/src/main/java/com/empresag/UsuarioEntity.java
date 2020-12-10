@@ -7,6 +7,8 @@ import javax.persistence.*;
 public class UsuarioEntity extends BaseEntity{
     private String email;
     private String password;
+    @Basic
+    @Column(name = "estado")
     private int estado;
     @ManyToOne
     @JoinColumn(name = "fk_persona")
