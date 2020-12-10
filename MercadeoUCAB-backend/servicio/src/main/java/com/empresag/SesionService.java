@@ -31,10 +31,9 @@ public class SesionService {
             usuario.setEstado(usuarioDto.getEstado());
 
 //            INSERTAR ROL
-            RolEntity rolEntity = new RolEntity();
             DaoRol daoRol = new DaoRol();
-            rolEntity = daoRol.find((long) 1, RolEntity.class);
-            usuario.setFk_Rol(rolEntity);
+            List<RolEntity> roles = daoRol.getEncuestadoRol();
+            usuario.setFk_Rol(roles.get(0));
 
             PersonaEntity persona = new PersonaEntity();
             persona.setDocumentoIdentidad(usuarioDto.getFkPersona().getDocumentoIdentidad());
