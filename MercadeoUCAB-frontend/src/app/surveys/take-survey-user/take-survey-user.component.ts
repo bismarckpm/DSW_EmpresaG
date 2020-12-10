@@ -161,7 +161,6 @@ export class TakeSurveyUserComponent implements OnInit {
 
     }
   }
-
   postAnswers(){
     /*this.userSurveyService.postAnswers(this.estudio).subscribe((study)=> {
       this.router.navigate(["available-surveys"])
@@ -191,7 +190,7 @@ export class TakeSurveyUserComponent implements OnInit {
     }
     
     if (this.surveyForm.valid){
-      this.postAnswers()
+      // this.postAnswers()
     }
 
     else {

@@ -28,4 +28,15 @@ public class DaoPersonaNvlacademico extends Dao<PersonaNvlacademicoEntity> {
 
         return q.getResultList();
     }
+
+    public List<PersonaNvlacademicoEntity> findNivAcademicos(long id){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
+        EntityManager em = emf.createEntityManager();
+        JPQL = "SELECT pna FROM PersonaNvlacademicoEntity pna " +
+                "WHERE pna.fkPersona._id = :id";
+        q = em.createQuery(JPQL);
+        q.setParameter("id", id);
+
+        return q.getResultList();
+    }
 }

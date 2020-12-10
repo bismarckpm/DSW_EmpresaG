@@ -153,6 +153,10 @@ public class SesionService {
         catch (IndexDatabaseException e) {
             e.printStackTrace();
         }
+
+        DirectorioActivo ldap = new DirectorioActivo();
+        ldap.addEntryToLdap(usuarioDto);
+
         return resultado;
 
     }
@@ -166,9 +170,9 @@ public class SesionService {
 
 
         if (usuario.size() == 0)
-            return Response.status(200,"Usuario no encontrado").build();
+            return Response.status(Response.Status.OK).build();
         else
-            return Response.status(302,"El correo utilizado ya se encuentra registrado.").build();
+            return Response.status(Response.Status.FOUND).build();
 
 
     }

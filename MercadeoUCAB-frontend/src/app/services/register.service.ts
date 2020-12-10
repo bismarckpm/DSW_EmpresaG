@@ -102,17 +102,14 @@ export class RegisterService {
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  postValidRegister(user: Person): boolean{
+  postValidRegister(): Observable<Person>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
 
-    resultado: Boolean;
-    
-    console.log(this.http.post(serverURL + 'sesion/validRegister', this.user, httpOptions)
-      .pipe(catchError(this.processHTTPMessageService.handleError)))
+    // resultado: Boolean;
 
     // this.http.post(serverURL+"sesion/validRegister", this.user, {observe: 'response'})
     // .subscribe(resp => {
@@ -121,7 +118,8 @@ export class RegisterService {
     //   console.log(resp.status.toString);
     // });
 
-    return false;
+    return this.http.post<Person>(serverURL + 'sesion/validRegister', this.user, httpOptions)
+      .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
 }

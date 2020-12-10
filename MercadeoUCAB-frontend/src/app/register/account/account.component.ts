@@ -12,6 +12,7 @@ import { RxwebValidators } from '@rxweb/reactive-form-validators'
 import { GeneroService } from '../../services/genero.service';
 import { EdocivilService } from '../../services/edocivil.service';
 import { from } from 'rxjs';
+import { errorMonitor } from 'events';
 
 @Component({
   selector: 'app-account',
@@ -207,12 +208,17 @@ export class AccountComponent implements OnInit {
     if (this.accountForm.valid){
       console.log('epa, achantate...');
 
-      if (this.registerService.postValidRegister(this.registerService.user)){
+      this.registerService.postValidRegister().subscribe((person) =>{
         this.nextPage();
-      }
-      else{
+      }, errorMessage => {
         this.messageService.add({severity:'error', summary: 'Error', detail: 'El correo utilizado ya se encuentra registrado.'});
-      }
+      });
+
+      // if (this.registerService.postValidRegister()){
+      //   this.nextPage();
+      // }
+      // else{
+      // }
 
     }
     else{

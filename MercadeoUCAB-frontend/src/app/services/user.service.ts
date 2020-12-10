@@ -109,16 +109,16 @@ export class UserService {
   persona: Person = {
     email: '',
     password: '',
+    estado: 1,
     fkPersona: this.personadata,
     fkRol: this.rol,
   };
 
-  // Me falta ROL
-
   user: Users = {
+    _id: 0,
     email: '',
     password: '',
-    status: 0,
+    estado: 1,
     persona: this.persona
   };
 
@@ -127,10 +127,8 @@ export class UserService {
     private processHTTPMessageService: ProcessHttpMessageService) { }
 
   getPerson(pid): Observable<Person>{
-    return this.http.get<Person>(baseURL + 'register', {params: {
-      id: pid
-    }})
-      .pipe(map(persona => persona[0]))
+    return this.http.get<Person>(serverURL + 'user/'+pid)
+      // .pipe(map(persona => persona[0]))
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
   
@@ -139,13 +137,13 @@ export class UserService {
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  getNewPerson(pid): Observable<Person>{
-    return this.http.get<Person>(baseURL + 'register', {params: {
-      id: pid
-    }})
-      .pipe(map(person => person[0]))
-      .pipe(catchError(this.processHTTPMessageService.handleError))
-  }
+  // getNewPerson(pid): Observable<Person>{
+  //   return this.http.get<Person>(baseURL + 'register', {params: {
+  //     id: pid
+  //   }})
+  //     .pipe(map(person => person[0]))
+  //     .pipe(catchError(this.processHTTPMessageService.handleError))
+  // }
 
   postPerson(person): Observable<Person>{
     const httpOptions = {
@@ -158,19 +156,29 @@ export class UserService {
     .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  postRegPerson(user: Person): Observable<Person>{
+  // postRegPerson(user: Person): Observable<Person>{
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({
+  //       'Content-Type': 'application/json'
+  //     })
+  //   };
+
+  //   return this.http.post<Person>(baseURL + 'register', this.user, httpOptions)
+  //     .pipe(catchError(this.processHTTPMessageService.handleError))
+  // }
+
+  deleteUser(user): Observable<Person>{
+    return this.http.delete<Person>(serverURL + 'user/delete/' + user._id)
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
+  putUser(user): Observable<Person>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-
-    return this.http.post<Person>(baseURL + 'register', this.user, httpOptions)
-      .pipe(catchError(this.processHTTPMessageService.handleError))
-  }
-
-  deleteUser(user): Observable<Person>{
-    return this.http.delete<Person>(baseURL + 'register/' + user.documento_de_identificacion)
+    return this.http.put<Person>(serverURL + 'user/edit/' + user._id, user, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 

@@ -4,6 +4,7 @@ import { MenuItem, MessageService, PrimeNGConfig } from 'primeng/api';
 import { ConfirmationService } from 'primeng/api';
 import { Person } from '../classes/person';
 import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
 import { replaceKey } from '../functions/common_functions';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ProcessHttpMessageService } from '../services/process-http-message.service';
@@ -26,6 +27,7 @@ export class UsersComponent implements OnInit {
   @ViewChild('dt') table: Table;
 
   constructor(
+    private router: Router,
     private userService: UserService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
@@ -37,8 +39,9 @@ export class UsersComponent implements OnInit {
 
     this.loading = true;
     this.userService.getPersons().subscribe((person) => {
-    this.usuarios = person; 
-    this.loading = false;
+      this.usuarios = person; 
+      console.log(person);
+      this.loading = false;
     },
     errorMessage => {
       this.loading = false;
@@ -46,9 +49,11 @@ export class UsersComponent implements OnInit {
     })
   }
 
+  
+
   deleteUser(person){
     this.confirmationService.confirm({
-      message: 'El siguiente usuario: <code>' + person.correo_electronico + '</code> está apunto de ser eliminado, ¿Desea continuar?',
+      message: 'El siguiente usuario: <code>' + person.email + '</code> está apunto de ser eliminado, ¿Desea continuar?',
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
@@ -68,7 +73,20 @@ export class UsersComponent implements OnInit {
           //
       }
   });
+  }
 
+  convertStatus(status){
+
+    if (status == 0) 
+      return "Inactivo"
+    else if (status == 1)
+      return "Activo"
+    else 
+      return "N/A"
+  }
+
+  showEditUser(userid){    
+    this.router.navigate(["/users/edit/"], { queryParams: { pid: userid } });
   }
 
 }
