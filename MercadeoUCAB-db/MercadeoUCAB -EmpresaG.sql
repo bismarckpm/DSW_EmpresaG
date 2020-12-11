@@ -207,6 +207,7 @@ CREATE TABLE IF NOT EXISTS `empresag`.`USUARIO` (
   `estado` INT NOT NULL,
   `fk_persona` INT NULL,
   `fk_rol` INT NOT NULL,
+  `hashPass` VARCHAR(10),
   PRIMARY KEY (`id`),
   INDEX `fk_usuario_persona_idx` (`fk_persona` ASC) VISIBLE,
   INDEX `fk_usuario_rol_idx` (`fk_rol` ASC) VISIBLE,
@@ -219,7 +220,7 @@ CREATE TABLE IF NOT EXISTS `empresag`.`USUARIO` (
     FOREIGN KEY (`fk_rol`)
     REFERENCES `empresag`.`ROL` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE NO ACTION,)
 ENGINE = InnoDB;
 
 

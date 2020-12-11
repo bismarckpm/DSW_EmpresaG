@@ -168,12 +168,6 @@ public class PersonaEntity extends BaseEntity{
         this.numero_personas_encasa = numero_personas_encasa;
     }
 
-    @Override
-    public String toString() {
-        String FK_Persona = "";
-        if (fkPersona != null)
-            FK_Persona = fkPersona.toString();
-
     @ManyToOne
     @JoinColumn(name = "fk_disponibilidad_inicial")
     public DisponibilidadEntity getFkDisponibilidadInicial() {
@@ -194,8 +188,16 @@ public class PersonaEntity extends BaseEntity{
         this.fkDisponibilidadFinal = fkDisponibilidadFinal;
     }
 
+    public Integer age(Date fechaNacimiento){
+        return 1;
+    }
+
     @Override
     public String toString() {
+        String FK_Persona = "";
+        if (fkPersona != null)
+            FK_Persona = fkPersona.toString();
+
         return "PersonaEntity{" +
                 "documentoIdentidad='" + documentoIdentidad + '\'' +
                 ", primerNombre='" + primerNombre + '\'' +
@@ -209,10 +211,5 @@ public class PersonaEntity extends BaseEntity{
                 ", numero_personas_encasa=" + numero_personas_encasa +
                 ", fkLugar=" + fkLugar.toString() +
                 '}';
-    }
-                '}';
-
-    public Integer age(Date fechaNacimiento){
-        return 1;
     }
 }

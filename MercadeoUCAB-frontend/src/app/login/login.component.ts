@@ -110,13 +110,23 @@ export class LoginComponent implements OnInit {
       .subscribe(person => {
 
       // TODO: Redireccion a la ruta apropiada cuando el auth este listo
-      console.log("Iniciando sesion");
-      console.log(person);
+      if (person == null){
+        this.messageService.add({severity:'error', summary: 'Error', detail: 'Usuario o clave incorrectos.'});
+      }
+      else{
+        this.messageService.add({severity:'success', summary: 'Exito', detail: 'Usuario validado correctamente.'});
+        this.nextPage();
+      }
+      
       this.sent_form = false;
       },
       errorMessage => {
         this.sent_form = false;
         this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
       })
+  }
+
+  nextPage(): void {
+    this.router.navigate(['/profile']);
   }
 }
