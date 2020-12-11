@@ -516,9 +516,9 @@ INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) V
 INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (99, 'skthereaper@gmail.ca', '123456789', 1, 8, 4);
 INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (100, 'iamnopsycho@protonmail.com', '123456789', 1, 9, 4);
 
-INSERT INTO empresag.solicitud (id, estado, fk_usuario) VALUES (1, 0, 3);
-INSERT INTO empresag.solicitud (id, estado, fk_usuario) VALUES (2, 0, 5);
-INSERT INTO empresag.solicitud (id, estado, fk_usuario) VALUES (3, 0, 5);
+INSERT INTO empresag.solicitud (id, estado, fk_usuario) VALUES (1, 0, 94);
+INSERT INTO empresag.solicitud (id, estado, fk_usuario) VALUES (2, 0, 94);
+INSERT INTO empresag.solicitud (id, estado, fk_usuario) VALUES (3, 0, 96);
 
 INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_lugar, fk_categoria, fk_subcategoria, fk_solicitud) VALUES (1, 1, 1, 15, 45, 3, null, 2, 1, 1, 1, 1, null);
 INSERT INTO empresag.filtro (id, fk_estudio, tipo_filtro_lugar, edad_minima, edad_maxima, fk_nivel_socioeconomico, fk_edo_civil, fk_nivel_academico, fk_genero, fk_lugar, fk_categoria, fk_subcategoria, fk_solicitud) VALUES (2, 2, 1, null, null, 3, null, 2, 1, 1, 2, 2, null);

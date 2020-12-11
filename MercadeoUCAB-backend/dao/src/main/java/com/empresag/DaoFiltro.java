@@ -52,6 +52,20 @@ public class DaoFiltro extends Dao<FiltroEntity> {
         return em.createQuery(JPQL).getResultList();
     }
 
+    public List<FiltroEntity> getUserRequests(long id){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
+        EntityManager em = emf.createEntityManager();
+        DaoUsuario daoUsuario = new DaoUsuario();
+        UsuarioEntity usuario = daoUsuario.find(id, UsuarioEntity.class);
+
+        JPQL = "SELECT f FROM FiltroEntity f, UsuarioEntity u, SolicitudEntity s " +
+                "WHERE u = s.fkUsuario AND u = :usuario AND f.fkSolicitud = s";
+
+        q = em.createQuery(JPQL);
+        q.setParameter("usuario", usuario);
+        return q.getResultList();
+    }
+
     public FiltroEntity getCurrentStudy(long id){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
         EntityManager em = emf.createEntityManager();

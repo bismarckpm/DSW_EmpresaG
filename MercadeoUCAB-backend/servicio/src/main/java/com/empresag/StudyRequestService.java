@@ -18,6 +18,20 @@ public class StudyRequestService {
     }
 
     @GET
+    @Path("/find-by-user/{userId}")
+    public Response getUserRequests(@PathParam("userId") long id){
+        DaoFiltro daoFiltro = new DaoFiltro();
+        List<FiltroEntity> solicitudes = null;
+        try {
+            solicitudes = daoFiltro.getUserRequests(id);
+            return Response.ok().entity(solicitudes).build();
+        }
+        catch (NullPointerException e){
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    @GET
     @Path("/find/{id}")
     public Response getRequest(@PathParam("id") long id){
         DaoFiltro daoFiltro = new DaoFiltro();
@@ -30,6 +44,85 @@ public class StudyRequestService {
         catch (NullPointerException e){
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+    }
+
+    @POST
+    @Path("/add")
+    public Response addRequest(FiltroDto filtroDto){
+        DaoFiltro daoFiltro = new DaoFiltro();
+        DaoSolicitud daoSolicitud = new DaoSolicitud();
+        DaoUsuario daoUsuario = new DaoUsuario();
+        DaoCategoria daoCategoria = new DaoCategoria();
+        DaoSubcategoria daoSubcategoria = new DaoSubcategoria();
+        DaoEdoCivil daoEdoCivil = new DaoEdoCivil();
+        DaoNivelAcademico daoNivelAcademico = new DaoNivelAcademico();
+        DaoNivelSocioeconomico daoNivelSocioeconomico = new DaoNivelSocioeconomico();
+        DaoGenero daoGenero = new DaoGenero();
+        DaoLugar daoLugar = new DaoLugar();
+
+        FiltroEntity filtro = new FiltroEntity();
+        UsuarioEntity usuario = new UsuarioEntity();
+        SolicitudEntity solicitud = new SolicitudEntity();
+
+        try {
+            usuario = daoUsuario.find(filtroDto.getFkSolicitud().getFkUsuario().get_id(), UsuarioEntity.class);
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        CategoriaEntity categoria = daoCategoria.find(filtroDto.getFkCategoria().get_id(), CategoriaEntity.class);
+        SubcategoriaEntity subcategoria =
+                daoSubcategoria.find(filtroDto.getFkSubcategoria().get_id(), SubcategoriaEntity.class);
+
+        EdoCivilEntity estadoCivil = null;
+        GeneroEntity genero = null;
+        NivelAcademicoEntity nivelAcademico = null;
+        NivelSocioeconomicoEntity nivelSocioeconomico = null;
+        LugarEntity lugar = null;
+
+        solicitud.setEstado(0);
+        solicitud.setFkUsuario(usuario);
+        daoSolicitud.insert(solicitud);
+
+        /* Optional filters */
+        if (filtroDto.getFkEdoCivil() != null){
+            estadoCivil = daoEdoCivil.find(filtroDto.getFkEdoCivil().get_id(), EdoCivilEntity.class);
+        }
+        if (filtroDto.getFkGenero() != null){
+            genero = daoGenero.find(filtroDto.getFkGenero().get_id(), GeneroEntity.class);
+        }
+        if (filtroDto.getFkNivelAcademico() != null){
+            nivelAcademico = daoNivelAcademico.find
+                    (filtroDto.getFkNivelAcademico().get_id(), NivelAcademicoEntity.class);
+        }
+        if (filtroDto.getFkNivelSocioeconomico() != null){
+            nivelSocioeconomico = daoNivelSocioeconomico.find(filtroDto.getFkNivelSocioeconomico().get_id(),
+                    NivelSocioeconomicoEntity.class);
+        }
+        if (filtroDto.getFkLugar() != null){
+            lugar = daoLugar.find(filtroDto.getFkLugar().get_id(), LugarEntity.class);
+        }
+        if (filtroDto.getEdadMaxima() != null && filtroDto.getEdadMinima() != null){
+            filtro.setEdadMinima(filtroDto.getEdadMinima());
+            filtro.setEdadMaxima(filtroDto.getEdadMaxima());
+        }
+        if (filtroDto.getTipoFiltroLugar() != null){
+            filtro.setTipoFiltroLugar(filtroDto.getTipoFiltroLugar());
+        }
+
+        filtro.setFkSolicitud(solicitud);
+        filtro.setFkCategoria(categoria);
+        filtro.setFkSubcategoria(subcategoria);
+        filtro.setFkEdoCivil(estadoCivil);
+        filtro.setFkGenero(genero);
+        filtro.setFkNivelAcademico(nivelAcademico);
+        filtro.setFkNivelSocioeconomico(nivelSocioeconomico);
+        filtro.setFkLugar(lugar);
+        daoFiltro.update(filtro);
+
+        return Response.ok().entity(filtro).build();
     }
 
     @PUT
@@ -65,6 +158,23 @@ public class StudyRequestService {
             daoSolicitudEstudio.insert(solicitudEstudio);
 
             return Response.ok().entity(solicitudWithFilter).build();
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    @DELETE
+    @Path("/delete/{id}")
+    public Response deleteRequest(@PathParam("id") long id){
+        DaoSolicitud daoSolicitud = new DaoSolicitud();
+        SolicitudEntity solicitud = null;
+
+        try {
+            solicitud = daoSolicitud.find(id, SolicitudEntity.class);
+            daoSolicitud.delete(solicitud);
+            return Response.ok().entity(solicitud).build();
         }
         catch (NullPointerException e){
             e.printStackTrace();
