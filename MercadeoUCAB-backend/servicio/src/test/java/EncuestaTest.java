@@ -1,4 +1,5 @@
 import com.empresag.*;
+import org.junit.Assert;
 import org.junit.Test;
 
 import javax.persistence.EntityManager;
@@ -25,7 +26,7 @@ public class EncuestaTest {
                 "WHERE f.fkEstudio = :estudio " +
                 "AND (pna.fkPersona = p OR NOT EXISTS " +
                 "(SELECT aux FROM PersonaNvlacademicoEntity aux WHERE aux.fkPersona = p)) " +
-                "AND u.fk_Persona = p AND u.fk_Rol = r AND r._id = 4 " +
+                "AND u.fk_Persona = p AND u.fk_Rol = r AND r.nombre = 'Encuestado' " +
                 "AND (f.fkEdoCivil = p.fkEdoCivil OR f.fkEdoCivil IS NULL) " +
                 "AND (f.fkGenero = p.fkGenero OR f.fkGenero IS NULL) " +
                 "AND (f.fkLugar = p.fkLugar OR f.fkLugar IS NULL) " +
@@ -40,6 +41,24 @@ public class EncuestaTest {
         for (PersonaEntity persona: personas) {
             System.out.println(persona);
         }
+    }
+
+    @Test
+    public void isUserPartOfAvailablePopulation(){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
+        EntityManager em = emf.createEntityManager();
+        DaoEncuesta daoEncuesta = new DaoEncuesta();
+        DaoPersona daoPersona = new DaoPersona();
+        PersonaEntity persona = daoPersona.find(64L, PersonaEntity.class);
+        List<PersonaEntity> personas = daoEncuesta.getAvailablePopulation(1);
+        boolean found = false;
+
+        for (PersonaEntity p: personas) {
+            if (p.get_id() == persona.get_id()){
+                found = true;
+            }
+        }
+        Assert.assertEquals(true, found);
     }
 
     @Test

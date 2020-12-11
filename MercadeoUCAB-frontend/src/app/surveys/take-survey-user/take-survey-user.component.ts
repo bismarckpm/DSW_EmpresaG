@@ -80,21 +80,29 @@ export class TakeSurveyUserComponent implements OnInit {
       this.spinner.show();
       this.current_study = parseInt(this.activatedRoute.snapshot.queryParamMap.get('surveyId'));
 
-      this.studiesService.getStudyQuestionsWithOptions(this.current_study).subscribe((questions) => {
-        this.preguntas = questions;
-
-        this.analystService.isPersonPartOfAvailablePopulation(this.current_study, this.current_user).subscribe((res) => {
-          this.loading = false;
-          this.spinner.hide();
-          this.createForm();
-        }, errorMessage => {
+      this.studiesService.getStudy(this.current_study).subscribe((study) => {
+        /* FINISHED STUDIES DO NOT ALLOW NEW ANSWERS */
+        if (study.fkEstudio.estado == 2){
           this.router.navigate(['404']);
-        })
-
-      }, errorMessage => {
-        this.questionsErrorMessage = errorMessage;
-        this.loading = false;
-        this.spinner.hide();
+        }
+        else {
+          this.studiesService.getStudyQuestionsWithOptions(this.current_study).subscribe((questions) => {
+            this.preguntas = questions;
+    
+            this.analystService.isPersonPartOfAvailablePopulation(this.current_study, this.current_user).subscribe((res) => {
+              this.loading = false;
+              this.spinner.hide();
+              this.createForm();
+            }, errorMessage => {
+              this.router.navigate(['404']);
+            })
+    
+          }, errorMessage => {
+            this.questionsErrorMessage = errorMessage;
+            this.loading = false;
+            this.spinner.hide();
+          })
+        }
       })
     }
   }
