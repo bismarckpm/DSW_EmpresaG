@@ -10,5 +10,5 @@ export class Account_Status {
     },
     {
       label: 'Inactivo',
-      value: 2,
+      value: 0,
     }];
