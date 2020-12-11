@@ -107,6 +107,7 @@ export class UserService {
   }
 
   persona: Person = {
+    _id: 0,
     email: '',
     password: '',
     estado: 1,
@@ -172,13 +173,13 @@ export class UserService {
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  putUser(user): Observable<Person>{
+  putUser(persona: Person): Observable<Person>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-    return this.http.put<Person>(serverURL + 'user/edit/' + user._id, user, httpOptions)
+    return this.http.put<Person>(serverURL + 'user/edit/' + persona._id, persona, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 

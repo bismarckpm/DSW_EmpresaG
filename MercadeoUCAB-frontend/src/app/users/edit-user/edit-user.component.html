@@ -129,27 +129,30 @@
                                 formControlName="pais"></p-dropdown>
                                 </span>
                             </div>
-                
-                            <div class="p-col-12 p-md-6 p-mb-5">
-                                <span class="p-float-label">
-                                <p-dropdown [options]="estados" placeholder="Estado" (onChange)="getCities($event)" 
-                                formControlName="estado"></p-dropdown>
-                                </span>
+                            
+                            <div class="p-col-12 p-md-6 p-mb-5" *ngIf="estado; else elseEstado">
+                                <p-dropdown [options]="estados" placeholder="Estado" (onChange)="getCities($event)" formControlName="estado"></p-dropdown>
                             </div>
+                            <ng-template #elseEstado>
+                                <div class="p-col-12 p-md-6 p-mb-5" >
+                                </div>
+                            </ng-template>
                 
-                            <div class="p-col-12 p-md-6 p-mb-5">
-                                <span class="p-float-label">
-                                <p-dropdown [options]="ciudades" placeholder="Ciudad" (onChange)="getCounties($event)" 
-                                formControlName="ciudad"></p-dropdown>
-                                </span>
+                            <div class="p-col-12 p-md-6 p-mb-5" *ngIf="ciudad; else elseCiudad">
+                                <p-dropdown [options]="ciudades" placeholder="Ciudad" (onChange)="getCounties($event)" formControlName="ciudad"></p-dropdown>
                             </div>
+                            <ng-template #elseCiudad>
+                                <div class="p-col-12 p-md-6 p-mb-5" >
+                                </div>
+                            </ng-template>
                 
-                            <div class="p-col-12 p-md-6 p-mb-5">
-                                <span class="p-float-label">
-                                <p-dropdown [options]="parroquias" placeholder="Parroquia" 
-                                formControlName="parroquia"></p-dropdown>
-                                </span>
+                            <div class="p-col-12 p-md-6 p-mb-5" *ngIf="parroquia; else elseParroquia">
+                                <p-dropdown [options]="parroquias" placeholder="Parroquia" formControlName="parroquia"></p-dropdown>
                             </div>
+                            <ng-template #elseParroquia>
+                                <div class="p-col-12 p-md-6 p-mb-5" >
+                                </div>
+                            </ng-template>
                 
                             <!-- <div class="p-col-12 p-md-3 p-mb-5">
                                 <span class="p-float-label">
@@ -216,9 +219,9 @@
                                     </ng-template>
                                     <ng-template pTemplate="body" let-hijo>
                                         <tr>
-                                            <td>{{hijo.primer_nombre}} {{hijo.primer_apellido}}</td>
-                                            <td>{{hijo.genero}}</td>
-                                            <td>{{hijo.fecha_de_nacimiento}}</td>
+                                            <td>{{hijo.primerNombre}} {{hijo.primerApellido}}</td>
+                                            <td>{{hijo.fkGenero.nombre}}</td>
+                                            <td>{{hijo.fechaNacimiento}}</td>
                                             <td>
                                                 <button type="button" pButton pRipple icon="pi pi-trash" (click)="deleteChild(hijo)" class="p-button-rounded"></button>
                                             </td>
@@ -318,7 +321,7 @@
                         </div>
                         <div class="p-grid p-mx-5">
                             <div class="p-col-12 p-md-6 p-mb-5">
-                                <p-multiSelect [options]="dispositivos" formControlName="dispositivos" defaultLabel="Dispositivos que utiliza" emptyFilterMessage="No se encontraron resultados" selectedItemsLabel="{} items seleccionados"></p-multiSelect>
+                                <p-multiSelect [options]="dispositivos" [(ngModel)]="selectedDevices" formControlName="dispositivos" defaultLabel="Dispositivos que utiliza" emptyFilterMessage="No se encontraron resultados" selectedItemsLabel="{} items seleccionados"></p-multiSelect>
                             </div>
                                 <div class="p-col-12 p-md-6 p-mb-5">
                                     <p-dropdown [options]="horario_inicial" formControlName="horario_inicial" placeholder="Desde"></p-dropdown>
