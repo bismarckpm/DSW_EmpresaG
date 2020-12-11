@@ -10,7 +10,7 @@
         </div>
         <hr>
 
-        <div *ngIf="study && !loading">
+        <div>
             <div class="p-grid p-mx-5 p-mt-3">
                 <button pButton pRipple type="button" icon="pi pi-info" class="p-button-rounded p-button-text"></button>
                 <div class="p-mt-2 p-ml-3">
@@ -18,38 +18,44 @@
                 </div>
             </div>
 
-            <div class="p-mx-5">
+            <div class="p-mx-5" *ngIf="study && !loading">
                 <p>
-                    <strong>CATEGORÍA: </strong>{{study.categoria}} <br>
-                    <strong>SUBCATEGORÍA: </strong>{{study.subcategoria}} <br>
-                    <em *ngIf="study.edad_minima && study.edad_maxima">
-                        <strong>EDAD MÍNIMA: </strong>{{study.edad_minima}} <br>
-                        <strong>EDAD MÁXIMA: </strong>{{study.edad_maxima}} <br>
+                    <strong>CATEGORÍA: </strong>{{study.fkCategoria.nombre}} <br>
+                    <strong>SUBCATEGORÍA: </strong>{{study.fkSubcategoria.nombre}} <br>
+                    <em *ngIf="study.edadMinima && study.edadMaxima">
+                        <strong>EDAD MÍNIMA: </strong>{{study.edadMinima}} <br>
+                        <strong>EDAD MÁXIMA: </strong>{{study.edadMaxima}} <br>
                     </em>
-                    <em *ngIf="study.nivel_academico">
-                        <strong>NIVEL ACADÉMICO: </strong>{{study.nivel_academico}} <br>
+                    <em *ngIf="study.fkNivelAcademico">
+                        <strong>NIVEL ACADÉMICO: </strong>{{study.fkNivelAcademico.nombre}} <br>
                     </em>
-                    <em *ngIf="study.nivel_socioeconomico">
-                        <strong>NIVEL SOCIOECONÓMICO: </strong>{{study.nivel_socioeconomico}} <br>
+                    <em *ngIf="study.fkNivelSocioeconomico">
+                        <strong>NIVEL SOCIOECONÓMICO: </strong>{{study.fkNivelSocioeconomico.nombre}} <br>
                     </em>
-                    <em *ngIf="study.genero">
-                        <strong>GÉNERO: </strong>{{study.genero}} <br>
+                    <em *ngIf="study.fkGenero">
+                        <strong>GÉNERO: </strong>{{study.fkGenero.nombre}} <br>
                     </em>
-                    <em *ngIf="study.tipo_filtro_geografico">
-                        <strong>TIPO DE FILTRO GEOGRÁFICO: </strong>{{study.tipo_filtro_geografico}} <br>
-                        <strong>LUGARES: </strong>{{study.lugares}} <br>
+                    <em *ngIf="study.tipoFiltroLugar">
+                        <strong>TIPO DE FILTRO GEOGRÁFICO: </strong>
+                        <em *ngIf="study.tipoFiltroLugar == 1">País</em>
+                        <em *ngIf="study.tipoFiltroLugar == 2">Estado</em>
+                        <br>
+                        <strong>LUGARES: </strong>{{study.fkLugar.nombre}} <br>
                     </em>
-                    <strong>NÚMERO DE ENCUESTADOS: </strong>{{study.estadisticas.n_personas_respondieron}}
                 </p>
             </div>
-
+            <hr>
             <div *ngIf="open_text_questions && open_text_questions.length > 0">
                 <h4 class="p-mx-5">RESPUESTAS DE TEXTO ABIERTO</h4>
                 <div *ngFor="let pregunta of open_text_questions" class="p-mx-5">
                     <div class="p-grid">
                         <div class="p-col-12 p-lg-10">
-                            <p>{{pregunta.pregunta}}</p>
+                            <p>{{pregunta.fkPregunta.pregunta}}</p>
                             <!-- RESPONSES OPEN TEXT -->
+                            <h4>RESPUESTAS</h4>
+                            <ul *ngFor="let respuesta of pregunta.listRespuestasTexto">
+                                <li>{{respuesta.respuestaTexto}}</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -61,7 +67,7 @@
                 <div *ngFor="let pregunta of selection_questions; let i=index" class="p-mx-5">
                     <div class="p-grid" *ngIf="selection_dataset">
                         <div class="p-col-12 p-lg-10">
-                            <p>{{pregunta.pregunta}}</p>
+                            <p>{{pregunta.fkPregunta.pregunta}}</p>
                             <!-- RESPONSES SELECTION -->
                             <p-chart type="pie" width="500" [data]="selection_dataset[i]"></p-chart>
                         </div>
@@ -75,7 +81,7 @@
                 <div *ngFor="let pregunta of true_false_questions; let i=index" class="p-mx-5">
                     <div class="p-grid" *ngIf="true_false_dataset">
                         <div class="p-col-12 p-lg-10">
-                            <p>{{pregunta.pregunta}}</p>
+                            <p>{{pregunta.fkPregunta.pregunta}}</p>
                             <!-- RESPONSES TRUE FALSE -->
                             <p-chart type="doughnut" width="500" [data]="true_false_dataset[i]"></p-chart>
                         </div>
@@ -92,14 +98,14 @@
                         <div *ngIf="range_dataset">
                             <div class="p-grid p-mx-5">
                                 <div class="p-col-12 p-lg-10">
-                                    <p>{{pregunta.pregunta}}</p>
+                                    <p>{{pregunta.fkPregunta.pregunta}}</p>
                                     <!-- RESPONSES RANGE -->
                                 </div>
                             </div>
                             <div class="p-grid p-mx-5">
-                                <p><strong>Promedio Mínimo: </strong>{{range_dataset[i].min_average}}
+                                <p><strong>Promedio Mínimo: </strong>{{range_dataset[i].min_average | number:'1.1-2'}}
                                     <br>
-                                    <strong>Promedio Máximo: </strong>{{range_dataset[i].max_average}}
+                                    <strong>Promedio Máximo: </strong>{{range_dataset[i].max_average | number:'1.1-2'}}
                                 </p>
                             </div>
                         </div>
@@ -108,7 +114,7 @@
             </div>
 
             <!-- IN PROGRESS STUDIES CAN BE CONCLUDED -->
-            <div *ngIf="study.id_estado == 2" class="p-mx-5 p-mt-2">
+            <div *ngIf="study && study.fkEstudio.estado == 1" class="p-mx-5 p-mt-2">
                 <u (click)="show_editor = !show_editor">Concluir estudio</u>
                 <div class="p-mt-3" *ngIf="show_editor">
                     <form novalidate [formGroup]="conclusionForm" #cform="ngForm" (ngSubmit)="onSubmit()">
@@ -136,10 +142,10 @@
             </div>
 
             <!-- YOU CAN VISUALIZE THE CONCLUSIONS FROM FINISHED STUDIES -->
-            <div *ngIf="study.id_estado == 3" class="p-mx-5 p-mt-2">
+            <div *ngIf="study && study.fkEstudio.estado == 2 && conclusion" class="p-mx-5 p-mt-2">
                 <h4>CONCLUSIÓN DEL ESTUDIO</h4>
                 <p>
-                    <span [innerHTML]="study.conclusion"></span>
+                    <span [innerHTML]="conclusion.conclusiones"></span>
                 </p>
             </div>
         </div>

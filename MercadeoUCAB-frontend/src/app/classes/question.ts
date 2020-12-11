@@ -1,6 +1,6 @@
 import { Option } from '../classes/options';
 import { Answer } from '../classes/answer';
-import { Analytics } from '../classes/analytics';
+import { Analytics } from './analytics/analytics';
 import { QuestionType } from './question_type';
 import { PossibleAnswer } from './possible_answers';
 
