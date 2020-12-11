@@ -22,6 +22,11 @@ export class RequestsService {
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
+  getUserRequest(person_id, request_id): Observable<RequestWithFilter>{
+    return this.http.get<RequestWithFilter>(serverURL + 'requests/find-specific-by-user/' + person_id + '/' + request_id)
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
   getUserRequests(person_id): Observable<RequestWithFilter[]>{
     return this.http.get<RequestWithFilter[]>(serverURL + 'requests/find-by-user/' + person_id)
       .pipe(catchError(this.processHTTPMessageService.handleError))
@@ -66,7 +71,7 @@ export class RequestsService {
       }),
     };
 
-    return this.http.put<Request>(baseURL + 'requests/' + request.id, request, httpOptions)
+    return this.http.put<Request>(serverURL + 'requests/update/' + request._id, request, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 }

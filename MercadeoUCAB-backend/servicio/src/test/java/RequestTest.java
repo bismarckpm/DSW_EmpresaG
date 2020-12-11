@@ -2,6 +2,10 @@ import com.empresag.*;
 import org.junit.Assert;
 import org.junit.Test;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 public class RequestTest {
@@ -24,6 +28,15 @@ public class RequestTest {
         for (FiltroEntity solicitud: solicitudes) {
             System.out.println(solicitud.getFkSolicitud());
         }
+    }
+
+    @Test
+    public void getUserRequest(){
+        DaoFiltro daoFiltro = new DaoFiltro();
+        FiltroEntity solicitud = null;
+        solicitud = daoFiltro.getUserRequest(94L, 4L);
+
+        System.out.println(solicitud);
     }
 
     @Test
