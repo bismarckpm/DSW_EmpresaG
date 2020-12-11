@@ -72,7 +72,7 @@ public class DirectorioActivo
             entry.put( oc );
             entry.put( new BasicAttribute( "cn", user.getEmail() ) );
             entry.put( new BasicAttribute( "sn", user.getEmail() ) );
-            entry.put( new BasicAttribute( "description", user.getFkRol().get_id() ) );
+            entry.put( new BasicAttribute( "description", String.valueOf(user.getFkRol().get_id()) ) );
             entry.put( new BasicAttribute( "userpassword", user.getPassword() ) );
             entry.put( new BasicAttribute( "pwdLastSuccess", format.format( new Date() ) + "Z" ) );
             _ldapContext.createSubcontext( String.format( _userDirectory + "," + _directory, user.getEmail()), entry );
@@ -151,13 +151,13 @@ public class DirectorioActivo
         try
         {
             connectLDAP( _user, _password );
-            ModificationItem[] modificationItems = new ModificationItem[ 2 ];
+            ModificationItem[] modificationItems = new ModificationItem[ 1 ];
             modificationItems[ 0 ] = new ModificationItem( DirContext.REPLACE_ATTRIBUTE,
                                                            new BasicAttribute( "userpassword", user.getPassword()
                                                            ) );
-            modificationItems[ 1 ] = new ModificationItem( DirContext.REPLACE_ATTRIBUTE,
-                                                           new BasicAttribute( "description", "NUEVO"
-                                                           ) );
+//            modificationItems[ 1 ] = new ModificationItem( DirContext.REPLACE_ATTRIBUTE,
+//                                                           new BasicAttribute( "description", "NUEVO"
+//                                                           ) );
             _ldapContext.modifyAttributes(String.format(_userDirectory + "," + _directory, user.getEmail
                     ()), modificationItems );
         }
