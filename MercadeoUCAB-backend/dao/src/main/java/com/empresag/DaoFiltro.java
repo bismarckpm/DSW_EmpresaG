@@ -52,6 +52,38 @@ public class DaoFiltro extends Dao<FiltroEntity> {
         return em.createQuery(JPQL).getResultList();
     }
 
+    public List<FiltroEntity> getUserRequests(long id){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
+        EntityManager em = emf.createEntityManager();
+        DaoUsuario daoUsuario = new DaoUsuario();
+        UsuarioEntity usuario = daoUsuario.find(id, UsuarioEntity.class);
+
+        JPQL = "SELECT f FROM FiltroEntity f, UsuarioEntity u, SolicitudEntity s " +
+                "WHERE u = s.fkUsuario AND u = :usuario AND f.fkSolicitud = s";
+
+        q = em.createQuery(JPQL);
+        q.setParameter("usuario", usuario);
+        return q.getResultList();
+    }
+
+    public FiltroEntity getUserRequest(long id, long requestId){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
+        EntityManager em = emf.createEntityManager();
+        DaoUsuario daoUsuario = new DaoUsuario();
+        DaoSolicitud daoSolicitud = new DaoSolicitud();
+        UsuarioEntity usuario = daoUsuario.find(id, UsuarioEntity.class);
+        SolicitudEntity solicitud = daoSolicitud.find(requestId, SolicitudEntity.class);
+
+        JPQL = "SELECT DISTINCT(f) FROM FiltroEntity f, UsuarioEntity u, SolicitudEntity s " +
+                "WHERE u = s.fkUsuario AND u = :usuario AND f.fkSolicitud = s AND s = :solicitud";
+
+        q = em.createQuery(JPQL);
+        q.setParameter("usuario", usuario);
+        q.setParameter("solicitud", solicitud);
+        return (FiltroEntity) q.getSingleResult();
+    }
+
+
     public FiltroEntity getCurrentStudy(long id){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
         EntityManager em = emf.createEntityManager();

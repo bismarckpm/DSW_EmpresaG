@@ -1,32 +1,36 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { StudyRequest } from '../../classes/study_request';
 import { CategoryService } from '../../services/category.service';
 import { RequestsService } from '../../services/requests.service';
-import { replaceKey } from '../../functions/common_functions';
+import { replaceKeyWithValue } from '../../functions/common_functions';
 import { REQUEST_STATES } from 'src/app/constants/request_status';
-import { Study } from 'src/app/classes/study';
-import { StudiesService } from 'src/app/services/studies.service';
+import { RequestWithFilter } from 'src/app/classes/request_with_filter';
 
 //TODO: Filter by current user
 @Component({
   selector: 'app-my-requests',
   templateUrl: './my-requests.component.html',
-  styleUrls: ['./my-requests.component.scss']
+  styleUrls: ['./my-requests.component.scss'],
+  providers: [ConfirmationService, MessageService]
 })
 export class MyRequestsComponent implements OnInit {
-  estudios: Study[];
-  estudiosErrorMessage: string;
+  // TODO: Get logged user
+  current_user: number = 94;
+  current_state: number; 
+  solicitudes: RequestWithFilter[];
+  solicitudes_backup: RequestWithFilter[];
+  solicitudesErrorMessage: string;
   categorias: MenuItem[];
   categoriasErrorMessage: string;
   request_states = REQUEST_STATES;
-  current_state: number = 1;
   show_stats: boolean = false;
   loading: boolean = false;
+
   @ViewChild('dt') table: Table;
   constructor(private requestsService: RequestsService,
-    private studiesService: StudiesService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
     private categoryService: CategoryService) { }
 
   ngOnInit(): void {
@@ -34,7 +38,7 @@ export class MyRequestsComponent implements OnInit {
     this.getRequests();
 
     this.categoryService.getCategories().subscribe((categories) => {
-      this.categorias = replaceKey(categories);
+      this.categorias = replaceKeyWithValue(categories);
       this.loading = false;
     }, errorMessage => {
       this.loading = false;
@@ -43,54 +47,58 @@ export class MyRequestsComponent implements OnInit {
   }
 
   onCategoryChange(event) {
-    this.table.filter(event.value, 'categoria', 'in')
+    this.table.filter(event.value, 'fkCategoria._id', 'in')
   }
 
   getRequests(){
-    this.requestsService.getRequests().subscribe((studies) => {
+    this.requestsService.getUserRequests(this.current_user).subscribe((requests) => {
       this.loading = false;
-      //this.estudios = studies;
+      this.solicitudes = requests;
+      this.solicitudes_backup = requests;
+      this.solicitudes = this.solicitudes.filter(req => req.fkSolicitud.estado == 0)
     }, errorMessage => {
       this.loading = false;
-      this.estudiosErrorMessage = errorMessage;
+      this.solicitudesErrorMessage = errorMessage;
     })
   }
 
-  getInProgressStudies(){
-    this.studiesService.getInProgressStudies().subscribe((studies) => {
-      //this.estudios = studies;
-      this.loading = false;
-    }, errorMessage => {
-      this.loading = false;
-      this.estudiosErrorMessage = errorMessage;
-    })
-  }
+  cancelRequest(study: RequestWithFilter){
+    this.confirmationService.confirm({
+      message: 'La solicitud para el estudio de categoría: <code>' + study.fkCategoria.nombre + '</code> está apunto de ser eliminada, ¿Desea continuar?',
+      header: 'Confirmación',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+          this.requestsService.deleteRequest(study.fkSolicitud).subscribe((s) => {
 
-  getFinishedStudies(){
-    this.studiesService.getFinishedStudies().subscribe((studies) => {
-      this.estudios = studies;
-      this.loading = false;
-    }, errorMessage => {
-      this.loading = false;
-      this.estudiosErrorMessage = errorMessage;
-    })
+            let index = this.solicitudes.indexOf(study)
+            if (index > -1)
+              this.solicitudes.splice(index, 1);
+
+            this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Solicitud eliminada con éxito'});
+            
+          }, errorMessage => {
+            this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
+          })
+      },
+      reject: () => {
+        //
+      }
+    });
   }
 
   filterStudies(event){
     this.loading = true;
-    /* In progress */
+    this.solicitudes = this.solicitudes_backup;
     if (event.value == 1){
-      this.show_stats = false;
-      this.getRequests();
+      this.solicitudes = this.solicitudes.filter(req => req.fkSolicitud.estado == 0)
     }
     else if (event.value == 2){
-      this.show_stats = false;
-      this.getInProgressStudies();
+      this.solicitudes = this.solicitudes.filter(req => req.fkSolicitud.estado == 1 && req.fkEstudio.estado == 1)
     }
     else if (event.value == 3){
-      this.show_stats = true;
-      this.getFinishedStudies();
+      this.solicitudes = this.solicitudes.filter(req => req.fkSolicitud.estado == 1 && req.fkEstudio.estado == 2)
     }
+    this.loading = false;
   }
 
 }

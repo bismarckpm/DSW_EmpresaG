@@ -11,6 +11,21 @@ import java.util.List;
 @Consumes( MediaType.APPLICATION_JSON )
 public class SurveyService {
     @GET
+    @Path("/available/{personId}")
+    public Response getAvailableSurveys(@PathParam("personId") long personId){
+        DaoEncuesta daoEncuesta = new DaoEncuesta();
+        try {
+            List<FiltroEntity> encuestas = daoEncuesta.getAvailableSurveys(personId);
+            return Response.ok().entity(encuestas).build();
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+
+    @GET
     @Path("/available-population/{id}")
     public Response getAvailablePopulation(@PathParam("id") long id){
         DaoEncuesta daoEncuesta = new DaoEncuesta();

@@ -228,6 +228,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `empresag`.`SOLICITUD` (
   `id` INT NOT NULL AUTO_INCREMENT,
+  `estado` INT NOT NULL,
   `fk_usuario` INT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -444,7 +445,7 @@ CREATE TABLE IF NOT EXISTS `empresag`.`FILTRO` (
   CONSTRAINT `fk_filtro_solicitud`
     FOREIGN KEY (`fk_solicitud`)
     REFERENCES `empresag`.`SOLICITUD` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 

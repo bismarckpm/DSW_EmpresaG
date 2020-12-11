@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { Study } from '../../classes/study';
 import { CategoryService } from '../../services/category.service';
-import { StudiesService } from '../../services/studies.service';
-import { replaceKey } from '../../functions/common_functions';
+import { replaceKeyWithValue } from '../../functions/common_functions';
 import { STUDY_STATES } from '../../constants/study_states'
+import { UserSurveyService } from 'src/app/services/user-survey.service';
+import { StudyWithFilter } from 'src/app/classes/study_with_filter';
 
 @Component({
   selector: 'app-available-surveys',
@@ -13,7 +13,8 @@ import { STUDY_STATES } from '../../constants/study_states'
   styleUrls: ['./available-surveys.component.scss']
 })
 export class AvailableSurveysComponent implements OnInit {
-  estudios: Study[];
+  current_user: number = 70;
+  estudios: StudyWithFilter[];
   estudiosErrorMessage: string;
   categorias: MenuItem[];
   categoriasErrorMessage: string;
@@ -21,27 +22,21 @@ export class AvailableSurveysComponent implements OnInit {
   loading: boolean = false;
   @ViewChild('dt') table: Table;
 
-  constructor(private studiesService: StudiesService,
+  constructor(private surveyService: UserSurveyService,
     private categoryService: CategoryService) { }
 
   ngOnInit(): void {
     this.loading = true;
-    // TODO: Get on progress studies that haven't been taken before
-    this.studiesService.getStudies().subscribe((studies) => {
-      /*this.estudios = studies.map(
-        function (obj){
-          return Object.assign(obj, 
-            {
-              n_preguntas: obj.preguntas.length, 
-              tiempo_estimado: obj.preguntas.length + (Math.floor(Math.random()*10)+1)
-            })});*/
+    // TODO: Get current user
+    this.surveyService.getAvailableSurveys(this.current_user).subscribe((studies) => {
+      this.estudios = studies;
     }, errorMessage => {
       this.loading = false;
       this.estudiosErrorMessage = errorMessage;
     })
 
     this.categoryService.getCategories().subscribe((categories) => {
-      this.categorias = replaceKey(categories);
+      this.categorias = replaceKeyWithValue(categories);
       this.loading = false;
     }, errorMessage => {
       this.loading = false;
@@ -51,12 +46,6 @@ export class AvailableSurveysComponent implements OnInit {
 
   
   onCategoryChange(event){
-    this.table.filter(event.value, 'categoria', 'in')
+    this.table.filter(event.value, 'fkCategoria._id', 'in')
   }
-
-  onStateChange(event){
-    this.table.filter(event.value, 'estado', 'in')
-  }
-
-
 }

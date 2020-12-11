@@ -70,36 +70,39 @@ export class MakeInterviewComponent implements OnInit {
     private fb: FormBuilder,
     private spinner: NgxSpinnerService) {
     /* If query is empty return 404 */
-    if ((this.activatedRoute.snapshot.queryParamMap.get('surveyId') || 0) == 0) {
+    if ((this.activatedRoute.snapshot.queryParamMap.get('surveyId') || 0) == 0 
+    || (this.activatedRoute.snapshot.queryParamMap.get('personId') || 0) == 0) {
       this.router.navigate(['404']);
     }
 
     else {
       this.spinner.show();
       this.current_study = parseInt(this.activatedRoute.snapshot.queryParamMap.get('surveyId'));
+      this.current_user = parseInt(this.activatedRoute.snapshot.queryParamMap.get('personId'));
 
-      this.studiesService.getStudyQuestionsWithOptions(this.current_study).subscribe((questions) => {
-        this.preguntas = questions;
-        /* TODO: Is current user part of the available population? */
-        if ((this.activatedRoute.snapshot.queryParamMap.get('personId') || 0) == 0) {
+      this.studiesService.getStudy(this.current_study).subscribe((study) => {
+        /* FINISHED STUDIES DO NOT ALLOW NEW ANSWERS */
+        if (study.fkEstudio.estado == 2){
           this.router.navigate(['404']);
         }
         else {
-          this.current_user = parseInt(this.activatedRoute.snapshot.queryParamMap.get('personId'));
-
-          this.analystService.isPersonPartOfAvailablePopulation(this.current_study, this.current_user).subscribe((res) => {
+          this.studiesService.getStudyQuestionsWithOptions(this.current_study).subscribe((questions) => {
+            this.preguntas = questions;
+    
+            this.analystService.isPersonPartOfAvailablePopulation(this.current_study, this.current_user).subscribe((res) => {
+              this.loading = false;
+              this.spinner.hide();
+              this.createForm();
+            }, errorMessage => {
+              this.router.navigate(['404']);
+            })
+    
+          }, errorMessage => {
+            this.questionsErrorMessage = errorMessage;
             this.loading = false;
             this.spinner.hide();
-            this.createForm();
-          }, errorMessage => {
-            this.router.navigate(['404']);
           })
         }
-
-      }, errorMessage => {
-        this.questionsErrorMessage = errorMessage;
-        this.loading = false;
-        this.spinner.hide();
       })
     }
   }

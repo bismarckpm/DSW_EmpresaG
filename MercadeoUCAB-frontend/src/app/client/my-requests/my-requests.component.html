@@ -8,7 +8,7 @@
                 <h3 class="table-title">SOLICITUDES DE ESTUDIO</h3>
             </div>
 
-            <div class="p-col-12 p-lg-6" *ngIf="current_state == 1">
+            <div class="p-col-12 p-lg-6" *ngIf="!current_state || current_state == 1">
                 <div class="p-grid p-jc-end p-mt-1 p-mr-4">
                     <button pButton pRipple type="button" pTooltip="Realizar solicitud" tooltipPosition="bottom"
                         icon="pi pi-plus" routerLink="../make-request" class="p-button-rounded p-button-text">
@@ -18,7 +18,7 @@
         </div>
         <hr>
         <!-- FILTER -->
-        <div *ngIf="estudios || loading">
+        <div *ngIf="solicitudes || loading">
             <p class="p-mx-5">Filtrar por:</p>
             <div class="p-grid p-mx-5 p-mt-3">
 
@@ -37,7 +37,7 @@
 
             </div>
             <div class="p-grid p-mt-5 p-mx-5">
-                <p-table #dt [value]="estudios" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
+                <p-table #dt [value]="solicitudes" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
                     [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
                     [paginator]="true"
                     currentPageReportTemplate="Mostrando desde {first} hasta {last} de {totalRecords} resultados"
@@ -71,43 +71,46 @@
                         <tr class="p-selectable-row">
                             <td class="p-text-center">
                                 <span class="p-column-title">Categoría</span>
-                                {{estudio.categoria}}
+                                {{estudio.fkCategoria.nombre}}
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Subcategoría</span>
-                                <span class="image-text">{{estudio.subcategoria}}</span>
-                            </td>
-                            <td class="p-text-center">
-                                <span class="p-column-title">Rango de edades</span>
-                                <span class="image-text" *ngIf="estudio.edad_minima && estudio.edad_maxima">De
-                                    {{estudio.edad_minima}} hasta {{estudio.edad_maxima}}</span>
-                            </td>
-                            <td class="p-text-center">
-                                <span class="p-column-title">Lugares</span>
-                                <span class="image-text">{{estudio.lugares}}</span>
+                                <span class="image-text"
+                                    *ngIf="estudio.fkSubcategoria">{{estudio.fkSubcategoria.nombre}}</span>
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Filtros adicionales</span>
-                                <span class="image-text" *ngIf="estudio.nivel_socioeconomico"><strong>Nivel
-                                        socioeconómico: </strong>{{estudio.nivel_socioeconomico}}&nbsp;</span>
-                                <span class="image-text" *ngIf="estudio.nivel_academico"><strong>Nivel académico:
-                                    </strong>{{estudio.nivel_academico}}&nbsp;</span>
-                                <span class="image-text" *ngIf="estudio.genero"><strong>Género: </strong>
-                                    {{estudio.genero}}&nbsp;</span>
+                                <span class="image-text" *ngIf="estudio.fkNivelSocioeconomico"><strong>Nivel
+                                        socioeconómico: </strong>{{estudio.fkNivelSocioeconomico.nombre}}&nbsp;</span>
+                                <span class="image-text" *ngIf="estudio.fkNivelAcademico"><strong>Nivel académico:
+                                    </strong>{{estudio.fkNivelAcademico.nombre}}&nbsp;</span>
+                                <span class="image-text" *ngIf="estudio.fkGenero"><strong>Género: </strong>
+                                    {{estudio.fkGenero.nombre}}&nbsp;</span>
+                                <span class="image-text" *ngIf="estudio.fkEdoCivil"><strong>Estado Civil: </strong>
+                                    {{estudio.fkEdoCivil.nombre}}&nbsp;</span>
 
+                            </td>
+                            <td class="p-text-center">
+                                <span class="p-column-title">Rango de edades</span>
+                                <span class="image-text" *ngIf="estudio.edadMinima && estudio.edadMaxima">De
+                                    {{estudio.edadMinima}} hasta {{estudio.edadMaxima}}</span>
+                            </td>
+                            <td class="p-text-center">
+                                <span class="p-column-title">Lugares</span>
+                                <span class="image-text" *ngIf="estudio.fkLugar">{{estudio.fkLugar.nombre}}</span>
                             </td>
 
                             <td class="p-text-center">
-                                <button *ngIf="current_state == 2 || current_state == 3" type="button" pButton pRipple
+                                <button *ngIf="estudio.fkSolicitud.estado == 1" type="button" pButton pRipple
                                     icon="pi pi-eye" class="p-button-rounded p-mr-2" pTooltip="Vista previa del estudio"
-                                    tooltipPosition="bottom" routerLink="../view-study" [queryParams]="{studyId: estudio.id}"></button>
-                                <button *ngIf="current_state == 3" type="button" pButton pRipple icon="pi pi-chart-bar"
-                                    class="p-button-rounded p-mr-2" routerLink="../view-study/stats" [queryParams]="{studyId: estudio.id}" pTooltip="Estadísticas"
+                                    tooltipPosition="bottom" routerLink="../view-study" [queryParams]="{studyId: estudio.fkEstudio._id}"></button>
+                                <button *ngIf="estudio.fkSolicitud.estado == 1 && estudio.fkEstudio && estudio.fkEstudio.estado == 2" type="button" pButton pRipple icon="pi pi-chart-bar"
+                                    class="p-button-rounded p-mr-2" routerLink="../view-study/stats" [queryParams]="{studyId: estudio.fkEstudio._id}" pTooltip="Estadísticas"
                                     tooltipPosition="bottom" ></button>
-                                <button *ngIf="current_state == 1" type="button" pButton pRipple icon="pi pi-pencil"
+                                <button *ngIf="estudio.fkSolicitud.estado == 0" type="button" pButton pRipple icon="pi pi-pencil"
                                     class="p-button-rounded p-mr-2" pTooltip="Editar solicitud" tooltipPosition="bottom"
-                                    routerLink="../edit-request" [queryParams]="{requestId: estudio.id}"></button>
-                                <button *ngIf="current_state == 1" type="button" pButton pRipple icon="pi pi-times"
+                                    routerLink="../edit-request" [queryParams]="{requestId: estudio.fkSolicitud._id}"></button>
+                                <button *ngIf="estudio.fkSolicitud.estado == 0" (click)="cancelRequest(estudio)" type="button" pButton pRipple icon="pi pi-times"
                                     class="p-button-rounded p-mr-2" pTooltip="Cancelar solicitud"
                                     tooltipPosition="bottom"></button>
                             </td>
@@ -121,8 +124,11 @@
                 </p-table>
             </div>
         </div>
-        <div *ngIf="!estudios && !loading && estudiosErrorMessage">
+        <div *ngIf="!solicitudes && !loading && solicitudesErrorMessage">
             <app-server-disconnected></app-server-disconnected>
         </div>
     </p-card>
 </div>
+
+<p-confirmDialog></p-confirmDialog>
+<p-toast></p-toast>

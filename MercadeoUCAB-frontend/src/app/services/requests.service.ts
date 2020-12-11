@@ -22,6 +22,16 @@ export class RequestsService {
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
+  getUserRequest(person_id, request_id): Observable<RequestWithFilter>{
+    return this.http.get<RequestWithFilter>(serverURL + 'requests/find-specific-by-user/' + person_id + '/' + request_id)
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
+  getUserRequests(person_id): Observable<RequestWithFilter[]>{
+    return this.http.get<RequestWithFilter[]>(serverURL + 'requests/find-by-user/' + person_id)
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
   getRequest(rid): Observable<RequestWithFilter>{
     return this.http.get<RequestWithFilter>(serverURL + 'requests/find/' + rid)
       .pipe(catchError(this.processHTTPMessageService.handleError))
@@ -38,14 +48,19 @@ export class RequestsService {
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  postRequest(request): Observable<Request>{
+  deleteRequest(request): Observable<RequestWithFilter>{
+    return this.http.delete<RequestWithFilter>(serverURL + 'requests/delete/' + request._id)
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
+
+  postRequest(request: RequestWithFilter): Observable<RequestWithFilter>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
     };
 
-    return this.http.post<Request>(baseURL + 'requests' , request, httpOptions)
+    return this.http.post<RequestWithFilter>(serverURL + 'requests/add' , request, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
@@ -56,7 +71,7 @@ export class RequestsService {
       }),
     };
 
-    return this.http.put<Request>(baseURL + 'requests/' + request.id, request, httpOptions)
+    return this.http.put<Request>(serverURL + 'requests/update/' + request._id, request, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 }
