@@ -1,4 +1,4 @@
-import { AcademicLevel } from './academic_level';
+import { AcademicLevel } from '../classes/academic_level';
 import { Category } from './category';
 import { CivilStatus } from './civil_status';
 import { Gender } from './gender';

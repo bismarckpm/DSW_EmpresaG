@@ -11,7 +11,7 @@ import { Child } from '../../../classes/child';
 
 import { NgxSpinnerService } from "ngx-spinner";
 import { MenuItem, MessageService, PrimeNGConfig } from 'primeng/api';
-import { RxwebValidators } from '@rxweb/reactive-form-validators'
+import { email, RxwebValidators } from '@rxweb/reactive-form-validators'
 import { Router } from '@angular/router'
 
 
@@ -465,7 +465,7 @@ export class AddUserFormComponent implements OnInit {
     this.userService.persona.fkRol._id = this.userForm.value.rol;
     this.userService.persona.password = this.userForm.value.clave;
     this.userService.persona.confirmar_clave = this.userForm.value.confirmar_clave;
-    
+    this.userService.persona.estado = 1;
 // Si ES ENCUESTADO
     if (this.rol){
       // this.userService.persona.estado_cuenta = this.userForm.value.estado_cuenta;
@@ -523,7 +523,7 @@ export class AddUserFormComponent implements OnInit {
         this.userService.postPerson(this.userService.persona)
           .subscribe(person => {
             console.log("REGISTERED")
-            this.userForm.reset;
+            this.userForm.reset();
             this.previousPage();
           },
           errorMessage => {
@@ -549,7 +549,7 @@ export class AddUserFormComponent implements OnInit {
         this.userService.postPerson(this.userService.persona)
           .subscribe(person => {
             console.log("REGISTERED")
-            this.userForm.reset;
+            this.userForm.reset();
             this.previousPage();
           },
           errorMessage => {
@@ -566,6 +566,7 @@ export class AddUserFormComponent implements OnInit {
       }
 
     }
+
   
 
   userHasKids(event){
@@ -655,5 +656,6 @@ export class AddUserFormComponent implements OnInit {
 
   previousPage(): void {
     this.router.navigate(['/users'])
+    this.userForm.reset();
   }
 }

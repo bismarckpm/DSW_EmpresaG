@@ -65,9 +65,11 @@
                                 <span class="image-text">{{convertStatus(persona.estado)}}</span>
                             </td>
                             <td class="p-text-center">
+                            
                                 <button type="button" pButton pRipple icon="pi pi-pencil"
                                     class="p-button-rounded p-mr-2" pTooltip="Editar usuario" [routerLink]="['edit']"
-                                    [queryParams]="{pid:persona.id , origin: 'person'}"
+                                    [queryParams]="{pid:persona._id , origin: 'person'}"
+                                    (click)="showEditUser(persona._id);"
                                     tooltipPosition="bottom"></button>
                                 <button type="button" pButton pRipple icon="pi pi-trash" class="p-button-rounded"
                                     pTooltip="Eliminar usuario" tooltipPosition="bottom"

@@ -20,7 +20,7 @@ import { EdocivilService } from 'src/app/services/edocivil.service';
 import { Gender } from 'src/app/classes/gender';
 import { Place } from 'src/app/classes/place';
 import { SocioEconomicStatus } from 'src/app/classes/socioeconomic_status';
-import { AcademicLevel } from 'src/app/classes/academic_level';
+import { AcademicLevel } from '../../classes/academic_level';
 import { Table } from 'primeng/table';
 
 /* Form */

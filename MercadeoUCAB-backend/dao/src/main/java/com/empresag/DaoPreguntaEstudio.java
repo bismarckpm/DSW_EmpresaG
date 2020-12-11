@@ -37,15 +37,15 @@ public class DaoPreguntaEstudio extends Dao<PreguntaEstudioEntity> {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
         EntityManager em = emf.createEntityManager();
         DaoEstudio daoEstudio = new DaoEstudio();
-        EstudioEntity estudio = daoEstudio.find(id, EstudioEntity.class);
+        DaoTipoPregunta daoTipoPregunta = new DaoTipoPregunta();
+        EstudioEntity estudio = daoEstudio.find(1L, EstudioEntity.class);
+        TipoPreguntaEntity tipo = daoTipoPregunta.find(1L, TipoPreguntaEntity.class);
 
-        JPQL = "SELECT pe FROM " +
-                "PreguntaEstudioEntity pe, PreguntaEntity p " +
-                "WHERE " +
-                "p = pe.fkPregunta AND p.status = 1 " +
-                "AND pe.fkEstudio = :estudio";
+        JPQL = "SELECT e FROM PreguntaEstudioEntity e, PreguntaEntity p, TipoPreguntaEntity tp " +
+                "WHERE e.fkPregunta = p AND tp = p.fkTipoPregunta AND tp = :tipo AND e.fkEstudio = :estudio";
         q = em.createQuery(JPQL);
         q.setParameter("estudio", estudio);
+        q.setParameter("tipo", tipo);
         List<PreguntaEstudioEntity> preguntas = q.getResultList();
         List<PreguntaEstudioDto> resultSet = new ArrayList<>();
 

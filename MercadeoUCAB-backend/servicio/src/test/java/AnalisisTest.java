@@ -1,4 +1,5 @@
-package com.empresag;
+import com.empresag.*;
+import org.junit.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -8,36 +9,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class DaoAnalisis extends Dao<AnalisisEntity> {
+public class AnalisisTest {
     String JPQL = null;
     Query q = null;
-    static DaoHandler _handler = new DaoHandler();
 
-    public DaoAnalisis() {
-        super(_handler);
-    }
-
-    public AnalisisEntity getAnalisis(long studyId){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
-        EntityManager em = emf.createEntityManager();
-        DaoEstudio daoEstudio = new DaoEstudio();
-        EstudioEntity estudio = daoEstudio.find(studyId, EstudioEntity.class);
-        AnalisisEntity analisis = null;
-
-        JPQL = "SELECT a FROM AnalisisEntity a, EstudioEntity e WHERE e.fkAnalisis = a AND e = :estudio";
-        q = em.createQuery(JPQL);
-        q.setParameter("estudio", estudio);
-        analisis = (AnalisisEntity) q.getSingleResult();
-
-        return analisis;
-    }
-
-    public List<PreguntaEstudioDto> getOpenTextAnswers(long studyId) throws IndexDatabaseException {
+    @Test
+    public void getOpenTextAnswers() throws IndexDatabaseException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
         EntityManager em = emf.createEntityManager();
         DaoEstudio daoEstudio = new DaoEstudio();
         DaoTipoPregunta daoTipoPregunta = new DaoTipoPregunta();
-        EstudioEntity estudio = daoEstudio.find(studyId, EstudioEntity.class);
+        EstudioEntity estudio = daoEstudio.find(1L, EstudioEntity.class);
         TipoPreguntaEntity tipo = daoTipoPregunta.find(1L, TipoPreguntaEntity.class);
 
         JPQL = "SELECT e FROM PreguntaEstudioEntity e, PreguntaEntity p, TipoPreguntaEntity tp " +
@@ -69,15 +51,23 @@ public class DaoAnalisis extends Dao<AnalisisEntity> {
 
             resultSet.add(pe);
         }
-        return resultSet;
+
+        for (PreguntaEstudioDto pedto: resultSet) {
+            System.out.println(pedto.getFkPregunta());
+            for (EncuestaDto prdto: pedto.getListRespuestasTexto()) {
+                System.out.println(prdto.getRespuestaTexto());
+            }
+        }
+
     }
 
-    public List<PreguntaEstudioDto> getSelectionAnswers(long studyId) throws IndexDatabaseException {
+    @Test
+    public void getSelectionAnswers() throws IndexDatabaseException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
         EntityManager em = emf.createEntityManager();
         DaoEstudio daoEstudio = new DaoEstudio();
         DaoTipoPregunta daoTipoPregunta = new DaoTipoPregunta();
-        EstudioEntity estudio = daoEstudio.find(studyId, EstudioEntity.class);
+        EstudioEntity estudio = daoEstudio.find(1L, EstudioEntity.class);
         TipoPreguntaEntity tipo = daoTipoPregunta.find(2L, TipoPreguntaEntity.class);
         TipoPreguntaEntity tipo2 = daoTipoPregunta.find(3L, TipoPreguntaEntity.class);
 
@@ -116,15 +106,22 @@ public class DaoAnalisis extends Dao<AnalisisEntity> {
             }
             resultSet.add(pe);
         }
-        return resultSet;
+
+        for (PreguntaEstudioDto pedto: resultSet) {
+            System.out.println(pedto.getFkPregunta());
+            for (OpcionDto op: pedto.getFkPregunta().getListOpciones()) {
+                System.out.println("NUMERO DE PERSONAS QUE CONTESTARON LA OPCION: "+ op.getValor() + " "+ op.getNumeroDePersonas());
+            }
+        }
     }
 
-    public List<PreguntaEstudioDto> getTrueFalseAnswers(long studyId) throws IndexDatabaseException {
+    @Test
+    public void getTrueFalseAnswers() throws IndexDatabaseException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
         EntityManager em = emf.createEntityManager();
         DaoEstudio daoEstudio = new DaoEstudio();
         DaoTipoPregunta daoTipoPregunta = new DaoTipoPregunta();
-        EstudioEntity estudio = daoEstudio.find(studyId, EstudioEntity.class);
+        EstudioEntity estudio = daoEstudio.find(1L, EstudioEntity.class);
         TipoPreguntaEntity tipo = daoTipoPregunta.find(4L, TipoPreguntaEntity.class);
 
         JPQL = "SELECT e FROM PreguntaEstudioEntity e, PreguntaEntity p, TipoPreguntaEntity tp " +
@@ -161,16 +158,23 @@ public class DaoAnalisis extends Dao<AnalisisEntity> {
             }
             resultSet.add(pe);
         }
-        return resultSet;
+
+        for (PreguntaEstudioDto pedto: resultSet) {
+            System.out.println(pedto.getFkPregunta());
+            for (OpcionDto op: pedto.getFkPregunta().getListOpciones()) {
+                System.out.println("NUMERO DE PERSONAS QUE CONTESTARON LA OPCION: "+ op.getValor() + " "+ op.getNumeroDePersonas());
+            }
+        }
     }
 
-    public List<PreguntaEstudioDto> getRangeAnswers(long studyId) throws IndexDatabaseException {
+    @Test
+    public void getRangeAnswers() throws IndexDatabaseException {
         Object [] tuple = null;
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
         EntityManager em = emf.createEntityManager();
         DaoEstudio daoEstudio = new DaoEstudio();
         DaoTipoPregunta daoTipoPregunta = new DaoTipoPregunta();
-        EstudioEntity estudio = daoEstudio.find(studyId, EstudioEntity.class);
+        EstudioEntity estudio = daoEstudio.find(1L, EstudioEntity.class);
         TipoPreguntaEntity tipo = daoTipoPregunta.find(5L, TipoPreguntaEntity.class);
 
         JPQL = "SELECT e FROM PreguntaEstudioEntity e, PreguntaEntity p, TipoPreguntaEntity tp " +
@@ -202,6 +206,23 @@ public class DaoAnalisis extends Dao<AnalisisEntity> {
             }
             resultSet.add(pe);
         }
-        return resultSet;
+
+        for (PreguntaEstudioDto pedto: resultSet) {
+            System.out.println(pedto.getFkPregunta());
+            System.out.println(pedto.getPromedioRangoInicial());
+            System.out.println(pedto.getPromedioRangoFinal());
+        }
+    }
+
+    @Test
+    public void postConclusion(){
+        DaoEstudio daoEstudio = new DaoEstudio();
+        DaoAnalisis daoAnalisis = new DaoAnalisis();
+        EstudioEntity estudio = daoEstudio.find(2L, EstudioEntity.class);
+        estudio.setEstado(2);
+        daoEstudio.update(estudio);
+        AnalisisEntity analisis = new AnalisisEntity();
+        analisis.setConclusiones("<p><strong><em><u>Hola</u></em></strong></p>");
+        daoAnalisis.insert(analisis);
     }
 }

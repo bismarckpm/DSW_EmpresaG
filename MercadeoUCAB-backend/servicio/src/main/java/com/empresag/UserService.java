@@ -195,6 +195,7 @@ public class UserService {
             DaoPersona daoPersona = new DaoPersona();
             PersonaEntity persona = daoPersona.find(usuario.getFk_Persona().get_id(), PersonaEntity.class);
             PersonaDto usuarioPersona = new PersonaDto();
+            usuarioPersona.set_id(persona.get_id());
             usuarioPersona.setDocumentoIdentidad(persona.getDocumentoIdentidad());
             usuarioPersona.setPrimerNombre(persona.getPrimerNombre());
             usuarioPersona.setSegundoNombre(persona.getSegundoNombre());
@@ -505,9 +506,9 @@ public class UserService {
 
         if (usuarioOld != null){
 
-//            usuarioOld.setEmail(usuarioDto.getEmail());
-//            usuarioOld.setEstado(usuarioDto.getEstado());
-//            usuarioOld.setPassword(usuarioDto.getPassword());
+            usuarioOld.setEstado(usuarioDto.getEstado());
+            if (!usuarioDto.getPassword().equals(""))
+                usuarioOld.setPassword(usuarioDto.getPassword());
 //
 //            DaoRol daoRol = new DaoRol();
 //            RolEntity rol = daoRol.find(usuarioDto.getFk_Rol().get_id(), RolEntity.class);

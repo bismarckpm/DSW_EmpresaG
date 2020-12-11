@@ -6,7 +6,8 @@ import { Place } from './place';
 import { telefono } from './telefono';
 import { Disponibilidad } from './disponibilidad';
 
-export class persondata {    
+export class persondata { 
+    _id ?: number;   
     primerNombre?: string;
     primerApellido?: string;
     documentoIdentidad?: string;

@@ -4,6 +4,7 @@ import { MenuItem, MessageService, PrimeNGConfig } from 'primeng/api';
 import { ConfirmationService } from 'primeng/api';
 import { Person } from '../classes/person';
 import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
 import { replaceKey } from '../functions/common_functions';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ProcessHttpMessageService } from '../services/process-http-message.service';
@@ -26,6 +27,7 @@ export class UsersComponent implements OnInit {
   @ViewChild('dt') table: Table;
 
   constructor(
+    private router: Router,
     private userService: UserService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
@@ -38,6 +40,7 @@ export class UsersComponent implements OnInit {
     this.loading = true;
     this.userService.getPersons().subscribe((person) => {
       this.usuarios = person; 
+      console.log(person);
       this.loading = false;
     },
     errorMessage => {
@@ -80,6 +83,10 @@ export class UsersComponent implements OnInit {
       return "Activo"
     else 
       return "N/A"
+  }
+
+  showEditUser(userid){    
+    this.router.navigate(["/users/edit/"], { queryParams: { pid: userid } });
   }
 
 }
