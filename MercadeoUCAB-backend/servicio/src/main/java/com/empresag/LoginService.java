@@ -1,5 +1,7 @@
 package com.empresag;
 
+import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -86,7 +88,7 @@ public class LoginService {
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
         }
-        catch (MessagingException ex){
+        catch (javax.mail.MessagingException ex){
             ex.printStackTrace();
         }
     }
