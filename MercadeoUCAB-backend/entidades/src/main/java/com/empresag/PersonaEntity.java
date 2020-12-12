@@ -188,8 +188,16 @@ public class PersonaEntity extends BaseEntity{
         this.fkDisponibilidadFinal = fkDisponibilidadFinal;
     }
 
+    public Integer age(Date fechaNacimiento){
+        return 1;
+    }
+
     @Override
     public String toString() {
+        String FK_Persona = "";
+        if (fkPersona != null)
+            FK_Persona = fkPersona.toString();
+
         return "PersonaEntity{" +
                 "documentoIdentidad='" + documentoIdentidad + '\'' +
                 ", primerNombre='" + primerNombre + '\'' +
@@ -197,10 +205,11 @@ public class PersonaEntity extends BaseEntity{
                 ", primerApellido='" + primerApellido + '\'' +
                 ", segundoApellido='" + segundoApellido + '\'' +
                 ", fechaNacimiento=" + fechaNacimiento +
+                ", fkGenero=" + fkGenero.toString() +
+                ", fkEdoCivil=" + fkEdoCivil.toString() +
+                ", fkPersona=" + FK_Persona +
+                ", numero_personas_encasa=" + numero_personas_encasa +
+                ", fkLugar=" + fkLugar.toString() +
                 '}';
-    }
-
-    public Integer age(Date fechaNacimiento){
-        return 1;
     }
 }

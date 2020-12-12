@@ -6,6 +6,7 @@ import { Router } from '@angular/router'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../services/login.service';
 import { Person } from '../classes/person';
+import { Users } from '../classes/users';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ import { Person } from '../classes/person';
 export class LoginComponent implements OnInit {
 
   sent_form: boolean = false;
-  user: Person;
+  user: Users;
 
   /* Form */
   loginForm: FormGroup;
@@ -101,7 +102,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.sent_form = true;
-    this.user = new Person();
+    this.user = new Users();
     this.user.email = this.loginForm.value.correo_electronico;
     this.user.password = this.loginForm.value.clave;
 
@@ -109,12 +110,23 @@ export class LoginComponent implements OnInit {
       .subscribe(person => {
 
       // TODO: Redireccion a la ruta apropiada cuando el auth este listo
-      console.log("Iniciando sesion")
+      if (person == null){
+        this.messageService.add({severity:'error', summary: 'Error', detail: 'Usuario o clave incorrectos.'});
+      }
+      else{
+        this.messageService.add({severity:'success', summary: 'Exito', detail: 'Usuario validado correctamente.'});
+        this.nextPage();
+      }
+      
       this.sent_form = false;
       },
       errorMessage => {
         this.sent_form = false;
         this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
       })
+  }
+
+  nextPage(): void {
+    this.router.navigate(['/profile']);
   }
 }

@@ -26,4 +26,10 @@ public class RolEntity extends BaseEntity{
         this.nombre = nombre;
     }
 
+    @Override
+    public String toString() {
+        return "RolEntity{" +
+                "nombre='" + nombre + '\'' +
+                '}';
+    }
 }

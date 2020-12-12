@@ -56,11 +56,19 @@ public class LugarEntity extends BaseEntity{
 
     @Override
     public String toString() {
+        String FK_Lugar = "";
+        String FK_NivelSocioEconomico = "";
+
+        if (fkLugar != null)
+            FK_Lugar = fkLugar.toString();
+        if (fkNivelSocioeconomico != null)
+            FK_NivelSocioEconomico = fkNivelSocioeconomico.toString();
+
         return "LugarEntity{" +
                 "nombre='" + nombre + '\'' +
                 ", tipo=" + tipo +
-                ", fkNivelSocioeconomico=" + fkNivelSocioeconomico +
-                ", fkLugar=" + fkLugar +
+                ", fkNivelSocioeconomico=" + FK_NivelSocioEconomico +
+                ", fkLugar=" + FK_Lugar +
                 '}';
     }
 }
