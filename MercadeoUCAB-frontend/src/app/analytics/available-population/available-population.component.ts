@@ -4,7 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Table } from 'primeng/table';
 import { persondata } from 'src/app/classes/persondata';
 import { Study } from 'src/app/classes/study';
-import { AnalystService } from 'src/app/services/analyst.service';
+import { AnalystService } from 'src/app/services/analytics/analyst.service';
 
 @Component({
   selector: 'app-available-population',
@@ -41,7 +41,7 @@ export class AvailablePopulationComponent implements OnInit {
           this.loading = false;
           this.spinner.hide();
         }
-        
+
       }, errorMessage => {
         this.router.navigate(['404']);
         this.spinner.hide();

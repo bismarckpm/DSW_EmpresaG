@@ -1,22 +1,22 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
-import { PlaceService } from '../../services/place.service';
+import { PlaceService } from '../../services/profile/place.service';
 import { MessageService } from 'primeng/api';
-import { CategoryService } from '../../services/category.service';
-import { SubcategoryService } from '../../services/subcategory.service';
+import { CategoryService } from '../../services/admin/products/category.service';
+import { SubcategoryService } from '../../services/admin/products/subcategory.service';
 import { SOCIAL_STATUSES } from '../../constants/social_status';
 import { MenuItem } from 'primeng/api';
 import { replaceKeyWithValue } from '../../functions/common_functions';
-import { RequestsService } from 'src/app/services/requests.service';
+import { RequestsService } from 'src/app/services/client/requests.service';
 import { StudyRequest } from 'src/app/classes/study_request';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RxwebValidators } from '@rxweb/reactive-form-validators'
-import { NivelAcademicoService } from 'src/app/services/nivel-academico.service';
-import { GeneroService } from 'src/app/services/genero.service';
-import { EdocivilService } from 'src/app/services/edocivil.service';
+import { NivelAcademicoService } from 'src/app/services/profile/nivel-academico.service';
+import { GeneroService } from 'src/app/services/profile/genero.service';
+import { EdocivilService } from 'src/app/services/profile/edocivil.service';
 import { RequestWithFilter } from 'src/app/classes/request_with_filter';
 import { SocioEconomicStatus } from 'src/app/classes/socioeconomic_status';
 import { AcademicLevel } from 'src/app/classes/academic_level';
@@ -106,7 +106,7 @@ export class CreateRequestComponent implements OnInit {
     }, errorMessage => {
       this.categoriesErrorMessage = errorMessage;
     })
-    
+
     this.academicLevelService.getNivelesAcademicos().subscribe((levels) => {
       this.niveles_academicos = replaceKeyWithValue(levels);
     }, errorMessage => {

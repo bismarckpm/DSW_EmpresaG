@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { CategoryService } from '../../services/category.service';
-import { RequestsService } from '../../services/requests.service';
+import { CategoryService } from '../../services/admin/products/category.service';
+import { RequestsService } from '../../services/client/requests.service';
 import { replaceKeyWithValue } from '../../functions/common_functions';
 import { REQUEST_STATES } from 'src/app/constants/request_status';
 import { RequestWithFilter } from 'src/app/classes/request_with_filter';
@@ -17,7 +17,7 @@ import { RequestWithFilter } from 'src/app/classes/request_with_filter';
 export class MyRequestsComponent implements OnInit {
   // TODO: Get logged user
   current_user: number = 94;
-  current_state: number; 
+  current_state: number;
   solicitudes: RequestWithFilter[];
   solicitudes_backup: RequestWithFilter[];
   solicitudesErrorMessage: string;
@@ -75,7 +75,7 @@ export class MyRequestsComponent implements OnInit {
               this.solicitudes.splice(index, 1);
 
             this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Solicitud eliminada con éxito'});
-            
+
           }, errorMessage => {
             this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
           })

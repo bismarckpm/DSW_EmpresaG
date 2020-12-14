@@ -1,23 +1,23 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
-import { PlaceService } from '../../services/place.service';
+import { PlaceService } from '../../services/profile/place.service';
 import { MessageService } from 'primeng/api';
-import { CategoryService } from '../../services/category.service';
-import { SubcategoryService } from '../../services/subcategory.service';
+import { CategoryService } from '../../services/admin/products/category.service';
+import { SubcategoryService } from '../../services/admin/products/subcategory.service';
 import { SOCIAL_STATUSES } from '../../constants/social_status';
 import { MenuItem } from 'primeng/api';
 import { replaceKeyWithValue } from '../../functions/common_functions';
-import { RequestsService } from 'src/app/services/requests.service';
+import { RequestsService } from 'src/app/services/client/requests.service';
 import { AcademicLevel } from 'src/app/classes/academic_level';
 import { CivilStatus } from 'src/app/classes/civil_status';
 import { Gender } from 'src/app/classes/gender';
 import { Place } from 'src/app/classes/place';
 import { SocioEconomicStatus } from 'src/app/classes/socioeconomic_status';
 import { RequestWithFilter } from 'src/app/classes/request_with_filter';
-import { NivelAcademicoService } from 'src/app/services/nivel-academico.service';
-import { GeneroService } from 'src/app/services/genero.service';
-import { EdocivilService } from 'src/app/services/edocivil.service';
+import { NivelAcademicoService } from 'src/app/services/profile/nivel-academico.service';
+import { GeneroService } from 'src/app/services/profile/genero.service';
+import { EdocivilService } from 'src/app/services/profile/edocivil.service';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';

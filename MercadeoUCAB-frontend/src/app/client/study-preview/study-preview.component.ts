@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
-import { StudiesService } from '../../services/studies.service';
+import { StudiesService } from '../../services/admin/studies/studies.service';
 import { Location } from '@angular/common';
 import { StudyWithFilter } from 'src/app/classes/study_with_filter';
 import { QuestionCategorySubcategory } from 'src/app/classes/question_category_subcategory';
@@ -35,7 +35,7 @@ export class StudyPreviewComponent implements OnInit {
 
       this.current_study = parseInt(this.Activatedroute.snapshot.queryParamMap.get('studyId'));
       this.studiesService.getStudy(this.current_study).subscribe((study) => {
-        
+
         if (!study) {
           this.router.navigate(['404']);
         }
@@ -50,7 +50,7 @@ export class StudyPreviewComponent implements OnInit {
         }, errorMessage => {
           this.questionsErrorMessage = errorMessage;
         })
-        
+
       }, errorMessage => {
         this.loading = false;
         this.spinner.hide();

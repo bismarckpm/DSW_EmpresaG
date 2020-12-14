@@ -1,0 +1,24 @@
+<div class="demo-container p-mx-6 p-p-0 p-p-sm-1 p-p-md-2 p-p-lg-6">
+    <p-card>
+        <div class="p-grid">
+            <!-- Imagen decorativa -->
+            <div class="p-col-12 p-lg-5 p-d-none p-d-lg-inline-flex">
+                <img src="../../../assets/img/register-2.jpg" class="panel-img" width="100%" height="550px" alt="">
+            </div>
+
+            <!-- Formulario de registro -->
+            <div class="p-col-12 p-lg-7">
+                <div class="p-grid p-jc-center p-d-lg-none">
+                    <img src="../../../assets/img/Logo.png" width="150px" height="150px" alt="">
+                </div>
+                <p-steps [model]="items" class="p-d-none p-d-lg-block"></p-steps>
+                <router-outlet></router-outlet>
+
+
+
+                <div class="p-text-center p-mt-4">¿Ya tienes cuenta? <a routerLink="/login">Login</a></div>
+            </div>
+        </div>
+    </p-card>
+</div>
+

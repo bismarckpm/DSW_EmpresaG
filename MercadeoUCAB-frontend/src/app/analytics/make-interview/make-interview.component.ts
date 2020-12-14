@@ -3,15 +3,15 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { RxwebValidators } from '@rxweb/reactive-form-validators'
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { StudiesService } from 'src/app/services/studies.service';
-import { UserSurveyService } from '../../services/user-survey.service';
+import { StudiesService } from 'src/app/services/admin/studies/studies.service';
+import { UserSurveyService } from '../../services/surveys/user-survey.service';
 import { MessageService } from 'primeng/api';
 import { Person } from 'src/app/classes/person';
 import { StudyQuestion } from 'src/app/classes/study_question';
 import { Survey } from 'src/app/classes/survey';
 import { PossibleAnswer } from 'src/app/classes/possible_answers';
 import { Option } from 'src/app/classes/options';
-import { AnalystService } from 'src/app/services/analyst.service';
+import { AnalystService } from 'src/app/services/analytics/analyst.service';
 import { catchError } from 'rxjs/operators';
 
 @Component({
@@ -70,7 +70,7 @@ export class MakeInterviewComponent implements OnInit {
     private fb: FormBuilder,
     private spinner: NgxSpinnerService) {
     /* If query is empty return 404 */
-    if ((this.activatedRoute.snapshot.queryParamMap.get('surveyId') || 0) == 0 
+    if ((this.activatedRoute.snapshot.queryParamMap.get('surveyId') || 0) == 0
     || (this.activatedRoute.snapshot.queryParamMap.get('personId') || 0) == 0) {
       this.router.navigate(['404']);
     }
@@ -88,7 +88,7 @@ export class MakeInterviewComponent implements OnInit {
         else {
           this.studiesService.getStudyQuestionsWithOptions(this.current_study).subscribe((questions) => {
             this.preguntas = questions;
-    
+
             this.analystService.isPersonPartOfAvailablePopulation(this.current_study, this.current_user).subscribe((res) => {
               this.loading = false;
               this.spinner.hide();
@@ -96,7 +96,7 @@ export class MakeInterviewComponent implements OnInit {
             }, errorMessage => {
               this.router.navigate(['404']);
             })
-    
+
           }, errorMessage => {
             this.questionsErrorMessage = errorMessage;
             this.loading = false;

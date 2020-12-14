@@ -1,33 +1,33 @@
 import { Routes } from '@angular/router';
 
-import { LoginComponent } from '../login/login.component';
-import { RegisterComponent } from '../register/register.component';
-import { AccountComponent } from '../register/account/account.component';
-import { ContactComponent } from '../register/contact/contact.component';
-import { StatusComponent } from '../register/status/status.component';
-import { FamilyComponent } from '../register/family/family.component';
-import { RecoveryComponent } from '../recovery/recovery.component';
-import { QuestionsComponent } from '../questions/questions.component'
-import { AddQuestionComponent } from '../questions/add-question/add-question.component'
-import { EditQuestionComponent } from '../questions/edit-question/edit-question.component';
-import { PreviewQuestionComponent } from '../questions/preview-question/preview-question.component';
+import { LoginComponent } from '../auth/login/login.component';
+import { RegisterComponent } from '../auth/register/register.component';
+import { AccountComponent } from '../auth/register/account/account.component';
+import { ContactComponent } from '../auth/register/contact/contact.component';
+import { StatusComponent } from '../auth/register/status/status.component';
+import { FamilyComponent } from '../auth/register/family/family.component';
+import { RecoveryComponent } from '../auth/recovery/recovery.component';
+import { QuestionsComponent } from '../admin/questions/questions.component'
+import { AddQuestionComponent } from '../admin/questions/add-question/add-question.component'
+import { EditQuestionComponent } from '../admin/questions/edit-question/edit-question.component';
+import { PreviewQuestionComponent } from '../admin/questions/preview-question/preview-question.component';
 
 /* STUDIES */
-import { CreateStudyComponent } from '../studies/create-study/create-study.component';
-import { EditStudyComponent } from '../studies/edit-study/edit-study.component';
-import { ExistingStudiesComponent } from '../studies/existing-studies/existing-studies.component';
-import { StudyRequestsComponent } from '../studies/study-requests/study-requests.component';
-import { ViewStudyComponent } from '../studies/view-study/view-study.component';
+import { CreateStudyComponent } from '../admin/studies/create-study/create-study.component';
+import { EditStudyComponent } from '../admin/studies/edit-study/edit-study.component';
+import { ExistingStudiesComponent } from '../admin/studies/existing-studies/existing-studies.component';
+import { StudyRequestsComponent } from '../admin/studies/study-requests/study-requests.component';
+import { ViewStudyComponent } from '../admin/studies/view-study/view-study.component';
 
-import { CategoriesComponent } from '../categories/categories.component';
+import { CategoriesComponent } from '../admin/categories/categories.component';
 import { NotFoundComponent } from '../errors/not-found/not-found.component';
-import { ProfileComponent } from '../profile/profile.component';
-import { ChangeComponent } from '../recovery/change/change.component';
-import { SelectExistingComponent } from '../studies/select-existing/select-existing.component';
-import { PresentationsComponent } from '../presentations/presentations.component';
-import { UsersComponent } from '../users/users.component';
-import { AddUserComponent } from '../users/add-user/add-user.component';
-import { EditUserComponent } from '../users/edit-user/edit-user.component';
+import { ProfileComponent } from '../common/profile/profile.component';
+import { ChangeComponent } from '../auth/recovery/change/change.component';
+import { SelectExistingComponent } from '../admin/studies/select-existing/select-existing.component';
+import { PresentationsComponent } from '../admin/presentations/presentations.component';
+import { UsersComponent } from '../admin/users/users.component';
+import { AddUserComponent } from '../admin/users/add-user/add-user.component';
+import { EditUserComponent } from '../admin/users/edit-user/edit-user.component';
 import { AvailableSurveysComponent } from '../surveys/available-surveys/available-surveys.component';
 import { TakeSurveyUserComponent } from '../surveys/take-survey-user/take-survey-user.component';
 import { AnalysisRequestsComponent } from '../analytics/analysis-requests/analysis-requests.component';
@@ -39,14 +39,14 @@ import { CreateRequestComponent } from '../client/create-request/create-request.
 import { ClientsStudyStatsComponent } from '../client/clients-study-stats/clients-study-stats.component';
 import { EditRequestComponent } from '../client/edit-request/edit-request.component';
 import { StudyPreviewComponent } from '../client/study-preview/study-preview.component';
-import { SubcategoriesComponent } from '../subcategories/subcategories.component';
-import { BrandsComponent } from '../brands/brands.component';
-import { ProductTypesComponent } from '../product-types/product-types.component';
+import { SubcategoriesComponent } from '../admin/subcategories/subcategories.component';
+import { BrandsComponent } from '../admin/brands/brands.component';
+import { ProductTypesComponent } from '../admin/product-types/product-types.component';
 
 export const routes: Routes = [
-    { 
-      path: 'login',  
-      component: LoginComponent 
+    {
+      path: 'login',
+      component: LoginComponent
     },
     {
       path: 'register',
@@ -90,7 +90,7 @@ export const routes: Routes = [
     },
     {
       path: 'questions/add',
-      component: AddQuestionComponent 
+      component: AddQuestionComponent
     },
     {
       path: 'questions/edit',
@@ -223,11 +223,11 @@ export const routes: Routes = [
       path: '404',
       component: NotFoundComponent
     },
-    
+
     /* REDIRECCIONAR A LA RUTA EN LA QUE SE ESTE TRABAJANDO MIENTRAS TANTO */
-    { 
-      path: '', 
-      redirectTo: 'types', 
-      pathMatch: 'full' 
+    {
+      path: '',
+      redirectTo: 'types',
+      pathMatch: 'full'
     }
 ];

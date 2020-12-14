@@ -1,0 +1,45 @@
+<div class="demo-container p-mx-6 p-p-0 p-p-sm-1 p-p-md-2 p-p-lg-6">
+    <p-card>
+        <div class="p-grid">
+            <!-- Imagen decorativa de recovery  -->
+            <div class="p-col-12 p-lg-5 p-d-none p-d-lg-inline-flex">
+                <img src="../../../assets/img/recovery.jpg" class="panel-img" width="100%" height="550px" alt="Oops">
+            </div>
+
+            <!-- Correo -->
+            <div class="p-col-12 p-lg-7 vertical-container">
+                <div class="p-grid p-jc-center p-d-lg-2">
+                    <img src="../../../assets/img/Logo.png" width="150px" height="150px" alt="Oops">
+                </div>
+                <p class="p-mx-5">Ingrese la dirección de correo electrónico asociado a su cuenta de MercadeoUCAB, el sistema le enviará un email con las instrucciones de cómo recuperar su cuenta</p>
+                <div class="p-col p-as-center">
+                    <form novalidate [formGroup]="recoveryForm" #aform="ngForm" (ngSubmit)="onSubmit()">
+                        <br>
+                        <div class="p-grid p-jc-center p-mt-1">
+                            <div class="p-col-12 p-md-10 p-mb-4">
+
+                                <div class="p-inputgroup">
+                                    <span class="p-inputgroup-addon"><i class="pi pi-envelope"></i></span>
+                                    <input id="correo_electronico" formControlName="correo_electronico" type="text"
+                                        pInputText placeholder="Correo Electrónico *">
+                                </div>
+                                <span class="error-msg"
+                                    *ngIf="formErrors.correo_electronico"><small>{{formErrors.correo_electronico}}</small></span>
+                            </div>
+                        </div>
+
+                        <div class="p-grid p-jc-center p-mt-1">
+                            <div class="p-grid p-formgrid p-fluid">
+                                <div class="p-mb-2 p-col-12 p-mb-lg-0">
+                                    <button pButton type="submit" class="p-button-lg"
+                                        label="Continuar"></button>
+                                </div>
+                            </div>
+                        </div>
+                        <p-toast></p-toast>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </p-card>
+</div>

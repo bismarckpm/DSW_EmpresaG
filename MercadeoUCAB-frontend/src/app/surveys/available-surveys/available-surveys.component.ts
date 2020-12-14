@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { CategoryService } from '../../services/category.service';
+import { CategoryService } from '../../services/admin/products/category.service';
 import { replaceKeyWithValue } from '../../functions/common_functions';
 import { STUDY_STATES } from '../../constants/study_states'
-import { UserSurveyService } from 'src/app/services/user-survey.service';
+import { UserSurveyService } from 'src/app/services/surveys/user-survey.service';
 import { StudyWithFilter } from 'src/app/classes/study_with_filter';
 
 @Component({
@@ -44,7 +44,7 @@ export class AvailableSurveysComponent implements OnInit {
     })
   }
 
-  
+
   onCategoryChange(event){
     this.table.filter(event.value, 'fkCategoria._id', 'in')
   }

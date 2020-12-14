@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { AnalystService } from '../../services/analyst.service';
+import { AnalystService } from '../../services/analytics/analyst.service';
 import { Study } from '../../classes/study';
 import { Question } from 'src/app/classes/question';
 import { AnalyticData } from 'src/app/classes/analytics/analytic_data';
-import { StudiesService } from 'src/app/services/studies.service';
+import { StudiesService } from 'src/app/services/admin/studies/studies.service';
 
 @Component({
   selector: 'app-clients-study-stats',
@@ -56,24 +56,24 @@ export class ClientsStudyStatsComponent implements OnInit {
           this.spinner.hide();
           this.study = study;
           this.open_text_questions = this.study.preguntas.filter(this.isOpenText)
-  
+
           this.selection_questions = this.study.preguntas.filter(this.isSelection)
           this.selectionDataset();
-  
+
           this.true_false_questions = this.study.preguntas.filter(this.isTrueFalse)
           this.trueFalseDataset();
-  
+
           this.range_questions = this.study.preguntas.filter(this.isRange)
           this.rangeDataset();
-  
+
           this.loading = false;
-  
+
         }
 
         else {
           this.router.navigate(['404']);
         }
-        
+
         // TODO: Get open text responses in a table
       }, errorMessage => {
         this.loading = false;
