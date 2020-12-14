@@ -7,8 +7,8 @@ import { ContactComponent } from '../auth/register/contact/contact.component';
 import { StatusComponent } from '../auth/register/status/status.component';
 import { FamilyComponent } from '../auth/register/family/family.component';
 import { RecoveryComponent } from '../auth/recovery/recovery.component';
-import { QuestionsComponent } from '../admin/questions/questions.component'
-import { AddQuestionComponent } from '../admin/questions/add-question/add-question.component'
+import { QuestionsComponent } from '../admin/questions/questions.component';
+import { AddQuestionComponent } from '../admin/questions/add-question/add-question.component';
 import { EditQuestionComponent } from '../admin/questions/edit-question/edit-question.component';
 import { PreviewQuestionComponent } from '../admin/questions/preview-question/preview-question.component';
 
@@ -20,8 +20,8 @@ import { StudyRequestsComponent } from '../admin/studies/study-requests/study-re
 import { ViewStudyComponent } from '../admin/studies/view-study/view-study.component';
 
 import { CategoriesComponent } from '../admin/categories/categories.component';
-import { NotFoundComponent } from '../errors/not-found/not-found.component';
-import { ProfileComponent } from '../common/profile/profile.component';
+import { NotFoundComponent } from '../core/errors/not-found/not-found.component';
+import { ProfileComponent } from '../profile/profile.component';
 import { ChangeComponent } from '../auth/recovery/change/change.component';
 import { SelectExistingComponent } from '../admin/studies/select-existing/select-existing.component';
 import { PresentationsComponent } from '../admin/presentations/presentations.component';
@@ -227,7 +227,7 @@ export const routes: Routes = [
     /* REDIRECCIONAR A LA RUTA EN LA QUE SE ESTE TRABAJANDO MIENTRAS TANTO */
     {
       path: '',
-      redirectTo: 'types',
+      redirectTo: 'login',
       pathMatch: 'full'
     }
 ];

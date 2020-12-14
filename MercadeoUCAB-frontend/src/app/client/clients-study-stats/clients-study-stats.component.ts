@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { AnalystService } from '../../services/analytics/analyst.service';
-import { Study } from '../../classes/study';
-import { Question } from 'src/app/classes/question';
-import { AnalyticData } from 'src/app/classes/analytics/analytic_data';
-import { StudiesService } from 'src/app/services/admin/studies/studies.service';
+import { AnalystService } from '../../core/services/analytics/analyst.service';
+import { Study } from '../../core/classes/study/study';
+import { Question } from 'src/app/core/classes/study/question';
+import { AnalyticData } from 'src/app/core/classes/analytics/analytic_data';
+import { StudiesService } from 'src/app/core/services/admin/studies/studies.service';
 
 @Component({
   selector: 'app-clients-study-stats',
@@ -25,16 +25,16 @@ export class ClientsStudyStatsComponent implements OnInit {
   range_dataset: any[] = [];
   background_colors: string[] = [];
 
-  loading:boolean = true;
+  loading = true;
   estudioErrorMessage: string;
 
 
   constructor(private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private analystService: AnalystService,
-    private studiesService: StudiesService,
-    private spinner: NgxSpinnerService) {
-    this.background_colors = ['#42A5F5', '#439f78', '#FF6384', '#6a6085', '#FFCE56', '#4bc0c0', '#E7E9ED', '#a0b6fe', '#f87f38', '#d5ffd1']
+              private router: Router,
+              private analystService: AnalystService,
+              private studiesService: StudiesService,
+              private spinner: NgxSpinnerService) {
+    this.background_colors = ['#42A5F5', '#439f78', '#FF6384', '#6a6085', '#FFCE56', '#4bc0c0', '#E7E9ED', '#a0b6fe', '#f87f38', '#d5ffd1'];
   }
 
   ngOnInit(): void {
@@ -50,6 +50,7 @@ export class ClientsStudyStatsComponent implements OnInit {
 
       // TODO: In progress studies cannot be visualized
       // TODO: Studies that were not requested by this client cannot be visualized
+      /*
       this.analystService.getStats(this.current_study).subscribe((study) => {
         if (study){
           //console.log(study)
@@ -78,11 +79,11 @@ export class ClientsStudyStatsComponent implements OnInit {
       }, errorMessage => {
         this.loading = false;
         this.estudioErrorMessage = errorMessage;
-      })
+      })*/
     }
   }
 
-
+/*
   isOpenText(el): boolean {
     return el.id_tipo == 1;
   }
@@ -97,10 +98,10 @@ export class ClientsStudyStatsComponent implements OnInit {
 
   isRange(el): boolean {
     return el.id_tipo == 5;
-  }
+  }*/
 
   trueFalseDataset() {
-    for (var i = 0; i < this.true_false_questions.length; i++) {
+    for (let i = 0; i < this.true_false_questions.length; i++) {
       this.true_false_dataset.push({
         labels: ['Verdaero', 'Falso'],
         datasets: [
@@ -108,44 +109,44 @@ export class ClientsStudyStatsComponent implements OnInit {
             data: [this.true_false_questions[i].estadisticas.n_personas_verdadero,
                   this.true_false_questions[i].estadisticas.n_personas_falso],
             backgroundColor: [
-              "#FF6384",
-              "#36A2EB",
+              '#FF6384',
+              '#36A2EB',
             ],
           }
         ]
-      })
+      });
     }
   }
 
   selectionDataset() {
-    for (var i = 0; i < this.selection_questions.length; i++) {
-      let labels: string[] = [];
-      let data: number[] = [];
-      let colors: string[] = [];
-      for (var j = 0; j < this.selection_questions[i].opciones.length; j++) {
-        labels.push(this.selection_questions[i].opciones[j].valor)
-        data.push(this.selection_questions[i].opciones[j].estadisticas.n_personas_respondieron)
+    for (let i = 0; i < this.selection_questions.length; i++) {
+      const labels: string[] = [];
+      const data: number[] = [];
+      const colors: string[] = [];
+      for (let j = 0; j < this.selection_questions[i].opciones.length; j++) {
+        labels.push(this.selection_questions[i].opciones[j].valor);
+        data.push(this.selection_questions[i].opciones[j].estadisticas.n_personas_respondieron);
         // Avoid index error if there are more than 10 options
-        colors.push(this.background_colors[(this.background_colors.length+j) % this.background_colors.length])
+        colors.push(this.background_colors[(this.background_colors.length + j) % this.background_colors.length]);
       }
       this.selection_dataset.push({
-        labels: labels,
+        labels,
         datasets: [
           {
-            data: data,
+            data,
             backgroundColor: colors
           }
         ]
-      })
+      });
     }
   }
 
   rangeDataset(){
-    for (var i = 0; i<this.range_questions.length; i++){
+    for (let i = 0; i < this.range_questions.length; i++){
       this.range_dataset.push({
         min_average: this.range_questions[i].opciones[0].estadisticas.promedio_rango_inicial,
         max_average: this.range_questions[i].opciones[0].estadisticas.promedio_rango_final
-      })
+      });
     }
   }
 

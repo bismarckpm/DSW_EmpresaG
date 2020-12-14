@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { MessageService, MenuItem } from 'primeng/api'
-import { Category } from '../../../classes/category';
-import { TypesService } from '../../../services/admin/products/types.service';
-import { CategoryService } from 'src/app/services/admin/products/category.service';
-import { replaceKeyWithValue } from '../../../functions/common_functions';
+import { Category } from '../../../core/classes/products/category';
+import { TypesService } from '../../../core/services/admin/products/types.service';
+import { CategoryService } from 'src/app/core/services/admin/products/category.service';
+import { replaceKeyWithValue } from '../../../core/functions/common_functions';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';

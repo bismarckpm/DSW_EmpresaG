@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { Table } from 'primeng/table';
 import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { ConfirmationService } from 'primeng/api';
-import { Person } from '../../classes/person';
-import { UserService } from '../../services/admin/user.service';
+import { Person } from '../../core/classes/profile/person';
+import { UserService } from '../../core/services/admin/user.service';
 import { Router } from '@angular/router';
 
 @Component({

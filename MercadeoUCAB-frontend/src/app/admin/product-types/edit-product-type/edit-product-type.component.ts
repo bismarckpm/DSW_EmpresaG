@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { MessageService } from 'primeng/api'
-import { replaceKeyWithValue } from '../../../functions/common_functions';
-import { BrandService } from 'src/app/services/admin/products/brand.service';
-import { TypesService } from 'src/app/services/admin/products/types.service';
-import { BrandType } from 'src/app/classes/brand_type';
+import { MessageService } from 'primeng/api';
+import { replaceKeyWithValue } from '../../../core/functions/common_functions';
+import { BrandService } from 'src/app/core/services/admin/products/brand.service';
+import { TypesService } from 'src/app/core/services/admin/products/types.service';
+import { BrandType } from 'src/app/core/classes/products/brand_type';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -20,7 +20,7 @@ export class EditProductTypeComponent implements OnInit {
   @Output() onModalClose = new EventEmitter<any>();
   @Output() onTypeEdited = new EventEmitter<any>();
   marcas: any[] = [];
-  sent_form: boolean = false;
+  sent_form = false;
 
   marcasErrorMessage: string;
 
@@ -29,70 +29,70 @@ export class EditProductTypeComponent implements OnInit {
   @ViewChild('sform') typeFormDirective;
 
   formErrors = {
-    'categoria': '',
-    'subcategoria': '',
-    'marca': '',
-    'nombre': '',
-    'descripcion': ''
+    categoria: '',
+    subcategoria: '',
+    marca: '',
+    nombre: '',
+    descripcion: ''
   };
 
   validationMessages = {
-    'categoria': {
-      'required': 'Categoría es requerida'
+    categoria: {
+      required: 'Categoría es requerida'
     },
-    'subcategoria': {
-      'required': 'Subcategoría es requerida'
+    subcategoria: {
+      required: 'Subcategoría es requerida'
     },
-    'marca': {
-      'required': 'Marca es requerida'
+    marca: {
+      required: 'Marca es requerida'
     },
-    'nombre': {
-      'required': 'Nombre de subcategoría es requerido',
-      'maxlength': 'Nombre de subcategoría no puede exceder los 90 caracteres'
+    nombre: {
+      required: 'Nombre de subcategoría es requerido',
+      maxlength: 'Nombre de subcategoría no puede exceder los 90 caracteres'
     },
-    'descripcion': {
-      'maxlength': 'Descripción no puede exceder los 500 caracteres'
+    descripcion: {
+      maxlength: 'Descripción no puede exceder los 500 caracteres'
     }
-  }
+  };
 
 
   constructor(private fb: FormBuilder,
-    private messageService: MessageService,
-    private brandService: BrandService,
-    private typeService: TypesService) { }
+              private messageService: MessageService,
+              private brandService: BrandService,
+              private typeService: TypesService) { }
 
   ngOnInit(): void {
     this.brandService.getALLBrands().subscribe((brands) => {
-      for (var i = 0; i<brands.length; i++){
+      for (let i = 0; i < brands.length; i++){
         this.marcas.push({
           value: brands[i].fkMarca._id,
           label: brands[i].fkMarca.nombre
-        })
+        });
       }
 
       this.marcas = replaceKeyWithValue(this.marcas);
     }, errorMessage => {
       this.marcasErrorMessage = errorMessage;
-    })
+    });
     this.createForm();
   }
 
   createForm(){
     this.typeForm = this.fb.group({
-      'marca': [
+      marca: [
         this.product_type.fkMarca._id,
         [
           Validators.required
         ]
       ],
-      'nombre': [
+      nombre: [
         this.product_type.fkTipo.nombre,
         [
           Validators.required,
           Validators.maxLength(90)
         ]
       ],
-      'descripcion': [
+      descripcion: [
         this.product_type.fkTipo.descripcion,
         [
           Validators.maxLength(500)
@@ -136,16 +136,16 @@ export class EditProductTypeComponent implements OnInit {
   }
 
   putType(){
-    this.typeService.putType(this.product_type).subscribe((t)=>{
+    this.typeService.putType(this.product_type).subscribe((t) => {
       this.product_type = t;
-      this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Subcategoría modificada con éxito'});
+      this.messageService.add({severity: 'success', summary: 'Éxito', detail: 'Subcategoría modificada con éxito'});
       this.sent_form = false;
       this.editType();
       this.closeModal();
     }, errorMessage => {
-      this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
+      this.messageService.add({severity: 'error', summary: 'Error', detail: errorMessage});
       this.sent_form = false;
-    })
+    });
   }
 
   editType(){
@@ -156,7 +156,7 @@ export class EditProductTypeComponent implements OnInit {
     this.sent_form = true;
     if (!this.typeForm.valid){
       this.sent_form = false;
-      this.messageService.add({severity:'error', summary: 'Error', detail: 'Debe rellenar los campos requeridos con datos válidos'});
+      this.messageService.add({severity: 'error', summary: 'Error', detail: 'Debe rellenar los campos requeridos con datos válidos'});
     }
     else {
       this.product_type.fkTipo.nombre = this.typeForm.value.nombre;

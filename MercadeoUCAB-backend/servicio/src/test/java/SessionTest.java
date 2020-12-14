@@ -54,12 +54,27 @@ public class SessionTest {
         ldap.changePassword( user );
     }
 
+//    @Test
+//    public void userAuthentication()
+//    {
+//        UsuarioDto user = new UsuarioDto();
+////        user.setEmail( "cverde22@gmail.com" );
+////        user.setPassword( "Caracas2." );
+//        user.setEmail( "admin" );
+//        user.setPassword( "secret" );
+//        DirectorioActivo ldap = new DirectorioActivo();
+//        ldap.userAuthentication( user );
+//    }
+
     @Test
     public void userAuthentication()
     {
         UsuarioDto user = new UsuarioDto();
         user.setEmail("cverde22@gmail.com");
         user.setPassword("Caracas1.");
+
+//        user.setEmail( "admin" );
+//        user.setPassword( "secret" );
         DirectorioActivo ldap = new DirectorioActivo();
         ldap.userAuthentication( user );
     }

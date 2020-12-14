@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { CategoryService } from '../../../services/admin/products/category.service';
-import { RequestsService } from '../../../services/client/requests.service';
-import { replaceKeyWithValue } from '../../../functions/common_functions';
-import { RequestWithFilter } from 'src/app/classes/request_with_filter';
+import { CategoryService } from '../../../core/services/admin/products/category.service';
+import { RequestsService } from '../../../core/services/client/requests.service';
+import { replaceKeyWithValue } from '../../../core/functions/common_functions';
+import { RequestWithFilter } from 'src/app/core/classes/study/request_with_filter';
 
 @Component({
   selector: 'app-study-requests',

@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoginService } from '../../services/auth/login.service';
-import { Person } from '../../classes/person';
-import { Users } from '../../classes/users';
+import { LoginService } from '../../core/services/auth/login.service';
+import { Users } from '../../core/classes/auth/users';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +15,7 @@ import { Users } from '../../classes/users';
 })
 export class LoginComponent implements OnInit {
 
-  sent_form: boolean = false;
+  sent_form = false;
   user: Users;
 
   /* Form */
@@ -24,24 +23,24 @@ export class LoginComponent implements OnInit {
   @ViewChild('lform') loginFormDirective;
 
   formErrors = {
-    'correo_electronico': '',
-    'clave': '',
+    correo_electronico: '',
+    clave: '',
   };
 
   validationMessages = {
-    'correo_electronico': {
-      'required': 'Correo electrónico es requerido',
-      'pattern': 'Correo electronico debe tener un formato válido'
+    correo_electronico: {
+      required: 'Correo electrónico es requerido',
+      pattern: 'Correo electronico debe tener un formato válido'
     },
-    'clave': {
-      'required': 'Clave es requerida'
+    clave: {
+      required: 'Clave es requerida'
     }
   };
 
   constructor(private fb: FormBuilder,
-    private loginService: LoginService,
-    private messageService: MessageService,
-    private router: Router) {
+              private loginService: LoginService,
+              private messageService: MessageService,
+              private router: Router) {
     this.createForm();
   }
 
@@ -111,10 +110,10 @@ export class LoginComponent implements OnInit {
 
       // TODO: Redireccion a la ruta apropiada cuando el auth este listo
       if (person == null){
-        this.messageService.add({severity:'error', summary: 'Error', detail: 'Usuario o clave incorrectos.'});
+        this.messageService.add({severity: 'error', summary: 'Error', detail: 'Usuario o clave incorrectos.'});
       }
       else{
-        this.messageService.add({severity:'success', summary: 'Exito', detail: 'Usuario validado correctamente.'});
+        this.messageService.add({severity: 'success', summary: 'Exito', detail: 'Usuario validado correctamente.'});
         this.nextPage();
       }
 
@@ -122,8 +121,8 @@ export class LoginComponent implements OnInit {
       },
       errorMessage => {
         this.sent_form = false;
-        this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
-      })
+        this.messageService.add({severity: 'error', summary: 'Error', detail: errorMessage});
+      });
   }
 
   nextPage(): void {

@@ -3,15 +3,15 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { RxwebValidators } from '@rxweb/reactive-form-validators'
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { StudiesService } from 'src/app/services/admin/studies/studies.service';
-import { UserSurveyService } from '../../services/surveys/user-survey.service';
+import { StudiesService } from 'src/app/core/services/admin/studies/studies.service';
+import { UserSurveyService } from '../../core/services/surveys/user-survey.service';
 import { MessageService } from 'primeng/api';
-import { Person } from 'src/app/classes/person';
-import { PossibleAnswer } from 'src/app/classes/possible_answers';
-import { StudyQuestion } from 'src/app/classes/study_question';
-import { Survey } from 'src/app/classes/survey';
-import { AnalystService } from 'src/app/services/analytics/analyst.service';
-import { Option } from 'src/app/classes/options';
+import { Person } from 'src/app/core/classes/profile/person';
+import { PossibleAnswer } from 'src/app/core/classes/study/possible_answers';
+import { StudyQuestion } from 'src/app/core/classes/study/study_question';
+import { Survey } from 'src/app/core/classes/study/survey';
+import { AnalystService } from 'src/app/core/services/analytics/analyst.service';
+import { Option } from 'src/app/core/classes/study/options';
 
 @Component({
   selector: 'app-take-survey-user',

@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table'
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { PresentationService } from '../../services/admin/products/presentation.service';
-import { TypePresentation } from '../../classes/type_presentation';
+import { PresentationService } from '../../core/services/admin/products/presentation.service';
+import { TypePresentation } from '../../core/classes/products/type_presentation';
 
 @Component({
   selector: 'app-presentations',

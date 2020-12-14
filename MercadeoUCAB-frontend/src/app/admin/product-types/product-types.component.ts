@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table'
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { BrandService } from '../../services/admin/products/brand.service';
-import { TypesService } from '../../services/admin/products/types.service';
-import { BrandType } from '../../classes/brand_type';
+import { BrandService } from '../../core/services/admin/products/brand.service';
+import { TypesService } from '../../core/services/admin/products/types.service';
+import { BrandType } from '../../core/classes/products/brand_type';
 
 @Component({
   selector: 'app-product-types',

@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MessageService, SelectItem } from 'primeng/api';
 import { Router } from '@angular/router';
-import { Recovery } from '../../classes/recovery';
+import { Recovery } from '../../core/classes/auth/recovery';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RecoveryService } from '../../services/auth/recovery.service';
+import { RecoveryService } from '../../core/services/auth/recovery.service';
 import { ReorderableColumn } from 'primeng/table';
 
 @Component({

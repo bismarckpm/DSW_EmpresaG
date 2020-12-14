@@ -1,32 +1,32 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
-import { StudiesService } from '../../../services/admin/studies/studies.service';
-import { PlaceService } from '../../../services/profile/place.service';
-import { Question } from '../../../classes/question';
+import { StudiesService } from '../../../core/services/admin/studies/studies.service';
+import { PlaceService } from '../../../core/services/profile/place.service';
+import { Question } from '../../../core/classes/study/question';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
-import { QuestionService } from '../../../services/admin/studies/question.service';
-import { CategoryService } from '../../../services/admin/products/category.service';
-import { SubcategoryService } from '../../../services/admin/products/subcategory.service';
-import { SOCIAL_STATUSES } from '../../../constants/social_status';
+import { QuestionService } from '../../../core/services/admin/studies/question.service';
+import { CategoryService } from '../../../core/services/admin/products/category.service';
+import { SubcategoryService } from '../../../core/services/admin/products/subcategory.service';
+import { SOCIAL_STATUSES } from '../../../core/constants/social_status';
 import { MenuItem } from 'primeng/api';
-import { replaceKeyWithValue } from '../../../functions/common_functions';
-import { StudyWithFilter } from 'src/app/classes/study_with_filter';
-import { QuestionCategorySubcategory } from 'src/app/classes/question_category_subcategory';
-import { NivelAcademicoService } from 'src/app/services/profile/nivel-academico.service';
-import { GeneroService } from 'src/app/services/profile/genero.service';
-import { EdocivilService } from 'src/app/services/profile/edocivil.service';
-import { Gender } from 'src/app/classes/gender';
-import { Place } from 'src/app/classes/place';
-import { SocioEconomicStatus } from 'src/app/classes/socioeconomic_status';
-import { AcademicLevel } from '../../../classes/academic_level';
+import { replaceKeyWithValue } from '../../../core/functions/common_functions';
+import { StudyWithFilter } from 'src/app/core/classes/study/study_with_filter';
+import { QuestionCategorySubcategory } from 'src/app/core/classes/study/question_category_subcategory';
+import { NivelAcademicoService } from 'src/app/core/services/profile/nivel-academico.service';
+import { GeneroService } from 'src/app/core/services/profile/genero.service';
+import { EdocivilService } from 'src/app/core/services/profile/edocivil.service';
+import { Gender } from 'src/app/core/classes/profile/gender';
+import { Place } from 'src/app/core/classes/profile/place';
+import { SocioEconomicStatus } from 'src/app/core/classes/profile/socioeconomic_status';
+import { AcademicLevel } from '../../../core/classes/profile/academic_level';
 import { Table } from 'primeng/table';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RxwebValidators } from '@rxweb/reactive-form-validators'
-import { CivilStatus } from 'src/app/classes/civil_status';
+import { CivilStatus } from 'src/app/core/classes/profile/civil_status';
 
 @Component({
   selector: 'app-edit-study',

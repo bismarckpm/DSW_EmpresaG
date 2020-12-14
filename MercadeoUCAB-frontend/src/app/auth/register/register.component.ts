@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { MenuItem } from 'primeng/api';
-
 
 @Component({
   selector: 'app-register',
@@ -12,9 +10,7 @@ import { MenuItem } from 'primeng/api';
 export class RegisterComponent implements OnInit {
   items: MenuItem[];
 
-  constructor() { 
-
-  }
+  constructor() {}
 
   ngOnInit(): void {
     this.items = [

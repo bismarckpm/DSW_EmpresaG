@@ -1,5 +1,7 @@
 package com.empresag;
 
+import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -15,9 +17,7 @@ import javax.ws.rs.Path;
 public class LoginService {
     @POST
     @Path("/{email}/link/{password}")
-    public UsuarioEntity currentUser(@PathParam("email") String email,
-                                     @PathParam("password") String password){
-
+    public UsuarioEntity currentUser(@PathParam("email") String email,@PathParam("password") String password){
         boolean authLDAP;
 
         UsuarioDto usuariodto = new UsuarioDto();

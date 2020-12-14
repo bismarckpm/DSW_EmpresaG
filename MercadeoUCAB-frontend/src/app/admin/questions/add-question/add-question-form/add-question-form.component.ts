@@ -1,23 +1,23 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MessageService } from 'primeng/api';
-import { QUESTION_TYPES } from '../../../../constants/question_types';
-import { CategoryService } from '../../../../services/admin/products/category.service';
-import { SubcategoryService } from '../../../../services/admin/products/subcategory.service';
-import { QuestionService } from '../../../../services/admin/studies/question.service';
-import { replaceKeyWithValue } from '../../../../functions/common_functions';
-import { Question } from '../../../../classes/question';
-import { Option } from '../../../../classes/options';
+import { QUESTION_TYPES } from '../../../../core/constants/question_types';
+import { CategoryService } from '../../../../core/services/admin/products/category.service';
+import { SubcategoryService } from '../../../../core/services/admin/products/subcategory.service';
+import { QuestionService } from '../../../../core/services/admin/studies/question.service';
+import { replaceKeyWithValue } from '../../../../core/functions/common_functions';
+import { Question } from '../../../../core/classes/study/question';
+import { Option } from '../../../../core/classes/study/options';
 import { NgxSpinnerService } from "ngx-spinner";
 
 /* Form */
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { RxwebValidators } from '@rxweb/reactive-form-validators'
 import { Router } from '@angular/router';
-import { QuestionCategorySubcategory } from 'src/app/classes/question_category_subcategory';
-import { Category } from 'src/app/classes/category';
-import { Subcategory } from 'src/app/classes/subcategory';
-import { QuestionType } from 'src/app/classes/question_type';
+import { QuestionCategorySubcategory } from 'src/app/core/classes/study/question_category_subcategory';
+import { Category } from 'src/app/core/classes/products/category';
+import { Subcategory } from 'src/app/core/classes/products/subcategory';
+import { QuestionType } from 'src/app/core/classes/study/question_type';
 
 @Component({
   selector: 'app-add-question-form',

@@ -1,15 +1,15 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { MessageService, MenuItem } from 'primeng/api'
-import { replaceKeyWithValue } from '../../../functions/common_functions';
-import { CategoryService } from 'src/app/services/admin/products/category.service';
-import { SubcategoryService } from 'src/app/services/admin/products/subcategory.service';
-import { BrandService } from 'src/app/services/admin/products/brand.service';
-import { SubcategoryBrand } from 'src/app/classes/subcategory_brand';
+import { replaceKeyWithValue } from '../../../core/functions/common_functions';
+import { CategoryService } from 'src/app/core/services/admin/products/category.service';
+import { SubcategoryService } from 'src/app/core/services/admin/products/subcategory.service';
+import { BrandService } from 'src/app/core/services/admin/products/brand.service';
+import { SubcategoryBrand } from 'src/app/core/classes/products/subcategory_brand';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Brand } from 'src/app/classes/brand';
-import { Subcategory } from 'src/app/classes/subcategory';
+import { Brand } from 'src/app/core/classes/products/brand';
+import { Subcategory } from 'src/app/core/classes/products/subcategory';
 
 @Component({
   selector: 'app-add-brand',

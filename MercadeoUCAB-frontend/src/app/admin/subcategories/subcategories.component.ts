@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table'
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
-import { Subcategory } from '../../classes/subcategory';
-import { SubcategoryService } from '../../services/admin/products/subcategory.service';
-import { CategoryService } from '../../services/admin/products/category.service';
-import { replaceKeyWithValue } from '../../functions/common_functions';
-import { CategorySubcategory } from '../../classes/category_subcategory';
+import { Subcategory } from '../../core/classes/products/subcategory';
+import { SubcategoryService } from '../../core/services/admin/products/subcategory.service';
+import { CategoryService } from '../../core/services/admin/products/category.service';
+import { replaceKeyWithValue } from '../../core/functions/common_functions';
+import { CategorySubcategory } from '../../core/classes/products/category_subcategory';
 
 @Component({
   selector: 'app-subcategories',

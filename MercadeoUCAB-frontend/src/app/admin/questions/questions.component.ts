@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table';
 import { MenuItem, MessageService } from 'primeng/api';
-import { QuestionService } from '../../services/admin/studies/question.service';
-import { CategoryService } from '../../services/admin/products/category.service';
+import { QuestionService } from '../../core/services/admin/studies/question.service';
+import { CategoryService } from '../../core/services/admin/products/category.service';
 import { ConfirmationService } from 'primeng/api';
-import { QuestionCategorySubcategory } from '../../classes/question_category_subcategory';
-import { QUESTION_TYPES } from '../../constants/question_types';
-import {replaceKeyWithValue} from '../../functions/common_functions';
+import { QuestionCategorySubcategory } from '../../core/classes/study/question_category_subcategory';
+import { QUESTION_TYPES } from '../../core/constants/question_types';
+import {replaceKeyWithValue} from '../../core/functions/common_functions';
 
 @Component({
   selector: 'app-questions',

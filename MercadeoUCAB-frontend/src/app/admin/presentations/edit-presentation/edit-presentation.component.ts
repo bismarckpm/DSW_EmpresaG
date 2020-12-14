@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { MessageService, MenuItem } from 'primeng/api'
-import { Presentation } from '../../../classes/presentation';
-import { TypesService } from '../../../services/admin/products/types.service';
-import { PresentationService } from 'src/app/services/admin/products/presentation.service';
-import { TypePresentation } from 'src/app/classes/type_presentation';
-import { replaceKeyWithValue } from '../../../functions/common_functions';
+import { Presentation } from '../../../core/classes/products/presentation';
+import { TypesService } from '../../../core/services/admin/products/types.service';
+import { PresentationService } from 'src/app/core/services/admin/products/presentation.service';
+import { TypePresentation } from 'src/app/core/classes/products/type_presentation';
+import { replaceKeyWithValue } from '../../../core/functions/common_functions';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';

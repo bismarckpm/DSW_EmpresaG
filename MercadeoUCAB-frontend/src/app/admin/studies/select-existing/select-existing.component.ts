@@ -1,17 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { StudiesService } from '../../../services/admin/studies/studies.service';
-import { RequestsService } from '../../../services/client/requests.service';
+import { StudiesService } from '../../../core/services/admin/studies/studies.service';
+import { RequestsService } from '../../../core/services/client/requests.service';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
-import { CategoryService } from '../../../services/admin/products/category.service';
-import { SubcategoryService } from '../../../services/admin/products/subcategory.service';
+import { CategoryService } from '../../../core/services/admin/products/category.service';
+import { SubcategoryService } from '../../../core/services/admin/products/subcategory.service';
 import { MenuItem } from 'primeng/api';
-import { STUDY_STATES } from '../../../constants/study_states';
-import { replaceKeyWithValue } from '../../../functions/common_functions';
+import { STUDY_STATES } from '../../../core/constants/study_states';
+import { replaceKeyWithValue } from '../../../core/functions/common_functions';
 import { Table } from 'primeng/table';
-import { RequestWithFilter } from 'src/app/classes/request_with_filter';
-import { StudyWithFilter } from 'src/app/classes/study_with_filter';
+import { RequestWithFilter } from 'src/app/core/classes/study/request_with_filter';
+import { StudyWithFilter } from 'src/app/core/classes/study/study_with_filter';
 
 @Component({
   selector: 'app-select-existing',

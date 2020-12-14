@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService, SelectItem } from 'primeng/api';
-import { ACADEMICS } from '../../../constants/academics';
-import { SOCIAL_STATUSES } from '../../../constants/social_status';
-import { DEVICES } from '../../../constants/device';
-import { SCHEDULES } from '../../../constants/schedule';
+import { ACADEMICS } from '../../../core/constants/academics';
+import { SOCIAL_STATUSES } from '../../../core/constants/social_status';
+import { DEVICES } from '../../../core/constants/device';
+import { SCHEDULES } from '../../../core/constants/schedule';
 import { Router } from '@angular/router';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegisterService } from '../../../services/auth/register.service';
-import { OcupacionService } from 'src/app/services/profile/ocupacion.service';
-import { replaceDateWithValue, replaceKeyWithValue } from 'src/app/functions/common_functions';
-import { NivelAcademicoService } from 'src/app/services/profile/nivel-academico.service';
-import { DeviceService } from 'src/app/services/profile/device.service';
-import { GENDERS } from 'src/app/constants/gender';
-import { DisponibilidadService } from 'src/app/services/profile/disponibilidad.service';
+import { RegisterService } from '../../../core/services/auth/register.service';
+import { OcupacionService } from 'src/app/core/services/profile/ocupacion.service';
+import { replaceDateWithValue, replaceKeyWithValue } from 'src/app/core/functions/common_functions';
+import { NivelAcademicoService } from 'src/app/core/services/profile/nivel-academico.service';
+import { DeviceService } from 'src/app/core/services/profile/device.service';
+import { GENDERS } from 'src/app/core/constants/gender';
+import { DisponibilidadService } from 'src/app/core/services/profile/disponibilidad.service';
 
 @Component({
   selector: 'app-status',

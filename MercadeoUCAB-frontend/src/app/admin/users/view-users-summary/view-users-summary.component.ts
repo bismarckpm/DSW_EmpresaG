@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UserService } from '../../../services/admin/user.service';
+import { UserService } from '../../../core/services/admin/user.service';
 import { NgxSpinnerService } from "ngx-spinner";
-import { Person } from 'src/app/classes/person';
+import { Person } from 'src/app/core/classes/profile/person';
 import { SelectItem } from 'primeng/api';
 
 

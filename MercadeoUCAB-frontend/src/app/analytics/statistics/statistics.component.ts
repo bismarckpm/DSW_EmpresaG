@@ -2,14 +2,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { AnalystService } from '../../services/analytics/analyst.service';
-import { AnalyticData } from 'src/app/classes/analytics/analytic_data';
+import { AnalystService } from '../../core/services/analytics/analyst.service';
+import { AnalyticData } from 'src/app/core/classes/analytics/analytic_data';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
-import { StudiesService } from 'src/app/services/admin/studies/studies.service';
-import { QuestionWithStats } from 'src/app/classes/analytics/question_with_stats';
-import { StudyWithFilter } from 'src/app/classes/study_with_filter';
-import { Analytics } from 'src/app/classes/analytics/analytics';
+import { StudiesService } from 'src/app/core/services/admin/studies/studies.service';
+import { QuestionWithStats } from 'src/app/core/classes/analytics/question_with_stats';
+import { StudyWithFilter } from 'src/app/core/classes/study/study_with_filter';
+import { Analytics } from 'src/app/core/classes/analytics/analytics';
 
 // TODO: Show only X kind of questions
 

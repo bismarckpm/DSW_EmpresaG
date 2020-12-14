@@ -2,37 +2,37 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import { Router, ActivatedRoute } from '@angular/router';
 import { MenuItem, SelectItem } from 'primeng/api';
 import { MessageService } from 'primeng/api';
-import { replaceDateWithValue, replaceKeyWithValue } from '../../../functions/common_functions';
+import { replaceDateWithValue, replaceKeyWithValue } from '../../../core/functions/common_functions';
 import { NgxSpinnerService } from "ngx-spinner";
-import { Person } from '../../../classes/person';
+import { Person } from '../../../core/classes/profile/person';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from 'src/app/services/admin/user.service';
-import { PhoneService } from 'src/app/services/profile/phone.service';
-import { PlaceService } from 'src/app/services/profile/place.service';
-import { Child } from 'src/app/classes/child';
+import { UserService } from 'src/app/core/services/admin/user.service';
+import { PhoneService } from 'src/app/core/services/profile/phone.service';
+import { PlaceService } from 'src/app/core/services/profile/place.service';
+import { Child } from 'src/app/core/classes/profile/child';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
-import { GENDERS } from '../../../constants/gender';
-import { CIVIL_STATUSES } from '../../../constants/civil_status';
-import { Device, DEVICES } from '../../../constants/device';
-import { Rol } from '../../../classes/rol';
-import { STUDY_STATES } from '../../../constants/study_states'; // Se usara NO borrar
-import { SOCIAL_STATUSES } from '../../../constants/social_status';
-import { SCHEDULES } from '../../../constants/schedule';
-import { ACADEMICS } from '../../../constants/academics';
-import { ACCOUNT_XTATUS } from 'src/app/constants/account_status';
-import { RolService } from 'src/app/services/profile/rol.service';
-import { GeneroService } from 'src/app/services/profile/genero.service';
-import { EdocivilService } from 'src/app/services/profile/edocivil.service';
-import { DeviceService } from 'src/app/services/profile/device.service';
-import { DisponibilidadService } from 'src/app/services/profile/disponibilidad.service';
-import { NivelAcademicoService } from 'src/app/services/profile/nivel-academico.service';
-import { persondata } from 'src/app/classes/persondata';
-import { OcupacionService } from 'src/app/services/profile/ocupacion.service';
-import { Place } from 'src/app/classes/place';
-import { Genero } from 'src/app/classes/genero';
-import { EdoCivil } from 'src/app/classes/edocivil';
-import { Disponibilidad } from 'src/app/classes/disponibilidad';
-import { telefono } from 'src/app/classes/telefono';
+import { GENDERS } from '../../../core/constants/gender';
+import { CIVIL_STATUSES } from '../../../core/constants/civil_status';
+import { Device, DEVICES } from '../../../core/constants/device';
+import { Rol } from '../../../core/classes/profile/rol';
+import { STUDY_STATES } from '../../../core/constants/study_states'; // Se usara NO borrar
+import { SOCIAL_STATUSES } from '../../../core/constants/social_status';
+import { SCHEDULES } from '../../../core/constants/schedule';
+import { ACADEMICS } from '../../../core/constants/academics';
+import { ACCOUNT_XTATUS } from 'src/app/core/constants/account_status';
+import { RolService } from 'src/app/core/services/profile/rol.service';
+import { GeneroService } from 'src/app/core/services/profile/genero.service';
+import { EdocivilService } from 'src/app/core/services/profile/edocivil.service';
+import { DeviceService } from 'src/app/core/services/profile/device.service';
+import { DisponibilidadService } from 'src/app/core/services/profile/disponibilidad.service';
+import { NivelAcademicoService } from 'src/app/core/services/profile/nivel-academico.service';
+import { persondata } from 'src/app/core/classes/profile/persondata';
+import { OcupacionService } from 'src/app/core/services/profile/ocupacion.service';
+import { Place } from 'src/app/core/classes/profile/place';
+import { Genero } from 'src/app/core/classes/profile/genero';
+import { EdoCivil } from 'src/app/core/classes/profile/edocivil';
+import { Disponibilidad } from 'src/app/core/classes/profile/disponibilidad';
+import { telefono } from 'src/app/core/classes/profile/telefono';
 
 
 @Component({

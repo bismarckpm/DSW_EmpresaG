@@ -1,16 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MessageService, SelectItem } from 'primeng/api';
-import { GENDERS } from '../../../constants/gender';
-import { CIVIL_STATUSES } from '../../../constants/civil_status';
-import {replaceKeyWithValue} from '../../../functions/common_functions';
+import { GENDERS } from '../../../core/constants/gender';
+import { CIVIL_STATUSES } from '../../../core/constants/civil_status';
+import {replaceKeyWithValue} from '../../../core/functions/common_functions';
 import { Router } from '@angular/router'
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegisterService } from '../../../services/auth/register.service';
+import { RegisterService } from '../../../core/services/auth/register.service';
 import { RxwebValidators } from '@rxweb/reactive-form-validators'
-import { GeneroService } from '../../../services/profile/genero.service';
-import { EdocivilService } from '../../../services/profile/edocivil.service';
+import { GeneroService } from '../../../core/services/profile/genero.service';
+import { EdocivilService } from '../../../core/services/profile/edocivil.service';
 import { from } from 'rxjs';
 import { errorMonitor } from 'events';
 

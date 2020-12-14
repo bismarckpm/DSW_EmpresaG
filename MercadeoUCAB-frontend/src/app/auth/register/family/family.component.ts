@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SelectItem } from 'primeng/api';
-import { GENDERS } from '../../../constants/gender';
-import { Child } from '../../../classes/child';
+import { GENDERS } from '../../../core/constants/gender';
+import { Child } from '../../../core/classes/profile/child';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegisterService } from '../../../services/auth/register.service';
-import { GeneroService } from 'src/app/services/profile/genero.service';
-import { replaceKeyWithValue } from 'src/app/functions/common_functions';
-import { Genero } from 'src/app/classes/genero';
+import { RegisterService } from '../../../core/services/auth/register.service';
+import { GeneroService } from 'src/app/core/services/profile/genero.service';
+import { replaceKeyWithValue } from 'src/app/core/functions/common_functions';
+import { Genero } from 'src/app/core/classes/profile/genero';
 
 @Component({
   selector: 'app-family',

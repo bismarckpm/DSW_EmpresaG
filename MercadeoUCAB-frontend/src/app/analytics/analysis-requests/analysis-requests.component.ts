@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { CategoryService } from '../../services/admin/products/category.service';
-import { StudiesService } from '../../services/admin/studies/studies.service';
-import { replaceKeyWithValue } from '../../functions/common_functions';
-import { STUDY_STATES } from '../../constants/study_states';
-import { StudyWithFilter } from 'src/app/classes/study_with_filter';
+import { CategoryService } from '../../core/services/admin/products/category.service';
+import { StudiesService } from '../../core/services/admin/studies/studies.service';
+import { replaceKeyWithValue } from '../../core/functions/common_functions';
+import { STUDY_STATES } from '../../core/constants/study_states';
+import { StudyWithFilter } from 'src/app/core/classes/study/study_with_filter';
 
 @Component({
   selector: 'app-analysis-requests',

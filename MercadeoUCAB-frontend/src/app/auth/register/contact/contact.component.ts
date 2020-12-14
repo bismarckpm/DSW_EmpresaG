@@ -4,10 +4,10 @@ import { SelectItem } from 'primeng/api';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegisterService } from '../../../services/auth/register.service';
-import { PlaceService } from '../../../services/profile/place.service';
-import { PhoneService } from '../../../services/profile/phone.service';
-import { replaceKeyWithValue } from 'src/app/functions/common_functions';
+import { RegisterService } from '../../../core/services/auth/register.service';
+import { PlaceService } from '../../../core/services/profile/place.service';
+import { PhoneService } from '../../../core/services/profile/phone.service';
+import { replaceKeyWithValue } from 'src/app/core/functions/common_functions';
 
 @Component({
   selector: 'app-contact',

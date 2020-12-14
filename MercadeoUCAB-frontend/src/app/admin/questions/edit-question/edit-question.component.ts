@@ -2,19 +2,19 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ConfirmationService, MenuItem } from 'primeng/api';
 import { MessageService } from 'primeng/api';
-import { QUESTION_TYPES } from '../../../constants/question_types';
-import { CategoryService } from '../../../services/admin/products/category.service';
-import { SubcategoryService } from '../../../services/admin/products/subcategory.service';
-import { QuestionService } from '../../../services/admin/studies/question.service';
-import { replaceKeyWithValue } from '../../../functions/common_functions';
-import { Option } from '../../../classes/options';
+import { QUESTION_TYPES } from '../../../core/constants/question_types';
+import { CategoryService } from '../../../core/services/admin/products/category.service';
+import { SubcategoryService } from '../../../core/services/admin/products/subcategory.service';
+import { QuestionService } from '../../../core/services/admin/studies/question.service';
+import { replaceKeyWithValue } from '../../../core/functions/common_functions';
+import { Option } from '../../../core/classes/study/options';
 import { NgxSpinnerService } from "ngx-spinner";
 
 /* Form */
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { RxwebValidators } from '@rxweb/reactive-form-validators'
-import { QuestionCategorySubcategory } from 'src/app/classes/question_category_subcategory';
-import { OptionService } from 'src/app/services/admin/studies/option.service';
+import { QuestionCategorySubcategory } from 'src/app/core/classes/study/question_category_subcategory';
+import { OptionService } from 'src/app/core/services/admin/studies/option.service';
 
 @Component({
   selector: 'app-edit-question',

@@ -4,10 +4,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegisterService } from '../../../services/auth/register.service';
+import { RegisterService } from '../../../core/services/auth/register.service';
 import { RxwebValidators } from '@rxweb/reactive-form-validators'
-import { Reset } from 'src/app/classes/reset';
-import { ResetService } from 'src/app/services/auth/reset.service';
+import { Reset } from 'src/app/core/classes/auth/reset';
+import { ResetService } from 'src/app/core/services/auth/reset.service';
 
 
 @Component({

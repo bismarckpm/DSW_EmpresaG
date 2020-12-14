@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table';
-import { QUESTION_TYPES } from '../../../constants/question_types';
-import { QuestionService } from '../../../services/admin/studies/question.service';
-import { SubcategoryService } from '../../../services/admin/products/subcategory.service';
-import { QuestionCategorySubcategory } from 'src/app/classes/question_category_subcategory';
+import { QUESTION_TYPES } from '../../../core/constants/question_types';
+import { QuestionService } from '../../../core/services/admin/studies/question.service';
+import { SubcategoryService } from '../../../core/services/admin/products/subcategory.service';
+import { QuestionCategorySubcategory } from 'src/app/core/classes/study/question_category_subcategory';
 
 @Component({
   selector: 'app-add-question-from-pool',

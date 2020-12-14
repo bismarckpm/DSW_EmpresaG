@@ -2,9 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Table } from 'primeng/table';
-import { persondata } from 'src/app/classes/persondata';
-import { Study } from 'src/app/classes/study';
-import { AnalystService } from 'src/app/services/analytics/analyst.service';
+import { persondata } from 'src/app/core/classes/profile/persondata';
+import { Study } from 'src/app/core/classes/study/study';
+import { AnalystService } from 'src/app/core/services/analytics/analyst.service';
 
 @Component({
   selector: 'app-available-population',

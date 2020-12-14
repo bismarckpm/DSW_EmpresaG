@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { SelectItem } from 'primeng/api';
-import { Person } from '../../../../classes/person';
-import { UserService } from '../../../../services/admin/user.service';
+import { Person } from '../../../../core/classes/profile/person';
+import { UserService } from '../../../../core/services/admin/user.service';
 // import { GENDERS } from '../../../constants/gender';
 // import { DEVICES } from '../../../constants/device';
 // import { CIVIL_STATUSES } from '../../../constants/civil_status';
 // import { ROLES } from '../../../constants/rol';
-import { ACCOUNT_XTATUS } from '../../../../constants/account_status';
-import { Child } from '../../../../classes/child';
+import { ACCOUNT_XTATUS } from '../../../../core/constants/account_status';
+import { Child } from '../../../../core/classes/profile/child';
 
 import { NgxSpinnerService } from "ngx-spinner";
 import { MenuItem, MessageService, PrimeNGConfig } from 'primeng/api';
@@ -22,16 +22,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import { SOCIAL_STATUSES } from 'src/app/constants/social_status';
 // import { ACADEMICS } from 'src/app/constants/academics';
 // import { PhoneService } from 'src/app/services/phone.service';
-import { PlaceService } from 'src/app/services/profile/place.service';
-import { replaceDateWithValue, replaceKeyWithValue } from 'src/app/functions/common_functions';
-import { OcupacionService } from 'src/app/services/profile/ocupacion.service';
-import { NivelAcademicoService } from 'src/app/services/profile/nivel-academico.service';
-import { DeviceService } from 'src/app/services/profile/device.service';
-import { DisponibilidadService } from 'src/app/services/profile/disponibilidad.service';
-import { RolService } from 'src/app/services/profile/rol.service';
-import { persondata } from 'src/app/classes/persondata';
-import { GeneroService } from 'src/app/services/profile/genero.service';
-import { EdocivilService } from 'src/app/services/profile/edocivil.service';
+import { PlaceService } from 'src/app/core/services/profile/place.service';
+import { replaceDateWithValue, replaceKeyWithValue } from 'src/app/core/functions/common_functions';
+import { OcupacionService } from 'src/app/core/services/profile/ocupacion.service';
+import { NivelAcademicoService } from 'src/app/core/services/profile/nivel-academico.service';
+import { DeviceService } from 'src/app/core/services/profile/device.service';
+import { DisponibilidadService } from 'src/app/core/services/profile/disponibilidad.service';
+import { RolService } from 'src/app/core/services/profile/rol.service';
+import { persondata } from 'src/app/core/classes/profile/persondata';
+import { GeneroService } from 'src/app/core/services/profile/genero.service';
+import { EdocivilService } from 'src/app/core/services/profile/edocivil.service';
 
 
 @Component({

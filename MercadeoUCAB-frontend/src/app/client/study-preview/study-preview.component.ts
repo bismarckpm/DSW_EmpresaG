@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
-import { StudiesService } from '../../services/admin/studies/studies.service';
+import { StudiesService } from '../../core/services/admin/studies/studies.service';
 import { Location } from '@angular/common';
-import { StudyWithFilter } from 'src/app/classes/study_with_filter';
-import { QuestionCategorySubcategory } from 'src/app/classes/question_category_subcategory';
+import { StudyWithFilter } from 'src/app/core/classes/study/study_with_filter';
+import { QuestionCategorySubcategory } from 'src/app/core/classes/study/question_category_subcategory';
 
 @Component({
   selector: 'app-study-preview',

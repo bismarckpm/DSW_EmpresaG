@@ -1,16 +1,16 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { MessageService, MenuItem } from 'primeng/api'
-import { replaceKeyWithValue } from '../../../functions/common_functions';
-import { CategoryService } from 'src/app/services/admin/products/category.service';
-import { SubcategoryService } from 'src/app/services/admin/products/subcategory.service';
-import { BrandService } from 'src/app/services/admin/products/brand.service';
-import { ProductType } from 'src/app/classes/productType';
-import { TypesService } from 'src/app/services/admin/products/types.service';
-import { BrandType } from 'src/app/classes/brand_type';
+import { replaceKeyWithValue } from '../../../core/functions/common_functions';
+import { CategoryService } from 'src/app/core/services/admin/products/category.service';
+import { SubcategoryService } from 'src/app/core/services/admin/products/subcategory.service';
+import { BrandService } from 'src/app/core/services/admin/products/brand.service';
+import { Product_type } from 'src/app/core/classes/products/product_type';
+import { TypesService } from 'src/app/core/services/admin/products/types.service';
+import { BrandType } from 'src/app/core/classes/products/brand_type';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Brand } from 'src/app/classes/brand';
+import { Brand } from 'src/app/core/classes/products/brand';
 
 
 @Component({
@@ -167,7 +167,7 @@ export class AddProductTypeComponent implements OnInit {
     }
     else {
       this.product_type = new BrandType();
-      this.product_type.fkTipo = new ProductType();
+      this.product_type.fkTipo = new Product_type();
       this.product_type.fkTipo.nombre =  this.typeForm.value.nombre;
       this.product_type.fkTipo.descripcion = this.typeForm.value.descripcion;
       this.product_type.fkMarca = new Brand();

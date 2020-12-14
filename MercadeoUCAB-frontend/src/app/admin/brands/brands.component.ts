@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table'
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { BrandService } from '../../services/admin/products/brand.service';
-import { SubcategoryService } from '../../services/admin/products/subcategory.service';
-import { replaceKeyWithValue } from '../../functions/common_functions';
-import { SubcategoryBrand } from '../../classes/subcategory_brand';
+import { BrandService } from '../../core/services/admin/products/brand.service';
+import { SubcategoryService } from '../../core/services/admin/products/subcategory.service';
+import { replaceKeyWithValue } from '../../core/functions/common_functions';
+import { SubcategoryBrand } from '../../core/classes/products/subcategory_brand';
 
 @Component({
   selector: 'app-brands',

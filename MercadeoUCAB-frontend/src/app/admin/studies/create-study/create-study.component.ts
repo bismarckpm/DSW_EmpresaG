@@ -1,25 +1,25 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
-import { StudiesService } from '../../../services/admin/studies/studies.service';
-import { RequestsService } from '../../../services/client/requests.service';
-import { PlaceService } from '../../../services/profile/place.service';
-import { Question } from '../../../classes/question';
+import { StudiesService } from '../../../core/services/admin/studies/studies.service';
+import { RequestsService } from '../../../core/services/client/requests.service';
+import { PlaceService } from '../../../core/services/profile/place.service';
+import { Question } from '../../../core/classes/study/question';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
-import { QuestionService } from '../../../services/admin/studies/question.service';
-import { CategoryService } from '../../../services/admin/products/category.service';
-import { SubcategoryService } from '../../../services/admin/products/subcategory.service';
-import { ACADEMICS } from '../../../constants/academics';
-import { SOCIAL_STATUSES } from '../../../constants/social_status';
-import { GENDERS } from '../../../constants/gender';
+import { QuestionService } from '../../../core/services/admin/studies/question.service';
+import { CategoryService } from '../../../core/services/admin/products/category.service';
+import { SubcategoryService } from '../../../core/services/admin/products/subcategory.service';
+import { ACADEMICS } from '../../../core/constants/academics';
+import { SOCIAL_STATUSES } from '../../../core/constants/social_status';
+import { GENDERS } from '../../../core/constants/gender';
 import { MenuItem } from 'primeng/api';
 
 /* Form */
 import { FormBuilder } from '@angular/forms';
-import { RequestWithFilter } from 'src/app/classes/request_with_filter';
-import { StudyWithFilter } from 'src/app/classes/study_with_filter';
-import { QuestionCategorySubcategory } from 'src/app/classes/question_category_subcategory';
+import { RequestWithFilter } from 'src/app/core/classes/study/request_with_filter';
+import { StudyWithFilter } from 'src/app/core/classes/study/study_with_filter';
+import { QuestionCategorySubcategory } from 'src/app/core/classes/study/question_category_subcategory';
 
 @Component({
   selector: 'app-create-study',

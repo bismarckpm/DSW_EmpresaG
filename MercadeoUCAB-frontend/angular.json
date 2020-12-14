@@ -18,7 +18,8 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-              "hammerjs"
+              "hammerjs",
+              "chart.js"
             ],
             "outputPath": "dist/MercadeoUCAB-frontend",
             "index": "src/index.html",

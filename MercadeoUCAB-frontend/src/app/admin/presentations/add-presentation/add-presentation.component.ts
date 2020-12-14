@@ -1,14 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { MessageService, MenuItem } from 'primeng/api'
-import { Presentation } from '../../../classes/presentation';
-import { TypesService } from '../../../services/admin/products/types.service';
-import { PresentationService } from 'src/app/services/admin/products/presentation.service';
-import { replaceKeyWithValue } from '../../../functions/common_functions';
+import { Presentation } from '../../../core/classes/products/presentation';
+import { TypesService } from '../../../core/services/admin/products/types.service';
+import { PresentationService } from 'src/app/core/services/admin/products/presentation.service';
+import { replaceKeyWithValue } from '../../../core/functions/common_functions';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TypePresentation } from 'src/app/classes/type_presentation';
-import { ProductType } from 'src/app/classes/productType';
+import { TypePresentation } from 'src/app/core/classes/products/type_presentation';
+import { Product_type } from 'src/app/core/classes/products/product_type';
 
 @Component({
   selector: 'app-add-presentation',
@@ -146,7 +146,7 @@ export class AddPresentationComponent implements OnInit {
       this.presentation.fkPresentacion = new Presentation();
       this.presentation.fkPresentacion.nombre = this.presentationForm.value.nombre;
       this.presentation.fkPresentacion.descripcion = this.presentationForm.value.descripcion;
-      this.presentation.fkTipo = new ProductType();
+      this.presentation.fkTipo = new Product_type();
       this.presentation.fkTipo._id = this.presentationForm.value.tipo;
       this.presentation.fkTipo.nombre = this.tipos.find(o => o.value == this.presentation.fkTipo._id).label;
       this.postPresentation();

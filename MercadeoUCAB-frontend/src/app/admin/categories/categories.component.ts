@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table'
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { Category } from '../../classes/category';
-import { CategoryService } from '../../services/admin/products/category.service';
+import { Category } from '../../core/classes/products/category';
+import { CategoryService } from '../../core/services/admin/products/category.service';
 // import { removeUnderscore } from '../functions/common_functions';
 
 @Component({
