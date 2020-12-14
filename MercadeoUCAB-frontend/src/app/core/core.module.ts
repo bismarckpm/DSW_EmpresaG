@@ -15,6 +15,7 @@ import { TypesService } from './services/admin/products/types.service';
 import { UserSurveyService } from './services/surveys/user-survey.service';
 import { BrandService } from './services/admin/products/brand.service';
 import { OptionService } from './services/admin/studies/option.service';
+import { SessionService } from './services/auth/session.service';
 import { ProcessHttpMessageService } from './services/process-http-message.service';
 import { serverURL } from './constants/serverURL';
 
@@ -39,6 +40,7 @@ import { serverURL } from './constants/serverURL';
     UserSurveyService,
     BrandService,
     OptionService,
+    SessionService,
     ProcessHttpMessageService,
     {provide: 'ServerURL', useValue: serverURL}
   ]

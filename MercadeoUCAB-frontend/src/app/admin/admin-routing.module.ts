@@ -18,86 +18,106 @@ import { CategoriesComponent } from './categories/categories.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
 import { AddUserComponent } from './users/add-user/add-user.component';
 import { UsersComponent } from './users/users.component';
+import { AuthorizedGuard } from '../core/guards/authorized.guard';
+import { AdminGuard } from '../core/guards/admin.guard';
 
 const routes: Routes = [
     /* QUESTIONS */
     {
       path: 'questions',
       component: QuestionsComponent,
+      canActivate: [AuthorizedGuard, AdminGuard]
     },
     {
       path: 'questions/add',
-      component: AddQuestionComponent
+      component: AddQuestionComponent,
+      canActivate: [AuthorizedGuard, AdminGuard]
     },
     {
       path: 'questions/edit',
-      component: EditQuestionComponent
+      component: EditQuestionComponent,
+      canActivate: [AuthorizedGuard, AdminGuard]
     },
     {
       path: 'questions/view',
-      component: PreviewQuestionComponent
+      component: PreviewQuestionComponent,
+      canActivate: [AuthorizedGuard, AdminGuard]
     },
 
     /* STUDIES */
     {
       path: 'studies/existing',
-      component: ExistingStudiesComponent
+      component: ExistingStudiesComponent,
+      canActivate: [AuthorizedGuard, AdminGuard]
     },
     {
       path: 'studies/create',
-      component: CreateStudyComponent
+      component: CreateStudyComponent,
+      canActivate: [AuthorizedGuard, AdminGuard]
     },
     {
       path: 'studies/select-existing',
-      component: SelectExistingComponent
+      component: SelectExistingComponent,
+      canActivate: [AuthorizedGuard, AdminGuard]
     },
     {
       path: 'studies/edit',
-      component: EditStudyComponent
+      component: EditStudyComponent,
+      canActivate: [AuthorizedGuard, AdminGuard]
     },
     {
       path: 'studies/view',
-      component: ViewStudyComponent
+      component: ViewStudyComponent,
+      canActivate: [AuthorizedGuard, AdminGuard]
     },
     {
       path: 'studies/requests',
-      component: StudyRequestsComponent
+      component: StudyRequestsComponent,
+      canActivate: [AuthorizedGuard, AdminGuard]
     },
 
     /* PRODUCTS */
       {
         path: 'categories',
-        component: CategoriesComponent
+        component: CategoriesComponent,
+        canActivate: [AuthorizedGuard, AdminGuard]
       },
       {
         path: 'subcategories',
-        component: SubcategoriesComponent
+        component: SubcategoriesComponent,
+        canActivate: [AuthorizedGuard, AdminGuard]
       },
       {
         path: 'brands',
-        component: BrandsComponent
+        component: BrandsComponent,
+        canActivate: [AuthorizedGuard, AdminGuard]
       },
       {
         path: 'types',
-        component: ProductTypesComponent
+        component: ProductTypesComponent,
+        canActivate: [AuthorizedGuard, AdminGuard]
       },
       {
         path: 'presentations',
-        component: PresentationsComponent
+        component: PresentationsComponent,
+        canActivate: [AuthorizedGuard, AdminGuard]
       },
 
     /* USERS */
     {
       path: 'users',
-      component: UsersComponent
+      component: UsersComponent,
+      canActivate: [AuthorizedGuard, AdminGuard]
     },
     {
       path: 'users/add',
-      component: AddUserComponent
+      component: AddUserComponent,
+      canActivate: [AuthorizedGuard, AdminGuard]
     },
     {
       path: 'users/edit',
-      component: EditUserComponent
+      component: EditUserComponent,
+      canActivate: [AuthorizedGuard, AdminGuard]
     },
 
 ];

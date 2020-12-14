@@ -8,15 +8,18 @@ import { FamilyComponent } from './register/family/family.component';
 import { StatusComponent } from './register/status/status.component';
 import { RecoveryComponent } from './recovery/recovery.component';
 import { ChangeComponent } from './recovery/change/change.component';
+import {GuestGuard} from '../core/guards/guest.guard';
 
 const routes: Routes = [
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [GuestGuard]
   },
   {
     path: 'register',
     component: RegisterComponent,
+    canActivate: [GuestGuard],
     children: [
       {
         path: '',
@@ -43,11 +46,13 @@ const routes: Routes = [
   },
   {
     path: 'recovery',
-    component: RecoveryComponent
+    component: RecoveryComponent,
+    canActivate: [GuestGuard]
   },
   {
     path: 'change',
-    component: ChangeComponent
+    component: ChangeComponent,
+    canActivate: [GuestGuard]
   },
 ];
 

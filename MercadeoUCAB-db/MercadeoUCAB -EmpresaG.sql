@@ -736,8 +736,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `empresag`.`TOKENS` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `token_login` VARCHAR(15) NULL,
-  `token_reset` VARCHAR(15) NULL, 
+  `token_login` VARCHAR(30) NULL,
+  `token_reset` VARCHAR(30) NULL,
   `fk_usuario` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_usuario_token_idx` (`fk_usuario` ASC) VISIBLE,

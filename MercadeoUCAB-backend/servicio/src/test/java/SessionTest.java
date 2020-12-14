@@ -1,7 +1,4 @@
-import com.empresag.DirectorioActivo;
-import com.empresag.IndexDatabaseException;
-import com.empresag.RolDto;
-import com.empresag.UsuarioDto;
+import com.empresag.*;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -58,9 +55,33 @@ public class SessionTest {
     public void userAuthentication()
     {
         UsuarioDto user = new UsuarioDto();
-        user.setEmail("cverde22@gmail.com");
-        user.setPassword("Caracas1.");
+
+        DaoUsuario daoUsuario = new DaoUsuario();
+        DaoToken daoToken = new DaoToken();
+
+        String token = null;
+
+        TokenEntity tokenEntity = null;
+        tokenEntity = daoToken.getUserToken(94);
+        UsuarioEntity usuarioEntity = daoUsuario.find(94L, UsuarioEntity.class);
+        user.setEmail("hyperschnell11@outlook.sk");
+        user.setPassword("123456789");
         DirectorioActivo ldap = new DirectorioActivo();
-        ldap.userAuthentication( user );
+
+        if (ldap.userAuthentication( user )){
+            token = daoToken.getAlphaNumericString(25);
+            if (tokenEntity != null){
+                tokenEntity.setToken_login(token);
+                daoToken.update(tokenEntity);
+            }
+            else {
+                tokenEntity = new TokenEntity();
+                tokenEntity.setFkUsuario(usuarioEntity);
+                tokenEntity.setToken_login(token);
+                daoToken.insert(tokenEntity);
+            }
+        }
+
+        Assert.assertNotEquals(null, token);
     }
 }

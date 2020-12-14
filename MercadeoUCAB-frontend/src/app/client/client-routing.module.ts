@@ -5,27 +5,34 @@ import { ClientsStudyStatsComponent } from './clients-study-stats/clients-study-
 import { EditRequestComponent } from './edit-request/edit-request.component';
 import { CreateRequestComponent } from './create-request/create-request.component';
 import { MyRequestsComponent } from './my-requests/my-requests.component';
+import { AuthorizedGuard } from '../core/guards/authorized.guard';
+import { ClientGuard } from '../core/guards/client.guard';
 
 const routes: Routes = [
   {
     path: 'my-requests',
-    component: MyRequestsComponent
+    component: MyRequestsComponent,
+    canActivate: [AuthorizedGuard, ClientGuard]
   },
   {
     path: 'make-request',
-    component: CreateRequestComponent
+    component: CreateRequestComponent,
+    canActivate: [AuthorizedGuard, ClientGuard]
   },
   {
     path: 'edit-request',
-    component: EditRequestComponent
+    component: EditRequestComponent,
+    canActivate: [AuthorizedGuard, ClientGuard]
   },
   {
     path: 'view-study/stats',
-    component: ClientsStudyStatsComponent
+    component: ClientsStudyStatsComponent,
+    canActivate: [AuthorizedGuard, ClientGuard]
   },
   {
     path: 'view-study',
-    component: StudyPreviewComponent
+    component: StudyPreviewComponent,
+    canActivate: [AuthorizedGuard, ClientGuard]
   }
 ];
 

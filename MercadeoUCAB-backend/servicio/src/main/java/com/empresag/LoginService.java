@@ -17,27 +17,41 @@ import javax.ws.rs.Path;
 public class LoginService {
     @POST
     @Path("/authenticate")
-    public UsuarioEntity currentUser(UsuarioDto usuarioDto){
+    public UsuarioDto currentUser(UsuarioDto usuarioDto) throws IndexDatabaseException {
         boolean authLDAP;
 
+        DaoUsuario daoUsuario = new DaoUsuario();
+        DaoToken daoToken = new DaoToken();
         DirectorioActivo ldap = new DirectorioActivo();
+
+        UsuarioEntity usuarioEntity = daoUsuario.findUserByEmail(usuarioDto.getEmail());
+        String token = null;
+        UsuarioDto authenticatedUser = new UsuarioDto();
+        TokenEntity tokenEntity = null;
+        tokenEntity = daoToken.getUserToken(usuarioEntity.get_id());
 
         authLDAP = ldap.userAuthentication(usuarioDto);
 
         if (authLDAP){
-            DaoUsuario usuarioDao = new DaoUsuario();
-            UsuarioEntity user;
-            List<UsuarioEntity> users = usuarioDao.findUsuarioLogin(usuarioDto.getEmail(), usuarioDto.getPassword());
-
-            if (!users.isEmpty()){
-                user = users.get(0);
-                return user;
+            token = daoToken.getAlphaNumericString(25);
+            if (tokenEntity != null){
+                tokenEntity.setToken_login(token);
+                daoToken.update(tokenEntity);
             }
-            else
-                return null;
+            else {
+                tokenEntity = new TokenEntity();
+                tokenEntity.setFkUsuario(usuarioEntity);
+                tokenEntity.setToken_login(token);
+                daoToken.insert(tokenEntity);
+            }
+            RolDto rol = new RolDto();
+            rol.set_id(usuarioEntity.getFk_Rol().get_id());
+            authenticatedUser.setFkRol(rol);
+            authenticatedUser.setTokenLogin(token);
+            authenticatedUser.set_id(usuarioEntity.get_id());
+            return authenticatedUser;
         }
-        else
-            return null;
+        return null;
     }
 
     @POST
