@@ -1,3 +1,4 @@
+import com.empresag.UsuarioDto;
 import com.empresag.UsuarioEntity;
 import com.empresag.DaoUsuario;
 import com.empresag.LoginService;
@@ -10,13 +11,15 @@ public class LoginTest {
         LoginService login = new LoginService();
         DaoUsuario usuarioDao = new DaoUsuario();
 
-
         String userString = "";
-        UsuarioEntity user = login.currentUser("angel99castillo@gmail.com", "Am101199.");
+        UsuarioDto usuarioDto = new UsuarioDto();
+        usuarioDto.setEmail("hyperschnell11@outlook.sk");
+        usuarioDto.setPassword("123456789");
+        UsuarioEntity user = login.currentUser(usuarioDto);
         if (user != null)
             userString = user.toString();
 
-        UsuarioEntity userPrueba = usuarioDao.find((long)1,UsuarioEntity.class);
+        UsuarioEntity userPrueba = usuarioDao.find((long)92, UsuarioEntity.class);
 
         Assert.assertEquals( userPrueba.toString(), userString );
     }

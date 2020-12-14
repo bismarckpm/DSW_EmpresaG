@@ -107,8 +107,6 @@ export class LoginComponent implements OnInit {
 
     this.loginService.validateLogin(this.user)
       .subscribe(person => {
-
-      // TODO: Redireccion a la ruta apropiada cuando el auth este listo
       if (person == null){
         this.messageService.add({severity: 'error', summary: 'Error', detail: 'Usuario o clave incorrectos.'});
       }

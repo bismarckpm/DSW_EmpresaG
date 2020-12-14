@@ -16,26 +16,21 @@ import javax.ws.rs.Path;
 @Consumes( MediaType.APPLICATION_JSON )
 public class LoginService {
     @POST
-    @Path("/{email}/link/{password}")
-    public UsuarioEntity currentUser(@PathParam("email") String email,@PathParam("password") String password){
+    @Path("/authenticate")
+    public UsuarioEntity currentUser(UsuarioDto usuarioDto){
         boolean authLDAP;
-
-        UsuarioDto usuariodto = new UsuarioDto();
-        usuariodto.setEmail(email);
-        usuariodto.setPassword(password);
 
         DirectorioActivo ldap = new DirectorioActivo();
 
-        authLDAP = ldap.userAuthentication(usuariodto);
+        authLDAP = ldap.userAuthentication(usuarioDto);
 
         if (authLDAP){
             DaoUsuario usuarioDao = new DaoUsuario();
             UsuarioEntity user;
-            List<UsuarioEntity> users = usuarioDao.findUsuarioLogin(email,password);
+            List<UsuarioEntity> users = usuarioDao.findUsuarioLogin(usuarioDto.getEmail(), usuarioDto.getPassword());
 
             if (!users.isEmpty()){
                 user = users.get(0);
-
                 return user;
             }
             else

@@ -3,7 +3,7 @@ import { Users } from '../../classes/auth/users';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { serverURL } from '../../constants/serverURL';
-import { map, catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { ProcessHttpMessageService } from '../process-http-message.service';
 
 @Injectable({
@@ -12,7 +12,7 @@ import { ProcessHttpMessageService } from '../process-http-message.service';
 export class LoginService {
 
   constructor(private http: HttpClient,
-    private processHTTPMessageService: ProcessHttpMessageService) { }
+              private processHTTPMessageService: ProcessHttpMessageService) { }
 
   validateLogin(user: Users): Observable<Users> {
     const httpOptions = {
@@ -21,8 +21,8 @@ export class LoginService {
       })
     };
 
-    return this.http.post<Users>(serverURL + 'login/' + user.email + '/link/' + user.password, user, httpOptions)
-      .pipe(catchError(this.processHTTPMessageService.handleError))
+    return this.http.post<Users>(serverURL + 'login/authenticate', user, httpOptions)
+      .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
 
