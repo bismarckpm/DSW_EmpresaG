@@ -220,7 +220,7 @@ CREATE TABLE IF NOT EXISTS `empresag`.`USUARIO` (
     FOREIGN KEY (`fk_rol`)
     REFERENCES `empresag`.`ROL` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,)
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -728,6 +728,23 @@ CREATE TABLE IF NOT EXISTS `empresag`.`TIPO_PRESENTACION` (
     FOREIGN KEY (`fk_presentacion`)
     REFERENCES `empresag`.`PRESENTACION` (`id`)
     ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `empresag`.`TOKENS`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `empresag`.`TOKENS` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `token_login` VARCHAR(15) NULL,
+  `token_reset` VARCHAR(15) NULL, 
+  `fk_usuario` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_usuario_token_idx` (`fk_usuario` ASC) VISIBLE,
+  CONSTRAINT `fk_usuario_token`
+    FOREIGN KEY (`fk_usuario`)
+    REFERENCES `empresag`.`USUARIO` (`id`)
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 

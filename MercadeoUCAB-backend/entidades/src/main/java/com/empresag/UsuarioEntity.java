@@ -3,7 +3,7 @@ package com.empresag;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "usuario", schema = "empresag", catalog = "")
+@Table(name = "usuario", schema = "empresag")
 public class UsuarioEntity extends BaseEntity{
     private String email;
     private String password;
