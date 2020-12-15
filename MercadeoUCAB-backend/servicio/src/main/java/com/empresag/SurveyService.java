@@ -11,11 +11,11 @@ import java.util.List;
 @Consumes( MediaType.APPLICATION_JSON )
 public class SurveyService {
     @GET
-    @Path("/available/{personId}")
-    public Response getAvailableSurveys(@PathParam("personId") long personId){
+    @Path("/available/{userId}")
+    public Response getAvailableSurveys(@PathParam("userId") long userId){
         DaoEncuesta daoEncuesta = new DaoEncuesta();
         try {
-            List<FiltroEntity> encuestas = daoEncuesta.getAvailableSurveys(personId);
+            List<FiltroEntity> encuestas = daoEncuesta.getAvailableSurveys(userId);
             return Response.ok().entity(encuestas).build();
         }
         catch (NullPointerException e){
