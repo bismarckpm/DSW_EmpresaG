@@ -53,7 +53,7 @@ export class UsersComponent implements OnInit {
       accept: () => {
           this.userService.deleteUser(person).subscribe((q) => {
 
-            const index = this.usuarios.indexOf(person);
+            let index = this.usuarios.indexOf(person);
             if (index > -1) {
               this.usuarios.splice(index, 1);
             }
