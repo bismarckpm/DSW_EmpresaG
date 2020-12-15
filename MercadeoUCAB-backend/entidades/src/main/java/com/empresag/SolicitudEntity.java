@@ -18,6 +18,18 @@ public class SolicitudEntity extends BaseEntity{
         this.estado = estado;
     }
 
+    @Basic
+    @Column(name = "nombre")
+    private String nombre;
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     @ManyToOne
     @JoinColumn(name = "fk_usuario")
     private UsuarioEntity fkUsuario;
@@ -30,4 +42,10 @@ public class SolicitudEntity extends BaseEntity{
         this.fkUsuario = fkUsuario;
     }
 
+    @Override
+    public String toString() {
+        return "SolicitudEntity{" +
+                "estado=" + estado +
+                '}';
+    }
 }

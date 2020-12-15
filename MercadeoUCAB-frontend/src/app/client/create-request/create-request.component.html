@@ -12,7 +12,17 @@
 
         <div>
             <form novalidate [formGroup]="studyForm" #sform="ngForm" (ngSubmit)="onSubmit()">
-                <h4 class="p-mx-5">Filtros de producto</h4>
+              <h4 class="p-mx-5">Nombre del estudio</h4>
+              <div class="p-grid p-mx-5 p-mt-2">
+                <div class="p-col-12 p-md-6 p-lg-4">
+                  <input class="p-inputtext-lg full-width" formControlName="nombre" type="text" pInputText
+                         placeholder="Nombre">
+                  <span class="error-msg"
+                        *ngIf="formErrors.nombre"><small>{{formErrors.nombre}}</small></span>
+                </div>
+              </div>
+
+              <h4 class="p-mx-5">Filtros de producto</h4>
                 <div class="p-grid p-mx-5 p-mt-2">
                     <div class="p-col-12 p-md-6 p-lg-4">
                         <p-dropdown [options]="categorias" (onChange)="getSubcategories($event.value)"
@@ -98,7 +108,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- BOTONES -->
                 <div class="p-grid p-jc-end p-mt-3 p-mb-6 p-mr-4">
                     <div class="p-grid p-formgrid p-fluid">
@@ -112,7 +122,7 @@
                 </div>
             </form>
         </div>
-        
+
         <div>
             <div class="p-grid p-jc-center">
                 <ngx-spinner></ngx-spinner>

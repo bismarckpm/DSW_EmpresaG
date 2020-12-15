@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Table } from 'primeng/table'
+import { Table } from 'primeng/table';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { BrandService } from '../../core/services/admin/products/brand.service';
 import { SubcategoryService } from '../../core/services/admin/products/subcategory.service';
@@ -13,13 +13,13 @@ import { SubcategoryBrand } from '../../core/classes/products/subcategory_brand'
   providers: [MessageService, ConfirmationService]
 })
 export class BrandsComponent implements OnInit {
-  loading: boolean = true;
+  loading = true;
   marcas: SubcategoryBrand[];
   backup_brands: SubcategoryBrand[];
   subcategorias: any[];
   marca: SubcategoryBrand;
-  display_add_brand: boolean = false;
-  display_edit_brand: boolean = false;
+  display_add_brand = false;
+  display_edit_brand = false;
   @ViewChild('dt') table: Table;
 
   marcasErrorMessage: string;
@@ -38,21 +38,21 @@ export class BrandsComponent implements OnInit {
       this.subcategorias = [];
       this.subcategoryService.getALLSubcategories().subscribe((subcategories) => {
         this.loading = false;
-        for (var i = 0; i<subcategories.length; i++){
+        for (let i = 0; i < subcategories.length; i++){
           this.subcategorias.push({
             value: subcategories[i].fkSubcategoria._id,
             label: subcategories[i].fkSubcategoria.nombre
-          })
+          });
         }
       }, errorMessage => {
         this.loading = false;
         this.subcategoriasErrorMessage = errorMessage;
-      })
+      });
 
     }, errorMessage => {
       this.loading = false;
       this.marcasErrorMessage = errorMessage;
-    })
+    });
   }
 
   deleteMarca(marca) {
@@ -63,15 +63,16 @@ export class BrandsComponent implements OnInit {
       accept: () => {
         this.brandService.deleteBrand(marca).subscribe((b) => {
 
-          let index = this.marcas.indexOf(marca)
-          if (index > -1)
+          const index = this.marcas.indexOf(marca);
+          if (index > -1) {
             this.marcas.splice(index, 1);
+          }
 
           this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Marca eliminada con éxito' });
 
         }, errorMessage => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
-        })
+        });
       },
       reject: () => {
         //
@@ -113,11 +114,11 @@ export class BrandsComponent implements OnInit {
   getSubcategories(category_id){
     this.subcategoryService.getSubcategories(category_id).subscribe((subcategories) => {
       this.subcategorias = replaceKeyWithValue(subcategories);
-    })
+    });
   }
 
   onSubcategoryChange(event){
-    this.table.filter(event.value, 'fkSubcategoria._id', 'in')
+    this.table.filter(event.value, 'fkSubcategoria._id', 'in');
   }
 
 }

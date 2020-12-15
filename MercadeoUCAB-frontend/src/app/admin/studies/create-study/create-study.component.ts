@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { NgxSpinnerService } from "ngx-spinner";
+import { NgxSpinnerService } from 'ngx-spinner';
 import { StudiesService } from '../../../core/services/admin/studies/studies.service';
 import { RequestsService } from '../../../core/services/client/requests.service';
 import { PlaceService } from '../../../core/services/profile/place.service';
@@ -10,10 +10,6 @@ import { MessageService } from 'primeng/api';
 import { QuestionService } from '../../../core/services/admin/studies/question.service';
 import { CategoryService } from '../../../core/services/admin/products/category.service';
 import { SubcategoryService } from '../../../core/services/admin/products/subcategory.service';
-import { ACADEMICS } from '../../../core/constants/academics';
-import { SOCIAL_STATUSES } from '../../../core/constants/social_status';
-import { GENDERS } from '../../../core/constants/gender';
-import { MenuItem } from 'primeng/api';
 
 /* Form */
 import { FormBuilder } from '@angular/forms';
@@ -34,38 +30,38 @@ export class CreateStudyComponent implements OnInit {
   estudio: StudyWithFilter;
   preguntas: QuestionCategorySubcategory[];
 
-  sent_form: boolean = false;
+  sent_form = false;
 
-  display: boolean = false;
-  display_modify_study_features: boolean = false;
+  display = false;
+  display_modify_study_features = false;
 
   /* Style of question adding */
   style: string;
-  display_new: boolean = false;
-  display_pool: boolean = false;
+  display_new = false;
+  display_pool = false;
 
   /* Object for question appending */
   new_question: Question;
 
   /* States */
-  loading: boolean = false;
+  loading = false;
   studyErrorMessage: string;
   requestErrorMessage: string;
 
   constructor(private Activatedroute: ActivatedRoute,
-    private router: Router,
-    private fb: FormBuilder,
-    private placeService: PlaceService,
-    private categoryService: CategoryService,
-    private subcategoryService: SubcategoryService,
-    private questionService: QuestionService,
-    private messageService: MessageService,
-    private confirmationService: ConfirmationService,
-    private requestsService: RequestsService,
-    private studiesService: StudiesService,
-    private spinner: NgxSpinnerService) {
+              private router: Router,
+              private fb: FormBuilder,
+              private placeService: PlaceService,
+              private categoryService: CategoryService,
+              private subcategoryService: SubcategoryService,
+              private questionService: QuestionService,
+              private messageService: MessageService,
+              private confirmationService: ConfirmationService,
+              private requestsService: RequestsService,
+              private studiesService: StudiesService,
+              private spinner: NgxSpinnerService) {
     /* If query is empty return 404 */
-    if ((this.Activatedroute.snapshot.queryParamMap.get('requestId') || 0) == 0) {
+    if ((this.Activatedroute.snapshot.queryParamMap.get('requestId') || 0) === 0) {
       this.router.navigate(['404']);
     }
 
@@ -74,18 +70,17 @@ export class CreateStudyComponent implements OnInit {
       this.loading = true;
       this.spinner.show();
 
-      this.current_request = parseInt(this.Activatedroute.snapshot.queryParamMap.get('requestId'));
+      this.current_request = parseInt(this.Activatedroute.snapshot.queryParamMap.get('requestId'), 10);
 
       /* Create study based on request */
       this.requestsService.getRequest(this.current_request).subscribe((request) => {
         this.solicitud = request;
 
-        if (this.solicitud.fkSolicitud.estado == 1){
-          //console.log(this.solicitud)
+        if (this.solicitud.fkSolicitud.estado === 1){
           this.router.navigate(['404']);
         }
         else {
-          this.solicitud.fkSolicitud.estado = 1
+          this.solicitud.fkSolicitud.estado = 1;
           this.requestsService.updateStatus(this.solicitud.fkSolicitud).subscribe((study) => {
             this.estudio = study;
             this.loading = false;
@@ -94,14 +89,14 @@ export class CreateStudyComponent implements OnInit {
           }, errorMessage => {
             this.loading = false;
             this.spinner.hide();
-            this.requestErrorMessage = errorMessage
-          })
+            this.requestErrorMessage = errorMessage;
+          });
         }
 
       }, errorMessage => {
         this.requestErrorMessage = errorMessage;
         this.router.navigate(['404']);
-      })
+      });
     }
   }
 
@@ -120,15 +115,16 @@ export class CreateStudyComponent implements OnInit {
       accept: () => {
         this.questionService.deleteQuestion(question).subscribe((q) => {
 
-          let index = this.preguntas.indexOf(question)
-          if (index > -1)
+          const index = this.preguntas.indexOf(question);
+          if (index > -1) {
             this.preguntas.splice(index, 1);
+          }
 
           this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Pregunta eliminada con éxito' });
 
         }, errorMessage => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
-        })
+        });
       },
       reject: () => {
         //
@@ -137,11 +133,11 @@ export class CreateStudyComponent implements OnInit {
   }
 
   addQuestion() {
-    if (this.style == 'new') {
+    if (this.style === 'new') {
       this.display_new = true;
       this.display_pool = false;
     }
-    else if (this.style == 'pool') {
+    else if (this.style === 'pool') {
       this.display_pool = true;
       this.display_new = false;
     }
@@ -161,7 +157,7 @@ export class CreateStudyComponent implements OnInit {
       this.display_pool = false;
       this.display_new = false;
       this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
-    })
+    });
   }
 
   linkPoolQuestion(question) {
@@ -178,7 +174,7 @@ export class CreateStudyComponent implements OnInit {
       this.display_pool = false;
       this.display_new = false;
       this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Pregunta añadida con éxito' });
-    })
+    });
   }
 
   getSelectedQuestion(question) {
@@ -187,7 +183,8 @@ export class CreateStudyComponent implements OnInit {
       this.preguntas.push(question);
     }
 
-    else
+    else {
       this.preguntas.push(question);
+    }
   }
 }

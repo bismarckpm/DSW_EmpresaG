@@ -1,4 +1,4 @@
-import { Analytics } from '../analytics/analytics'
+import { Analytics } from '../analytics/analytics';
 
 export class Option {
     _id?: number;
@@ -6,7 +6,5 @@ export class Option {
     rangoInicial?: number;
     rangoFinal?: number;
     numeroDePersonas?: number;
-
-    // TODO: Clean up, but not now to avoid compilation errors
     estadisticas?: Analytics;
 }

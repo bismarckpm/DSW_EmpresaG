@@ -9,6 +9,7 @@ import { Subcategory } from '../products/subcategory';
 
 export class StudyWithFilter {
     _id: number;
+    nombre?: string;
     edadMinima?: number;
     edadMaxima?: number;
     fkCategoria?: Category;

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { MessageService, MenuItem } from 'primeng/api'
+import { MessageService, MenuItem } from 'primeng/api';
 import { Brand } from '../../../core/classes/products/brand';
 import { replaceKeyWithValue } from '../../../core/functions/common_functions';
 import { SubcategoryService } from 'src/app/core/services/admin/products/subcategory.service';
@@ -22,36 +22,36 @@ export class EditBrandComponent implements OnInit {
   @Output() onModalClose = new EventEmitter<any>();
   @Output() onBrandEdited = new EventEmitter<any>();
   subcategorias: any[];
-  sent_form: boolean = false;
+  sent_form = false;
 
   /* Form */
   brandForm: FormGroup;
   @ViewChild('sform') brandFormDirective;
 
   formErrors = {
-    'subcategoria': '',
-    'nombre': '',
-    'descripcion': ''
+    subcategoria: '',
+    nombre: '',
+    descripcion: ''
   };
 
   validationMessages = {
-    'subcategoria': {
-      'required': 'Subcategoría es requerida'
+    subcategoria: {
+      required: 'Subcategoría es requerida'
     },
-    'nombre': {
-      'required': 'Nombre de subcategoría es requerido',
-      'maxlength': 'Nombre de subcategoría no puede exceder los 90 caracteres'
+    nombre: {
+      required: 'Nombre de subcategoría es requerido',
+      maxlength: 'Nombre de subcategoría no puede exceder los 90 caracteres'
     },
-    'descripcion': {
-      'maxlength': 'Descripción no puede exceder los 500 caracteres'
+    descripcion: {
+      maxlength: 'Descripción no puede exceder los 500 caracteres'
     }
-  }
+  };
 
 
   constructor(private fb: FormBuilder,
-    private messageService: MessageService,
-    private subcategoryService: SubcategoryService,
-    private brandService: BrandService) { }
+              private messageService: MessageService,
+              private subcategoryService: SubcategoryService,
+              private brandService: BrandService) { }
 
   ngOnInit(): void {
     this.getSubcategories();
@@ -60,20 +60,20 @@ export class EditBrandComponent implements OnInit {
 
   createForm(){
     this.brandForm = this.fb.group({
-      'subcategoria': [
+      subcategoria: [
         this.brand.fkSubcategoria._id,
         [
           Validators.required
         ]
       ],
-      'nombre': [
+      nombre: [
         this.brand.fkMarca.nombre,
         [
           Validators.required,
           Validators.maxLength(90)
         ]
       ],
-      'descripcion': [
+      descripcion: [
         this.brand.fkMarca.descripcion,
         [
           Validators.maxLength(500)
@@ -120,28 +120,28 @@ export class EditBrandComponent implements OnInit {
     this.subcategorias = null;
     this.subcategorias = [];
     this.subcategoryService.getALLSubcategories().subscribe((subcategories) => {
-      for (var i = 0; i<subcategories.length; i++){
+      for (let i = 0; i < subcategories.length; i++){
         this.subcategorias.push({
           _id: subcategories[i].fkSubcategoria._id,
           nombre: subcategories[i].fkSubcategoria.nombre
-        })
+        });
       }
 
       this.subcategorias = replaceKeyWithValue(this.subcategorias);
-    })
+    });
   }
 
   putBrand(){
-    this.brandService.putBrand(this.brand).subscribe((b)=>{
-      this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Subcategoría modificada con éxito'});
+    this.brandService.putBrand(this.brand).subscribe((b) => {
+      this.messageService.add({severity: 'success', summary: 'Éxito', detail: 'Subcategoría modificada con éxito'});
       this.brand = b;
       this.sent_form = false;
       this.editSubcategory();
       this.closeModal();
     }, errorMessage => {
-      this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
+      this.messageService.add({severity: 'error', summary: 'Error', detail: errorMessage});
       this.sent_form = false;
-    })
+    });
   }
 
   editSubcategory(){
@@ -152,7 +152,7 @@ export class EditBrandComponent implements OnInit {
     this.sent_form = true;
     if (!this.brandForm.valid){
       this.sent_form = false;
-      this.messageService.add({severity:'error', summary: 'Error', detail: 'Debe rellenar los campos requeridos con datos válidos'});
+      this.messageService.add({severity: 'error', summary: 'Error', detail: 'Debe rellenar los campos requeridos con datos válidos'});
     }
     else {
       this.brand.fkMarca.nombre = this.brandForm.value.nombre;

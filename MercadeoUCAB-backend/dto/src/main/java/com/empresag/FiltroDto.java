@@ -5,6 +5,7 @@ public class FiltroDto extends BaseDto {
     private Integer tipoFiltroLugar;
     private Integer edadMinima;
     private Integer edadMaxima;
+    private String nombre;
     private NivelSocioeconomicoDto fkNivelSocioeconomico;
     private EdoCivilDto fkEdoCivil;
     private NivelAcademicoDto fkNivelAcademico;
@@ -108,5 +109,13 @@ public class FiltroDto extends BaseDto {
 
     public void setFkSolicitud(SolicitudDto fkSolicitud) {
         this.fkSolicitud = fkSolicitud;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }

@@ -42,6 +42,18 @@ public class EstudioEntity extends BaseEntity{
         this.estado = estado;
     }
 
+    @Basic
+    @Column(name = "nombre")
+    private String nombre;
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     @ManyToOne
     @JoinColumn(name = "fk_analisis")
     private AnalisisEntity fkAnalisis;

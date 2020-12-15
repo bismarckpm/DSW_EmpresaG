@@ -43,6 +43,9 @@
                                     field="subcategoria">
                                 </p-sortIcon>
                             </th>
+                          <th class="p-text-center">
+                            Nombre
+                          </th>
                             <th class="p-text-center">
                                 Filtros adicionales
                             </th>
@@ -71,6 +74,10 @@
                                 <span class="image-text"
                                     *ngIf="estudio.fkSubcategoria">{{estudio.fkSubcategoria.nombre}}</span>
                             </td>
+                          <td class="p-text-center">
+                            <span class="p-column-title">Nombre</span>
+                            {{estudio.fkEstudio.nombre}}
+                          </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Filtros adicionales</span>
                                 <span class="image-text" *ngIf="estudio.fkNivelSocioeconomico"><strong>Nivel

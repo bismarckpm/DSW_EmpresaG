@@ -10,6 +10,7 @@ import { Study } from './study';
 
 export class RequestWithFilter{
     _id: number;
+    nombre?: string;
     edadMinima?: number;
     edadMaxima?: number;
     fkCategoria?: Category;

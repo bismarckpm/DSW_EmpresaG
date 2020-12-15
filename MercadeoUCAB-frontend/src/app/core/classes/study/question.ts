@@ -11,17 +11,4 @@ export class Question {
     status: number;
     listOpciones?: Option[];
     listPosibleRespuestas?: PossibleAnswer[];
-
-    //TODO: Clean up, but not for now to avoid compilation errors
-
-    id: number;
-    tipo?: string;
-    id_tipo?: number;
-    id_categoria?: number;
-    id_subcategoria?: number;
-    categoria?: string;
-    subcategoria?: string;
-    opciones?: Option[];
-    respuestas?: Answer;
-    estadisticas?: Analytics;
 }
