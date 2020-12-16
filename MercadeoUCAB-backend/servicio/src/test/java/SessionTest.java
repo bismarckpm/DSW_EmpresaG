@@ -46,7 +46,7 @@ public class SessionTest {
     {
         UsuarioDto user = new UsuarioDto();
         user.setEmail( "cverde22@gmail.com" );
-        user.setPassword( "Caracas2." );
+        user.setPassword( "Caracas1." );
         DirectorioActivo ldap = new DirectorioActivo();
         ldap.changePassword( user );
     }

@@ -524,19 +524,11 @@ public class UserService {
         if (usuarioOld != null){
 
             usuarioOld.setEstado(usuarioDto.getEstado());
-            if (!usuarioDto.getPassword().equals(""))
+            if (!usuarioDto.getPassword().equals("")) {
                 usuarioOld.setPassword(usuarioDto.getPassword());
-//
-//            DaoRol daoRol = new DaoRol();
-//            RolEntity rol = daoRol.find(usuarioDto.getFk_Rol().get_id(), RolEntity.class);
-//            RolDto userRol = new RolDto();
-//            userRol.set_id(rol.get_id());
-//            userRol.setNombre(rol.getNombre());
-//
-//            usuarioOld.setFkRol(userRol);
-//
-//
-//            resultado.update(usuarioOld);
+                DirectorioActivo ldap = new DirectorioActivo();
+                ldap.changePassword(usuarioDto);
+            }
 
 //            INSERTAR ROL
             RolEntity rolEntity = new RolEntity();
@@ -704,8 +696,6 @@ public class UserService {
             }
 
 
-            DirectorioActivo ldap = new DirectorioActivo();
-            ldap.changePassword(usuarioDto);
 
             return Response.ok().entity(usuarioOld).build();
 

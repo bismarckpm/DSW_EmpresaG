@@ -195,6 +195,7 @@ export class FamilyComponent implements OnInit {
   validateAddKidForm(){
     if (this.familyForm.valid){
       this.genero_h._id = this.familyForm.value.genero_hijo;
+      this.genero_h.nombre = this.generos[this.familyForm.value.genero_hijo-1].label;
       this.hijos.push({
         primerNombre: this.familyForm.value.nombre_hijo,
         primerApellido: this.familyForm.value.apellido_hijo,

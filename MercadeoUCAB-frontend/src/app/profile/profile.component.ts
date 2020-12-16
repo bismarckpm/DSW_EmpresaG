@@ -217,6 +217,9 @@ export class ProfileComponent implements OnInit {
 
   };
 
+
+ 
+
   constructor(private Activatedroute:ActivatedRoute,
     private router:Router,
     private messageService: MessageService,
@@ -530,6 +533,7 @@ export class ProfileComponent implements OnInit {
 
   validateAddKidForm(){
     this.generochild._id = this.profileForm.value.genero_hijo;
+    this.generochild.nombre = this.generos[this.profileForm.value.genero_hijo-1].label;
       this.hijos.push({
         primerNombre: this.profileForm.value.nombre_hijo,
         primerApellido: this.profileForm.value.apellido_hijo,
@@ -689,7 +693,7 @@ export class ProfileComponent implements OnInit {
       this.persona = p;
       this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Usuario actualizado con éxito'});
       this.sent_form = false;
-      this.router.navigate(['/profile']);
+      // this.router.navigate(['/profile']);
       // this.editUser();
       // this.closeModal();
     }, errorMessage => {
