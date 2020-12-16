@@ -55,4 +55,24 @@ public class DaoToken extends Dao<TokenEntity> {
         token.setToken_reset(null);
         update(token);
     }
+
+    public TokenEntity getTokenByHASH(String token_reset){
+        TokenEntity token = new TokenEntity();
+        DaoUsuario usuarioDao = new DaoUsuario();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
+        EntityManager em = emf.createEntityManager();
+
+        //UsuarioEntity user = usuarioDao.find(fkUsuario,UsuarioEntity.class);
+
+        JPQL = "SELECT t FROM TokenEntity t WHERE t.token_reset = :token_reset";
+        q = em.createQuery(JPQL);
+        q.setParameter("token_reset", token_reset);
+
+        List<TokenEntity> tokens = q.getResultList();
+
+        if (!tokens.isEmpty())
+            token = tokens.get(0);
+
+        return token;
+    }
 }

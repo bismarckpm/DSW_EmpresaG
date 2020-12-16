@@ -37,6 +37,7 @@ public class MyApplication extends Application {
         h.add( DisponibilidadService.class );
         h.add( RolService.class );
         h.add( LoginService.class );
+        h.add( RecoveryService.class );
         h.add( StudyRequestService.class );
         h.add( AnalyticsService.class );
         h.add( SurveyService.class );

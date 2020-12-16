@@ -12,6 +12,8 @@ import { ProfileModule } from './profile/profile.module';
 import { AnalyticsModule } from './analytics/analytics.module';
 import { ClientModule } from './client/client.module';
 import { SurveysModule } from './surveys/surveys.module';
+import { ChangeComponent } from './auth/recovery/change/change.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,10 @@ import { SurveysModule } from './surveys/surveys.module';
     ProfileModule,
     AnalyticsModule,
     ClientModule,
-    SurveysModule
+    SurveysModule,
+    RouterModule.forRoot([
+      { path: 'change/:hash', component: ChangeComponent }
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]

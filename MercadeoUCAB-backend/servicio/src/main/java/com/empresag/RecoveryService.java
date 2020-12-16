@@ -36,12 +36,15 @@ public class RecoveryService {
     }
 
     @POST
-    @Path("/change/{email}/pass/{newPassword}")
-    public void changePassword(@PathParam("email") String email,@PathParam("newPassword") String password){
+    @Path("/{hash}/pass/{newPassword}")
+    public void changePassword(@PathParam("hash") String hash,@PathParam("newPassword") String password){
         DaoUsuario usuarioDao = new DaoUsuario();
+        DaoToken tokenDao = new DaoToken();
         UserService userservice = new UserService();
-        List<UsuarioEntity> users = usuarioDao.emailExist(email);
-        UsuarioEntity user = users.get(0);
+
+        TokenEntity token = tokenDao.getTokenByHASH(hash);
+
+        UsuarioEntity user = usuarioDao.find(token.getFkUsuario().get_id(),UsuarioEntity.class);
         user.setPassword(password);
 
         UsuarioDto dtoUsuario = userservice.getUser(user.get_id());
@@ -52,8 +55,6 @@ public class RecoveryService {
         ldap.changePassword(dtoUsuario);
 
         usuarioDao.update(user);
-
-        DaoToken tokenDao = new DaoToken();
 
         tokenDao.deleteTokenReset(user.get_id());
     }

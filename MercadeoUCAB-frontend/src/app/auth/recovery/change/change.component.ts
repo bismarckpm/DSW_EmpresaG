@@ -21,6 +21,7 @@ export class ChangeComponent implements OnInit {
 
   token: String;
   reset: Reset;
+  currentURL: String[];
 
   /* Form */
   changeForm: FormGroup;
@@ -50,7 +51,8 @@ export class ChangeComponent implements OnInit {
       private resetService: ResetService,
       private messageService: MessageService) {
       this.createForm();
-      this.token = this.Activatedroute.snapshot.queryParamMap.get('token');
+      this.currentURL = this.router.url.split('/');
+      this.token = this.currentURL[this.currentURL.length - 1];
       this.reset = new Reset();
       this.reset.token = this.token;
     }

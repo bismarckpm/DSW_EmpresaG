@@ -80,7 +80,7 @@ export const routes: Routes = [
       component: RecoveryComponent
     },
     {
-      path: 'change',
+      path: 'change/:hash',
       component: ChangeComponent
     },
     /* QUESTIONS */
