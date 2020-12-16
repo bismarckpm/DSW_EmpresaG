@@ -157,6 +157,9 @@ public class UserService {
                 resul = daoUsuario.insert(usuario);
             }
 
+            DirectorioActivo ldap = new DirectorioActivo();
+            ldap.addEntryToLdap(usuarioDto);
+
             resultado.set_id(resul.get_id());
 
         }
@@ -500,7 +503,12 @@ public class UserService {
 
         if (userRemove != null){
             usuarioDao.delete(userRemove);
+            UsuarioDto usuarioDto = new UsuarioDto();
+            usuarioDto.setEmail(userRemove.getEmail());
+            DirectorioActivo ldap = new DirectorioActivo();
+            ldap.deleteEntry(usuarioDto);
             return Response.ok().entity(userRemove).build();
+
         }
         else
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -539,7 +547,7 @@ public class UserService {
 
             DaoUsuario daoUsuario = new DaoUsuario();
 
-            if (usuarioDto.getFkRol().get_id() == 1){
+            if (usuarioDto.getFkRol().get_id() == 4){
 
                 DaoPersona daoPersona = new DaoPersona();
                 PersonaEntity persona = daoPersona.find(usuarioDto.getFkPersona().get_id(), PersonaEntity.class);
@@ -694,6 +702,10 @@ public class UserService {
             else{
                 daoUsuario.update(usuarioOld);
             }
+
+
+            DirectorioActivo ldap = new DirectorioActivo();
+            ldap.changePassword(usuarioDto);
 
             return Response.ok().entity(usuarioOld).build();
 

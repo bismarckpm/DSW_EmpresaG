@@ -302,7 +302,7 @@ export class EditUserComponent implements OnInit {
 
             if (this.persona){
               this.loading = false;
-              if(this.persona.fkRol._id == 1){
+              if(this.persona.fkRol._id == 4){
                 this.rol = true;
                 this.persona.fkPersona.id_pais = new Place();
                 this.persona.fkPersona.id_estado = new Place();
@@ -552,7 +552,7 @@ export class EditUserComponent implements OnInit {
     this.userService.persona.fkRol._id = this.userForm.value.rol;
     console.log("ola? 1");
     // USUARIO DE TIPO ENCUESTADO
-    if (this.userService.persona.fkRol._id == 1){
+    if (this.userService.persona.fkRol._id == 4){
 
       console.log("ola? 2");
     this.userService.persona.fkPersona._id = this.persona.fkPersona._id;
