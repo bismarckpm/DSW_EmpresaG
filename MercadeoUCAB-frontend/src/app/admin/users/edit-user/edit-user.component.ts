@@ -522,7 +522,6 @@ export class EditUserComponent implements OnInit {
       this.persona = p;
       this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Usuario actualizado con éxito'});
       this.sent_form = false;
-      this.router.navigate(['/users']);
       // this.editUser();
       // this.closeModal();
     }, errorMessage => {

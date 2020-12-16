@@ -14,9 +14,9 @@
                     </div>
                     <div class="p-col-12 p-lg-9">
                         <div class="p-d-flex p-jc-lg-start p-jc-sm-center">
-                            <p><b>{{persona.primer_nombre}} {{persona.primer_apellido}}</b><br>
-                                {{persona.fecha_de_nacimiento}}<br>
-                                (Direccion bonita)
+                            <p><b>{{persona.fkPersona.primerNombre}} {{persona.fkPersona.primerApellido}}</b><br>
+                                {{persona.fkPersona.fechaNacimiento}}<br>
+                                {{dir_bella}}
                             </p>
                         </div>
                     </div>
@@ -24,11 +24,11 @@
                 <!-- Secondary info -->
                 <div class="p-mx-5">
                     <hr>
-                    <p>Email: {{persona.correo_electronico}}</p>
+                    <p>Email: {{persona.email}}</p>
                     <p>Genero: {{persona.fkPersona.fkGenero.nombre}}</p>
-                    <p>Teléfono: {{persona.fkPersona.telefono.numero}}</p>
-                    <p>Ocupación: {{persona.fkPersona.ocupacion}}</p>
-                    <p>Nivel académico: {{persona.fkPersona.id_nivel_academico}}</p>
+                    <p>Teléfono: {{persona.fkPersona.telefono}}</p>
+                    <p>Ocupación: {{ocupacion}}</p>
+                    <p>Nivel académico: {{lvlAcademico}}</p>
                     <p>Número de hijos: {{persona.fkPersona.hijos.length}}</p>
                     <hr>
                 </div>
@@ -41,7 +41,7 @@
                     <div class="p-mr-2">
                         <p-card class="card-shadow">
                             <i class="pi pi-fw pi-clock"></i>
-                            {{persona.id_horario_inicial}} a {{persona.id_horario_final}}
+                            {{persona.fkPersona.id_horario_inicial.hora}} a {{persona.fkPersona.id_horario_final.hora}}
                         </p-card>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
         <!-- Formulario de cammbio de perfil -->
         <div class="p-col-12 p-lg-8  p-as-start" style="margin-left: 2em;">
             <p-card>
-                <form novalidate [formGroup]="profileForm" #pform="ngForm">
+                <form novalidate [formGroup]="profileForm" #pform="ngForm" (ngSubmit)="onSubmit()">
                     <!-- INFORMACION DE LA CUENTA -->
                     <div class="p-grid p-jc-start p-mx-5">
                         <div class="p-col-12">
@@ -63,12 +63,12 @@
                                 <label for="float-input">Correo Electrónico</label>
                             </span>
                         </div>
-                        <div class="p-col-12 p-lg-6" *ngIf="!dataPersona">
+                        <!-- <div class="p-col-12 p-lg-6" *ngIf="!dataPersona">
                             <span class="p-float-label">
                                 <input class="p-inputtext-lg fill-width" type="text" pInputText disabled>
                                 <label for="float-input">Rol</label>
                             </span>
-                        </div>
+                        </div> -->
                         <div class="p-col-12">
                             <a href="#">Cambiar contraseña</a>
                         </div>
@@ -211,7 +211,7 @@
                                 </div>
                             </div>
                     
-                            <div class="p-grid p-nogutter p-jc-end p-mb-4" *ngIf="userForm.value.tiene_hijos">
+                            <div class="p-grid p-nogutter p-jc-end p-mb-4" *ngIf="profileForm.value.tiene_hijos">
                                 <div class="p-grid p-formgrid p-fluid">
                                     <div class="p-mb-2 p-col-12 p-mb-lg-0 p-mr-3">
                                         <button pButton pRipple type="button" (click)="showAddKidForm()" pTooltip="Añadir hijo" tooltipPosition="right"
@@ -347,6 +347,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="p-grid p-jc-end p-mt-1 p-mr-4">
+                        <div class="p-grid p-formgrid p-fluid">
+                            <div class="p-mb-2 p-col-6 p-mb-lg-0">
+                                <!-- <button pButton pRipple type="button" label="Cerrar" class="p-button-secondary" (click)="previousPage()"></button> -->
+                            </div>
+                            <div class="p-mb-2 p-col-6 p-mb-lg-0">
+                                <button pButton type="submit" [disabled]="sent_form"
+                                label="Guardar"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <p-toast></p-toast>
                 </form>
             </p-card>
         </div>

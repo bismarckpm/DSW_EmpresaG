@@ -61,7 +61,7 @@ export class ProfileComponent implements OnInit {
   horario_inicial: SelectItem[];
   horario_final: SelectItem[];
   estado_cuenta: SelectItem[];
-  roles: SelectItem[];
+  // roles: SelectItem[];
   hijos: Child[] = [];
   niveles_academicos: SelectItem[];
   niveles_socioeconomicos: SelectItem[];
@@ -79,6 +79,10 @@ export class ProfileComponent implements OnInit {
   ciudad: boolean;
   parroquia: boolean;
   selectedDevices: Device[];
+
+  ocupacion: String;
+  lvlAcademico: String;
+  dir_bella: String;
 
   /* Form */
   profileForm: FormGroup;
@@ -106,7 +110,7 @@ export class ProfileComponent implements OnInit {
     'hora_inicial': '',
     'hora_final': '',
     'estado_cuenta': '',
-    'rol': '',
+    // 'rol': '',
     'personas_hogar': '',
     'tiene_hijos': '',
     'nombre_hijo': '',
@@ -120,9 +124,9 @@ export class ProfileComponent implements OnInit {
     'estado_cuenta': {
       'required': 'Estado de la cuenta es requerido',
     },
-    'rol':{
-      'required': 'Rol es requerido',
-    },
+    // 'rol':{
+    //   'required': 'Rol es requerido',
+    // },
     'correo_electronico': {
       'required': 'Correo electrónico es requerido',
       'pattern': 'Correo electronico debe tener un formato válido'
@@ -213,27 +217,11 @@ export class ProfileComponent implements OnInit {
 
   };
 
-  // constructor(private fb: FormBuilder,
-  //   private spinner: NgxSpinnerService,
-  //   private userService: UserService,
-  //   private sessionService: SessionService) {
-  //   this.generos = GENDERS;
-  //   this.edos_civil = CIVIL_STATUSES;
-  //   this.tieneHijos = [
-  //     {
-  //       label: 'Si',
-  //       value: true
-  //     },
-  //     {
-  //       label: 'No',
-  //       value: false
-  //     }];
-  // }
   constructor(private Activatedroute:ActivatedRoute,
     private router:Router,
     private messageService: MessageService,
     private userService: UserService,
-    private rolService: RolService,
+    // private rolService: RolService,
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
     private placeService: PlaceService,
@@ -247,6 +235,7 @@ export class ProfileComponent implements OnInit {
     private nivelAcademicoService: NivelAcademicoService,
     ) {
 
+      this.dir_bella = "";
       // this.niveles_socioeconomicos = SOCIAL_STATUSES;
       this.estado_cuenta = ACCOUNT_XTATUS;
 
@@ -272,9 +261,9 @@ export class ProfileComponent implements OnInit {
         this.edos_civil = replaceKeyWithValue(edos);
       });
       // this.roles = ROLES;
-      this.rolService.getRoles().subscribe((roles) => {
-        this.roles = replaceKeyWithValue(roles);
-      });
+      // this.rolService.getRoles().subscribe((roles) => {
+      //   this.roles = replaceKeyWithValue(roles);
+      // });
       // this.generos = GENDERS;
       this.generoService.getGeneros().subscribe((generos) => {
         this.generos = replaceKeyWithValue(generos);
@@ -299,6 +288,7 @@ export class ProfileComponent implements OnInit {
         // this.userService.getPerson(this.current_user).subscribe((persona) => {
             this.persona = persona;
 
+            console.log(this.persona);
             if (this.persona){
               this.loading = false;
               if(this.persona.fkRol._id == 4){
@@ -311,6 +301,10 @@ export class ProfileComponent implements OnInit {
                 this.selectedDevices = this.persona.fkPersona.dispositivos;
               // this.selectedGenreValue = persona.fkPersona.fkGenero.value;
               // this.selectedEdoCivilValue = persona.fkPersona.fkEdoCivil.value;
+
+                this.ocupacion = this.ocupaciones[parseInt(this.persona.fkPersona.ocupacion)-1].label;
+                this.lvlAcademico = this.niveles_academicos[this.persona.fkPersona.id_nivel_academico-1].label;
+                this.parseDireccion(this.persona.fkPersona.fkLugar);
                 this.fecha_nacimiento = new Date(persona.fkPersona.fechaNacimiento);
                 // this.hasKids = persona.fkPersona.tiene_hijos;
                 this.hijos = persona.fkPersona.hijos;
@@ -471,7 +465,7 @@ export class ProfileComponent implements OnInit {
       parroquia: this.persona.fkPersona.id_parroquia._id,
       // codigo_pais: this.persona.fkPersona.codigo_pais,
       ocupacion: this.persona.fkPersona.ocupacion,
-      rol: this.persona.fkRol._id,
+      // rol: this.persona.fkRol._id,
       telefono: [
         this.persona.fkPersona.telefono,
         [
@@ -660,5 +654,140 @@ export class ProfileComponent implements OnInit {
 
   }
 
+  
+
+  parseDireccion(lugar: Place): void{
+    // SI ES PAIS NOS DETENEMOS
+    if (lugar.tipo == 0){
+
+        this.dir_bella += lugar.nombre +", ";
+    }
+    else{
+
+      if (lugar.fkLugar != null){
+        this.parseDireccion(lugar.fkLugar);
+      
+        switch(lugar.tipo){
+
+          case 1:
+            this.dir_bella += lugar.nombre +", ";
+            break;
+          case 2:
+            this.dir_bella += lugar.nombre +" ";
+            break;
+          case 3:
+
+            this.dir_bella += lugar.nombre +" ";
+            break;
+        }
+      }
+    }
+  }
+
+  putUser(){
+    this.userService.putUser(this.userService.persona).subscribe((p)=>{
+      this.persona = p;
+      this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Usuario actualizado con éxito'});
+      this.sent_form = false;
+      this.router.navigate(['/profile']);
+      // this.editUser();
+      // this.closeModal();
+    }, errorMessage => {
+      this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
+      this.sent_form = false;
+    })
+  }
+  
+  onSubmit(){
+    this.sent_form = true;
+    // Informacion basica
+    this.userService.persona._id = this.persona._id;
+    this.userService.persona.email = this.persona.email;
+    this.userService.persona.password = "";
+    this.userService.persona.confirmar_clave = "";
+    this.userService.persona.estado = this.persona.estado;
+    this.userService.persona.fkRol._id = this.persona.fkRol._id;
+    
+    // USUARIO DE TIPO ENCUESTADO
+    if (this.userService.persona.fkRol._id == 4){
+
+      
+    this.userService.persona.fkPersona._id = this.persona.fkPersona._id;
+      // this.userService.persona.fkPersona.primerNombre = this.userForm.value.primer_nombre;
+      this.userService.persona.fkPersona.primerNombre = this.persona.fkPersona.primerNombre;
+      // this.userService.persona.fkPersona.primerApellido = this.userForm.value.primer_apellido;
+      this.userService.persona.fkPersona.primerApellido = this.persona.fkPersona.primerApellido;
+      // this.userService.persona.fkPersona.documentoIdentidad = this.userForm.value.documento_de_identificacion;
+      this.userService.persona.fkPersona.documentoIdentidad = this.persona.fkPersona.documentoIdentidad;
+      this.userService.persona.fkPersona.fkGenero._id = this.profileForm.value.genero;
+      this.userService.persona.fkPersona.fkEdoCivil._id = this.profileForm.value.estado_civil;
+      // this.userService.persona.fkPersona.fechaNacimiento = this.userForm.value.fecha_de_nacimiento;
+      this.userService.persona.fkPersona.fechaNacimiento = this.persona.fkPersona.fechaNacimiento;
+      this.userService.persona.fkPersona.dispositivos = this.profileForm.value.dispositivos;
+  // Informacion socioeconomica
+      this.userService.persona.fkPersona.ocupacion = this.profileForm.value.ocupacion;
+      this.userService.persona.fkPersona.id_nivel_academico = this.profileForm.value.nivel_academico;
+      this.userService.persona.fkPersona.id_nivel_socioeconomico = this.profileForm.value.nivel_socioeconomico;
+  // Informacion familiar
+      this.userService.persona.fkPersona.numero_personas_encasa = this.profileForm.value.personas_hogar;
+      this.userService.persona.fkPersona.tiene_hijos = this.profileForm.value.tiene_hijos;
+      this.userService.persona.fkPersona.hijos = this.hijos;
+  // Informacion de contacto
+      this.userService.persona.fkPersona.codigo_pais = this.profileForm.value.codigo_pais;
+      this.userService.persona.fkPersona.telefono = this.profileForm.value.telefono;
+  // Informacion de tiempo disponible
+      this.userService.persona.fkPersona.id_horario_inicial._id = this.profileForm.value.horario_inicial;
+      this.userService.persona.fkPersona.id_horario_final._id = this.profileForm.value.horario_final;
+
+    if (this.parroquia){
+      this.userService.persona.fkPersona.fkLugar._id = this.profileForm.value.parroquia;
+    }
+    else if (this.ciudad){
+      this.userService.persona.fkPersona.fkLugar._id = this.profileForm.value.ciudad;
+    }
+    else if (this.estado){
+      this.userService.persona.fkPersona.fkLugar._id = this.profileForm.value.estado;
+    }
+    else{
+      this.userService.persona.fkPersona.fkLugar._id = this.profileForm.value.pais;
+    }
+
+      if (this.userService.persona.fkPersona.documentoIdentidad
+        && this.userService.persona.fkPersona.fechaNacimiento && this.userService.persona.fkPersona.fkGenero._id
+        && this.userService.persona.fkPersona.id_nivel_academico && this.userService.persona.fkRol._id
+        && this.userService.persona.fkPersona.id_pais  && this.userService.persona.fkPersona.telefono
+        && this.userService.persona.fkPersona.numero_personas_encasa){
+
+
+        /* SUBMIT FORM */
+        this.sent_form = true;
+        // if (!this.userForm.valid){
+        //   this.sent_form = false;
+        //   this.messageService.add({severity:'error', summary: 'Error', detail: 'Debe rellenar los campos requeridos con datos válidos'});
+        // }
+        // else {
+
+      // this.persona.fkPersona = this.persona.find(o => o.value == this.persona.fkPersona._id).label;
+
+        this.putUser();
+        // }
+      }
+    }
+    // USUARIO DE TIPO NO ENCUESTADO
+    else{
+      /* SUBMIT FORM */
+      this.sent_form = true;
+      // if (!this.userForm.valid){
+      //   this.sent_form = false;
+      //   this.messageService.add({severity:'error', summary: 'Error', detail: 'Debe rellenar los campos requeridos con datos válidos'});
+      // }
+      // else {
+
+        // this.persona.fkPersona = this.persona.find(o => o.value == this.persona.fkPersona._id).label;
+        
+        this.putUser();
+      // }
+    }
+  }
 
 }
