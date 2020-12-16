@@ -28,7 +28,15 @@ public class LoginService {
         String token = null;
         UsuarioDto authenticatedUser = new UsuarioDto();
         TokenEntity tokenEntity = null;
-        tokenEntity = daoToken.getUserToken(usuarioEntity.get_id());
+
+        /* If user doesn't exist */
+
+        try {
+            tokenEntity = daoToken.getUserToken(usuarioEntity.get_id());
+        }
+        catch (NullPointerException e){
+            return null;
+        }
 
         authLDAP = ldap.userAuthentication(usuarioDto);
 

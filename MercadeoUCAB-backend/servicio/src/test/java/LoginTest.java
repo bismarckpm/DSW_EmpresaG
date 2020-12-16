@@ -16,25 +16,8 @@ public class LoginTest {
         if (user != null)
             userString = user.toString();
 
-        UsuarioEntity userPrueba = usuarioDao.find((long)92, UsuarioEntity.class);
-import java.util.List;
-
-public class LoginTest {
-//    @Test
-//    public void getUsuario(){
-//        LoginService login = new LoginService();
-//        DaoUsuario usuarioDao = new DaoUsuario();
-//
-//
-//        String userString = "";
-//        UsuarioEntity user = login.currentUser("angel99castillo@gmail.com", "Am101199.");
-//        if (user != null)
-//            userString = user.toString();
-//
-//        UsuarioEntity userPrueba = usuarioDao.find((long)1,UsuarioEntity.class);
-//
-//        Assert.assertEquals( userPrueba.toString(), userString );
-//    }
+        UsuarioEntity userPrueba = usuarioDao.find((long) 92, UsuarioEntity.class);
+    }
 
 //    @Test
 //    public void recClaveTest(){

@@ -1,9 +1,7 @@
 package com.empresag;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import javax.persistence.*;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Random;
 
@@ -11,9 +9,6 @@ public class DaoToken extends Dao<TokenEntity> {
     String JPQL = null;
     Query q = null;
     static DaoHandler _handler = new DaoHandler();
-
-    String JPQL = null;
-    Query q = null;
 
     public DaoToken(){
         super(_handler);
@@ -36,8 +31,7 @@ public class DaoToken extends Dao<TokenEntity> {
         }
     }
 
-    public String getAlphaNumericString(int n)
-    {
+    public String getAlphaNumericString(int n) {
 
         // length is bounded by 256 Character
         byte[] array = new byte[256];
@@ -50,7 +44,7 @@ public class DaoToken extends Dao<TokenEntity> {
         StringBuilder r = new StringBuilder();
 
         // remove all spacial char
-        String  AlphaNumericString
+        String AlphaNumericString
                 = randomString
                 .replaceAll("[^A-Za-z0-9]", "");
 
@@ -70,6 +64,8 @@ public class DaoToken extends Dao<TokenEntity> {
 
         // return the resultant string
         return r.toString();
+    }
+
     public String getHASH(){
         char[] chars = "abcdefghijklmnopqrstuvwxyz123456789".toCharArray();
         StringBuilder sb = new StringBuilder(10);
@@ -82,7 +78,7 @@ public class DaoToken extends Dao<TokenEntity> {
         return hash;
     }
 
-    public TokenEntity findToken(long fkUsuario){
+    public TokenEntity findToken (long fkUsuario){
         TokenEntity token = new TokenEntity();
         DaoUsuario usuarioDao = new DaoUsuario();
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
