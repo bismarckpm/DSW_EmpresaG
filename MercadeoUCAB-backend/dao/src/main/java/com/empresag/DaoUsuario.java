@@ -47,7 +47,7 @@ public class DaoUsuario extends Dao<UsuarioEntity> {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
         EntityManager em = emf.createEntityManager();
 
-        JPQL = "SELECT u._id FROM UsuarioEntity u WHERE u.email = :correo ";
+        JPQL = "SELECT u FROM UsuarioEntity u WHERE u.email = :correo ";
         q = em.createQuery(JPQL);
         q.setParameter("correo", correo);
 

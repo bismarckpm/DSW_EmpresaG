@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ProcessHttpMessageService } from '../process-http-message.service';
 import { Observable } from 'rxjs';
 import {serverURL} from '../../constants/serverURL';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,7 @@ export class RecoveryService {
       })
     };
 
-    return this.http.post<Recovery>(serverURL + 'recovery', recovery, httpOptions);
+    return this.http.post<Recovery>(serverURL + 'recovery/' + recovery.correo, recovery, httpOptions)
+      .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 }
