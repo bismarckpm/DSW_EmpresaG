@@ -1,23 +1,45 @@
-import com.empresag.UsuarioEntity;
-import com.empresag.DaoUsuario;
-import com.empresag.LoginService;
+import com.empresag.*;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.List;
+
 public class LoginTest {
+//    @Test
+//    public void getUsuario(){
+//        LoginService login = new LoginService();
+//        DaoUsuario usuarioDao = new DaoUsuario();
+//
+//
+//        String userString = "";
+//        UsuarioEntity user = login.currentUser("angel99castillo@gmail.com", "Am101199.");
+//        if (user != null)
+//            userString = user.toString();
+//
+//        UsuarioEntity userPrueba = usuarioDao.find((long)1,UsuarioEntity.class);
+//
+//        Assert.assertEquals( userPrueba.toString(), userString );
+//    }
+
+//    @Test
+//    public void recClaveTest(){
+//        UserService us = new UserService();
+//        RecoveryService recovery = new RecoveryService();
+//        DaoToken tokenDao = new DaoToken();
+//
+//        //UsuarioDto dtoUsuario = us.getUser(1);
+//
+//        String resp = recovery.correoRecuperar("angel99castillo@gmail.com");
+//
+//        //TokenEntity token = tokenDao.findToken(1);
+//
+//        Assert.assertEquals("success",resp);
+//        //Assert.assertEquals(1,token.get_id());
+//    }
+
     @Test
-    public void getUsuario(){
-        LoginService login = new LoginService();
-        DaoUsuario usuarioDao = new DaoUsuario();
-
-
-        String userString = "";
-        UsuarioEntity user = login.currentUser("angel99castillo@gmail.com", "Am101199.");
-        if (user != null)
-            userString = user.toString();
-
-        UsuarioEntity userPrueba = usuarioDao.find((long)1,UsuarioEntity.class);
-
-        Assert.assertEquals( userPrueba.toString(), userString );
+    public void changeTest(){
+        RecoveryService rec = new RecoveryService();
+        rec.changePassword("angel99castillo@gmail.com","Caracas1.");
     }
 }
