@@ -1,6 +1,6 @@
 <div>
   <!-- Formulario - Add a new User -->
-  <form novalidate [formGroup]="userForm" #uform="ngForm" (ngSubmit)="onSubmit()">
+  <form novalidate [formGroup]="userForm" #uform="ngForm" (ngSubmit)="onSubmit(); userForm.reset()">
     <div *ngIf="!dataPersona">
       <div class="p-grid p-mx-5">
         <div class="p-col-12 p-md-12">
@@ -202,9 +202,9 @@
             </ng-template>
             <ng-template pTemplate="body" let-hijo>
               <tr>
-                <td>{{hijo.primer_nombre}} {{hijo.primer_apellido}}</td>
-                <td>{{hijo.genero}}</td>
-                <td>{{hijo.fecha_de_nacimiento}}</td>
+                <td>{{hijo.primerNombre}} {{hijo.primerApellido}}</td>
+                <td>{{hijo.fkGenero.nombre}}</td>
+                <td>{{hijo.fechaNacimiento}}</td>
                 <td>
                   <button type="button" pButton pRipple icon="pi pi-trash"
                           (click)="deleteChild(hijo)" class="p-button-rounded"></button>
@@ -215,17 +215,17 @@
         </div>
       </div>
 
-      <!-- AÑADIR HIJOS -->
-      <div *ngIf="showKidsForm">
-        <div class="p-grid p-mx-5">
+        <!-- AÑADIR HIJOS -->
+        <div *ngIf="showKidsForm">
+          <div class="p-grid p-mx-5">
             <div class="p-col">
               <h4>Añadir Hijo</h4>
               <small>Presione el check para guardar</small>
             </div>
-        </div>
+          </div>
 
-        <div class="p-grid p-mx-5 pt-mt-4">
-          <div class="p-col-12 p-md-6 p-mb-5 p-mt-5">
+          <div class="p-grid p-mx-5 pt-mt-4">
+            <div class="p-col-12 p-md-6 p-mb-5 p-mt-5">
                                 <span class="p-float-label">
                                     <input id="primer_nombre" formControlName="nombre_hijo"
                                            class="p-inputtext-lg fill-width" type="text" pInputText>
@@ -233,9 +233,9 @@
                                 </span>
               <span class="error-msg"
                     *ngIf="formErrors.nombre_hijo"><small>{{formErrors.nombre_hijo}}</small></span>
-          </div>
+            </div>
 
-          <div class="p-col-12 p-md-6 p-mb-5 p-mt-5">
+            <div class="p-col-12 p-md-6 p-mb-5 p-mt-5">
                                 <span class="p-float-label">
                                     <input id="primer_apellido" formControlName="apellido_hijo"
                                            class="p-inputtext-lg fill-width" type="text" pInputText>
@@ -244,25 +244,25 @@
                                           *ngIf="formErrors.apellido_hijo"><small>{{formErrors.apellido_hijo}}</small></span>
 
                                 </span>
-          </div>
+            </div>
 
-          <div class="p-col-12 p-md-6 p-mb-5">
+            <div class="p-col-12 p-md-6 p-mb-5">
               <p-dropdown [options]="generos" formControlName="genero_hijo" placeholder="Género *">
               </p-dropdown>
               <span class="error-msg"
                     *ngIf="formErrors.genero_hijo"><small>{{formErrors.genero_hijo}}</small></span>
 
-          </div>
+            </div>
 
-          <div class="p-col-12 p-md-6 p-mb-5">
+            <div class="p-col-12 p-md-6 p-mb-5">
               <p-calendar placeholder="Fecha de Nacimiento *" [locale]="es" [yearNavigator]="true"
                           yearRange="1900:2030" dataType="string" dateFormat="dd/mm/yy"
                           formControlName="fecha_de_nacimiento_hijo" class="p-inputtext-lg"></p-calendar>
               <span class="error-msg"
                     *ngIf="formErrors.fecha_de_nacimiento_hijo"><small>{{formErrors.fecha_de_nacimiento_hijo}}</small></span>
 
+            </div>
           </div>
-        </div>
 
           <div class="p-grid p-mx-5">
             <div class="p-col">
@@ -272,7 +272,7 @@
                  (click)="validateAddKidForm()"></i>
             </div>
           </div>
-      </div>
+        </div>
 
 
       <!-- INFORMACION DE EDUCACIÓN Y TRABAJO -->

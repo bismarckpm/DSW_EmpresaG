@@ -21,6 +21,7 @@ import { DisponibilidadService } from 'src/app/core/services/profile/disponibili
 import { RolService } from 'src/app/core/services/profile/rol.service';
 import { GeneroService } from 'src/app/core/services/profile/genero.service';
 import { EdocivilService } from 'src/app/core/services/profile/edocivil.service';
+import { Genero } from 'src/app/core/classes/profile/genero';
 
 
 @Component({
@@ -65,6 +66,10 @@ export class AddUserFormComponent implements OnInit {
   ciudad: boolean;
   parroquia: boolean;
   rol: boolean;
+  genero_h: Genero = {
+    _id: 0,
+    nombre: '',
+  };
 
   /* Form */
   userForm: FormGroup;
@@ -287,6 +292,7 @@ export class AddUserFormComponent implements OnInit {
   }
 
   createForm(){
+
     this.userForm = this.fb.group({
       correo_electronico: [
         this.userService.persona.email,
@@ -295,7 +301,8 @@ export class AddUserFormComponent implements OnInit {
           Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
         ]
       ],
-      clave: [this.userService.persona.password,
+      clave: [
+        this.userService.persona.password,
         [
           Validators.required,
           Validators.pattern(/^(?=.*\d)(?=.*[a-zA-Z])(?=.*[\W_]).{8,40}$/)
@@ -308,7 +315,8 @@ export class AddUserFormComponent implements OnInit {
           RxwebValidators.compare({fieldName: 'clave'})
         ]
       ],
-      primer_nombre: [this.userService.persona.fkPersona.primerNombre,
+      primer_nombre: [
+        this.userService.persona.fkPersona.primerNombre,
       [
         Validators.required,
         Validators.minLength(2),
@@ -322,7 +330,8 @@ export class AddUserFormComponent implements OnInit {
           Validators.maxLength(50)
         ]
       ],
-      documento_de_identificacion: [this.userService.persona.fkPersona.documentoIdentidad,
+      documento_de_identificacion: [
+        this.userService.persona.fkPersona.documentoIdentidad,
         [
           Validators.required,
           Validators.minLength(8),
@@ -388,6 +397,8 @@ export class AddUserFormComponent implements OnInit {
       ],
     });
 
+    this.userForm.reset(this.userForm.value);
+    
     this.userForm.valueChanges
     .subscribe(data => {
       this.onValueChange(data);
@@ -422,6 +433,7 @@ export class AddUserFormComponent implements OnInit {
       }
     }
   }
+
 
   onSubmit(){
     this.sent_form = true;
@@ -509,7 +521,7 @@ export class AddUserFormComponent implements OnInit {
           this.userService.postPerson(this.userService.persona)
           .subscribe(person => {
             console.log('REGISTERED');
-            this.userForm.reset();
+            this.userForm.reset(this.userForm.value);
             this.previousPage();
           },
           errorMessage => {
@@ -529,39 +541,39 @@ export class AddUserFormComponent implements OnInit {
 
 
 
-  userHasKids(event){
-    if (event.value === false){
-      this.hijos = [];
+    userHasKids(event){
+      if (event.value === false){
+        this.hijos = [];
+        this.showKidsForm = false;
+      }
+    }
+  
+    showAddKidForm(){
+      this.showKidsForm = true;
+    }
+  
+    hideAddKidForm(){
       this.showKidsForm = false;
     }
-  }
-
-  showAddKidForm(){
-    this.showKidsForm = true;
-  }
-
-  hideAddKidForm(){
-    this.showKidsForm = false;
-  }
-
-  validateAddKidForm(){
-    if (this.userForm.valid){
+  
+    validateAddKidForm(){
+      this.genero_h._id = this.userForm.value.genero_hijo;
+      this.genero_h.nombre = this.generos[this.userForm.value.genero_hijo-1].label;
       this.hijos.push({
-        primerNombre: this.userForm.value.nombre_hijo,
-        primerApellido: this.userForm.value.apellido_hijo,
-        fkGenero: this.userForm.value.genero_hijo,
-        fechaNacimiento: this.userForm.value.fecha_de_nacimiento_hijo
-    });
+          primerNombre: this.userForm.value.nombre_hijo,
+          primerApellido: this.userForm.value.apellido_hijo,
+          fkGenero: this.genero_h,
+          fechaNacimiento: this.userForm.value.fecha_de_nacimiento_hijo
+      });
       this.hideAddKidForm();
     }
-  }
-
-  deleteChild(kid){
-    const index = this.hijos.indexOf(kid);
-    if (index > -1) {
-      this.hijos.splice(index, 1);
+  
+    deleteChild(kid){
+      const index = this.hijos.indexOf(kid);
+      if (index > -1) {
+        this.hijos.splice(index, 1);
+      }
     }
-  }
 
   getStates(event){
     this.ciudades = [];

@@ -216,9 +216,9 @@
               </ng-template>
               <ng-template pTemplate="body" let-hijo>
                 <tr>
-                  <td>{{hijo.primer_nombre}} {{hijo.primer_apellido}}</td>
-                  <td>{{hijo.genero}}</td>
-                  <td>{{hijo.fecha_de_nacimiento}}</td>
+                  <td>{{hijo.primerNombre}} {{hijo.primerApellido}}</td>
+                  <td>{{hijo.fkGenero.nombre}}</td>
+                  <td>{{hijo.fechaNacimiento}}</td>
                   <td>
                     <button type="button" pButton pRipple icon="pi pi-trash"
                             (click)="deleteChild(hijo)" class="p-button-rounded"></button>
@@ -315,7 +315,7 @@
         </div>
         <div class="p-grid p-mx-5">
           <div class="p-col-12 p-md-6 p-mb-5">
-            <p-multiSelect [options]="dispositivos" formControlName="dispositivos"
+            <p-multiSelect [options]="dispositivos" formControlName="dispositivos" [(ngModel)]="selectedDevices"
                            defaultLabel="Dispositivos que utiliza" emptyFilterMessage="No se encontraron resultados"
                            selectedItemsLabel="{} items seleccionados"></p-multiSelect>
           </div>
