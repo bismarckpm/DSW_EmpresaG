@@ -622,6 +622,7 @@ export class EditUserComponent implements OnInit {
 
   validateAddKidForm(){
     this.generochild._id = this.userForm.value.genero_hijo;
+    this.generochild.nombre = this.generos[this.userForm.value.genero_hijo-1].label;
     this.hijos.push({
         primerNombre: this.userForm.value.nombre_hijo,
         primerApellido: this.userForm.value.apellido_hijo,
@@ -629,7 +630,6 @@ export class EditUserComponent implements OnInit {
         fechaNacimiento: this.userForm.value.fecha_de_nacimiento_hijo
     });
     this.hideAddKidForm();
-
   }
 
   deleteChild(kid){
