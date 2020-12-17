@@ -14,15 +14,10 @@
             </div>
         </div>
         <hr>
-        <!-- FILTER                         (onChange)=""   onCategoryChange($event) estaba en la linea 22-->
+        <!-- FILTER (onChange)="onCategoryChange($event)" estaba en la linea 22-->
         <div *ngIf="usuarios || loading">
             <p class="p-mx-5">Búsqueda avanzada</p>
             <div class="p-grid p-mx-5 p-mt-3">
-                <!-- <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
-                    <p-multiSelect [options]="estado" defaultLabel="Usuarios activos"
-                        emptyFilterMessage="No se encontraron resultados" 
-                        selectedItemsLabel="{} items seleccionados"></p-multiSelect>
-                </div> -->
                 <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
                     <input id="estado" class="p-inputtext-lg fill-width" type="text" pInputText
                         (input)="dt.filter($event.target.value, 'estado', 'contains')" placeholder="Estado">
@@ -63,7 +58,7 @@
                             <td class="p-text-center">
                                 <span class="p-column-title">Email</span>
                                 <span class="image-text">{{persona.email}}</span>
-                            </td> 
+                            </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Estado</span>
                                 <span class="image-text">{{convertStatus(persona.estado)}}</span>
@@ -73,9 +68,9 @@
                                 <span class="image-text">{{persona.fkRol.nombre}}</span>
                             </td>
                             <td class="p-text-center">
-                            
+
                                 <button type="button" pButton pRipple icon="pi pi-pencil"
-                                    class="p-button-rounded p-mr-2" pTooltip="Editar usuario" [routerLink]="['edit']"
+                                    class="p-button-rounded p-mr-2" pTooltip="Editar usuario" [routerLink]="['/edit']"
                                     [queryParams]="{pid:persona._id , origin: 'person'}"
                                     (click)="showEditUser(persona._id);"
                                     tooltipPosition="bottom"></button>
