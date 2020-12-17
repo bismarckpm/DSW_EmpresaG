@@ -612,6 +612,8 @@ export class AddUserFormComponent implements OnInit {
       }
       else{
         this.estado = false;
+        this.ciudad = false;
+        this.parroquia = false;
       }
     })
   }
@@ -625,6 +627,7 @@ export class AddUserFormComponent implements OnInit {
       }
       else{
         this.ciudad = false;
+        this.parroquia = false;
       }
     })
   }
