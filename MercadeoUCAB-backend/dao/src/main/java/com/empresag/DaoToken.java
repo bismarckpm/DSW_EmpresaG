@@ -7,15 +7,15 @@ import javax.persistence.Query;
 import java.util.List;
 import javax.persistence.*;
 import java.nio.charset.Charset;
+import javax.persistence.*;
+import java.nio.charset.Charset;
+import java.util.List;
 import java.util.Random;
 
 public class DaoToken extends Dao<TokenEntity> {
     String JPQL = null;
     Query q = null;
     static DaoHandler _handler = new DaoHandler();
-
-    String JPQL = null;
-    Query q = null;
 
     public DaoToken(){
         super(_handler);
@@ -111,8 +111,7 @@ public class DaoToken extends Dao<TokenEntity> {
         }
     }
 
-    public String getAlphaNumericString(int n)
-    {
+    public String getAlphaNumericString(int n) {
 
         // length is bounded by 256 Character
         byte[] array = new byte[256];
@@ -125,7 +124,7 @@ public class DaoToken extends Dao<TokenEntity> {
         StringBuilder r = new StringBuilder();
 
         // remove all spacial char
-        String  AlphaNumericString
+        String AlphaNumericString
                 = randomString
                 .replaceAll("[^A-Za-z0-9]", "");
 
@@ -145,5 +144,43 @@ public class DaoToken extends Dao<TokenEntity> {
 
         // return the resultant string
         return r.toString();
+    }
+
+    public String getHASH(){
+        char[] chars = "abcdefghijklmnopqrstuvwxyz123456789".toCharArray();
+        StringBuilder sb = new StringBuilder(10);
+        Random random = new Random();
+        for (int i = 0; i < 25; i++) {
+            char c = chars[random.nextInt(chars.length)];
+            sb.append(c);
+        }
+        String hash = sb.toString();
+        return hash;
+    }
+
+    public TokenEntity findToken (long fkUsuario){
+        TokenEntity token = new TokenEntity();
+        DaoUsuario usuarioDao = new DaoUsuario();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
+        EntityManager em = emf.createEntityManager();
+
+        UsuarioEntity user = usuarioDao.find(fkUsuario,UsuarioEntity.class);
+
+        JPQL = "SELECT t FROM TokenEntity t WHERE t.fkUsuario._id = :fkUsuario";
+        q = em.createQuery(JPQL);
+        q.setParameter("fkUsuario", fkUsuario);
+
+        List<TokenEntity> tokens = q.getResultList();
+
+        if (!tokens.isEmpty())
+            token = tokens.get(0);
+
+        return token;
+    }
+
+    public void deleteTokenReset(long id_usuario){
+        TokenEntity token = findToken(id_usuario);
+        token.setToken_reset(null);
+        update(token);
     }
 }
