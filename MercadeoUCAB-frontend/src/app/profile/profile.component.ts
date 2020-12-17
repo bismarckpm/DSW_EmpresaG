@@ -743,13 +743,13 @@ export class ProfileComponent implements OnInit {
       this.userService.persona.fkPersona.id_horario_inicial._id = this.profileForm.value.horario_inicial;
       this.userService.persona.fkPersona.id_horario_final._id = this.profileForm.value.horario_final;
     
-      if (this.parroquia && this.userService.persona.fkPersona.id_parroquia._id != 0){
+      if (this.parroquia && this.profileForm.value.parroquia != 0){
         this.userService.persona.fkPersona.fkLugar._id = this.profileForm.value.parroquia;
       }
-      else if (this.ciudad && this.userService.persona.fkPersona.id_ciudad._id != 0){
+      else if (this.ciudad && this.profileForm.value.ciudad != 0){
         this.userService.persona.fkPersona.fkLugar._id = this.profileForm.value.ciudad;
       }
-      else if (this.estado && this.userService.persona.fkPersona.id_estado._id != 0){
+      else if (this.estado && this.profileForm.value.estado != 0){
         this.userService.persona.fkPersona.fkLugar._id = this.profileForm.value.estado;
       }
       else {
