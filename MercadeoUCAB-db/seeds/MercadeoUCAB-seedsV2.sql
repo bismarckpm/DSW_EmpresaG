@@ -32,24 +32,41 @@ INSERT INTO empresag.nivel_academico (id, nombre) VALUES (7, 'Doctorado');
 
 INSERT INTO empresag.persona (id, documento_identidad, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, fecha_nacimiento, fk_genero, fk_edo_civil, fk_persona, fk_lugar, numero_personas_encasa, fk_disponibilidad_inicial, fk_disponibilidad_final) VALUES (1, 'DSSFDE3535', 'Peter', null, 'Nopsycho', null, '1989-01-05', 1, 1, null, 163, 1, 1, 5);
 INSERT INTO empresag.persona (id, documento_identidad, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, fecha_nacimiento, fk_genero, fk_edo_civil, fk_persona, fk_lugar, numero_personas_encasa, fk_disponibilidad_inicial, fk_disponibilidad_final) VALUES (2, 'DSEU55353A', 'Rick', null, 'Derringer', null, '1982-04-02', 1, 5, null, 163, 1, 5, 18);
+INSERT INTO empresag.persona (id, documento_identidad, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, fecha_nacimiento, fk_genero, fk_edo_civil, fk_persona, fk_lugar, numero_personas_encasa, fk_disponibilidad_inicial, fk_disponibilidad_final) VALUES (3, 'DVFD5R65G4', 'Nick', null, 'Kromaneyer', null, '1981-12-10', 1, 1, null, 163, 2, 1, 7);
+INSERT INTO empresag.persona (id, documento_identidad, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, fecha_nacimiento, fk_genero, fk_edo_civil, fk_persona, fk_lugar, numero_personas_encasa, fk_disponibilidad_inicial, fk_disponibilidad_final) VALUES (4, null, 'Lukas', null, 'Kromaneyer', null, '2016-12-09', 1, null, 3, null, 0, null, null);
+INSERT INTO empresag.persona (id, documento_identidad, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, fecha_nacimiento, fk_genero, fk_edo_civil, fk_persona, fk_lugar, numero_personas_encasa, fk_disponibilidad_inicial, fk_disponibilidad_final) VALUES (5, 'GLYQFVUZA6', 'Angel', null, 'Castillo', null, '1999-11-10', 1, 1, null, 163, 2, 1, 11);
 
 INSERT INTO empresag.persona_dispositivo (id, fk_persona, fk_dispositivo) VALUES (1, 1, 1);
 INSERT INTO empresag.persona_dispositivo (id, fk_persona, fk_dispositivo) VALUES (2, 2, 4);
+INSERT INTO empresag.persona_dispositivo (id, fk_persona, fk_dispositivo) VALUES (3, 3, 2);
+INSERT INTO empresag.persona_dispositivo (id, fk_persona, fk_dispositivo) VALUES (4, 3, 3);
+INSERT INTO empresag.persona_dispositivo (id, fk_persona, fk_dispositivo) VALUES (5, 5, 2);
+INSERT INTO empresag.persona_dispositivo (id, fk_persona, fk_dispositivo) VALUES (6, 5, 4);
 
 INSERT INTO empresag.persona_nvlacademico (id, fk_persona, fk_nivel_academico) VALUES (1, 1, 3);
 INSERT INTO empresag.persona_nvlacademico (id, fk_persona, fk_nivel_academico) VALUES (2, 2, 4);
+INSERT INTO empresag.persona_nvlacademico (id, fk_persona, fk_nivel_academico) VALUES (3, 3, 3);
+INSERT INTO empresag.persona_nvlacademico (id, fk_persona, fk_nivel_academico) VALUES (4, 5, 3);
 
 INSERT INTO empresag.persona_ocupacion (id, fk_persona, fk_ocupacion) VALUES (1, 1, 5);
 INSERT INTO empresag.persona_ocupacion (id, fk_persona, fk_ocupacion) VALUES (2, 2, 4);
+INSERT INTO empresag.persona_ocupacion (id, fk_persona, fk_ocupacion) VALUES (3, 3, 1);
+INSERT INTO empresag.persona_ocupacion (id, fk_persona, fk_ocupacion) VALUES (4, 5, 2);
 
 INSERT INTO empresag.telefono (id, numero, fk_persona) VALUES (1, '3243243242', 1);
 INSERT INTO empresag.telefono (id, numero, fk_persona) VALUES (2, '516516465', 2);
+INSERT INTO empresag.telefono (id, numero, fk_persona) VALUES (3, '005804241174935', 3);
+INSERT INTO empresag.telefono (id, numero, fk_persona) VALUES (4, '005804124459535', 5);
+
 
 INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (1, 'hyperschnell11@outlook.sk', '123456789', 1, null, 1);
 INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (2, 'eternalwaltz@gmail.ca', '123456789a!', 1, null, 3);
 INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (3, 'iamnopsycho@protonmail.com', '123456789a!', 1, null, 2);
 INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (4, 'skthereaper@gmail.ca', '123456789a!', 1, 1, 4);
 INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (5, 'bumpsindanight@gmail.ca', '123456789a!', 1, 2, 4);
+INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (6, 'itsmeyerz@gmail.com', '123456789a!', 1, 3, 4);
+INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (7, 'angel99castillo@gmail.com', '123456789a!', 0, 5, 4);
+
 
 INSERT INTO empresag.categoria (id, nombre, descripcion) VALUES (1, 'Ropa', '');
 INSERT INTO empresag.categoria (id, nombre, descripcion) VALUES (2, 'Entretenimiento', '');

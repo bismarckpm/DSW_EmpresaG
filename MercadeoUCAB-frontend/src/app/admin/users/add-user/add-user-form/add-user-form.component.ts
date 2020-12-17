@@ -398,7 +398,7 @@ export class AddUserFormComponent implements OnInit {
     });
 
     this.userForm.reset(this.userForm.value);
-    
+
     this.userForm.valueChanges
     .subscribe(data => {
       this.onValueChange(data);
@@ -547,18 +547,18 @@ export class AddUserFormComponent implements OnInit {
         this.showKidsForm = false;
       }
     }
-  
+
     showAddKidForm(){
       this.showKidsForm = true;
     }
-  
+
     hideAddKidForm(){
       this.showKidsForm = false;
     }
-  
+
     validateAddKidForm(){
       this.genero_h._id = this.userForm.value.genero_hijo;
-      this.genero_h.nombre = this.generos[this.userForm.value.genero_hijo-1].label;
+      this.genero_h.nombre = this.generos[this.userForm.value.genero_hijo - 1].label;
       this.hijos.push({
           primerNombre: this.userForm.value.nombre_hijo,
           primerApellido: this.userForm.value.apellido_hijo,
@@ -567,7 +567,7 @@ export class AddUserFormComponent implements OnInit {
       });
       this.hideAddKidForm();
     }
-  
+
     deleteChild(kid){
       const index = this.hijos.indexOf(kid);
       if (index > -1) {

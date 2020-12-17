@@ -1,14 +1,15 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
-import {SessionService} from '../../core/services/auth/session.service';
-import {LoginService} from '../../core/services/auth/login.service';
+import { SessionService } from '../../core/services/auth/session.service';
+import { LoginService } from '../../core/services/auth/login.service';
 import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
+  providers: [MessageService],
   encapsulation: ViewEncapsulation.None
 })
 export class NavigationComponent implements OnInit {
@@ -135,7 +136,7 @@ export class NavigationComponent implements OnInit {
   }
 
   logout(): void {
-    this.token = this.sessionService.getCurrentToken(); 
+    this.token = this.sessionService.getCurrentToken();
 
     this.loginService.logout(this.token)
       .subscribe(person => {

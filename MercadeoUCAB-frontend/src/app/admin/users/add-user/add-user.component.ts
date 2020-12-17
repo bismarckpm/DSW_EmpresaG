@@ -9,13 +9,13 @@ import { Router } from '@angular/router';
 export class AddUserComponent implements OnInit {
   constructor(
     private router: Router
-  ) { 
+  ) {
   }
 
   ngOnInit(): void {
   }
 
   backToUsers(event){
-    this.router.navigate(["/users"]);
+    this.router.navigate(['/users']);
   }
 }
