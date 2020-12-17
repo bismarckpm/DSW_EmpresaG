@@ -94,6 +94,8 @@ export class ContactComponent implements OnInit {
       }
       else{
         this.estado = false;
+        this.ciudad = false;
+        this.parroquia = false;
       }
     })
   }
@@ -107,6 +109,7 @@ export class ContactComponent implements OnInit {
       }
       else{
         this.ciudad = false;
+        this.parroquia = false;
       }
     })
   }
