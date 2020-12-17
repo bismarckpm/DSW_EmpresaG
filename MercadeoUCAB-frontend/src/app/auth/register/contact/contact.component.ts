@@ -6,7 +6,7 @@ import { SelectItem } from 'primeng/api';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisterService } from '../../../core/services/auth/register.service';
 import { PlaceService } from '../../../core/services/profile/place.service';
-import { PhoneService } from '../../../core/services/profile/phone.service';
+// import { PhoneService } from '../../../core/services/profile/phone.service';
 import { replaceKeyWithValue } from 'src/app/core/functions/common_functions';
 
 @Component({
@@ -42,7 +42,7 @@ export class ContactComponent implements OnInit {
   constructor(private router: Router,
     private registerService: RegisterService,
     private placeService: PlaceService,
-    private phoneService: PhoneService,
+    // private phoneService: PhoneService,
     private fb: FormBuilder) {
 
     this.estado = true;
@@ -53,9 +53,9 @@ export class ContactComponent implements OnInit {
       this.paises = replaceKeyWithValue(countries);
     });
 
-    this.phoneService.getCodes().subscribe((codes) => {
-      this.codigos = codes;
-    })
+    // this.phoneService.getCodes().subscribe((codes) => {
+    //   this.codigos = codes;
+    // })
 
     this.createForm();
   }
@@ -160,18 +160,19 @@ export class ContactComponent implements OnInit {
     this.registerService.user.fkPersona.id_ciudad._id = this.contactForm.value.ciudad;
     this.registerService.user.fkPersona.id_parroquia._id = this.contactForm.value.parroquia;
 
-    if (this.parroquia){
+    if (this.parroquia && this.registerService.user.fkPersona.id_parroquia._id != 0){
       this.registerService.user.fkPersona.fkLugar._id = this.contactForm.value.parroquia;
     }
-    else if (this.ciudad){
+    else if (this.ciudad && this.registerService.user.fkPersona.id_ciudad._id != 0){
       this.registerService.user.fkPersona.fkLugar._id = this.contactForm.value.ciudad;
     }
-    else if (this.estado){
+    else if (this.estado && this.registerService.user.fkPersona.id_estado._id != 0){
       this.registerService.user.fkPersona.fkLugar._id = this.contactForm.value.estado;
     }
-    else{
+    else {
       this.registerService.user.fkPersona.fkLugar._id = this.contactForm.value.pais;
     }
+    
 
     // this.registerService.user.fkPersona.codigo_pais = this.contactForm.value.codigo_pais;
     this.registerService.user.fkPersona.telefono = this.contactForm.value.telefono;

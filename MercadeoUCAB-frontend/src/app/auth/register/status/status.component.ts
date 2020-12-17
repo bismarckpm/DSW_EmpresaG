@@ -89,6 +89,7 @@ export class StatusComponent implements OnInit {
     this.registerService.user.fkPersona.dispositivos = this.statusForm.value.dispositivos;
     this.registerService.user.fkPersona.id_horario_inicial._id = this.statusForm.value.horario_inicial;
     this.registerService.user.fkPersona.id_horario_final._id = this.statusForm.value.horario_final;
+    this.registerService.user.estado = 1;
 
     if (this.registerService.user.email && this.registerService.user.password
       && this.registerService.user.confirmar_clave && this.registerService.user.fkPersona.primerNombre

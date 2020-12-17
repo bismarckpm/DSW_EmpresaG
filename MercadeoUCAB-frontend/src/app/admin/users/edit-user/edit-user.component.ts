@@ -553,18 +553,18 @@ export class EditUserComponent implements OnInit {
       this.userService.persona.fkPersona.id_horario_inicial._id = this.userForm.value.horario_inicial;
       this.userService.persona.fkPersona.id_horario_final._id = this.userForm.value.horario_final;
 
-      if (this.parroquia){
-      this.userService.persona.fkPersona.fkLugar._id = this.userForm.value.parroquia;
-    }
-    else if (this.ciudad){
-      this.userService.persona.fkPersona.fkLugar._id = this.userForm.value.ciudad;
-    }
-    else if (this.estado){
-      this.userService.persona.fkPersona.fkLugar._id = this.userForm.value.estado;
-    }
-    else{
-      this.userService.persona.fkPersona.fkLugar._id = this.userForm.value.pais;
-    }
+      if (this.parroquia && this.userService.persona.fkPersona.id_parroquia._id != 0){
+        this.userService.persona.fkPersona.fkLugar._id = this.userForm.value.parroquia;
+      }
+      else if (this.ciudad && this.userService.persona.fkPersona.id_ciudad._id != 0){
+        this.userService.persona.fkPersona.fkLugar._id = this.userForm.value.ciudad;
+      }
+      else if (this.estado && this.userService.persona.fkPersona.id_estado._id != 0){
+        this.userService.persona.fkPersona.fkLugar._id = this.userForm.value.estado;
+      }
+      else {
+        this.userService.persona.fkPersona.fkLugar._id = this.userForm.value.pais;
+      }
 
       if (this.userService.persona.fkPersona.documentoIdentidad
         && this.userService.persona.fkPersona.fechaNacimiento && this.userService.persona.fkPersona.fkGenero._id
