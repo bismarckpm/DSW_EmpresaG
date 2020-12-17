@@ -49,6 +49,8 @@ public class DaoToken extends Dao<TokenEntity> {
 
         if (!tokens.isEmpty())
             token = tokens.get(0);
+        else
+            token = null;
 
         return token;
     }
@@ -59,7 +61,13 @@ public class DaoToken extends Dao<TokenEntity> {
         update(token);
     }
 
-    public TokenEntity getTokenByHASH(String token_reset){
+    public void deleteTokenLogin(long id_usuario){
+        TokenEntity token = findToken(id_usuario);
+        token.setToken_login(null);
+        update(token);
+    }
+
+    public TokenEntity getTokenByHASH(String hash, boolean isLogin){
         TokenEntity token = new TokenEntity();
         DaoUsuario usuarioDao = new DaoUsuario();
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
@@ -67,9 +75,16 @@ public class DaoToken extends Dao<TokenEntity> {
 
         //UsuarioEntity user = usuarioDao.find(fkUsuario,UsuarioEntity.class);
 
-        JPQL = "SELECT t FROM TokenEntity t WHERE t.token_reset = :token_reset";
-        q = em.createQuery(JPQL);
-        q.setParameter("token_reset", token_reset);
+        if (!isLogin){
+            JPQL = "SELECT t FROM TokenEntity t WHERE t.token_reset = :token_reset";
+            q = em.createQuery(JPQL);
+            q.setParameter("token_reset", hash);
+        }
+        else{
+            JPQL = "SELECT t FROM TokenEntity t WHERE t.token_login = :token_login";
+            q = em.createQuery(JPQL);
+            q.setParameter("token_login", hash);
+        }
 
         try {
             return (TokenEntity) q.getSingleResult();

@@ -25,4 +25,14 @@ export class ResetService {
     return this.http.post<Reset>(serverURL + 'recovery/' + reset.token + '/pass/' + reset.clave, reset, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
+
+  postVerificar(reset): Observable<Reset>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.post<Reset>(serverURL + 'recovery/' + reset.token, reset, httpOptions)
+      .pipe(catchError(this.processHTTPMessageService.handleError));
+  }
 }

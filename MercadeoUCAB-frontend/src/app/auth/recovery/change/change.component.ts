@@ -58,6 +58,7 @@ export class ChangeComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    this.postVerificar();
   }
 
   createForm(){
@@ -131,6 +132,15 @@ export class ChangeComponent implements OnInit {
 
     this.resetService.postReset(this.reset).subscribe((res)=>{
       this.messageService.add({severity:'success', summary: 'Success', detail: "Clave cambiada correctamente."});
+    }, errorMessage => {
+      this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
+    });
+  }
+
+  postVerificar(): void {
+    this.resetService.postVerificar(this.reset).subscribe((res)=>{
+      if (res == null)
+      this.router.navigate(['404']);
     }, errorMessage => {
       this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
     });

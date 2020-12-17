@@ -53,4 +53,15 @@ public class LoginService {
         }
         return null;
     }
+
+    @POST
+    @Path("/logout/{hash}")
+    public void logout(@PathParam("hash") String hash){
+        DaoUsuario usuarioDao = new DaoUsuario();
+        DaoToken tokenDao = new DaoToken();
+
+        TokenEntity currentToken = tokenDao.getTokenByHASH(hash,true);
+
+        tokenDao.deleteTokenLogin(currentToken.getFkUsuario().get_id());
+    }
 }

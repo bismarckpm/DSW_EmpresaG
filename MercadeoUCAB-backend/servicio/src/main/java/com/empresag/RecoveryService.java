@@ -42,7 +42,7 @@ public class RecoveryService {
         DaoToken tokenDao = new DaoToken();
         UserService userservice = new UserService();
 
-        TokenEntity token = tokenDao.getTokenByHASH(hash);
+        TokenEntity token = tokenDao.getTokenByHASH(hash,false);
 
         UsuarioEntity user = usuarioDao.find(token.getFkUsuario().get_id(),UsuarioEntity.class);
         user.setPassword(password);
@@ -57,5 +57,13 @@ public class RecoveryService {
         usuarioDao.update(user);
 
         tokenDao.deleteTokenReset(user.get_id());
+    }
+
+    @POST
+    @Path("/{hash}")
+    public TokenEntity existeHASH(@PathParam("hash") String hash){
+        DaoToken tokenDao = new DaoToken();
+
+        return tokenDao.getTokenByHASH(hash,false);
     }
 }
