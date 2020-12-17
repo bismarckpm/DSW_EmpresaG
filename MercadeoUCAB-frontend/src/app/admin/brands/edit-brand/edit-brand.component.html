@@ -1,11 +1,11 @@
-<p-dialog header="EDITAR MARCA" [(visible)]="display" [style]="{width: '50vw'}" [baseZIndex]="10000">
+<p-dialog header="EDITAR MARCA" [(visible)]="display" [style]="{width: '50vw'}" [baseZIndex]="10000" (onHide)="closeModal()">
     <form novalidate [formGroup]="brandForm" #bform="ngForm" (ngSubmit)="onSubmit()">
         <div class="p-grid">
             <div class="p-col-12 p-md-6 p-mt-4">
                 <p-dropdown [options]="subcategorias" formControlName="subcategoria" placeholder="Subcategoría (*)"></p-dropdown>
                 <span class="error-msg" *ngIf="formErrors.subcategoria"><small>{{formErrors.subcategoria}}</small></span>
             </div>
-            
+
             <div class="p-col-12 p-md-6 p-mt-4">
                 <span class="p-float-label">
                     <input id="nombre" formControlName="nombre" class="p-inputtext-lg fill-width" type="text"

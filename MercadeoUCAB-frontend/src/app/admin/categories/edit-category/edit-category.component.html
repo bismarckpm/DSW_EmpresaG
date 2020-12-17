@@ -1,4 +1,4 @@
-<p-dialog header="EDITAR CATEGORÍA" [(visible)]="display" [style]="{width: '50vw'}" [baseZIndex]="10000">
+<p-dialog header="EDITAR CATEGORÍA" [(visible)]="display" [style]="{width: '50vw'}" [baseZIndex]="10000" (onHide)="closeView()">
     <form novalidate [formGroup]="categoryForm" #cform="ngForm" (ngSubmit)="onSubmit()">
         <div class="p-grid p-mt-3">
             <div class="p-col-12 p-md-6">

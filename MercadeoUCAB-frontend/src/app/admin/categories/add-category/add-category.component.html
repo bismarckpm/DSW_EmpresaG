@@ -1,11 +1,11 @@
-<p-dialog header="AÑADIR CATEGORÍA" [(visible)]="display" [style]="{width: '50vw'}" [baseZIndex]="10000">
+<p-dialog header="AÑADIR CATEGORÍA" [(visible)]="display" [style]="{width: '50vw'}" [baseZIndex]="10000" (onHide)="closeView()">
     <form novalidate [formGroup]="categoryForm" #cform="ngForm" (ngSubmit)="onSubmit()">
         <div class="p-grid p-mt-3">
             <div class="p-col-12 p-md-6">
                 <span class="p-float-label">
                     <input id="nombre" formControlName="nombre" class="p-inputtext-lg fill-width" type="text"
                         pInputText>
-                    <label for="float-input">Nombre (*)</label>
+                    <label for="nombre" class="float-input">Nombre (*)</label>
                 </span>
                 <span class="error-msg" *ngIf="formErrors.nombre"><small>{{formErrors.nombre}}</small></span>
             </div>
@@ -14,7 +14,7 @@
                 <span class="p-float-label">
                     <input id="descripcion" formControlName="descripcion" class="p-inputtext-lg fill-width" type="text"
                         pInputText>
-                    <label for="float-input">Descripción</label>
+                    <label for="descripcion" class="float-input">Descripción</label>
                 </span>
                 <span class="error-msg" *ngIf="formErrors.descripcion"><small>{{formErrors.descripcion}}</small></span>
             </div>
