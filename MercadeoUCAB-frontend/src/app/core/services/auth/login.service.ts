@@ -26,5 +26,14 @@ export class LoginService {
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
+  logout(token: string): Observable<Users> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
 
+    return this.http.post<Users>(serverURL + 'login/logout/' + token, httpOptions)
+      .pipe(catchError(this.processHTTPMessageService.handleError))
+  }
 }

@@ -16,7 +16,7 @@ export class RecoveryService {
   constructor(private http: HttpClient,
               private processHTTPMessageService: ProcessHttpMessageService) { }
 
-  postRecovery(recovery): Observable<Recovery>{
+  postRecovery(recovery: Recovery): Observable<Recovery>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

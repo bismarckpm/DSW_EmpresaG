@@ -2,6 +2,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import {SessionService} from '../../core/services/auth/session.service';
+import {LoginService} from '../../core/services/auth/login.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-navigation',
@@ -15,9 +17,12 @@ export class NavigationComponent implements OnInit {
   items_user: MenuItem[];
   items_analyst: MenuItem[];
   items_client: MenuItem[];
+  token: string;
 
   constructor(private router: Router,
-              private sessionService: SessionService) { }
+              private sessionService: SessionService,
+              private loginService: LoginService,
+              private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.items_admin = [
@@ -129,5 +134,15 @@ export class NavigationComponent implements OnInit {
     }
   }
 
+  logout(): void {
+    this.token = this.sessionService.getCurrentToken(); 
 
+    this.loginService.logout(this.token)
+      .subscribe(person => {
+        this.sessionService.logout();
+      },
+      errorMessage => {
+        this.messageService.add({severity: 'error', summary: 'Error', detail: errorMessage});
+      });
+  }
 }

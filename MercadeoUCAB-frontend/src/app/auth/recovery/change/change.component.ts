@@ -21,6 +21,7 @@ export class ChangeComponent implements OnInit {
 
   token: String;
   reset: Reset;
+  currentURL: String[];
 
   /* Form */
   changeForm: FormGroup;
@@ -50,12 +51,14 @@ export class ChangeComponent implements OnInit {
       private resetService: ResetService,
       private messageService: MessageService) {
       this.createForm();
-      this.token = this.Activatedroute.snapshot.queryParamMap.get('token');
+      this.currentURL = this.router.url.split('/');
+      this.token = this.currentURL[this.currentURL.length - 1];
       this.reset = new Reset();
       this.reset.token = this.token;
     }
 
   ngOnInit(): void {
+    this.postVerificar();
   }
 
   createForm(){
@@ -129,6 +132,15 @@ export class ChangeComponent implements OnInit {
 
     this.resetService.postReset(this.reset).subscribe((res)=>{
       this.messageService.add({severity:'success', summary: 'Success', detail: "Clave cambiada correctamente."});
+    }, errorMessage => {
+      this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
+    });
+  }
+
+  postVerificar(): void {
+    this.resetService.postVerificar(this.reset).subscribe((res)=>{
+      if (res == null)
+      this.router.navigate(['404']);
     }, errorMessage => {
       this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
     });

@@ -9,8 +9,8 @@ public class SessionTest {
     {
         try {
             UsuarioDto user = new UsuarioDto();
-            user.setEmail("ale@gmail.com");
-            user.setPassword("Caracas1.");
+            user.setEmail("angel99castillo@gmail.com");
+            user.setPassword("Am101199.");
             RolDto rol = new RolDto();
             rol.set_id(1);
 

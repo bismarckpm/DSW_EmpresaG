@@ -3,6 +3,7 @@ import { Reset } from '../../classes/auth/reset';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ProcessHttpMessageService } from '../process-http-message.service';
 import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import {serverURL} from '../../constants/serverURL';
 
 @Injectable({
@@ -21,6 +22,17 @@ export class ResetService {
         'Content-Type': 'application/json'
       })
     };
-    return this.http.post<Reset>(serverURL + 'reset', reset, httpOptions);
+    return this.http.post<Reset>(serverURL + 'recovery/' + reset.token + '/pass/' + reset.clave, reset, httpOptions)
+      .pipe(catchError(this.processHTTPMessageService.handleError));
+  }
+
+  postVerificar(reset): Observable<Reset>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.post<Reset>(serverURL + 'recovery/' + reset.token, reset, httpOptions)
+      .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 }
