@@ -506,15 +506,15 @@ INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) v
 INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) values (89, 'mbrastead2g@free.fr', 'A3Nd6z', 1, 89, 4);
 INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) values (90, 'hthorne2h@amazon.de', 'GodbbMMD', 1, 90, 4);
 INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) values (91, 'mbrumbye2i@webnode.com', 'VCbWJwjwcBg', 1, 91, 4);
-INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (92, 'hyperschnell11@outlook.sk', '123456789', 1, 1, 1);
-INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (93, 'tatelangdon@gmail.ca', '123456789', 1, 2, 2);
-INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (94, 'eternalwaltz@gmail.ca', '123456789', 1, 3, 3);
-INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (95, 'saintfaline@gmail.ca', '123456789', 1, 4, 4);
-INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (96, 'yungtricky@gmail.ca', '123456789', 1, 5, 3);
-INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (97, 'jhwatzke@gmail.ca', '123456789', 1, 6, 4);
-INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (98, 'bumpsindanight@gmail.ca', '123456789', 1, 7, 4);
-INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (99, 'skthereaper@gmail.ca', '123456789', 1, 8, 4);
-INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (100, 'iamnopsycho@protonmail.com', '123456789', 1, 9, 4);
+INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (92, 'hyperschnell11@outlook.sk', '123456789', 92, null, 1);
+INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (93, 'tatelangdon@gmail.ca', '123456789', 1, null, 2);
+INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (94, 'eternalwaltz@gmail.ca', '123456789', 1, null, 3);
+INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (95, 'saintfaline@gmail.ca', '123456789', 1, 95, 4);
+INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (96, 'yungtricky@gmail.ca', '123456789', 1, null, 3);
+INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (97, 'jhwatzke@gmail.ca', '123456789', 1, 93, 4);
+INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (98, 'bumpsindanight@gmail.ca', '123456789', 1, 98, 4);
+INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (99, 'skthereaper@gmail.ca', '123456789', 1, 99, 4);
+INSERT INTO empresag.usuario (id, email, password, estado, fk_persona, fk_rol) VALUES (100, 'iamnopsycho@protonmail.com', '123456789', 1, 100, 4);
 
 INSERT INTO empresag.solicitud (id, estado, fk_usuario) VALUES (1, 0, 94);
 INSERT INTO empresag.solicitud (id, estado, fk_usuario) VALUES (2, 0, 94);

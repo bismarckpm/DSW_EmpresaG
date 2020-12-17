@@ -6,8 +6,8 @@ import { RequestsService } from '../../core/services/client/requests.service';
 import { replaceKeyWithValue } from '../../core/functions/common_functions';
 import { REQUEST_STATES } from 'src/app/core/constants/request_status';
 import { RequestWithFilter } from 'src/app/core/classes/study/request_with_filter';
+import {SessionService} from '../../core/services/auth/session.service';
 
-//TODO: Filter by current user
 @Component({
   selector: 'app-my-requests',
   templateUrl: './my-requests.component.html',
@@ -15,8 +15,7 @@ import { RequestWithFilter } from 'src/app/core/classes/study/request_with_filte
   providers: [ConfirmationService, MessageService]
 })
 export class MyRequestsComponent implements OnInit {
-  // TODO: Get logged user
-  current_user: number = 94;
+  current_user: number;
   current_state: number;
   solicitudes: RequestWithFilter[];
   solicitudes_backup: RequestWithFilter[];
@@ -24,14 +23,18 @@ export class MyRequestsComponent implements OnInit {
   categorias: MenuItem[];
   categoriasErrorMessage: string;
   request_states = REQUEST_STATES;
-  show_stats: boolean = false;
-  loading: boolean = false;
+  show_stats = false;
+  loading = false;
 
   @ViewChild('dt') table: Table;
   constructor(private requestsService: RequestsService,
-    private confirmationService: ConfirmationService,
-    private messageService: MessageService,
-    private categoryService: CategoryService) { }
+              private confirmationService: ConfirmationService,
+              private sessionService: SessionService,
+              private messageService: MessageService,
+              private categoryService: CategoryService) {
+
+    this.current_user = this.sessionService.getCurrentUser();
+  }
 
   ngOnInit(): void {
     this.loading = true;
@@ -43,11 +46,11 @@ export class MyRequestsComponent implements OnInit {
     }, errorMessage => {
       this.loading = false;
       this.categoriasErrorMessage = errorMessage;
-    })
+    });
   }
 
   onCategoryChange(event) {
-    this.table.filter(event.value, 'fkCategoria._id', 'in')
+    this.table.filter(event.value, 'fkCategoria._id', 'in');
   }
 
   getRequests(){
@@ -55,11 +58,11 @@ export class MyRequestsComponent implements OnInit {
       this.loading = false;
       this.solicitudes = requests;
       this.solicitudes_backup = requests;
-      this.solicitudes = this.solicitudes.filter(req => req.fkSolicitud.estado == 0)
+      this.solicitudes = this.solicitudes.filter(req => req.fkSolicitud.estado === 0);
     }, errorMessage => {
       this.loading = false;
       this.solicitudesErrorMessage = errorMessage;
-    })
+    });
   }
 
   cancelRequest(study: RequestWithFilter){
@@ -70,15 +73,16 @@ export class MyRequestsComponent implements OnInit {
       accept: () => {
           this.requestsService.deleteRequest(study.fkSolicitud).subscribe((s) => {
 
-            let index = this.solicitudes.indexOf(study)
-            if (index > -1)
+            const index = this.solicitudes.indexOf(study);
+            if (index > -1) {
               this.solicitudes.splice(index, 1);
+            }
 
-            this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Solicitud eliminada con éxito'});
+            this.messageService.add({severity: 'success', summary: 'Éxito', detail: 'Solicitud eliminada con éxito'});
 
           }, errorMessage => {
-            this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
-          })
+            this.messageService.add({severity: 'error', summary: 'Error', detail: errorMessage});
+          });
       },
       reject: () => {
         //
@@ -89,14 +93,14 @@ export class MyRequestsComponent implements OnInit {
   filterStudies(event){
     this.loading = true;
     this.solicitudes = this.solicitudes_backup;
-    if (event.value == 1){
-      this.solicitudes = this.solicitudes.filter(req => req.fkSolicitud.estado == 0)
+    if (event.value === 1){
+      this.solicitudes = this.solicitudes.filter(req => req.fkSolicitud.estado === 0);
     }
-    else if (event.value == 2){
-      this.solicitudes = this.solicitudes.filter(req => req.fkSolicitud.estado == 1 && req.fkEstudio.estado == 1)
+    else if (event.value === 2){
+      this.solicitudes = this.solicitudes.filter(req => req.fkSolicitud.estado === 1 && req.fkEstudio.estado === 1);
     }
-    else if (event.value == 3){
-      this.solicitudes = this.solicitudes.filter(req => req.fkSolicitud.estado == 1 && req.fkEstudio.estado == 2)
+    else if (event.value === 3){
+      this.solicitudes = this.solicitudes.filter(req => req.fkSolicitud.estado === 1 && req.fkEstudio.estado === 2);
     }
     this.loading = false;
   }

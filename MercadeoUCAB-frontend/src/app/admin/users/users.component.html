@@ -38,7 +38,7 @@
                     [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
                     [paginator]="true"
                     currentPageReportTemplate="Mostrando desde {first} hasta {last} de {totalRecords} resultados"
-                    [filterDelay]="0" [globalFilterFields]="[ 'correo_electronico', 'estado']">
+                    [filterDelay]="0" [globalFilterFields]="[ 'correo_electronico', 'estado', 'rol']">
 
                     <ng-template pTemplate="header">
                         <tr>
@@ -48,6 +48,10 @@
                             </th>
                             <th pSortableColumn="estado" class="p-text-center">Estado<p-sortIcon
                                     field="estado">
+                                </p-sortIcon>
+                            </th>
+                            <th pSortableColumn="rol" class="p-text-center">Rol<p-sortIcon
+                                    field="rol">
                                 </p-sortIcon>
                             </th>
                             <th style="width: 11rem"></th>
@@ -63,6 +67,10 @@
                             <td class="p-text-center">
                                 <span class="p-column-title">Estado</span>
                                 <span class="image-text">{{convertStatus(persona.estado)}}</span>
+                            </td>
+                            <td class="p-text-center">
+                                <span class="p-column-title">Rol</span>
+                                <span class="image-text">{{persona.fkRol.nombre}}</span>
                             </td>
                             <td class="p-text-center">
                             

@@ -38,6 +38,9 @@
                                     field="subcategoria">
                                 </p-sortIcon>
                             </th>
+                          <th class="p-text-center">
+                            Nombre
+                          </th>
                             <th class="p-text-center">
                                 Rango de edades
                             </th>
@@ -66,6 +69,10 @@
                                 <span class="p-column-title">Subcategoría</span>
                                 <span class="image-text">{{solicitud.fkSubcategoria.nombre}}</span>
                             </td>
+                          <td class="p-text-center">
+                            <span class="p-column-title">Nombre</span>
+                            {{solicitud.fkSolicitud.nombre}}
+                          </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Rango de edades</span>
                                 <span class="image-text" *ngIf="solicitud.edadMinima && solicitud.edadMaxima">De {{solicitud.edadMinima}} hasta {{solicitud.edadMaxima}}</span>
@@ -89,7 +96,7 @@
 
                             <td class="p-text-center">
                                 <span class="p-column-title">Autor</span>
-                                <span class="image-text" >{{solicitud.fkSolicitud.fkUsuario.fk_Persona.primerNombre}} {{solicitud.fkSolicitud.fkUsuario.fk_Persona.primerApellido}}</span>
+                                <span class="image-text" >{{solicitud.fkSolicitud.fkUsuario.email}}</span>
                             </td>
 
                             <td class="p-text-center">

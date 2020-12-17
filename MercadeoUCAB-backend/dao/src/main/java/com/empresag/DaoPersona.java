@@ -28,4 +28,16 @@ public class DaoPersona extends Dao<PersonaEntity> {
 
         return q.getResultList();
     }
+
+    public PersonaEntity findPersonByUser(long id){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
+        EntityManager em = emf.createEntityManager();
+        DaoUsuario daoUsuario = new DaoUsuario();
+        UsuarioEntity currentUser = daoUsuario.find(id, UsuarioEntity.class);
+        JPQL = "SELECT p.fk_Persona FROM UsuarioEntity p WHERE p = :id";
+        q = em.createQuery(JPQL);
+        q.setParameter("id", currentUser);
+
+        return (PersonaEntity) q.getSingleResult();
+    }
 }

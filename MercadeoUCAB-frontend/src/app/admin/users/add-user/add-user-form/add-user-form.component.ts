@@ -642,7 +642,7 @@ export class AddUserFormComponent implements OnInit {
   }
 
   checkRol(event){
-    if (event.value == 1){
+    if (event.value == 4){
       this.rol = true;
     }
     else{

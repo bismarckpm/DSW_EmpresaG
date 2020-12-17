@@ -99,6 +99,7 @@ public class StudyRequestService {
 
         solicitud.setEstado(0);
         solicitud.setFkUsuario(usuario);
+        solicitud.setNombre(filtroDto.getNombre());
         daoSolicitud.insert(solicitud);
 
         /* Optional filters */
@@ -242,6 +243,7 @@ public class StudyRequestService {
             estudio = new EstudioEntity();
             estudio.setFechaRealizacion(new Date(System.currentTimeMillis()));
             estudio.setEstado(1);
+            estudio.setNombre(solicitud.getNombre());
             daoEstudio.insert(estudio);
 
             solicitudWithFilter = daoFiltro.getCurrentRequest(id);

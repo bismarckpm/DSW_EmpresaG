@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Table } from 'primeng/table'
+import { Table } from 'primeng/table';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { BrandService } from '../../core/services/admin/products/brand.service';
 import { TypesService } from '../../core/services/admin/products/types.service';
@@ -12,13 +12,13 @@ import { BrandType } from '../../core/classes/products/brand_type';
   providers: [MessageService, ConfirmationService]
 })
 export class ProductTypesComponent implements OnInit {
-  loading: boolean = true;
+  loading = true;
   marcas: any[];
   backup_types: BrandType[];
   tipos: BrandType[];
   tipo: BrandType;
-  display_add_type: boolean = false;
-  display_edit_type: boolean = false;
+  display_add_type = false;
+  display_edit_type = false;
   @ViewChild('dt') table: Table;
 
   tiposErrorMessage: string;
@@ -37,22 +37,22 @@ export class ProductTypesComponent implements OnInit {
       this.backup_types = types;
       this.marcas = [];
       this.brandService.getALLBrands().subscribe((brands) => {
-        for (var i = 0; i<brands.length; i++){
+        for (let i = 0; i < brands.length; i++){
           this.marcas.push({
             value: brands[i].fkMarca._id,
             label: brands[i].fkMarca.nombre
-          })
+          });
         }
         this.loading = false;
       }, errorMessage => {
         this.loading = false;
         this.marcasErrorMessage = errorMessage;
-      })
+      });
 
     }, errorMessage => {
       this.loading = false;
       this.tiposErrorMessage = errorMessage;
-    })
+    });
   }
 
   deleteType(tipo) {
@@ -63,15 +63,16 @@ export class ProductTypesComponent implements OnInit {
       accept: () => {
         this.typesService.deleteType(tipo).subscribe((t) => {
 
-          let index = this.tipos.indexOf(tipo)
-          if (index > -1)
+          const index = this.tipos.indexOf(tipo);
+          if (index > -1) {
             this.tipos.splice(index, 1);
+          }
 
           this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Tipo de producto eliminado con éxito' });
 
         }, errorMessage => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
-        })
+        });
       },
       reject: () => {
         //
@@ -111,7 +112,7 @@ export class ProductTypesComponent implements OnInit {
   }
 
   onBrandChange(event){
-    this.table.filter(event.value, 'fkMarca._id', 'in')
+    this.table.filter(event.value, 'fkMarca._id', 'in');
   }
 
 }

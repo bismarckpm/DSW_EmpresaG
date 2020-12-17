@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { MessageService, MenuItem } from 'primeng/api'
+import { MessageService, MenuItem } from 'primeng/api';
 import { replaceKeyWithValue } from '../../../core/functions/common_functions';
 import { CategoryService } from 'src/app/core/services/admin/products/category.service';
 import { SubcategoryService } from 'src/app/core/services/admin/products/subcategory.service';
@@ -23,7 +23,7 @@ export class AddBrandComponent implements OnInit {
   @Output() onBrandAdded = new EventEmitter<any>();
   subcategorias: any[];
   brand: SubcategoryBrand;
-  sent_form: boolean = false;
+  sent_form = false;
 
   subcategoriasErrorMessage: string;
 
@@ -32,61 +32,61 @@ export class AddBrandComponent implements OnInit {
   @ViewChild('sform') brandFormDirective;
 
   constructor(private fb: FormBuilder,
-    private messageService: MessageService,
-    private categoryService: CategoryService,
-    private subcategoryService: SubcategoryService,
-    private brandService: BrandService) { }
+              private messageService: MessageService,
+              private categoryService: CategoryService,
+              private subcategoryService: SubcategoryService,
+              private brandService: BrandService) { }
 
   formErrors = {
-    'subcategoria': '',
-    'nombre': '',
-    'descripcion': ''
+    subcategoria: '',
+    nombre: '',
+    descripcion: ''
   };
 
   validationMessages = {
-    'subcategoria': {
-      'required': 'Subcategoría es requerida'
+    subcategoria: {
+      required: 'Subcategoría es requerida'
     },
-    'nombre': {
-      'required': 'Nombre de marca es requerido',
-      'maxlength': 'Nombre de marca no puede exceder los 90 caracteres'
+    nombre: {
+      required: 'Nombre de marca es requerido',
+      maxlength: 'Nombre de marca no puede exceder los 90 caracteres'
     },
-    'descripcion': {
-      'maxlength': 'Descripción no puede exceder los 500 caracteres'
+    descripcion: {
+      maxlength: 'Descripción no puede exceder los 500 caracteres'
     }
-  }
+  };
 
   ngOnInit(): void {
     this.subcategoryService.getALLSubcategories().subscribe((subcategories) => {
       this.subcategorias = [];
-      for (var i = 0; i<subcategories.length; i++){
+      for (let i = 0; i < subcategories.length; i++){
         this.subcategorias.push({
           value: subcategories[i].fkSubcategoria._id,
           label: subcategories[i].fkSubcategoria.nombre
-        })
+        });
       }
     }, errorMessage => {
       this.subcategoriasErrorMessage = errorMessage;
-    })
+    });
     this.createForm();
   }
 
   createForm(){
     this.brandForm = this.fb.group({
-      'subcategoria': [
+      subcategoria: [
         null,
         [
           Validators.required
         ]
       ],
-      'nombre': [
+      nombre: [
         '',
         [
           Validators.required,
           Validators.maxLength(90)
         ]
       ],
-      'descripcion': [
+      descripcion: [
         '',
         [
           Validators.maxLength(500)
@@ -133,26 +133,26 @@ export class AddBrandComponent implements OnInit {
     this.subcategorias = null;
     this.subcategorias = [];
     this.subcategoryService.getALLSubcategories().subscribe((subcategories) => {
-      for (var i = 0; i<subcategories.length; i++){
+      for (let i = 0; i < subcategories.length; i++){
         this.subcategorias.push({
           value: subcategories[i].fkSubcategoria._id,
           label: subcategories[i].fkSubcategoria.nombre
-        })
+        });
       }
-    })
+    });
   }
 
   postBrand(){
-    this.brandService.postBrand(this.brand).subscribe((b)=>{
+    this.brandService.postBrand(this.brand).subscribe((b) => {
       this.brand = b;
-      this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Marca añadida con éxito'});
+      this.messageService.add({severity: 'success', summary: 'Éxito', detail: 'Marca añadida con éxito'});
       this.sent_form = false;
       this.appendBrand();
       this.closeModal();
     }, errorMessage => {
-      this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
+      this.messageService.add({severity: 'error', summary: 'Error', detail: errorMessage});
       this.sent_form = false;
-    })
+    });
   }
 
   appendBrand(){
@@ -163,7 +163,7 @@ export class AddBrandComponent implements OnInit {
     this.sent_form = true;
     if (!this.brandForm.valid){
       this.sent_form = false;
-      this.messageService.add({severity:'error', summary: 'Error', detail: 'Debe rellenar los campos requeridos con datos válidos'});
+      this.messageService.add({severity: 'error', summary: 'Error', detail: 'Debe rellenar los campos requeridos con datos válidos'});
     }
     else {
       this.brand = new SubcategoryBrand();

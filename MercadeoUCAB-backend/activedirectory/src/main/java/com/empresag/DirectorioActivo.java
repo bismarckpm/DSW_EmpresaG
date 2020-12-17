@@ -72,7 +72,7 @@ public class DirectorioActivo
             entry.put( oc );
             entry.put( new BasicAttribute( "cn", user.getEmail() ) );
             entry.put( new BasicAttribute( "sn", user.getEmail() ) );
-            entry.put( new BasicAttribute( "description", String.valueOf(user.getFkRol().get_id()) ) );
+//            entry.put( new BasicAttribute( "description", String.valueOf(user.getFkRol().get_id()) ) );
             entry.put( new BasicAttribute( "userpassword", user.getPassword() ) );
             entry.put( new BasicAttribute( "pwdLastSuccess", format.format( new Date() ) + "Z" ) );
             _ldapContext.createSubcontext( String.format( _userDirectory + "," + _directory, user.getEmail()), entry );

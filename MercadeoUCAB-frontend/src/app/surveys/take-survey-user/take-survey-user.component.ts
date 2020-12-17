@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { RxwebValidators } from '@rxweb/reactive-form-validators'
+import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { StudiesService } from 'src/app/core/services/admin/studies/studies.service';
@@ -12,6 +12,7 @@ import { StudyQuestion } from 'src/app/core/classes/study/study_question';
 import { Survey } from 'src/app/core/classes/study/survey';
 import { AnalystService } from 'src/app/core/services/analytics/analyst.service';
 import { Option } from 'src/app/core/classes/study/options';
+import {SessionService} from '../../core/services/auth/session.service';
 
 @Component({
   selector: 'app-take-survey-user',
@@ -24,9 +25,9 @@ export class TakeSurveyUserComponent implements OnInit {
   preguntas: StudyQuestion[];
   respuestas: Survey[];
   current_study: number;
-  current_user: number = 70;
-  sent_form: boolean = false;
-  loading: boolean = true;
+  current_user: number;
+  sent_form = false;
+  loading = true;
 
   estudioErrorMessage: string;
   questionsErrorMessage: string;
@@ -36,43 +37,41 @@ export class TakeSurveyUserComponent implements OnInit {
   @ViewChild('sform') surveyFormDirective;
 
   validationMessages = {
-    'respuesta_texto': {
-      'required': 'Campo es requerido',
+    respuesta_texto: {
+      required: 'Campo es requerido',
     },
-    'opcion_seleccionada': {
-      'required': 'Debe seleccionar una opción'
+    opcion_seleccionada: {
+      required: 'Debe seleccionar una opción'
     },
-    'rango_inicial': {
-      'required': 'Rango inicial es requerido',
-      'pattern': 'Rango debe ser numérico',
-      'lessThan': 'Rango inicial debe ser menor que rango final',
-      'min': 'Rango inicial no puede ser menor que el valor permitido',
-      'max': 'Rango inicial no puede ser mayor que el valor permitido'
+    rango_inicial: {
+      required: 'Rango inicial es requerido',
+      pattern: 'Rango debe ser numérico',
+      lessThan: 'Rango inicial debe ser menor que rango final',
+      min: 'Rango inicial no puede ser menor que el valor permitido',
+      max: 'Rango inicial no puede ser mayor que el valor permitido'
     },
-    'rango_final': {
-      'required': 'Rango final es requerido',
-      'pattern': 'Rango debe ser numérico',
-      'greaterThan': 'Rango final debe ser mayor que rango inicial',
-      'min': 'Rango final no puede ser menor que el valor permitido',
-      'max': 'Rango final no puede ser mayor que el valor permitido'
+    rango_final: {
+      required: 'Rango final es requerido',
+      pattern: 'Rango debe ser numérico',
+      greaterThan: 'Rango final debe ser mayor que rango inicial',
+      min: 'Rango final no puede ser menor que el valor permitido',
+      max: 'Rango final no puede ser mayor que el valor permitido'
     }
-  }
-
-  // TODO: See take-survey-user todo
+  };
 
   constructor(private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private userSurveyService: UserSurveyService,
-    private analystService: AnalystService,
-    private studiesService: StudiesService,
-    private messageService: MessageService,
-    private fb: FormBuilder,
-    private spinner: NgxSpinnerService) {
-
-    // TODO: Get logged user
+              private router: Router,
+              private sessionService: SessionService,
+              private userSurveyService: UserSurveyService,
+              private analystService: AnalystService,
+              private studiesService: StudiesService,
+              private messageService: MessageService,
+              private fb: FormBuilder,
+              private spinner: NgxSpinnerService) {
+    this.current_user = this.sessionService.getCurrentUser();
 
     /* If query is empty return 404 */
-    if ((this.activatedRoute.snapshot.queryParamMap.get('surveyId') || 0) == 0) {
+    if ((this.activatedRoute.snapshot.queryParamMap.get('surveyId') || 0) === 0) {
       this.router.navigate(['404']);
     }
 
@@ -82,7 +81,7 @@ export class TakeSurveyUserComponent implements OnInit {
 
       this.studiesService.getStudy(this.current_study).subscribe((study) => {
         /* FINISHED STUDIES DO NOT ALLOW NEW ANSWERS */
-        if (study.fkEstudio.estado == 2){
+        if (study.fkEstudio.estado === 2){
           this.router.navigate(['404']);
         }
         else {
@@ -95,15 +94,15 @@ export class TakeSurveyUserComponent implements OnInit {
               this.createForm();
             }, errorMessage => {
               this.router.navigate(['404']);
-            })
+            });
 
           }, errorMessage => {
             this.questionsErrorMessage = errorMessage;
             this.loading = false;
             this.spinner.hide();
-          })
+          });
         }
-      })
+      });
     }
   }
 
@@ -113,7 +112,7 @@ export class TakeSurveyUserComponent implements OnInit {
   createForm() {
     this.surveyForm = this.fb.group({
       answers: new FormArray([])
-    })
+    });
 
     this.getUserAnswers();
 
@@ -131,20 +130,21 @@ export class TakeSurveyUserComponent implements OnInit {
 
   getUserAnswers() {
     // Push according to the number of questions present
-    for (var i = 0; i < this.preguntas.length; i++) {
+    for (let i = 0; i < this.preguntas.length; i++) {
       // OPEN TEXT
-      if (this.preguntas[i].fkPregunta.fkTipoPregunta._id == 1) {
+      if (this.preguntas[i].fkPregunta.fkTipoPregunta._id === 1) {
         this.answers.push(new FormGroup({
           respuesta_texto: new FormControl('', Validators.required)
-        }))
+        }));
       }
 
       // SIMPLE SELECTION, MULTIPLE SELECTION, TRUE/FALSE
 
-      else if (this.preguntas[i].fkPregunta.fkTipoPregunta._id == 2 || this.preguntas[i].fkPregunta.fkTipoPregunta._id == 3 || this.preguntas[i].fkPregunta.fkTipoPregunta._id == 4) {
+      else if (this.preguntas[i].fkPregunta.fkTipoPregunta._id === 2 ||
+        this.preguntas[i].fkPregunta.fkTipoPregunta._id === 3 || this.preguntas[i].fkPregunta.fkTipoPregunta._id === 4) {
         this.answers.push(new FormGroup({
           opcion_seleccionada: new FormControl(null, Validators.required)
-        }))
+        }));
       }
 
       // RANGE
@@ -172,7 +172,7 @@ export class TakeSurveyUserComponent implements OnInit {
               RxwebValidators.greaterThan({ fieldName: 'rango_inicial' })
             ]
           )
-        }))
+        }));
       }
 
     }
@@ -180,18 +180,18 @@ export class TakeSurveyUserComponent implements OnInit {
 
   postAnswers() {
     this.userSurveyService.postAnswers(this.current_study, this.current_user, this.respuestas).subscribe((study) => {
-      this.router.navigate(["analysis-requests"])
+      this.router.navigate(['surveys/available']);
     }, errorMessage => {
       this.sent_form = false;
       this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
-    })
+    });
   }
 
   onSubmit() {
     this.sent_form = true;
     this.respuestas = [];
 
-    for (var index = 0; index < this.answers.controls.length; index++) {
+    for (let index = 0; index < this.answers.controls.length; index++) {
       let currentAnswer: Survey;
       if (this.answers.controls[index].value.respuesta_texto) {
         currentAnswer = new Survey();
@@ -202,7 +202,8 @@ export class TakeSurveyUserComponent implements OnInit {
         this.respuestas.push(currentAnswer);
       }
       // SIMPLE SELECTION
-      else if (this.answers.controls[index].value.opcion_seleccionada != null && !Array.isArray(this.answers.controls[index].value.opcion_seleccionada)) {
+      else if (this.answers.controls[index].value.opcion_seleccionada
+        != null && !Array.isArray(this.answers.controls[index].value.opcion_seleccionada)) {
         currentAnswer = new Survey();
         currentAnswer.fkPregunta = this.preguntas[index].fkPregunta;
         currentAnswer.fkPosibleRespuesta = new PossibleAnswer();
@@ -214,8 +215,9 @@ export class TakeSurveyUserComponent implements OnInit {
         this.respuestas.push(currentAnswer);
       }
       // MULTIPLE SELECTION
-      else if (this.answers.controls[index].value.opcion_seleccionada && Array.isArray(this.answers.controls[index].value.opcion_seleccionada)) {
-        for (var j = 0; j < this.answers.controls[index].value.opcion_seleccionada.length; j++) {
+      else if (this.answers.controls[index].value.opcion_seleccionada
+        && Array.isArray(this.answers.controls[index].value.opcion_seleccionada)) {
+        for (let j = 0; j < this.answers.controls[index].value.opcion_seleccionada.length; j++) {
           currentAnswer = new Survey();
           currentAnswer.fkPregunta = this.preguntas[index].fkPregunta;
           currentAnswer.fkPosibleRespuesta = new PossibleAnswer();
@@ -231,9 +233,9 @@ export class TakeSurveyUserComponent implements OnInit {
         currentAnswer = new Survey();
         currentAnswer.fkPregunta = this.preguntas[index].fkPregunta;
         currentAnswer.fkPosibleRespuesta = new PossibleAnswer();
-        currentAnswer.respuestaRangoInicial = parseInt(this.answers.controls[index].value.rango_inicial);
-        currentAnswer.respuestaRangoFinal = parseInt(this.answers.controls[index].value.rango_final);
-        currentAnswer.fkPosibleRespuesta._id = this.preguntas[index].fkPregunta.listPosibleRespuestas[0]._id
+        currentAnswer.respuestaRangoInicial = parseInt(this.answers.controls[index].value.rango_inicial, 10);
+        currentAnswer.respuestaRangoFinal = parseInt(this.answers.controls[index].value.rango_final, 10);
+        currentAnswer.fkPosibleRespuesta._id = this.preguntas[index].fkPregunta.listPosibleRespuestas[0]._id;
         currentAnswer.id_persona = this.current_user;
         currentAnswer.id_estudio = this.current_study;
         this.respuestas.push(currentAnswer);
@@ -241,7 +243,7 @@ export class TakeSurveyUserComponent implements OnInit {
     }
 
     if (this.surveyForm.valid) {
-      this.postAnswers()
+      this.postAnswers();
     }
 
     else {

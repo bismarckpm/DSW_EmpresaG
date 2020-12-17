@@ -38,6 +38,7 @@
         <class>com.empresag.TipoPreguntaEntity</class>
         <class>com.empresag.TipoPresentacionEntity</class>
         <class>com.empresag.UsuarioEntity</class>
+        <class>com.empresag.TokenEntity</class>
 
         <!--TODO (INFO) - AQUI VAN LAS CREDENCIALES DE LA BASE DE DATOS-->
 

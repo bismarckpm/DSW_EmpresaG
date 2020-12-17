@@ -1,9 +1,6 @@
 package com.empresag;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import javax.persistence.*;
 import java.util.List;
 
 public class DaoUsuario extends Dao<UsuarioEntity> {
@@ -16,6 +13,22 @@ public class DaoUsuario extends Dao<UsuarioEntity> {
 
     public DaoUsuario( ) {
         super(_handler);
+    }
+
+    public UsuarioEntity findUserByEmail(String email){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
+        EntityManager em = emf.createEntityManager();
+
+        JPQL = "SELECT u FROM UsuarioEntity u WHERE u.email = :correo ";
+        q = em.createQuery(JPQL);
+        q.setParameter("correo", email);
+
+        try {
+            return (UsuarioEntity) q.getSingleResult();
+        }
+        catch (NoResultException e){
+            return null;
+        }
     }
 
     public List<UsuarioEntity> findUsuarioLogin(String email, String password){

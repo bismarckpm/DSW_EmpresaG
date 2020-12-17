@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../core/services/auth/login.service';
 import { Users } from '../../core/classes/auth/users';
+import {SessionService} from '../../core/services/auth/session.service';
 
 @Component({
   selector: 'app-login',
@@ -40,6 +41,7 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private loginService: LoginService,
               private messageService: MessageService,
+              private sessionService: SessionService,
               private router: Router) {
     this.createForm();
   }
@@ -107,12 +109,11 @@ export class LoginComponent implements OnInit {
 
     this.loginService.validateLogin(this.user)
       .subscribe(person => {
-
-      // TODO: Redireccion a la ruta apropiada cuando el auth este listo
       if (person == null){
         this.messageService.add({severity: 'error', summary: 'Error', detail: 'Usuario o clave incorrectos.'});
       }
       else{
+        this.sessionService.setCurrentSession(person);
         this.messageService.add({severity: 'success', summary: 'Exito', detail: 'Usuario validado correctamente.'});
         this.nextPage();
       }

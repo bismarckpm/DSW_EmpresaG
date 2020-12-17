@@ -38,6 +38,7 @@
                                     field="subcategoria">
                                 </p-sortIcon>
                             </th>
+                          <th class="p-text-center">Nombre</th>
                             <th style="width: 11rem"></th>
                         </tr>
 
@@ -53,6 +54,10 @@
                                 <span class="p-column-title">Subcategoría</span>
                                 <span class="image-text">{{estudio.fkSubcategoria.nombre}}</span>
                             </td>
+                          <td class="p-text-center">
+                            <span class="p-column-title">Nombre</span>
+                            <span class="image-text">{{estudio.fkEstudio.nombre}}</span>
+                          </td>
 
                             <td class="p-text-center">
                                 <button type="button" routerLink="take" [queryParams]="{surveyId:estudio.fkEstudio._id}" pButton

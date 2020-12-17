@@ -4,7 +4,7 @@
     <div class="p-grid vertical-container" *ngIf="persona">
         <!-- info detalladita -->
         <!-- Aca tambien usamos data persona, para no mostrar la info de la izquierda -->
-        <div class="p-col-12 p-lg-3 p-as-start" *ngIf="!dataPersona">
+        <div class="p-col-12 p-lg-3 p-as-start" *ngIf="dataPersona">
             <p-card>
                 <div class="p-grid p-mx-5">
                     <div class="p-col-12 p-lg-3">
@@ -14,9 +14,9 @@
                     </div>
                     <div class="p-col-12 p-lg-9">
                         <div class="p-d-flex p-jc-lg-start p-jc-sm-center">
-                            <p><b>{{persona.primer_nombre}} {{persona.primer_apellido}}</b><br>
-                                {{persona.fecha_de_nacimiento}}<br>
-                                (Direccion bonita)
+                            <p><b>{{persona.fkPersona.primerNombre}} {{persona.fkPersona.primerApellido}}</b><br>
+                                {{persona.fkPersona.fechaNacimiento}}<br>
+                                {{dir_bella}}
                             </p>
                         </div>
                     </div>
@@ -24,12 +24,12 @@
                 <!-- Secondary info -->
                 <div class="p-mx-5">
                     <hr>
-                    <p>Email: {{persona.correo_electronico}}</p>
-                    <p>Genero: {{persona.genero}}</p>
-                    <p>Teléfono: {{persona.telefono}}</p>
-                    <p>Ocupación: {{persona.ocupacion}}</p>
-                    <p>Nivel académico: {{persona.id_nivel_academico}}</p>
-                    <p>Número de hijos: {{persona.hijos.length}}</p>
+                    <p>Email: {{persona.email}}</p>
+                    <p>Genero: {{persona.fkPersona.fkGenero.nombre}}</p>
+                    <p>Teléfono: {{persona.fkPersona.telefono}}</p>
+                    <p>Ocupación: {{ocupacion}}</p>
+                    <p>Nivel académico: {{lvlAcademico}}</p>
+                    <p>Número de hijos: {{persona.fkPersona.hijos.length}}</p>
                     <hr>
                 </div>
 
@@ -41,7 +41,7 @@
                     <div class="p-mr-2">
                         <p-card class="card-shadow">
                             <i class="pi pi-fw pi-clock"></i>
-                            {{persona.id_horario_inicial}} a {{persona.id_horario_final}}
+                            {{persona.fkPersona.id_horario_inicial.hora}} a {{persona.fkPersona.id_horario_final.hora}}
                         </p-card>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
         <!-- Formulario de cammbio de perfil -->
         <div class="p-col-12 p-lg-8  p-as-start" style="margin-left: 2em;">
             <p-card>
-                <form novalidate [formGroup]="profileForm" #pform="ngForm">
+                <form novalidate [formGroup]="profileForm" #pform="ngForm" (ngSubmit)="onSubmit()">
                     <!-- INFORMACION DE LA CUENTA -->
                     <div class="p-grid p-jc-start p-mx-5">
                         <div class="p-col-12">
@@ -63,161 +63,302 @@
                                 <label for="float-input">Correo Electrónico</label>
                             </span>
                         </div>
-                        <div class="p-col-12 p-lg-6" *ngIf="!dataPersona">
+                        <!-- <div class="p-col-12 p-lg-6" *ngIf="!dataPersona">
                             <span class="p-float-label">
                                 <input class="p-inputtext-lg fill-width" type="text" pInputText disabled>
                                 <label for="float-input">Rol</label>
                             </span>
-                        </div>
+                        </div> -->
                         <div class="p-col-12">
                             <a href="#">Cambiar contraseña</a>
                         </div>
                     </div>
 
                     <!-- dataPersona es un valor clave, para saber si se muestra los datos o solo la info de alguien que no es encuestado. -->
-                    <div *ngIf="!dataPersona">
+                    <div *ngIf="dataPersona">
+                        <!-- dataPersona es un valor clave, para saber si se muestra los datos o solo la info de alguien que no es encuestado. -->
                         <div class="p-grid p-mx-5">
                             <div class="p-col-12 p-md-6 p-mt-5">
-                                <h3>INFORMACIÓN PERSONAL</h3>
+                                <h4>Información personal</h4>
                             </div>
                         </div>
-
+    
                         <!-- INFORMACION PERSONAL -->
                         <div class="p-grid p-mx-5">
                             <div class="p-col-12 p-md-6 p-mb-5">
                                 <span class="p-float-label">
-                                    <input class="p-inputtext-lg fill-width" type="text" pInputText>
+                                    <input class="p-inputtext-lg fill-width" formControlName="primer_nombre" 
+                                    type="text" pInputText disabled>
                                     <label for="float-input">Primer Nombre</label>
                                 </span>
                             </div>
                             <div class="p-col-12 p-md-6 p-mb-5">
                                 <span class="p-float-label">
-                                    <input class="p-inputtext-lg fill-width" type="text" pInputText>
+                                    <input class="p-inputtext-lg fill-width" formControlName="primer_apellido" 
+                                    type="text" pInputText disabled>
                                     <label for="float-input">Primer Apellido</label>
                                 </span>
                             </div>
                             <div class="p-col-12 p-md-6 p-mb-5">
                                 <span class="p-float-label">
-                                    <input class="p-inputtext-lg fill-width" type="text" pInputText>
+                                    <input class="p-inputtext-lg fill-width" formControlName="documento_de_identificacion"
+                                     type="text" pInputText disabled>
                                     <label for="float-input">Documento de identidad</label>
                                 </span>
                             </div>
                             <div class="p-col-12 p-md-6 p-mb-5">
                                 <span class="p-float-label">
-                                    <p-dropdown [options]="generos" placeholder="Genero">
+                                    <p-dropdown [options]="generos" formControlName="genero" placeholder="Género">
                                     </p-dropdown>
                                 </span>
                             </div>
                             <div class="p-col-12 p-md-6 p-mb-5">
                                 <span class="p-float-label">
-                                    <p-dropdown [options]="edos_civil" placeholder="Estado Civil">
+                                    <p-dropdown [options]="edos_civil" formControlName="estado_civil" 
+                                    placeholder="Estado Civil">
                                     </p-dropdown>
                                 </span>
                             </div>
                             <div class="p-col-12 p-md-6 p-mb-5">
                                 <span class="p-float-label">
-                                    <p-calendar placeholder="Fecha de Nacimiento *" [locale]="es" [yearNavigator]="true"
-                                        yearRange="1900:2030" dataType="string" dateFormat="dd/mm/yy"
-                                        class="p-inputtext-lg"></p-calendar>
+                                    <!-- <p-calendar placeholder="Fecha de Nacimiento *" [locale]="es" [yearNavigator]="true"
+                                        yearRange="1900:2030" formControlName="fecha_de_nacimiento" dataType="string" dateFormat="dd/mm/yy"
+                                        class="p-inputtext-lg"></p-calendar> -->
+                                        <input class="p-inputtext-lg fill-width" formControlName="fecha_de_nacimiento"
+                                        type="text" pInputText disabled>
+                                       <label for="float-input">Fecha de Nacimiento</label>
                                 </span>
                             </div>
                         </div>
-
                         <!-- INFORMACION DE CONTACTO -->
                         <div class="p-grid p-mx-5">
-                            <div class="p-col-12 p-md-6 p-mb-5">
-                                <h3>INFORMACIÓN DE CONTACTO</h3>
+                            <div class="p-col-12 p-md-6 p-mt-5">
+                                <h4>Información de contacto</h4>
                             </div>
                         </div>
+    
                         <div class="p-grid p-mx-5">
                             <div class="p-col-12 p-md-6 p-mb-5">
                                 <span class="p-float-label">
-                                    <p-dropdown [options]="generos">
-                                    </p-dropdown>
-                                    <label for="float-input">País</label>
+                                <p-dropdown [options]="paises" placeholder="País" (onChange)="getStates($event)" 
+                                formControlName="pais"></p-dropdown>
                                 </span>
                             </div>
-                            <div class="p-col-12 p-md-6 p-mb-5">
-                                <span class="p-float-label">
-                                    <p-dropdown [options]="generos">
-                                    </p-dropdown>
-                                    <label for="float-input">Estado</label>
-                                </span>
+                            
+                            <div class="p-col-12 p-md-6 p-mb-5" *ngIf="estado; else elseEstado">
+                                <p-dropdown [options]="estados" placeholder="Estado" (onChange)="getCities($event)" formControlName="estado"></p-dropdown>
                             </div>
-                            <div class="p-col-12 p-md-6 p-mb-5">
-                                <span class="p-float-label">
-                                    <p-dropdown [options]="generos">
-                                    </p-dropdown>
-                                    <label for="float-input">Ciudad/Municipio</label>
-                                </span>
+                            <ng-template #elseEstado>
+                                <div class="p-col-12 p-md-6 p-mb-5" >
+                                </div>
+                            </ng-template>
+                
+                            <div class="p-col-12 p-md-6 p-mb-5" *ngIf="ciudad; else elseCiudad">
+                                <p-dropdown [options]="ciudades" placeholder="Ciudad" (onChange)="getCounties($event)" formControlName="ciudad"></p-dropdown>
                             </div>
-                            <div class="p-col-12 p-md-6 p-mb-5">
-                                <span class="p-float-label">
-                                    <p-dropdown [options]="generos">
-                                    </p-dropdown>
-                                    <label for="float-input">Parroquia</label>
-                                </span>
+                            <ng-template #elseCiudad>
+                                <div class="p-col-12 p-md-6 p-mb-5" >
+                                </div>
+                            </ng-template>
+                
+                            <div class="p-col-12 p-md-6 p-mb-5" *ngIf="parroquia; else elseParroquia">
+                                <p-dropdown [options]="parroquias" placeholder="Parroquia" formControlName="parroquia"></p-dropdown>
                             </div>
-                            <div class="p-col-12 p-md-6 p-mb-5">
+                            <ng-template #elseParroquia>
+                                <div class="p-col-12 p-md-6 p-mb-5" >
+                                </div>
+                            </ng-template>
+                
+                            <!-- <div class="p-col-12 p-md-3 p-mb-5">
                                 <span class="p-float-label">
-                                    <input class="p-inputtext-lg fill-width" type="text" pInputText>
+                                <p-dropdown [options]="codigos" placeholder="Código de país" 
+                                formControlName="codigo_pais"></p-dropdown>
+                                </span>
+                            </div> -->
+        
+                            <div class="p-col-12 p-md-9 p-mb-5">
+                                <span class="p-float-label">
+                                    <input id="telefono" class="p-inputtext-lg full-width" type="text" pInputText 
+                                    formControlName="telefono">
                                     <label for="float-input">Teléfono</label>
                                 </span>
+                                <span class="error-msg" *ngIf="formErrors.telefono"><small>{{formErrors.telefono}}</small></span>
+                
                             </div>
                         </div>
-
+    
                         <!-- INFORMACION FAMILIAR -->
-                            <div class="p-grid p-mx-5">
-                                <div class="p-col-12 p-md-6 p-mb-5">
-                                    <h3>INFORMACIÓN FAMILIAR</h3>
+                        <div class="p-grid p-mx-5">
+                            <div class="p-col-12 p-md-6 p-mb-5">
+                                <h4>Familia</h4>
+                            </div>
+                        </div>
+    
+    
+                        <div class="p-grid p-mx-5">
+                            <div class="p-grid p-mt-4">
+                                <div class="p-col-12 p-md-6 p-mb-2">
+                                    <span class="p-float-label">
+                                        <input id="personas_vive" formControlName="personas_hogar" class="p-inputtext-lg full-width" type="text" pInputText>
+                                        <label for="personas_vive">¿Con cuántas personas vive?</label>
+                                    </span>
+                                    <span class="error-msg" *ngIf="formErrors.personas_hogar"><small>{{formErrors.personas_hogar}}</small></span>
+                                </div>
+                    
+                                <div class="p-col-12 p-md-6 p-mb-2">
+                                    <p-dropdown [options]="tieneHijos" (onChange)="userHasKids($event)" 
+                                    formControlName="tiene_hijos" placeholder="¿Tiene hijos?"></p-dropdown>
                                 </div>
                             </div>
-                            <div class="p-grid p-mx-5">
-                                <div class="p-col-12 p-md-6 p-mb-5">
-                                    <span class="p-float-label">
-                                        <input class="p-inputtext-lg fill-width" type="text" pInputText>
-                                        <label for="float-input">¿Con cuántas personas vive?</label>
-                                    </span>
-                                </div>
-                                <div class="p-col-12 p-md-6 p-mb-5">
-                                    <span class="p-float-label">
-                                        <p-dropdown [options]="tieneHijos"></p-dropdown>
-                                        <label for="float-input">¿Tiene hijos?</label>
-                                    </span>
+                    
+                            <div class="p-grid p-nogutter p-jc-end p-mb-4" *ngIf="profileForm.value.tiene_hijos">
+                                <div class="p-grid p-formgrid p-fluid">
+                                    <div class="p-mb-2 p-col-12 p-mb-lg-0 p-mr-3">
+                                        <button pButton pRipple type="button" (click)="showAddKidForm()" pTooltip="Añadir hijo" tooltipPosition="right"
+                                            icon="pi pi-plus" class="p-button-rounded p-button-text"></button>
+                                    </div>
                                 </div>
                             </div>
-
+                    
+                            <!-- LISTA DE HIJOS -->
+                            <div *ngIf="hijos && hijos.length > 0">
+                                <h3>Hijos</h3>
+                                <p-table [value]="hijos">
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Género</th>
+                                            <th>Fecha de nacimiento</th>
+                                            <th></th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-hijo>
+                                        <tr>
+                                            <td>{{hijo.primerNombre}} {{hijo.primerApellido}}</td>
+                                            <td>{{hijo.fkGenero.nombre}}</td>
+                                            <td>{{hijo.fechaNacimiento}}</td>
+                                            <td>
+                                                <button type="button" pButton pRipple icon="pi pi-trash" (click)="deleteChild(hijo)" class="p-button-rounded"></button>
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                            </div>
+                    
+                            <!-- AÑADIR HIJOS -->
+                            <div *ngIf="showKidsForm">
+                                <div class="p-grid">
+                                    <div class="p-col">
+                                        <h3>Añadir Hijo</h3>
+                                        <small>Presione el check para guardar</small>
+                                    </div>
+                                    <div class="p-col">
+                                        <i class="pi pi-times p-mt-4 p-mr-4" style="float: right; cursor: pointer;" (click)="hideAddKidForm()"></i>
+                                    </div>
+                                </div>
+                                <div class="p-grid pt-mt-4">
+                                    <div class="p-col-12 p-md-6 p-mb-5 p-mt-5">
+                                        <span class="p-float-label">
+                                            <input id="primer_nombre" formControlName="nombre_hijo" class="p-inputtext-lg fill-width" type="text" pInputText>
+                                            <label for="primer_nombre">Primer Nombre *</label>
+                                        </span>
+                                        <span class="error-msg" *ngIf="formErrors.nombre_hijo"><small>{{formErrors.nombre_hijo}}</small></span>
+                                    </div>
+                    
+                                    <div class="p-col-12 p-md-6 p-mb-5 p-mt-5">
+                                        <span class="p-float-label">
+                                            <input id="primer_apellido" formControlName="apellido_hijo" class="p-inputtext-lg fill-width" type="text" pInputText>
+                                            <label for="primer_apellido">Primer Apellido *</label>
+                                            <span class="error-msg" *ngIf="formErrors.apellido_hijo"><small>{{formErrors.apellido_hijo}}</small></span>
+                    
+                                        </span>
+                                    </div>
+                    
+                                    <div class="p-col-12 p-md-6 p-mb-5">
+                                        <p-dropdown [options]="generos" formControlName="genero_hijo" placeholder="Género *"></p-dropdown>
+                                        <span class="error-msg" *ngIf="formErrors.genero_hijo"><small>{{formErrors.genero_hijo}}</small></span>
+                    
+                                    </div>
+                    
+                                    <div class="p-col-12 p-md-6 p-mb-5">
+                                        <p-calendar placeholder="Fecha de Nacimiento *" [locale]="es" [yearNavigator]="true" yearRange="1900:2030"  dataType="string" dateFormat="dd/mm/yy" formControlName="fecha_de_nacimiento_hijo" class="p-inputtext-lg"></p-calendar>
+                                        <span class="error-msg" *ngIf="formErrors.fecha_de_nacimiento_hijo"><small>{{formErrors.fecha_de_nacimiento_hijo}}</small></span>
+                    
+                                    </div>
+                                </div>
+                    
+                                <div class="p-grid">
+                    
+                                    <div class="p-col">
+                                        <i class="pi pi-check p-mr-4 p-mb-4" style="float: right; cursor: pointer;" (click)="validateAddKidForm()"></i>
+                                    </div>
+                                </div>
+                            </div>
+    
+                        </div>
+    
                         <!-- INFORMACION DE EDUCACIÓN Y TRABAJO -->
                         <div class="p-grid p-mx-5">
                             <div class="p-col-12 p-md-6 p-mb-5">
-                                <h3>INFORMACIÓN FAMILIAR</h3>
+                                <h4>Información de educación y trabajo</h4>
                             </div>
                         </div>
                         <div class="p-grid p-mx-5">
-                            <div class="p-col-12 p-md-6 p-mb-5">
+                            <!-- <div class="p-col-12 p-md-6 p-mb-5">
                                 <span class="p-float-label">
-                                    <input class="p-inputtext-lg fill-width" type="text" pInputText>
-                                    <label for="float-input">¿Con cuántas personas vive?</label>
+                                    <input id="ocupacion" class="p-inputtext-lg fill-width" 
+                                    formControlName="ocupacion" type="text" pInputText>
+                                    <label for="ocupacion">Ocupación</label>
                                 </span>
-                            </div>
-                        </div>
+                            </div> -->
+            
 
+                            <div class="p-col-12 p-md-6 p-mb-5">
+                                <p-dropdown [options]="ocupaciones" placeholder="Ocupación" formControlName="ocupacion" ></p-dropdown>
+                            </div>
+
+                            <div class="p-col-12 p-md-6 p-mb-5">
+                                <p-dropdown [options]="niveles_academicos" placeholder="Último grado académico obtenido" 
+                                formControlName="nivel_academico"></p-dropdown>
+                            </div>
+                
+                            <!-- <div class="p-col-12 p-md-6 p-mb-5">
+                                <p-dropdown [options]="niveles_socioeconomicos" placeholder="Nivel socioeconómico" 
+                                formControlName="nivel_socioeconomico"></p-dropdown>
+                            </div>  -->
+                        </div>
+    
                         <!-- DISPONIBILIDAD -->
                         <div class="p-grid p-mx-5">
                             <div class="p-col-12 p-md-6 p-mb-5">
-                                <h3>DISPONIBILIDAD</h3>
+                                <h4>Disponibilidad</h4>
                             </div>
                         </div>
                         <div class="p-grid p-mx-5">
                             <div class="p-col-12 p-md-6 p-mb-5">
-                                <span class="p-float-label">
-                                    <input class="p-inputtext-lg fill-width" type="text" pInputText>
-                                    <label for="float-input">¿Con cuántas personas vive?</label>
-                                </span>
+                                <p-multiSelect [options]="dispositivos" [(ngModel)]="selectedDevices" formControlName="dispositivos" defaultLabel="Dispositivos que utiliza" emptyFilterMessage="No se encontraron resultados" selectedItemsLabel="{} items seleccionados"></p-multiSelect>
+                            </div>
+                                <div class="p-col-12 p-md-6 p-mb-5">
+                                    <p-dropdown [options]="horario_inicial" formControlName="horario_inicial" placeholder="Desde"></p-dropdown>
+                                </div>
+                    
+                                <div class="p-col-12 p-md-6 p-mb-5">
+                                    <p-dropdown [options]="horario_final" formControlName="horario_final" placeholder="Hasta"></p-dropdown>
                             </div>
                         </div>
-
                     </div>
+                    <div class="p-grid p-jc-end p-mt-1 p-mr-4">
+                        <div class="p-grid p-formgrid p-fluid">
+                            <div class="p-mb-2 p-col-6 p-mb-lg-0">
+                                <!-- <button pButton pRipple type="button" label="Cerrar" class="p-button-secondary" (click)="previousPage()"></button> -->
+                            </div>
+                            <div class="p-mb-2 p-col-6 p-mb-lg-0">
+                                <button pButton type="submit" [disabled]="sent_form"
+                                label="Guardar"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <p-toast></p-toast>
                 </form>
             </p-card>
         </div>

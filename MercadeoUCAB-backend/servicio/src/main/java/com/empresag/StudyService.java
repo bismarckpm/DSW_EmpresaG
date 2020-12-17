@@ -81,14 +81,15 @@ public class StudyService {
         EstudioEntity estudio = new EstudioEntity();
 
         try {
-            estudio.setFechaRealizacion(new Date(System.currentTimeMillis()));
-            estudio.setEstado(1);
-            daoEstudio.insert(estudio);
-
             studyToClone = daoFiltro.getCurrentRequest(rid);
             solicitud = daoSolicitud.find(rid, SolicitudEntity.class);
             solicitud.setEstado(1);
             daoSolicitud.update(solicitud);
+
+            estudio.setFechaRealizacion(new Date(System.currentTimeMillis()));
+            estudio.setEstado(1);
+            estudio.setNombre(solicitud.getNombre());
+            daoEstudio.insert(estudio);
 
             studyToClone.setFkEstudio(estudio);
             daoFiltro.update(studyToClone);

@@ -229,7 +229,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `empresag`.`SOLICITUD` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `estado` INT NOT NULL,
+  `estado` INT NOT NULL DEFAULT 0,
+  `nombre` VARCHAR(100) NULL,
   `fk_usuario` INT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -252,7 +253,8 @@ CREATE TABLE IF NOT EXISTS `empresag`.`ESTUDIO` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `fecha_realizacion` DATE NOT NULL,
   `fecha_culminacion` DATE NULL,
-  `estado` INT NOT NULL,
+  `nombre` VARCHAR(100) NULL,
+  `estado` INT NOT NULL DEFAULT 1,
   `fk_analisis` INT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_estudio_analisis_idx` (`fk_analisis` ASC) VISIBLE,
@@ -269,7 +271,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `empresag`.`SOLICITUD_ESTUDIO` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `estado` INT NOT NULL,
   `fk_solicitud` INT NOT NULL,
   `fk_estudio` INT NOT NULL,
   PRIMARY KEY (`id`),
@@ -436,12 +437,12 @@ CREATE TABLE IF NOT EXISTS `empresag`.`FILTRO` (
   CONSTRAINT `fk_filtro_categoria`
     FOREIGN KEY (`fk_categoria`)
     REFERENCES `empresag`.`CATEGORIA` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_filtro_subcategoria`
     FOREIGN KEY (`fk_subcategoria`)
     REFERENCES `empresag`.`SUBCATEGORIA` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_filtro_solicitud`
     FOREIGN KEY (`fk_solicitud`)
@@ -629,17 +630,17 @@ CREATE TABLE IF NOT EXISTS `empresag`.`PREGUNTA_CAT_SUBCAT` (
   CONSTRAINT `fk_pregcatsubcat_pregunta`
     FOREIGN KEY (`fk_pregunta`)
     REFERENCES `empresag`.`PREGUNTA` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_pregcatsubcat_categoria`
     FOREIGN KEY (`fk_categoria`)
     REFERENCES `empresag`.`CATEGORIA` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_pregcatsubcat_subcategoria`
     FOREIGN KEY (`fk_subcategoria`)
     REFERENCES `empresag`.`SUBCATEGORIA` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -656,12 +657,12 @@ CREATE TABLE IF NOT EXISTS `empresag`.`CATEGORIA_SUBCATEGORIA` (
   CONSTRAINT `fk_catsubcat_categoria`
     FOREIGN KEY (`fk_categoria`)
     REFERENCES `empresag`.`CATEGORIA` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_catsubcat_subcategoria`
     FOREIGN KEY (`fk_subcategoria`)
     REFERENCES `empresag`.`SUBCATEGORIA` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -678,12 +679,12 @@ CREATE TABLE IF NOT EXISTS `empresag`.`SUBCATEGORIA_MARCA` (
   CONSTRAINT `fk_subcatmarca_subcategoria`
     FOREIGN KEY (`fk_subcategoria`)
     REFERENCES `empresag`.`SUBCATEGORIA` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_subcatmarca_marca`
     FOREIGN KEY (`fk_marca`)
     REFERENCES `empresag`.`MARCA` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -700,12 +701,12 @@ CREATE TABLE IF NOT EXISTS `empresag`.`MARCA_TIPO` (
   CONSTRAINT `fk_marcatipo_marca`
     FOREIGN KEY (`fk_marca`)
     REFERENCES `empresag`.`MARCA` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_marcatipo_tipo`
     FOREIGN KEY (`fk_tipo`)
     REFERENCES `empresag`.`TIPO` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -722,12 +723,12 @@ CREATE TABLE IF NOT EXISTS `empresag`.`TIPO_PRESENTACION` (
   CONSTRAINT `fk_tipopres_tipo`
     FOREIGN KEY (`fk_tipo`)
     REFERENCES `empresag`.`TIPO` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_tipopres_presentacion`
     FOREIGN KEY (`fk_presentacion`)
     REFERENCES `empresag`.`PRESENTACION` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -736,8 +737,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `empresag`.`TOKENS` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `token_login` VARCHAR(15) NULL,
-  `token_reset` VARCHAR(15) NULL, 
+  `token_login` VARCHAR(30) NULL,
+  `token_reset` VARCHAR(30) NULL,
   `fk_usuario` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_usuario_token_idx` (`fk_usuario` ASC) VISIBLE,

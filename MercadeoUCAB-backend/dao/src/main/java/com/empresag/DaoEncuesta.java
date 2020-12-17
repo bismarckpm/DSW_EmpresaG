@@ -37,11 +37,11 @@ public class DaoEncuesta extends Dao<EncuestaEntity> {
         return q.getResultList();
     }
 
-    public List<FiltroEntity> getAvailableSurveys(long personId){
+    public List<FiltroEntity> getAvailableSurveys(long userId){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
         EntityManager em = emf.createEntityManager();
         DaoPersona daoPersona = new DaoPersona();
-        PersonaEntity persona = daoPersona.find(personId, PersonaEntity.class);
+        PersonaEntity persona = daoPersona.findPersonByUser(userId);
 
         JPQL = "SELECT f FROM PersonaEntity p, FiltroEntity f, PersonaNvlacademicoEntity pna, UsuarioEntity u, " +
                 "RolEntity r, EstudioEntity ee " +
@@ -62,18 +62,19 @@ public class DaoEncuesta extends Dao<EncuestaEntity> {
         return q.getResultList();
     }
 
-    public boolean isPersonPartOfAvailablePopulation(long studyId, long personId){
+    public boolean isPersonPartOfAvailablePopulation(long studyId, long userId){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
         EntityManager em = emf.createEntityManager();
         DaoEncuesta daoEncuesta = new DaoEncuesta();
         DaoPersona daoPersona = new DaoPersona();
-        PersonaEntity persona = daoPersona.find(personId, PersonaEntity.class);
+        PersonaEntity persona = daoPersona.findPersonByUser(userId);
         List<PersonaEntity> personas = daoEncuesta.getAvailablePopulation(studyId);
         boolean found = false;
 
         for (PersonaEntity p: personas) {
             if (p.get_id() == persona.get_id()){
                 found = true;
+                break;
             }
         }
 
