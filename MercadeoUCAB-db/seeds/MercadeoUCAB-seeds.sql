@@ -594,6 +594,8 @@ INSERT INTO empresag.solicitud (id, estado, nombre, fk_usuario) VALUES (2, 1, 'E
 INSERT INTO empresag.solicitud (id, estado, nombre, fk_usuario) VALUES (3, 0, 'Estudio de factibilidad para Lil Jeep', 8);
 INSERT INTO empresag.solicitud (id, estado, nombre, fk_usuario) VALUES (4, 0, 'Hysteria Sportswear', 8);
 
+INSERT INTO empresag.analisis (id, conclusiones) VALUES (1, '<p>Los usuarios que contestaron esta encuesta tienen tendencia a no saber o no interesarles cómo se ven los diseños de los nuevos jerseys deportivos, podría ser porque sólo les interesa comprar el jersey de su equipo favorito. Hay una notable variedad de marcas deportivas que suelen comprar y bastante balance entre ellas. </p>');
+
 INSERT INTO empresag.estudio (id, fecha_realizacion, fecha_culminacion, nombre, estado, fk_analisis) VALUES (1, '2020-12-17', '2020-12-17', 'Shinigami Sportswear', 2, 1);
 INSERT INTO empresag.estudio (id, fecha_realizacion, fecha_culminacion, nombre, estado, fk_analisis) VALUES (2, '2020-12-17', null, 'Estudio de factibilidad para la consola Polystation 360', 1, null);
 
@@ -734,4 +736,3 @@ INSERT INTO empresag.encuesta (id, fecha, respuesta_texto, respuesta_rango_inici
 INSERT INTO empresag.encuesta (id, fecha, respuesta_texto, respuesta_rango_inicial, respuesta_rango_final, fk_posible_respuesta, fk_pregunta, fk_estudio, fk_persona) VALUES (126, '2020-12-17 23:40:42', null, null, null, 103, 38, 2, 13);
 INSERT INTO empresag.encuesta (id, fecha, respuesta_texto, respuesta_rango_inicial, respuesta_rango_final, fk_posible_respuesta, fk_pregunta, fk_estudio, fk_persona) VALUES (127, '2020-12-17 23:40:42', null, null, null, 112, 39, 2, 13);
 
-INSERT INTO empresag.analisis (id, conclusiones) VALUES (1, '<p>Los usuarios que contestaron esta encuesta tienen tendencia a no saber o no interesarles cómo se ven los diseños de los nuevos jerseys deportivos, podría ser porque sólo les interesa comprar el jersey de su equipo favorito. Hay una notable variedad de marcas deportivas que suelen comprar y bastante balance entre ellas. </p>');
