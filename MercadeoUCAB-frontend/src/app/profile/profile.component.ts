@@ -72,6 +72,7 @@ export class ProfileComponent implements OnInit {
   codigos: SelectItem[];
   ocupaciones: SelectItem[];
   showKidsForm = false;
+  showClaveForm = false;
   selectedStatus: number;
   sent_form: boolean = false;
   current_user: number;
@@ -525,6 +526,14 @@ export class ProfileComponent implements OnInit {
     this.showKidsForm = true;
   }
 
+  showChangeClaveForm(){
+    this.showClaveForm = true;
+  }
+
+  hideChangeClaveForm(){
+    this.showClaveForm = false;
+  }
+
   hideAddKidForm(){
     this.showKidsForm = false;
   }
@@ -707,8 +716,14 @@ export class ProfileComponent implements OnInit {
     // Informacion basica
     this.userService.persona._id = this.persona._id;
     this.userService.persona.email = this.persona.email;
-    this.userService.persona.password = "";
-    this.userService.persona.confirmar_clave = "";
+    if (this.showClaveForm){
+      this.userService.persona.password = this.profileForm.value.clave;
+      this.userService.persona.confirmar_clave = this.profileForm.value.confirmar_clave;
+    }
+    else{
+      this.userService.persona.password = "";
+      this.userService.persona.confirmar_clave = "";
+    }
     this.userService.persona.estado = this.persona.estado;
     this.userService.persona.fkRol._id = this.persona.fkRol._id;
     
