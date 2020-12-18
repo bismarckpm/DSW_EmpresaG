@@ -113,34 +113,6 @@
         </div>
       </div>
 
-      <!-- IN PROGRESS STUDIES CAN BE CONCLUDED -->
-      <div *ngIf="study && study.fkEstudio.estado == 1" class="p-mx-5 p-mt-2">
-        <u (click)="show_editor = !show_editor">Concluir estudio</u>
-        <div class="p-mt-3" *ngIf="show_editor">
-          <form novalidate [formGroup]="conclusionForm" #cform="ngForm" (ngSubmit)="onSubmit()">
-            <p-editor formControlName="conclusion" [style]="{'height':'220px'}"
-                      placeholder="Conclusión del estudio" [modules]="toolbar">
-            </p-editor>
-            <span class="error-msg"
-                  *ngIf="formErrors.conclusion"><small>{{formErrors.conclusion}}</small></span>
-            <br>
-            <span *ngIf="conclusionForm.value.conclusion"><small>{{3000-conclusionForm.value.conclusion.length}} caracteres restantes</small></span>
-
-            <div class="p-grid p-jc-end p-mt-5">
-              <div class="p-grid p-formgrid p-fluid">
-                <div class="p-mb-2 p-col-6 p-mb-lg-0">
-                  <button pButton pRipple type="button" label="Volver" class="p-button-secondary"
-                          routerLink="../analysis-requests"></button>
-                </div>
-                <div class="p-mb-2 p-col-6 p-mb-lg-0">
-                  <button pButton pRipple type="submit" [disabled]="sent_form" label="Enviar"></button>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-
       <!-- YOU CAN VISUALIZE THE CONCLUSIONS FROM FINISHED STUDIES -->
       <div *ngIf="study && study.fkEstudio.estado == 2 && conclusion" class="p-mx-5 p-mt-2">
         <h4>CONCLUSIÓN DEL ESTUDIO</h4>
@@ -161,7 +133,4 @@
       <app-server-disconnected></app-server-disconnected>
     </div>
   </p-card>
-
-  <p-confirmDialog></p-confirmDialog>
-  <p-toast></p-toast>
 </div>

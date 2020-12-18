@@ -2,15 +2,12 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AnalystService } from '../../core/services/analytics/analyst.service';
-import { Study } from '../../core/classes/study/study';
-import { Question } from 'src/app/core/classes/study/question';
 import { AnalyticData } from 'src/app/core/classes/analytics/analytic_data';
 import { StudiesService } from 'src/app/core/services/admin/studies/studies.service';
-import {StudyWithFilter} from '../../core/classes/study/study_with_filter';
-import {Analytics} from '../../core/classes/analytics/analytics';
-import {QuestionWithStats} from '../../core/classes/analytics/question_with_stats';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ConfirmationService, MessageService} from 'primeng/api';
+import { StudyWithFilter } from '../../core/classes/study/study_with_filter';
+import { Analytics } from '../../core/classes/analytics/analytics';
+import { QuestionWithStats } from '../../core/classes/analytics/question_with_stats';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-clients-study-stats',
@@ -55,8 +52,6 @@ export class ClientsStudyStatsComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
-              private messageService: MessageService,
-              private confirmationService: ConfirmationService,
               private analystService: AnalystService,
               private studiesService: StudiesService,
               private fb: FormBuilder,
@@ -168,40 +163,6 @@ export class ClientsStudyStatsComponent implements OnInit {
           }
         }
       }
-    }
-  }
-
-  putStudy() {
-    this.analystService.postConclusion(this.current_study, this.conclusion).subscribe((conclusion) => {
-      this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Estudio analizado con éxito' });
-    }, errorMessage => {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
-      this.sent_form = false;
-    });
-  }
-
-  onSubmit() {
-    this.sent_form = true;
-    if (this.conclusionForm.valid) {
-      this.conclusion = new Analytics();
-      this.conclusion.conclusiones = this.conclusionForm.value.conclusion;
-      this.confirmationService.confirm({
-        message: '¿Está seguro que desea concluir el estudio? No podrá modificar la conclusión después',
-        header: 'Confirmación',
-        icon: 'pi pi-info-circle',
-        accept: () => {
-          this.putStudy();
-          this.router.navigate(['analytics/requests']);
-        },
-        reject: () => {
-          this.sent_form = false;
-          return;
-        }
-      });
-    }
-    else {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'El campo conclusión debe ser válido' });
-      this.sent_form = false;
     }
   }
 
