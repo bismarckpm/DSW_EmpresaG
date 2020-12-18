@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { persondata } from '../../classes/profile/persondata';
 import { QuestionWithStats } from '../../classes/analytics/question_with_stats';
 import { Analytics } from '../../classes/analytics/analytics';
+import {Survey} from '../../classes/study/survey';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,11 @@ export class AnalystService {
 
   isPersonPartOfAvailablePopulation(study_id, person_id): Observable<any>{
     return this.http.get<any>(serverURL + 'survey/available-population/' + study_id + '/' + person_id)
+      .pipe(catchError(this.processHTTPMessageService.handleError));
+  }
+
+  isPersonPartOfAvailablePopulationInterview(study_id, person_id): Observable<any>{
+    return this.http.get<any>(serverURL + 'survey/available-population-interview/' + study_id + '/' + person_id)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
@@ -59,6 +65,17 @@ export class AnalystService {
 
   getAnalysis(study_id): Observable<Analytics>{
     return this.http.get<Analytics>(serverURL + 'analytics/find/' + study_id)
+      .pipe(catchError(this.processHTTPMessageService.handleError));
+  }
+
+  postAnswers(study_id, person_id, survey): Observable<Survey> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+    };
+
+    return this.http.post<Survey>(serverURL + 'survey/take-interview/' + study_id + '/' + person_id, survey, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 }

@@ -30,7 +30,7 @@ public class Email {
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-        properties.put("mail.smtp.port",25);
+        properties.put("mail.smtp.port", 587);
         properties.put("mail.smtp.mail.sender","mercadeoucab.empresag@gmail.com");
         properties.put("mail.smtp.user", "mercadeoucab.empresag@gmail.com");
         properties.put("mail.smtp.auth", "true");
@@ -56,6 +56,11 @@ public class Email {
         }catch (MessagingException me){
             Logger.getLogger(Email.class.getName()).log(Level.WARNING,"No se pudo enviar el email",me);
             return "error";
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return "error";
+
         }
 
     }

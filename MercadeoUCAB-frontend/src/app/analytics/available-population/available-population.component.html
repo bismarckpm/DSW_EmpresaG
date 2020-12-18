@@ -54,9 +54,6 @@
                             </td>
 
                             <td class="p-text-center">
-                                <button type="button" pButton
-                                    pRipple icon="pi pi-eye" class="p-button-rounded p-mr-2" pTooltip="Vista previa"
-                                    tooltipPosition="bottom"></button>
                                 <button type="button" pButton pRipple icon="pi pi-comments" class="p-button-rounded" routerLink="../make-interview" [queryParams]="{surveyId: current_study, personId: person._id}"
                                     pTooltip="Realizar entrevista" tooltipPosition="bottom"></button>
                             </td>
@@ -76,7 +73,7 @@
                 <ngx-spinner></ngx-spinner>
             </div>
         </div>
-        
+
         <div *ngIf="!people && !loading && peopleErrorMessage">
             <app-server-disconnected></app-server-disconnected>
         </div>

@@ -87,7 +87,7 @@ export class MakeInterviewComponent implements OnInit {
           this.studiesService.getStudyQuestionsWithOptions(this.current_study).subscribe((questions) => {
             this.preguntas = questions;
 
-            this.analystService.isPersonPartOfAvailablePopulation(this.current_study, this.current_user).subscribe((res) => {
+            this.analystService.isPersonPartOfAvailablePopulationInterview(this.current_study, this.current_user).subscribe((res) => {
               this.loading = false;
               this.spinner.hide();
               this.createForm();
@@ -177,8 +177,8 @@ export class MakeInterviewComponent implements OnInit {
   }
 
   postAnswers() {
-    this.userSurveyService.postAnswers(this.current_study, this.current_user, this.respuestas).subscribe((study) => {
-      this.router.navigate(['analysis-requests']);
+    this.analystService.postAnswers(this.current_study, this.current_user, this.respuestas).subscribe((study) => {
+      this.router.navigate(['/analytics/requests']);
     }, errorMessage => {
       this.sent_form = false;
       this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });

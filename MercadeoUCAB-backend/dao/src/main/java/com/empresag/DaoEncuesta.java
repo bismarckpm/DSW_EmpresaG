@@ -66,11 +66,32 @@ public class DaoEncuesta extends Dao<EncuestaEntity> {
         DaoEncuesta daoEncuesta = new DaoEncuesta();
         DaoPersona daoPersona = new DaoPersona();
         PersonaEntity persona = daoPersona.findPersonByUser(userId);
+        System.out.println("-----USER ID");
+        System.out.println(userId);
+        System.out.println("-----PERSONA");
+        System.out.println(persona);
         List<PersonaEntity> personas = daoEncuesta.getAvailablePopulation(studyId);
         boolean found = false;
 
         for (PersonaEntity p: personas) {
             if (p.get_id() == persona.get_id()){
+                found = true;
+                break;
+            }
+        }
+
+        return found;
+    }
+
+    public boolean isPersonPartOfAvailablePopulationInterview(long studyId, long personId){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
+        EntityManager em = emf.createEntityManager();
+        DaoEncuesta daoEncuesta = new DaoEncuesta();
+        List<PersonaEntity> personas = daoEncuesta.getAvailablePopulation(studyId);
+        boolean found = false;
+
+        for (PersonaEntity p: personas) {
+            if (p.get_id() == personId){
                 found = true;
                 break;
             }
