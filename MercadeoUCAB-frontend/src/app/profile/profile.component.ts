@@ -709,6 +709,8 @@ export class ProfileComponent implements OnInit {
       this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
       this.sent_form = false;
     })
+
+    this.hideChangeClaveForm();
   }
   
   onSubmit(){

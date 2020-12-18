@@ -101,6 +101,7 @@ export class StatusComponent implements OnInit {
         .subscribe(person => {
           console.log(person);
           // console.log("Bien");
+          this.router.navigate(['/login']);
           this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Registro completado satisfactoriamente.'});
         },
         errorMessage => {
