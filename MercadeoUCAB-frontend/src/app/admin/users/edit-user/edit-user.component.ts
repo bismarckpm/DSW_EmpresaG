@@ -553,13 +553,13 @@ export class EditUserComponent implements OnInit {
       this.userService.persona.fkPersona.id_horario_inicial._id = this.userForm.value.horario_inicial;
       this.userService.persona.fkPersona.id_horario_final._id = this.userForm.value.horario_final;
 
-      if (this.parroquia && this.userService.persona.fkPersona.id_parroquia._id != 0){
+      if (this.parroquia && this.userForm.value.parroquia != 0){
         this.userService.persona.fkPersona.fkLugar._id = this.userForm.value.parroquia;
       }
-      else if (this.ciudad && this.userService.persona.fkPersona.id_ciudad._id != 0){
+      else if (this.ciudad && this.userForm.value.ciudad != 0){
         this.userService.persona.fkPersona.fkLugar._id = this.userForm.value.ciudad;
       }
-      else if (this.estado && this.userService.persona.fkPersona.id_estado._id != 0){
+      else if (this.estado && this.userForm.value.estado != 0){
         this.userService.persona.fkPersona.fkLugar._id = this.userForm.value.estado;
       }
       else {

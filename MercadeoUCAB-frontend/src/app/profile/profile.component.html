@@ -70,8 +70,52 @@
                             </span>
                         </div> -->
                         <div class="p-col-12">
-                            <a href="#">Cambiar contraseña</a>
+                            <a (click)="showChangeClaveForm()">Cambiar contraseña</a>
                         </div>
+                        <!-- <div class="p-grid p-formgrid p-fluid">
+                            <div class="p-mb-2 p-col-12 p-mb-lg-0 p-mr-3">
+                              <button pButton type="button" (click)="showChangeClaveForm()" 
+                                      label="Cambiar contraseña"></button>
+                            </div>
+                          </div> -->
+
+                        <div *ngIf="showClaveForm">
+                            <div class="p-grid">
+                                <div class="p-col">
+                                    <i class="pi pi-times p-mt-4 p-mr-4" style="float: right; cursor: pointer;" (click)="hideChangeClaveForm()"></i>
+                                </div>
+                            </div>
+                            <div class="p-grid">
+                                
+                                <div class="p-col-12 p-lg-6 p-mb-6">
+                                    <span class="p-float-label">
+                                        <input id="clave" class="p-inputtext-lg fill-width" formControlName="clave" type="password"
+                                                pPassword weakLabel="Débil" mediumLabel="Normal" strongLabel="Fuerte"
+                                                promptLabel="Ingrese una clave">
+                                        <label for="clave" class="float-input">Contraseña *</label>
+                                    </span>
+                                    <span class="error-msg" *ngIf="formErrors.clave"><small>{{formErrors.clave}}</small></span>
+                                </div>
+
+                                <div class="p-col-12 p-lg-6 p-mb-6">
+                                    <span class="p-float-label">
+                                        <input id="confirmar_clave" class="p-inputtext-lg fill-width"
+                                                formControlName="confirmar_clave" type="password" pInputText>
+                                        <label for="confirmar_clave" class="float-input">Confirmar Contraseña *</label>
+                                    </span>
+                                    <span class="error-msg"
+                                        *ngIf="formErrors.confirmar_clave"><small>{{formErrors.confirmar_clave}}</small></span>
+                                </div>
+                            </div>
+
+                            <!-- <div class="p-grid">
+
+                                <div class="p-col">
+                                    <i class="pi pi-check p-mr-4 p-mb-4" style="float: right; cursor: pointer;" (click)="validateAddKidForm()"></i>
+                                </div>
+                            </div> -->
+                        </div>
+
                     </div>
 
                     <!-- dataPersona es un valor clave, para saber si se muestra los datos o solo la info de alguien que no es encuestado. -->
