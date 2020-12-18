@@ -69,9 +69,4 @@ export class StudiesService {
     return this.http.post<StudyWithFilter>(serverURL + 'studies/assign/' + cloned_id + '/' + request_id, 0)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
-
-  getInProgressStudies(): Observable<StudyWithFilter[]> {
-    return this.http.get<StudyWithFilter[]>(serverURL + 'studies/active')
-      .pipe(catchError(this.processHTTPMessageService.handleError));
-  }
 }

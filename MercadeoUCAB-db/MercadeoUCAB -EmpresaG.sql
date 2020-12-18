@@ -231,7 +231,13 @@ CREATE TABLE IF NOT EXISTS `empresag`.`SOLICITUD` (
   `estado` INT NOT NULL DEFAULT 0,
   `nombre` VARCHAR(100) NULL,
   `fk_usuario` INT NOT NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`),
+  INDEX `fk_solicitud_usuario_idx` (`fk_usuario` ASC) VISIBLE,
+  CONSTRAINT `fk_solicitud_usuario`
+    FOREIGN KEY (`fk_usuario`)
+    REFERENCES `empresag`.`USUARIO` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 

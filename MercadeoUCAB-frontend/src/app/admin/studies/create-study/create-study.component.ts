@@ -161,10 +161,13 @@ export class CreateStudyComponent implements OnInit {
   }
 
   linkPoolQuestion(question) {
-    this.display_modify_study_features = false;
-    this.sent_form = false;
-    this.display_pool = false;
-    this.display_new = false;
+    this.studiesService.linkCreatedQuestionToStudy(this.estudio.fkEstudio._id, question.fkPregunta._id).subscribe((question) => {
+      this.display_modify_study_features = false;
+      this.sent_form = false;
+      this.display_pool = false;
+      this.display_new = false;
+      this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Pregunta añadida con éxito' });
+    });
   }
 
   linkCreatedQuestion(question) {

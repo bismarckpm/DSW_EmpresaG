@@ -86,18 +86,6 @@
                             {{estudio.fkSolicitud.nombre}}
                           </td>
                             <td class="p-text-center">
-                                <span class="p-column-title">Filtros adicionales</span>
-                                <span class="image-text" *ngIf="estudio.fkNivelSocioeconomico"><strong>Nivel
-                                        socioeconómico: </strong>{{estudio.fkNivelSocioeconomico.nombre}}&nbsp;</span>
-                                <span class="image-text" *ngIf="estudio.fkNivelAcademico"><strong>Nivel académico:
-                                    </strong>{{estudio.fkNivelAcademico.nombre}}&nbsp;</span>
-                                <span class="image-text" *ngIf="estudio.fkGenero"><strong>Género: </strong>
-                                    {{estudio.fkGenero.nombre}}&nbsp;</span>
-                                <span class="image-text" *ngIf="estudio.fkEdoCivil"><strong>Estado Civil: </strong>
-                                    {{estudio.fkEdoCivil.nombre}}&nbsp;</span>
-
-                            </td>
-                            <td class="p-text-center">
                                 <span class="p-column-title">Rango de edades</span>
                                 <span class="image-text" *ngIf="estudio.edadMinima && estudio.edadMaxima">De
                                     {{estudio.edadMinima}} hasta {{estudio.edadMaxima}}</span>
@@ -106,6 +94,18 @@
                                 <span class="p-column-title">Lugares</span>
                                 <span class="image-text" *ngIf="estudio.fkLugar">{{estudio.fkLugar.nombre}}</span>
                             </td>
+                          <td class="p-text-center">
+                            <span class="p-column-title">Filtros adicionales</span>
+                            <span class="image-text" *ngIf="estudio.fkNivelSocioeconomico"><strong>Nivel
+                                        socioeconómico: </strong>{{estudio.fkNivelSocioeconomico.nombre}}&nbsp;</span>
+                            <span class="image-text" *ngIf="estudio.fkNivelAcademico"><strong>Nivel académico:
+                                    </strong>{{estudio.fkNivelAcademico.nombre}}&nbsp;</span>
+                            <span class="image-text" *ngIf="estudio.fkGenero"><strong>Género: </strong>
+                              {{estudio.fkGenero.nombre}}&nbsp;</span>
+                            <span class="image-text" *ngIf="estudio.fkEdoCivil"><strong>Estado Civil: </strong>
+                              {{estudio.fkEdoCivil.nombre}}&nbsp;</span>
+
+                          </td>
 
                             <td class="p-text-center">
                                 <button *ngIf="estudio.fkSolicitud.estado == 1" type="button" pButton pRipple

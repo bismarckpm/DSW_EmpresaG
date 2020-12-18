@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Question } from '../../../classes/study/question';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { serverURL } from '../../../constants/serverURL';
-import { map, catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { ProcessHttpMessageService } from '../../process-http-message.service';
 import { QuestionCategorySubcategory } from '../../../classes/study/question_category_subcategory';
 
@@ -13,21 +12,21 @@ import { QuestionCategorySubcategory } from '../../../classes/study/question_cat
 export class QuestionService {
 
   constructor(private http: HttpClient,
-    private processHTTPMessageService: ProcessHttpMessageService) { }
+              private processHTTPMessageService: ProcessHttpMessageService) { }
 
   getQuestions(): Observable<QuestionCategorySubcategory[]>{
     return this.http.get<QuestionCategorySubcategory[]>(serverURL + 'questions/all')
-      .pipe(catchError(this.processHTTPMessageService.handleError))
+      .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
   getQuestionsByCategory(category_id): Observable<QuestionCategorySubcategory[]>{
     return this.http.get<QuestionCategorySubcategory[]>(serverURL + 'questions/all-by-category/' + category_id)
-      .pipe(catchError(this.processHTTPMessageService.handleError))
+      .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
   getQuestion(qid): Observable<QuestionCategorySubcategory>{
     return this.http.get<QuestionCategorySubcategory>(serverURL + 'questions/find/' + qid)
-      .pipe(catchError(this.processHTTPMessageService.handleError))
+      .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
   postQuestion(question): Observable<QuestionCategorySubcategory>{
@@ -37,7 +36,7 @@ export class QuestionService {
       })
     };
 
-    return this.http.post<QuestionCategorySubcategory>(serverURL + 'questions/add', question, httpOptions)
+    return this.http.post<QuestionCategorySubcategory>(serverURL + 'questions/add', question, httpOptions);
   }
 
   cloneQuestion(question): Observable<QuestionCategorySubcategory>{
@@ -47,7 +46,7 @@ export class QuestionService {
       })
     };
 
-    return this.http.post<QuestionCategorySubcategory>(serverURL + 'questions/clone/' + question._id , question, httpOptions)
+    return this.http.post<QuestionCategorySubcategory>(serverURL + 'questions/clone/' + question._id , question, httpOptions);
   }
 
   putQuestion(question): Observable<QuestionCategorySubcategory>{
@@ -57,7 +56,7 @@ export class QuestionService {
       }),
     };
 
-    return this.http.put<QuestionCategorySubcategory>(serverURL + 'questions/update/' + question._id, question, httpOptions)
+    return this.http.put<QuestionCategorySubcategory>(serverURL + 'questions/update/' + question._id, question, httpOptions);
   }
 
   deleteQuestion(question): Observable<QuestionCategorySubcategory>{
@@ -67,6 +66,6 @@ export class QuestionService {
       }),
     };
 
-    return this.http.put<QuestionCategorySubcategory>(serverURL + 'questions/delete/' + question._id, question, httpOptions)
+    return this.http.put<QuestionCategorySubcategory>(serverURL + 'questions/delete/' + question._id, question, httpOptions);
   }
 }

@@ -25,7 +25,7 @@ public class DaoPreguntaEstudio extends Dao<PreguntaEstudioEntity> {
         JPQL = "SELECT pcs FROM PreguntaCatSubcatEntity pcs, " +
                 "PreguntaEstudioEntity pe, PreguntaEntity p " +
                 "WHERE pcs.fkPregunta = pe.fkPregunta " +
-                "AND p = pcs.fkPregunta AND p.status = 1 " +
+                "AND p = pcs.fkPregunta AND (p.status = 1 OR p.status = 2) " +
                 "AND pe.fkEstudio = :estudio";
         q = em.createQuery(JPQL);
         q.setParameter("estudio", estudio);

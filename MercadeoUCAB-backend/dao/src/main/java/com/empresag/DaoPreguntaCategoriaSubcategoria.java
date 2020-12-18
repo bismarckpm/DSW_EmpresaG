@@ -19,18 +19,22 @@ public class DaoPreguntaCategoriaSubcategoria extends Dao<PreguntaCatSubcatEntit
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
         EntityManager em = emf.createEntityManager();
 
-        JPQL = "SELECT pcs FROM PreguntaCatSubcatEntity pcs WHERE pcs.fkPregunta.status = 1";
+        JPQL = "SELECT pcs FROM PreguntaCatSubcatEntity pcs, PreguntaEntity p WHERE " +
+                "p = pcs.fkPregunta AND p.status = 1";
         return em.createQuery(JPQL).getResultList();
     }
 
     public List<PreguntaCatSubcatEntity> getAllActiveQuestionsByCategory(long idCategoria){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
         EntityManager em = emf.createEntityManager();
+        DaoCategoria daoCategoria = new DaoCategoria();
+        CategoriaEntity categoria = daoCategoria.find(idCategoria, CategoriaEntity.class);
 
-        JPQL = "SELECT pcs FROM PreguntaCatSubcatEntity pcs WHERE pcs.fkPregunta.status = 1" +
-                " AND pcs.fkCategoria._id = :idCategoria";
+        JPQL = "SELECT pcs FROM PreguntaCatSubcatEntity pcs, PreguntaEntity p WHERE " +
+                "p = pcs.fkPregunta AND p.status = 1 " +
+                "AND pcs.fkCategoria = :idCategoria";
         q = em.createQuery(JPQL);
-        q.setParameter("idCategoria", idCategoria);
+        q.setParameter("idCategoria", categoria);
         return q.getResultList();
     }
 }
