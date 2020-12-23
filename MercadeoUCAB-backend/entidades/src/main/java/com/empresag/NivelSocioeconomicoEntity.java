@@ -18,4 +18,10 @@ public class NivelSocioeconomicoEntity extends BaseEntity{
         this.nombre = nombre;
     }
 
+    @Override
+    public String toString() {
+        return "NivelSocioeconomicoEntity{" +
+                "nombre='" + nombre + '\'' +
+                '}';
+    }
 }

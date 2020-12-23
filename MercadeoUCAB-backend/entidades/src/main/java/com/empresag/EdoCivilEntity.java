@@ -18,4 +18,10 @@ public class EdoCivilEntity extends BaseEntity{
         this.nombre = nombre;
     }
 
+    @Override
+    public String toString() {
+        return "EdoCivilEntity{" +
+                "nombre='" + nombre + '\'' +
+                '}';
+    }
 }

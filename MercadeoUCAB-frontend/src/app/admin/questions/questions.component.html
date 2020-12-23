@@ -1,0 +1,115 @@
+<app-navigation></app-navigation>
+
+<!-- Questions -->
+<div class="demo-container p-mx-6 p-p-0 p-p-sm-1 p-p-md-2 p-p-lg-6">
+    <p-card>
+        <div class="p-grid p-mx-5">
+            <div class="p-col-12 p-lg-6">
+                <h3 class="table-title">PREGUNTAS</h3>
+            </div>
+            <div class="p-col-12 p-lg-6">
+                <div class="p-grid p-jc-end p-mt-1 p-mr-4">
+                    <button pButton pRipple type="button" pTooltip="Crear pregunta" tooltipPosition="bottom"
+                        icon="pi pi-plus" routerLink="/questions/add" class="p-button-rounded p-button-text"></button>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <!-- FILTER -->
+        <div *ngIf="preguntas || loading">
+            <p class="p-mx-5">Filtrar por:</p>
+            <div class="p-grid p-mx-5 p-mt-3">
+                <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
+                    <p-multiSelect [options]="categorias" defaultLabel="Categoría"
+                        emptyFilterMessage="No se encontraron resultados" (onChange)="onCategoryChange($event)"
+                        selectedItemsLabel="{} items seleccionados"></p-multiSelect>
+                </div>
+
+                <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
+                    <p-multiSelect [options]="question_types" defaultLabel="Tipos"
+                        emptyFilterMessage="No se encontraron resultados" (onChange)="onQuestionTypeChange($event)"
+                        selectedItemsLabel="{} items seleccionados"></p-multiSelect>
+                </div>
+
+                <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
+                    <input id="pregunta" class="p-inputtext-lg fill-width" type="text" pInputText
+                        (input)="dt.filter($event.target.value, 'fkPregunta.pregunta', 'contains')" placeholder="Pregunta">
+                </div>
+            </div>
+            <div class="p-grid p-mt-5 p-mx-5">
+                <p-table #dt [value]="preguntas" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
+                    [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
+                    [paginator]="true"
+                    currentPageReportTemplate="Mostrando desde {first} hasta {last} de {totalRecords} resultados"
+                    [filterDelay]="0" [globalFilterFields]="['tipo', 'categoria', 'pregunta']">
+
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 10rem" pSortableColumn="tipo" class="p-text-center">Tipo<p-sortIcon
+                                    field="tipo">
+                                </p-sortIcon>
+                            </th>
+                            <th class="p-text-center">Pregunta
+                            </th>
+                            <th pSortableColumn="categoria" class="p-text-center">Categoría<p-sortIcon
+                                    field="categoria">
+                                </p-sortIcon>
+                            </th>
+                            <th pSortableColumn="subcategoria" class="p-text-center">Subcategoría<p-sortIcon
+                                    field="subcategoria">
+                                </p-sortIcon>
+                            </th>
+                            <th style="width: 11rem"></th>
+                        </tr>
+
+                    </ng-template>
+                    <ng-template pTemplate="body" let-pregunta>
+                        <tr class="p-selectable-row">
+                            <td class="p-text-center">
+                                <span class="p-column-title">Tipo</span>
+                                {{pregunta.fkPregunta.fkTipoPregunta.nombre}}
+                            </td>
+                            <td class="p-text-center">
+                                <span class="p-column-title">Pregunta</span>
+                                <span class="image-text">{{pregunta.fkPregunta.pregunta}}</span>
+                            </td>
+                            <td class="p-text-center">
+                                <span class="p-column-title">Categoría</span>
+                                <span class="image-text">{{pregunta.fkCategoria.nombre}}</span>
+                            </td>
+                            <td class="p-text-center">
+                                <span class="p-column-title">Subcategoria</span>
+                                <span class="image-text" *ngIf="pregunta.fkSubcategoria">{{pregunta.fkSubcategoria.nombre}}</span>
+                                <span class="image-text" *ngIf="!pregunta.fkSubcategoria">N/A</span>
+                            </td>
+
+                            <td class="p-text-center">
+                                <button type="button" [routerLink]="['view']" [queryParams]="{questionId:pregunta._id}" pButton
+                                    pRipple icon="pi pi-eye" class="p-button-rounded p-mr-2" pTooltip="Vista previa"
+                                    tooltipPosition="bottom"></button>
+                                <button type="button" pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-mr-2" pTooltip="Editar pregunta" [routerLink]="['edit']"
+                                    [queryParams]="{questionId:pregunta._id , origin: 'questions'}"
+                                    tooltipPosition="bottom"></button>
+                                <button type="button" pButton pRipple icon="pi pi-trash" class="p-button-rounded"
+                                    pTooltip="Eliminar pregunta" tooltipPosition="bottom"
+                                    (click)="deleteQuestion(pregunta)"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="8">No se encontraron preguntas</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+        <div *ngIf="!preguntas && !loading && questionsErrorMessage">
+            <app-server-disconnected></app-server-disconnected>
+        </div>
+    </p-card>
+
+    <p-confirmDialog></p-confirmDialog>
+    <p-toast></p-toast>
+</div>

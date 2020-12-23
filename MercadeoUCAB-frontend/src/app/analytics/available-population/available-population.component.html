@@ -10,20 +10,16 @@
         </div>
         <hr>
         <!-- FILTER -->
-        <div *ngIf="estudio">
+        <div *ngIf="people">
             <p class="p-mx-5">Filtrar por:</p>
             <div class="p-grid p-mx-5 p-mt-3">
                 <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
                     <input id="primer_nombre" class="p-inputtext-lg fill-width" type="text" pInputText
-                        (input)="dt.filter($event.target.value, 'primer_nombre', 'contains')" placeholder="Nombre">
-                </div>
-                <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
-                    <input id="correo_electronico" class="p-inputtext-lg fill-width" type="text" pInputText
-                        (input)="dt.filter($event.target.value, 'correo_electronico', 'contains')" placeholder="Correo Electrónico">
+                        (input)="dt.filter($event.target.value, 'primerNombre', 'contains')" placeholder="Nombre">
                 </div>
             </div>
             <div class="p-grid p-mt-5 p-mx-5">
-                <p-table #dt [value]="estudio.poblacion_disponible" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
+                <p-table #dt [value]="people" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
                     [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
                     [paginator]="true"
                     currentPageReportTemplate="Mostrando desde {first} hasta {last} de {totalRecords} resultados"
@@ -35,10 +31,6 @@
                                     field="primer_nombre">
                                 </p-sortIcon>
                             </th>
-                            <th pSortableColumn="correo_electronico" class="p-text-center">Email<p-sortIcon
-                                    field="correo_electronico">
-                                </p-sortIcon>
-                            </th>
                             <th class="p-text-center">Fecha de Nacimiento
                             </th>
                             <th class="p-text-center">Documento de Identificación</th>
@@ -46,37 +38,30 @@
                         </tr>
 
                     </ng-template>
-                    <ng-template pTemplate="body" let-usuario>
+                    <ng-template pTemplate="body" let-person>
                         <tr class="p-selectable-row">
                             <td class="p-text-center">
                                 <span class="p-column-title">Nombre</span>
-                                {{usuario.primer_nombre}} {{usuario.primer_apellido}}
-                            </td>
-                            <td class="p-text-center">
-                                <span class="p-column-title">Email</span>
-                                <span class="image-text">{{usuario.correo_electronico}}</span>
+                                {{person.primerNombre}} {{person.primerApellido}}
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Fecha de Nacimiento</span>
-                                <span class="image-text">{{usuario.fecha_de_nacimiento}}</span>
+                                <span class="image-text">{{person.fechaNacimiento}}</span>
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Documento De Identificación</span>
-                                <span class="image-text">{{usuario.documento_de_identificacion}}</span>
+                                <span class="image-text">{{person.documentoIdentidad}}</span>
                             </td>
 
                             <td class="p-text-center">
-                                <button type="button" pButton
-                                    pRipple icon="pi pi-eye" class="p-button-rounded p-mr-2" pTooltip="Vista previa"
-                                    tooltipPosition="bottom"></button>
-                                <button type="button" pButton pRipple icon="pi pi-comments" class="p-button-rounded" routerLink="../make-interview" [queryParams]="{surveyId: estudio.id, userId: usuario.id}"
+                                <button type="button" pButton pRipple icon="pi pi-comments" class="p-button-rounded" routerLink="../make-interview" [queryParams]="{surveyId: current_study, personId: person._id}"
                                     pTooltip="Realizar entrevista" tooltipPosition="bottom"></button>
                             </td>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="emptymessage">
                         <tr>
-                            <td colspan="8">No se encontraron usuarios</td>
+                            <td colspan="8">No se encontraron personas</td>
                         </tr>
                     </ng-template>
                 </p-table>
@@ -88,8 +73,8 @@
                 <ngx-spinner></ngx-spinner>
             </div>
         </div>
-        
-        <div *ngIf="!estudio && !loading && estudioErrorMessage">
+
+        <div *ngIf="!people && !loading && peopleErrorMessage">
             <app-server-disconnected></app-server-disconnected>
         </div>
     </p-card>

@@ -12,16 +12,25 @@
 
         <div>
             <form novalidate [formGroup]="studyForm" #sform="ngForm" (ngSubmit)="onSubmit()">
-                <h4 class="p-mx-5">Filtros de producto</h4>
+              <h4 class="p-mx-5">Nombre del estudio</h4>
+              <div class="p-grid p-mx-5 p-mt-2">
+                <div class="p-col-12 p-md-6 p-lg-4">
+                  <input class="p-inputtext-lg full-width" formControlName="nombre" type="text" pInputText
+                         placeholder="Nombre">
+                  <span class="error-msg"
+                        *ngIf="formErrors.nombre"><small>{{formErrors.nombre}}</small></span>
+                </div>
+              </div>
+
+              <h4 class="p-mx-5">Filtros de producto</h4>
                 <div class="p-grid p-mx-5 p-mt-2">
                     <div class="p-col-12 p-md-6 p-lg-4">
-                        <p-dropdown [options]="categorias"
-                            (onChange)="getSubcategories()"
-                            formControlName="categoria" placeholder="Categoría (*)"></p-dropdown>
+                        <p-dropdown [options]="categorias" (onChange)="getSubcategories($event.value)"
+                            formControlName="categoria" placeholder="Categoría"></p-dropdown>
                     </div>
 
                     <div class="p-col-12 p-md-6 p-lg-4">
-                        <p-dropdown [options]="subcategorias" formControlName="subcategoria" placeholder="Subcategoría (*)">
+                        <p-dropdown [options]="subcategorias" formControlName="subcategoria" placeholder="Subcategoría">
                         </p-dropdown>
                     </div>
                 </div>
@@ -47,29 +56,32 @@
                 <h4 class="p-mx-5">Filtros de población</h4>
                 <div class="p-grid p-mx-5 p-mt-2">
                     <div class="p-col-12 p-md-6 p-lg-4">
-                        <p-multiSelect [options]="niveles_academicos" formControlName="nivel_academico"
-                            defaultLabel="Nivel académico" emptyFilterMessage="No se encontraron resultados"
-                            selectedItemsLabel="{} items seleccionados"></p-multiSelect>
+                        <p-dropdown [options]="niveles_academicos" formControlName="nivel_academico"
+                            placeholder="Nivel académico mínimo"></p-dropdown>
                     </div>
 
                     <div class="p-col-12 p-md-6 p-lg-4">
-                        <p-multiSelect [options]="niveles_socioeconomicos" formControlName="nivel_socioeconomico"
-                            defaultLabel="Nivel socioeconómico" emptyFilterMessage="No se encontraron resultados"
-                            selectedItemsLabel="{} items seleccionados"></p-multiSelect>
+                        <p-dropdown [options]="niveles_socioeconomicos" formControlName="nivel_socioeconomico"
+                            placeholder="Nivel socioeconómico mínimo"></p-dropdown>
                     </div>
 
                     <div class="p-col-12 p-md-6 p-lg-4">
                         <p-dropdown [options]="generos" formControlName="genero" placeholder="Genero"></p-dropdown>
                     </div>
+
+                    <div class="p-col-12 p-md-6 p-lg-4">
+                        <p-dropdown [options]="estados_civiles" formControlName="estado_civil"
+                            placeholder="Estado Civil"></p-dropdown>
+                    </div>
                 </div>
 
                 <h4 class="p-mx-5">Filtros geográficos</h4>
                 <div class="p-grid p-mx-5 p-mt-2">
-                    <p-radioButton value="paises" (onClick)="clearPlaces()" formControlName="tipo_de_filtro"
+                    <p-radioButton value="1" (onClick)="clearPlaces()" formControlName="tipo_de_filtro"
                         label="Filtrar por países" class="p-mb-3"></p-radioButton>
                 </div>
                 <div class="p-grid p-mx-5 p-mt-2">
-                    <p-radioButton value="estados" (onClick)="clearPlaces()" label="Filtrar por estados"
+                    <p-radioButton value="2" (onClick)="clearPlaces()" label="Filtrar por estados"
                         formControlName="tipo_de_filtro" class="p-mb-3"></p-radioButton>
                 </div>
                 <div class="p-grid p-mx-5 p-mt-2">
@@ -82,26 +94,18 @@
                 <div>
                     <div class="p-grid p-mx-5 p-mt-2">
                         <div class="p-col-12 p-md-6 p-lg-4">
-                            <p-multiSelect *ngIf="studyForm.value.tipo_de_filtro == 'paises'" [options]="paises"
-                                defaultLabel="Países" emptyFilterMessage="No se encontraron resultados"
-                                selectedItemsLabel="{} items seleccionados" formControlName="pais"></p-multiSelect>
+                            <p-dropdown [options]="paises" *ngIf="studyForm.value.tipo_de_filtro == 1"
+                                formControlName="pais" placeholder="País"></p-dropdown>
 
                             <p-dropdown [options]="paises" formControlName="pais"
-                                *ngIf="studyForm.value.tipo_de_filtro == 'estados'"
-                                (onChange)="getStates($event.value)"
-                                placeholder="País"></p-dropdown>
+                                *ngIf="studyForm.value.tipo_de_filtro == 2" placeholder="País"
+                                (onChange)="getStates($event.value)"></p-dropdown>
                         </div>
 
                         <div class="p-col-12 p-md-6 p-lg-4">
-                            <p-multiSelect *ngIf="studyForm.value.tipo_de_filtro == 'estados'" [options]="estados"
-                                defaultLabel="Estados" emptyFilterMessage="No se encontraron resultados"
-                                formControlName="estado" selectedItemsLabel="{} items seleccionados"></p-multiSelect>
-
-                            <p-dropdown [options]="estados" formControlName="estado"
-                                *ngIf="studyForm.value.tipo_de_filtro == 'ciudades'" placeholder="Estado"></p-dropdown>
-
+                            <p-dropdown [options]="estados" *ngIf="studyForm.value.tipo_de_filtro == 2"
+                                formControlName="estado" placeholder="Estado"></p-dropdown>
                         </div>
-
                     </div>
                 </div>
 
@@ -117,10 +121,6 @@
                     </div>
                 </div>
             </form>
-        </div>
-
-        <div *ngIf="!study_request && !loading && studyErrorMessage">
-            <app-server-disconnected></app-server-disconnected>
         </div>
 
         <div>

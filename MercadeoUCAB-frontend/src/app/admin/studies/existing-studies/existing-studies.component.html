@@ -1,0 +1,130 @@
+<app-navigation></app-navigation>
+
+<!-- Existing studies -->
+<div class="demo-container p-mx-6 p-p-0 p-p-sm-1 p-p-md-2 p-p-lg-6">
+    <p-card>
+        <div class="p-grid p-mx-5">
+            <div class="p-col-12">
+                <h3 class="table-title">ESTUDIOS EXISTENTES</h3>
+            </div>
+        </div>
+        <hr>
+        <!-- FILTER -->
+        <div *ngIf="estudios || loading">
+            <p class="p-mx-5">Filtrar por:</p>
+            <div class="p-grid p-mx-5 p-mt-3">
+
+                <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
+                    <p-multiSelect [options]="categorias" defaultLabel="Categoría"
+                        emptyFilterMessage="No se encontraron resultados" (onChange)="onCategoryChange($event)"
+                        selectedItemsLabel="{} items seleccionados"></p-multiSelect>
+                </div>
+
+                <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
+                    <p-multiSelect [options]="estados" defaultLabel="Estado"
+                        emptyFilterMessage="No se encontraron resultados" (onChange)="onStateChange($event)"
+                        selectedItemsLabel="{} items seleccionados"></p-multiSelect>
+                </div>
+            </div>
+            <div class="p-grid p-mt-5 p-mx-5">
+                <p-table #dt [value]="estudios" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
+                    [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
+                    [paginator]="true"
+                    currentPageReportTemplate="Mostrando desde {first} hasta {last} de {totalRecords} resultados"
+                    [filterDelay]="0" [globalFilterFields]="['categoria', 'estado']">
+
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th pSortableColumn="categoria" class="p-text-center">Categoría<p-sortIcon
+                                    field="categoria">
+                                </p-sortIcon>
+                            </th>
+                            <th pSortableColumn="subcategoria" class="p-text-center">Subcategoría<p-sortIcon
+                                    field="subcategoria">
+                                </p-sortIcon>
+                            </th>
+                          <th class="p-text-center">
+                            Nombre
+                          </th>
+                            <th class="p-text-center">
+                                Filtros adicionales
+                            </th>
+                            <th class="p-text-center">
+                                Rango de edades
+                            </th>
+                            <th class="p-text-center">
+                                Lugares de aplicación
+                            </th>
+                            <th pSortableColumn="estado" class="p-text-center">Estado<p-sortIcon field="estado">
+                                </p-sortIcon>
+                            </th>
+                            <th style="width: 11rem"></th>
+                        </tr>
+
+                    </ng-template>
+
+                    <ng-template pTemplate="body" let-estudio>
+                        <tr class="p-selectable-row">
+                            <td class="p-text-center">
+                                <span class="p-column-title">Categoría</span>
+                                {{estudio.fkCategoria.nombre}}
+                            </td>
+                            <td class="p-text-center">
+                                <span class="p-column-title">Subcategoría</span>
+                                <span class="image-text"
+                                    *ngIf="estudio.fkSubcategoria">{{estudio.fkSubcategoria.nombre}}</span>
+                            </td>
+                          <td class="p-text-center">
+                            <span class="p-column-title">Nombre</span>
+                            {{estudio.fkEstudio.nombre}}
+                          </td>
+                            <td class="p-text-center">
+                                <span class="p-column-title">Filtros adicionales</span>
+                                <span class="image-text" *ngIf="estudio.fkNivelSocioeconomico"><strong>Nivel
+                                        socioeconómico: </strong>{{estudio.fkNivelSocioeconomico.nombre}}&nbsp;</span>
+                                <span class="image-text" *ngIf="estudio.fkNivelAcademico"><strong>Nivel académico:
+                                    </strong>{{estudio.fkNivelAcademico.nombre}}&nbsp;</span>
+                                <span class="image-text" *ngIf="estudio.fkGenero"><strong>Género: </strong>
+                                    {{estudio.fkGenero.nombre}}&nbsp;</span>
+                                <span class="image-text" *ngIf="estudio.fkEdoCivil"><strong>Estado Civil: </strong>
+                                    {{estudio.fkEdoCivil.nombre}}&nbsp;</span>
+
+                            </td>
+                            <td class="p-text-center">
+                                <span class="p-column-title">Rango de edades</span>
+                                <span class="image-text" *ngIf="estudio.edadMinima && estudio.edadMaxima">De
+                                    {{estudio.edadMinima}} hasta {{estudio.edadMaxima}}</span>
+                            </td>
+                            <td class="p-text-center">
+                                <span class="p-column-title">Lugares</span>
+                                <span class="image-text" *ngIf="estudio.fkLugar">{{estudio.fkLugar.nombre}}</span>
+                            </td>
+                            <td class="p-text-center">
+                                <span class="p-column-title">Estado</span>
+                                <span class="image-text" *ngIf="estudio.fkEstudio.estado == 1">En progreso</span>
+                                <span class="image-text" *ngIf="estudio.fkEstudio.estado == 2">Culminado</span>
+                            </td>
+
+                            <td class="p-text-center">
+                                <button type="button" routerLink="../view" [queryParams]="{studyId:estudio.fkEstudio._id}" pButton
+                                    pRipple icon="pi pi-eye" class="p-button-rounded p-mr-2" pTooltip="Vista previa"
+                                    tooltipPosition="bottom"></button>
+                                <button *ngIf="estudio.fkEstudio.estado != 2" type="button" pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-mr-2" pTooltip="Editar estudio" routerLink="../edit"
+                                    [queryParams]="{studyId:estudio.fkEstudio._id}" tooltipPosition="bottom"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="8">No se encontraron estudios</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+        <div *ngIf="!estudios && !loading && estudiosErrorMessage">
+            <app-server-disconnected></app-server-disconnected>
+        </div>
+    </p-card>
+</div>

@@ -5,14 +5,15 @@ public class FiltroDto extends BaseDto {
     private Integer tipoFiltroLugar;
     private Integer edadMinima;
     private Integer edadMaxima;
+    private String nombre;
     private NivelSocioeconomicoDto fkNivelSocioeconomico;
     private EdoCivilDto fkEdoCivil;
     private NivelAcademicoDto fkNivelAcademico;
     private GeneroDto fkGenero;
-    private GrupoFamiliarDto fkGrupoFamiliar;
     private LugarDto fkLugar;
     private CategoriaDto fkCategoria;
     private SubcategoriaDto fkSubcategoria;
+    private SolicitudDto fkSolicitud;
 
     public EstudioDto getFkEstudio() {
         return fkEstudio;
@@ -78,14 +79,6 @@ public class FiltroDto extends BaseDto {
         this.fkGenero = fkGenero;
     }
 
-    public GrupoFamiliarDto getFkGrupoFamiliar() {
-        return fkGrupoFamiliar;
-    }
-
-    public void setFkGrupoFamiliar(GrupoFamiliarDto fkGrupoFamiliar) {
-        this.fkGrupoFamiliar = fkGrupoFamiliar;
-    }
-
     public LugarDto getFkLugar() {
         return fkLugar;
     }
@@ -108,5 +101,21 @@ public class FiltroDto extends BaseDto {
 
     public void setFkSubcategoria(SubcategoriaDto fkSubcategoria) {
         this.fkSubcategoria = fkSubcategoria;
+    }
+
+    public SolicitudDto getFkSolicitud() {
+        return fkSolicitud;
+    }
+
+    public void setFkSolicitud(SolicitudDto fkSolicitud) {
+        this.fkSolicitud = fkSolicitud;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }

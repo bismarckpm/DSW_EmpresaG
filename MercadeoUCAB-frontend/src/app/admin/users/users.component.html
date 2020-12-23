@@ -1,0 +1,98 @@
+<app-navigation></app-navigation>
+
+<div class="demo-container p-mx-6 p-p-0 p-p-sm-1 p-p-md-2 p-p-lg-6">
+    <p-card>
+        <div class="p-grid p-mx-5">
+            <div class="p-col-12 p-lg-6">
+                <h3 class="table-title">USUARIOS</h3>
+            </div>
+            <div class="p-col-12 p-lg-6">
+                <div class="p-grid p-jc-end p-mt-1 p-mr-4">
+                    <button pButton pRipple type="button" pTooltip="Añadir usuario" tooltipPosition="bottom"
+                        icon="pi pi-plus" routerLink="/users/add" class="p-button-rounded p-button-text"></button>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <!-- FILTER (onChange)="onCategoryChange($event)" estaba en la linea 22-->
+        <div *ngIf="usuarios || loading">
+            <p class="p-mx-5">Búsqueda avanzada</p>
+            <div class="p-grid p-mx-5 p-mt-3">
+                <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
+                    <input id="estado" class="p-inputtext-lg fill-width" type="text" pInputText
+                        (input)="dt.filter($event.target.value, 'estado', 'contains')" placeholder="Estado">
+                </div>
+                <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
+                    <input id="correo_electronico" class="p-inputtext-lg fill-width" type="text" pInputText
+                        (input)="dt.filter($event.target.value, 'email', 'contains')" placeholder="Email">
+                </div>
+
+            </div>
+            <div class="p-grid p-mt-5 p-mx-5">
+                <p-table #dt [value]="usuarios" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
+                    [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
+                    [paginator]="true"
+                    currentPageReportTemplate="Mostrando desde {first} hasta {last} de {totalRecords} resultados"
+                    [filterDelay]="0" [globalFilterFields]="[ 'correo_electronico', 'estado', 'rol']">
+
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th pSortableColumn="correo_electronico" class="p-text-center">Email<p-sortIcon
+                                    field="correo_electronico">
+                                </p-sortIcon>
+                            </th>
+                            <th pSortableColumn="estado" class="p-text-center">Estado<p-sortIcon
+                                    field="estado">
+                                </p-sortIcon>
+                            </th>
+                            <th pSortableColumn="rol" class="p-text-center">Rol<p-sortIcon
+                                    field="rol">
+                                </p-sortIcon>
+                            </th>
+                            <th style="width: 11rem"></th>
+                        </tr>
+
+                    </ng-template>
+                    <ng-template pTemplate="body" let-persona>
+                        <tr class="p-selectable-row">
+                            <td class="p-text-center">
+                                <span class="p-column-title">Email</span>
+                                <span class="image-text">{{persona.email}}</span>
+                            </td>
+                            <td class="p-text-center">
+                                <span class="p-column-title">Estado</span>
+                                <span class="image-text">{{convertStatus(persona.estado)}}</span>
+                            </td>
+                            <td class="p-text-center">
+                                <span class="p-column-title">Rol</span>
+                                <span class="image-text">{{persona.fkRol.nombre}}</span>
+                            </td>
+                            <td class="p-text-center">
+
+                                <button type="button" pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-mr-2" pTooltip="Editar usuario" [routerLink]="['/edit']"
+                                    [queryParams]="{pid:persona._id , origin: 'person'}"
+                                    (click)="showEditUser(persona._id);"
+                                    tooltipPosition="bottom"></button>
+                                <button type="button" pButton pRipple icon="pi pi-trash" class="p-button-rounded"
+                                    pTooltip="Eliminar usuario" tooltipPosition="bottom"
+                                    (click)="deleteUser(persona)"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="8">No se encontraron usuarios</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+        <div *ngIf="!usuarios && !loading && personErrorMessage">
+            <app-server-disconnected></app-server-disconnected>
+        </div>
+    </p-card>
+
+    <p-confirmDialog></p-confirmDialog>
+    <p-toast></p-toast>
+</div>

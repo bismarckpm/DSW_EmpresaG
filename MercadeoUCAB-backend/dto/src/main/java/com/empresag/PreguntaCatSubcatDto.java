@@ -1,5 +1,7 @@
 package com.empresag;
 
+import java.util.List;
+
 public class PreguntaCatSubcatDto extends BaseDto {
     private PreguntaDto fkPregunta;
     private CategoriaDto fkCategoria;

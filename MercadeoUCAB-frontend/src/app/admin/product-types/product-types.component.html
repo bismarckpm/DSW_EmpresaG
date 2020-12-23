@@ -1,0 +1,108 @@
+<app-navigation></app-navigation>
+
+<!-- TYPES -->
+<div class="demo-container p-mx-6 p-p-0 p-p-sm-1 p-p-md-2 p-p-lg-6">
+    <p-card>
+        <div class="p-grid p-mx-5">
+            <div class="p-col-12 p-lg-6">
+                <h3 class="table-title">TIPOS</h3>
+            </div>
+            <div class="p-col-12 p-lg-6">
+                <div class="p-grid p-jc-end p-mt-1 p-mr-4">
+                    <button pButton pRipple type="button" pTooltip="Crear tipo" tooltipPosition="bottom"
+                        icon="pi pi-plus" class="p-button-rounded p-button-text" (click)="showAddTypeModal()"></button>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <!-- FILTER -->
+        <div *ngIf="tipos || loading">
+            <p class="p-mx-5">Filtrar por:</p>
+            <div class="p-grid p-mx-5 p-mt-3">
+                <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
+                    <input id="nombre" class="p-inputtext-lg fill-width" type="text" pInputText
+                        (input)="dt.filter($event.target.value, 'fkTipo.nombre', 'contains')" placeholder="Nombre">
+                </div>
+
+                <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
+                    <p-multiSelect [options]="marcas" defaultLabel="Marcas"
+                        emptyFilterMessage="No se encontraron resultados" (onChange)="onBrandChange($event)"
+                        selectedItemsLabel="{} items seleccionados"></p-multiSelect>
+                </div>
+            </div>
+            <div class="p-grid p-mt-5 p-mx-5">
+                <p-table #dt [value]="tipos" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
+                    [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
+                    [paginator]="true"
+                    currentPageReportTemplate="Mostrando desde {first} hasta {last} de {totalRecords} resultados"
+                    [filterDelay]="0" [globalFilterFields]="['nombre']">
+
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 6rem" pSortableColumn="id" class="p-text-center">ID<p-sortIcon
+                                    field="nombre">
+                                </p-sortIcon>
+                            </th>
+                            <th pSortableColumn="nombre" class="p-text-center">Nombre<p-sortIcon
+                                field="nombre">
+                            </p-sortIcon>
+                            </th>
+                            <th class="p-text-center">Descripción
+                            </th>
+                        <th pSortableColumn="marca" class="p-text-center">Marca<p-sortIcon
+                            field="marca">
+                        </p-sortIcon>
+                    </th>
+                            <th style="width: 11rem"></th>
+                        </tr>
+
+                    </ng-template>
+                    <ng-template pTemplate="body" let-tipo>
+                        <tr class="p-selectable-row">
+                            <td class="p-text-center">
+                                <span class="p-column-title">ID</span>
+                                {{tipo._id}}
+                            </td>
+                            <td class="p-text-center">
+                                <span class="p-column-title">Nombre</span>
+                                {{tipo.fkTipo.nombre}}
+                            </td>
+                            <td class="p-text-center">
+                                <span class="p-column-title">Descripción</span>
+                                {{tipo.fkTipo.descripcion}}
+                            </td>
+                            <td class="p-text-center">
+                                <span class="p-column-title">Marca</span>
+                                <span class="image-text">{{tipo.fkMarca.nombre}}</span>
+                            </td>
+
+                            <td class="p-text-center">
+                                <button type="button" pButton pRipple icon="pi pi-pencil"
+                                    (click)="showEditTypeModal(); getSelectedType(tipo)"
+                                    class="p-button-rounded p-mr-2" pTooltip="Editar tipo" 
+                                    tooltipPosition="bottom"></button>
+                                <button type="button" pButton pRipple icon="pi pi-trash" class="p-button-rounded"
+                                    pTooltip="Eliminar tipo" tooltipPosition="bottom"
+                                    (click)="deleteType(tipo)"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="8">No se encontraron tipos</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+        <div *ngIf="!tipos && !loading && tiposErrorMessage">
+            <app-server-disconnected></app-server-disconnected>
+        </div>
+    </p-card>
+    
+    <app-add-product-type [display]="display_add_type" (onTypeAdded)="appendNewType($event)" (onModalClose)="hideAddTypeModal()"></app-add-product-type>
+    <app-edit-product-type *ngIf="tipo" [product_type]="tipo" [display]="display_edit_type" (onTypeEdited)="editType($event)" (onModalClose)="hideEditTypeModal()"></app-edit-product-type>
+
+    <p-confirmDialog></p-confirmDialog>
+    <p-toast></p-toast>
+</div>

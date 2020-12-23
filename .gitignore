@@ -1,2 +1,4 @@
 
 MercadeoUCAB-backend/MercadeoUCAB.iml
+MercadeoUCAB-backend/dao/src/main/resources/META-INF/persistence.xml
+package-lock.json

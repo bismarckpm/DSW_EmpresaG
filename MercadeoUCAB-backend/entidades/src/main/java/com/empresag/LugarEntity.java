@@ -6,13 +6,10 @@ import java.util.Objects;
 @Entity
 @Table(name = "lugar", schema = "empresag", catalog = "")
 public class LugarEntity extends BaseEntity{
-    private String nombre;
-    private int tipo;
-    private NivelSocioeconomicoEntity fkNivelSocioeconomico;
-    private LugarEntity fkLugar;
-
     @Basic
     @Column(name = "nombre")
+    private String nombre;
+
     public String getNombre() {
         return nombre;
     }
@@ -23,6 +20,8 @@ public class LugarEntity extends BaseEntity{
 
     @Basic
     @Column(name = "tipo")
+    private int tipo;
+
     public int getTipo() {
         return tipo;
     }
@@ -33,6 +32,8 @@ public class LugarEntity extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "fk_nivel_socioeconomico")
+    private NivelSocioeconomicoEntity fkNivelSocioeconomico;
+
     public NivelSocioeconomicoEntity getFkNivelSocioeconomico() {
         return fkNivelSocioeconomico;
     }
@@ -43,6 +44,8 @@ public class LugarEntity extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "fk_lugar")
+    private LugarEntity fkLugar;
+
     public LugarEntity getFkLugar() {
         return fkLugar;
     }
@@ -51,4 +54,21 @@ public class LugarEntity extends BaseEntity{
         this.fkLugar = fkLugar;
     }
 
+    @Override
+    public String toString() {
+        String FK_Lugar = "";
+        String FK_NivelSocioEconomico = "";
+
+        if (fkLugar != null)
+            FK_Lugar = fkLugar.toString();
+        if (fkNivelSocioeconomico != null)
+            FK_NivelSocioEconomico = fkNivelSocioeconomico.toString();
+
+        return "LugarEntity{" +
+                "nombre='" + nombre + '\'' +
+                ", tipo=" + tipo +
+                ", fkNivelSocioeconomico=" + FK_NivelSocioEconomico +
+                ", fkLugar=" + FK_Lugar +
+                '}';
+    }
 }

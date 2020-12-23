@@ -1,0 +1,14 @@
+<app-navigation></app-navigation>
+
+<!-- Add user form -->
+<div class="demo-container p-mx-6 p-p-0 p-p-sm-1 p-p-md-2 p-p-lg-6">
+    <p-card>
+        <div class="p-grid p-mx-5">
+            <div class="p-col-12">
+                <h3 class="table-title">AÑADIR NUEVO USUARIO</h3>
+            </div>
+        </div>
+        <hr>
+        <app-add-user-form (onUserCreate)="backToUsers($event)"></app-add-user-form>
+    </p-card>
+</div>

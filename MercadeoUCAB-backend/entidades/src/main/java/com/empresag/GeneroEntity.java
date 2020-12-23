@@ -18,4 +18,10 @@ public class GeneroEntity extends BaseEntity{
         this.nombre = nombre;
     }
 
+    @Override
+    public String toString() {
+        return "GeneroEntity{" +
+                "nombre='" + nombre + '\'' +
+                '}';
+    }
 }

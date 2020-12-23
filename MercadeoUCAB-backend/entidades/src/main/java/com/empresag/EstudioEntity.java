@@ -5,15 +5,11 @@ import java.sql.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "estudio", schema = "empresag", catalog = "")
+@Table(name = "estudio", schema = "empresag")
 public class EstudioEntity extends BaseEntity{
-    private Date fechaRealizacion;
-    private Date fechaCulminacion;
-    private int estado;
-    private AnalisisEntity fkAnalisis;
-
     @Basic
     @Column(name = "fecha_realizacion")
+    private Date fechaRealizacion;
     public Date getFechaRealizacion() {
         return fechaRealizacion;
     }
@@ -24,6 +20,8 @@ public class EstudioEntity extends BaseEntity{
 
     @Basic
     @Column(name = "fecha_culminacion")
+    private Date fechaCulminacion;
+
     public Date getFechaCulminacion() {
         return fechaCulminacion;
     }
@@ -34,6 +32,8 @@ public class EstudioEntity extends BaseEntity{
 
     @Basic
     @Column(name = "estado")
+    private int estado;
+
     public int getEstado() {
         return estado;
     }
@@ -42,8 +42,22 @@ public class EstudioEntity extends BaseEntity{
         this.estado = estado;
     }
 
+    @Basic
+    @Column(name = "nombre")
+    private String nombre;
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     @ManyToOne
     @JoinColumn(name = "fk_analisis")
+    private AnalisisEntity fkAnalisis;
+
     public AnalisisEntity getFkAnalisis() {
         return fkAnalisis;
     }
@@ -52,4 +66,12 @@ public class EstudioEntity extends BaseEntity{
         this.fkAnalisis = fkAnalisis;
     }
 
+    @Override
+    public String toString() {
+        return "EstudioEntity{" +
+                "fechaRealizacion=" + fechaRealizacion +
+                ", fechaCulminacion=" + fechaCulminacion +
+                ", estado=" + estado +
+                '}';
+    }
 }

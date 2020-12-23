@@ -12,7 +12,6 @@
         <class>com.empresag.EstudioEntity</class>
         <class>com.empresag.FiltroEntity</class>
         <class>com.empresag.GeneroEntity</class>
-        <class>com.empresag.GrupoFamiliarEntity</class>
         <class>com.empresag.LugarEntity</class>
         <class>com.empresag.MarcaEntity</class>
         <class>com.empresag.MarcaTipoEntity</class>
@@ -20,10 +19,8 @@
         <class>com.empresag.NivelSocioeconomicoEntity</class>
         <class>com.empresag.OcupacionEntity</class>
         <class>com.empresag.OpcionEntity</class>
-        <class>com.empresag.PersonaDisponibilidadEntity</class>
         <class>com.empresag.PersonaDispositivoEntity</class>
         <class>com.empresag.PersonaEntity</class>
-        <class>com.empresag.PersonaGrupofamiliarEntity</class>
         <class>com.empresag.PersonaNvlacademicoEntity</class>
         <class>com.empresag.PersonaOcupacionEntity</class>
         <class>com.empresag.PosibleRespuestaEntity</class>
@@ -41,6 +38,7 @@
         <class>com.empresag.TipoPreguntaEntity</class>
         <class>com.empresag.TipoPresentacionEntity</class>
         <class>com.empresag.UsuarioEntity</class>
+        <class>com.empresag.TokenEntity</class>
 
         <!--TODO (INFO) - AQUI VAN LAS CREDENCIALES DE LA BASE DE DATOS-->
 

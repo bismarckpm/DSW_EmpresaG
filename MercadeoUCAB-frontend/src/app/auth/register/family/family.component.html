@@ -1,0 +1,113 @@
+<div class="demo-container p-p-0 p-p-sm-4 p-p-md-6 p-p-lg-4">
+    <form novalidate [formGroup]="familyForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+        <div class="p-grid p-mt-4">
+            <div class="p-col-12 p-md-6 p-mb-2">
+                <span class="p-float-label">
+                    <input id="personas_vive" formControlName="personas_hogar" class="p-inputtext-lg full-width" type="text" pInputText>
+                    <label for="personas_vive">¿Con cuántas personas vive?</label>
+                </span>
+                <span class="error-msg" *ngIf="formErrors.personas_hogar"><small>{{formErrors.personas_hogar}}</small></span>
+            </div>
+
+            <div class="p-col-12 p-md-6 p-mb-2">
+                <p-dropdown [options]="tieneHijos" (onChange)="userHasKids($event)" formControlName="tiene_hijos" placeholder="¿Tiene hijos?"></p-dropdown>
+            </div>
+        </div>
+
+        <div class="p-grid p-nogutter p-jc-end p-mb-4" *ngIf="familyForm.value.tiene_hijos">
+            <div class="p-grid p-formgrid p-fluid">
+                <div class="p-mb-2 p-col-12 p-mb-lg-0 p-mr-3">
+                    <button pButton pRipple type="button" (click)="showAddKidForm()" pTooltip="Añadir hijo" tooltipPosition="right"
+                        icon="pi pi-plus" class="p-button-rounded p-button-text"></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- LISTA DE HIJOS -->
+        <div *ngIf="hijos && hijos.length > 0">
+            <h3>Hijos</h3>
+            <p-table [value]="hijos">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Género</th>
+                        <th>Fecha de nacimiento</th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-hijo>
+                    <tr>
+                        <td>{{hijo.primerNombre}} {{hijo.primerApellido}}</td>
+                        <td>{{hijo.fkGenero.nombre}}</td>
+                        <td>{{hijo.fechaNacimiento}}</td>
+                        <td>
+                            <button type="button" pButton pRipple icon="pi pi-trash" (click)="deleteChild(hijo)" class="p-button-rounded"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <!-- AÑADIR HIJOS -->
+        <div *ngIf="showKidsForm">
+            <div class="p-grid">
+                <div class="p-col">
+                    <h3>Añadir Hijo</h3>
+                    <small>Presione el check para guardar</small>
+                </div>
+                <div class="p-col">
+                    <i class="pi pi-times p-mt-4 p-mr-4" style="float: right; cursor: pointer;" (click)="hideAddKidForm()"></i>
+                </div>
+            </div>
+            <div class="p-grid pt-mt-4">
+                <div class="p-col-12 p-md-6 p-mb-5 p-mt-5">
+                    <span class="p-float-label">
+                        <input id="primer_nombre" formControlName="nombre_hijo" class="p-inputtext-lg fill-width" type="text" pInputText>
+                        <label for="primer_nombre">Primer Nombre *</label>
+                    </span>
+                    <span class="error-msg" *ngIf="formErrors.nombre_hijo"><small>{{formErrors.nombre_hijo}}</small></span>
+                </div>
+
+                <div class="p-col-12 p-md-6 p-mb-5 p-mt-5">
+                    <span class="p-float-label">
+                        <input id="primer_apellido" formControlName="apellido_hijo" class="p-inputtext-lg fill-width" type="text" pInputText>
+                        <label for="primer_apellido">Primer Apellido *</label>
+                        <span class="error-msg" *ngIf="formErrors.apellido_hijo"><small>{{formErrors.apellido_hijo}}</small></span>
+
+                    </span>
+                </div>
+
+                <div class="p-col-12 p-md-6 p-mb-5">
+                    <p-dropdown [options]="generos" formControlName="genero_hijo" placeholder="Género *"></p-dropdown>
+                    <span class="error-msg" *ngIf="formErrors.genero_hijo"><small>{{formErrors.genero_hijo}}</small></span>
+
+                </div>
+
+                <div class="p-col-12 p-md-6 p-mb-5">
+                    <p-calendar placeholder="Fecha de Nacimiento *" [locale]="es" [yearNavigator]="true" yearRange="1900:2030"  dataType="string" dateFormat="dd/mm/yy" formControlName="fecha_de_nacimiento_hijo" class="p-inputtext-lg"></p-calendar>
+                    <span class="error-msg" *ngIf="formErrors.fecha_de_nacimiento_hijo"><small>{{formErrors.fecha_de_nacimiento_hijo}}</small></span>
+
+                </div>
+            </div>
+
+            <div class="p-grid">
+
+                <div class="p-col">
+                    <i class="pi pi-check p-mr-4 p-mb-4" style="float: right; cursor: pointer;" (click)="validateAddKidForm()"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-grid p-jc-end p-mt-1 p-mr-4">
+            <div class="p-grid p-formgrid p-fluid">
+                <div class="p-mb-2 p-col-6 p-mb-lg-0">
+                    <button pButton pRipple type="button" label="Anterior" class="p-button-secondary" (click)="previousPage()"></button>
+                </div>
+                <div class="p-mb-2 p-col-6 p-mb-lg-0">
+                    <button pButton pRipple type="submit" label="Siguiente"></button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>

@@ -4,6 +4,8 @@ public class UsuarioDto extends BaseDto {
     private String email;
     private String password;
     private int estado;
+    private String tokenLogin;
+    private String tokenRecovery;
     private PersonaDto fkPersona;
     private RolDto fkRol;
 
@@ -52,5 +54,32 @@ public class UsuarioDto extends BaseDto {
 
     public void setFkRol(RolDto fkRol) {
         this.fkRol = fkRol;
+    }
+
+    public String getTokenLogin() {
+        return tokenLogin;
+    }
+
+    public void setTokenLogin(String tokenLogin) {
+        this.tokenLogin = tokenLogin;
+    }
+
+    public String getTokenRecovery() {
+        return tokenRecovery;
+    }
+
+    public void setTokenRecovery(String tokenRecovery) {
+        this.tokenRecovery = tokenRecovery;
+    }
+
+    @Override
+    public String toString() {
+        return "UsuarioDto{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", estado=" + estado +
+                ", fkPersona=" + fkPersona +
+                ", fkRol=" + fkRol +
+                '}';
     }
 }

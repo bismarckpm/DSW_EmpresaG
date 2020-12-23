@@ -1,0 +1,90 @@
+<div *ngIf="preguntas || loading">
+    <p class="p-mx-5">Filtrar por:</p>
+    <div class="p-grid p-mx-lg-5 p-mt-3">
+        <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
+            <p-multiSelect [options]="subcategorias" defaultLabel="Subcategoria"
+                emptyFilterMessage="No se encontraron resultados" (onChange)="onSubcategoryChange($event)"
+                selectedItemsLabel="{} items seleccionados"></p-multiSelect>
+        </div>
+
+        <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
+            <p-multiSelect [options]="question_types" defaultLabel="Tipos"
+                emptyFilterMessage="No se encontraron resultados" (onChange)="onQuestionTypeChange($event)"
+                selectedItemsLabel="{} items seleccionados"></p-multiSelect>
+        </div>
+
+        <div class="p-col-12 p-sm-12 p-md-6 p-lg-4">
+            <input id="pregunta" class="p-inputtext-lg fill-width" type="text" pInputText
+                (input)="dt.filter($event.target.value, 'fkPregunta.pregunta', 'contains')" placeholder="Pregunta">
+        </div>
+    </div>
+    <div class="p-grid p-mt-5 p-mx-lg-5">
+        <p-table #dt [value]="preguntas" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
+            [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
+            [paginator]="true"
+            currentPageReportTemplate="Mostrando desde {first} hasta {last} de {totalRecords} resultados"
+            [filterDelay]="0" [globalFilterFields]="['tipo', 'subcategoria', 'pregunta']">
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 9rem" pSortableColumn="tipo" class="p-text-center">Tipo<p-sortIcon
+                            field="tipo">
+                        </p-sortIcon>
+                    </th>
+                    <th class="p-text-center">Pregunta
+                    </th>
+                    <th pSortableColumn="categoria" class="p-text-center">Categoría<p-sortIcon
+                            field="categoria">
+                        </p-sortIcon>
+                    </th>
+                    <th pSortableColumn="subcategoria" class="p-text-center">Subcategoría<p-sortIcon
+                            field="subcategoria">
+                        </p-sortIcon>
+                    </th>
+                    <th style="width: 11rem"></th>
+                </tr>
+
+            </ng-template>
+            <ng-template pTemplate="body" let-pregunta>
+                <tr class="p-selectable-row">
+                    <td class="p-text-center">
+                        <span class="p-column-title">Tipo</span>
+                        {{pregunta.fkPregunta.fkTipoPregunta.nombre}}
+                    </td>
+                    <td class="p-text-center">
+                        <span class="p-column-title">Pregunta</span>
+                        <span class="image-text">{{pregunta.fkPregunta.pregunta}}</span>
+                    </td>
+                    <td class="p-text-center">
+                        <span class="p-column-title">Categoría</span>
+                        <span class="image-text">{{pregunta.fkCategoria.nombre}}</span>
+                    </td>
+                    <td class="p-text-center">
+                        <span class="p-column-title">Subcategoria</span>
+                        <span class="image-text" *ngIf="pregunta.fkSubcategoria">{{pregunta.fkSubcategoria.nombre}}</span>
+                        <span class="image-text" *ngIf="!pregunta.fkSubcategoria">N/A</span>
+                    </td>
+
+                    <td class="p-text-center">
+                        <button type="button" (click)="selectQuestion(pregunta)" pButton
+                            pRipple icon="pi pi-check" class="p-button-rounded p-mr-2" pTooltip="Seleccionar pregunta"
+                            tooltipPosition="bottom"></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="8">No se encontraron preguntas</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="p-grid p-jc-end p-mt-6 p-mr-4">
+        <div class="p-grid p-formgrid p-fluid">
+            <div class="p-mb-2 p-col-12 p-mb-lg-0">
+                <button pButton pRipple type="button" (click)="closeView()" label="Cerrar"
+                    class="p-button-secondary"></button>
+            </div>
+        </div>
+    </div>
+</div>

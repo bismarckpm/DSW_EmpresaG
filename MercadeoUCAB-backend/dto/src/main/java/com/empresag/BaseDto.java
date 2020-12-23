@@ -15,13 +15,13 @@ public class BaseDto {
 
     public void set_id(long id) throws IndexDatabaseException {
 
-        if ( id > 0 )
-        {
+//        if ( id > 0 )
+//        {
             _id = id;
-        }
-        else
-        {
-            throw new IndexDatabaseException();
-        }
+//        }
+//        else
+//        {
+//            throw new IndexDatabaseException();
+//        }
     }
 }

@@ -1,0 +1,56 @@
+<div class="demo-container p-p-0 p-p-sm-4 p-p-md-6 p-p-lg-4">
+    <form novalidate [formGroup]="statusForm" (ngSubmit)="onSubmit()">
+        <div class="p-grid p-mt-4">
+            <!-- <div class="p-col-12 p-md-6 p-mb-5">
+                <span class="p-float-label">
+                    <input id="ocupacion" class="p-inputtext-lg fill-width" formControlName="ocupacion" type="text" pInputText>
+                    <label for="ocupacion">Ocupación</label>
+                </span>
+            </div> -->
+
+
+            <div class="p-col-12 p-md-6 p-mb-5">
+                <p-dropdown [options]="ocupaciones" placeholder="Ocupación" formControlName="ocupacion" ></p-dropdown>
+            </div>
+
+            <div class="p-col-12 p-md-6 p-mb-5">
+                <p-dropdown [options]="niveles_academicos" placeholder="Último grado académico obtenido" formControlName="nivel_academico"></p-dropdown>
+            </div>
+
+            <!-- <div class="p-col-12 p-md-6 p-mb-5">
+                <p-dropdown [options]="niveles_socioeconomicos" placeholder="Nivel socioeconómico" formControlName="nivel_socioeconomico"></p-dropdown>
+            </div> -->
+
+            <div class="p-col-12 p-md-6 p-mb-5">
+                <p-multiSelect [options]="dispositivos" formControlName="dispositivos" defaultLabel="Dispositivos que utiliza" emptyFilterMessage="No se encontraron resultados" selectedItemsLabel="{} items seleccionados"></p-multiSelect>
+            </div>
+        </div>
+
+        <h3>Horario disponible</h3>
+        <small>Seleccione el horario en el que estaría usted disponible para responder las encuestas</small>
+
+        <div class="p-grid p-mt-4">
+            <div class="p-col-12 p-md-6 p-mb-5">
+                <p-dropdown [options]="horario_inicial" formControlName="horario_inicial" placeholder="De"></p-dropdown>
+            </div>
+
+            <div class="p-col-12 p-md-6 p-mb-5">
+                <p-dropdown [options]="horario_final" formControlName="horario_final" placeholder="Hasta"></p-dropdown>
+            </div>
+        </div>
+
+        <div class="p-grid p-jc-end p-mt-1 p-mr-4">
+            <div class="p-grid p-formgrid p-fluid">
+                <div class="p-mb-2 p-col-6 p-mb-lg-0">
+                    <button pButton pRipple type="button" label="Anterior" class="p-button-secondary" (click)="previousPage()"></button>
+                </div>
+                <div class="p-mb-2 p-col-6 p-mb-lg-0">
+                    <button pButton pRipple type="submit" [disabled]="sent_form" label="Finalizar"></button>
+                </div>
+            </div>
+        </div>
+
+        <p-toast></p-toast>
+    </form>
+
+</div>

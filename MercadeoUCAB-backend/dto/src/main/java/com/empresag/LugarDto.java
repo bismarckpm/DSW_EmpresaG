@@ -44,4 +44,14 @@ public class LugarDto extends BaseDto {
     public void setFkLugar(LugarDto fkLugar) {
         this.fkLugar = fkLugar;
     }
+
+    @Override
+    public String toString() {
+        return "\n{" +
+                "nombre='" + nombre + '\'' +
+                ", tipo=" + tipo +
+                ", fkNivelSocioeconomico=" + fkNivelSocioeconomico +
+                ", fkLugar=" + fkLugar +
+                '}';
+    }
 }

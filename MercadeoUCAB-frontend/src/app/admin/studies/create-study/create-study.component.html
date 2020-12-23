@@ -1,0 +1,154 @@
+<app-navigation></app-navigation>
+
+<!-- Study -->
+<div class="demo-container p-mx-6 p-p-0 p-p-sm-1 p-p-md-2 p-p-lg-6">
+    <p-card>
+        <div class="p-grid p-mx-5">
+            <div class="p-col-6 p-lg-6">
+                <h3 class="table-title">AGREGAR ESTUDIO</h3>
+                <small>Los cambios realizados a las preguntas se guardan automáticamente</small>
+            </div>
+            <div class="p-col-6 p-lg-6">
+                <div class="p-grid p-jc-end p-mt-1 p-mr-4">
+                    <button pButton pRipple type="button" pTooltip="Crear pregunta" tooltipPosition="bottom"
+                        icon="pi pi-plus" (click)="showAddOptions()" class="p-button-rounded p-button-text"></button>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="p-grid p-mx-5 p-mt-3" *ngIf="estudio && !loading">
+            <button pButton pRipple type="button" icon="pi pi-info" class="p-button-rounded p-button-text"></button>
+            <div class="p-mt-2 p-ml-3">
+                Características del estudio
+            </div>
+        </div>
+
+        <div class="p-mx-5" *ngIf="estudio && !loading">
+            <p>
+                <strong>CATEGORÍA: </strong>{{estudio.fkCategoria.nombre}} <br>
+                <strong>SUBCATEGORÍA: </strong>{{estudio.fkSubcategoria.nombre}} <br>
+                <em *ngIf="estudio.edadMinima && estudio.edadMaxima">
+                    <strong>EDAD MÍNIMA: </strong>{{estudio.edadMinima}} <br>
+                    <strong>EDAD MÁXIMA: </strong>{{estudio.edadMaxima}} <br>
+                </em>
+                <em *ngIf="estudio.fkNivelAcademico">
+                    <strong>NIVEL ACADÉMICO: </strong>{{estudio.fkNivelAcademico.nombre}} <br>
+                </em>
+                <em *ngIf="estudio.fkNivelSocioeconomico">
+                    <strong>NIVEL SOCIOECONÓMICO: </strong>{{estudio.fkNivelSocioeconomico.nombre}} <br>
+                </em>
+                <em *ngIf="estudio.fkGenero">
+                    <strong>GÉNERO: </strong>{{estudio.fkGenero.nombre}} <br>
+                </em>
+                <em *ngIf="estudio.tipoFiltroLugar">
+                    <strong>TIPO DE FILTRO GEOGRÁFICO: </strong>
+                    <em *ngIf="estudio.tipoFiltroLugar == 1">País</em>
+                    <em *ngIf="estudio.tipoFiltroLugar == 2">Estado</em>
+                    <br>
+                    <strong>LUGARES: </strong>{{estudio.fkLugar.nombre}} <br>
+                </em>
+            </p>
+        </div>
+
+        <div *ngIf="estudio && preguntas && !display_new && !display_pool" class="p-mx-6 p-mt-6">
+            <p-table #dt [value]="preguntas" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
+                [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
+                [paginator]="true"
+                currentPageReportTemplate="Mostrando desde {first} hasta {last} de {totalRecords} resultados"
+                [filterDelay]="0" [globalFilterFields]="['tipo', 'categoria', 'pregunta']">
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 10rem" pSortableColumn="tipo" class="p-text-center">Tipo<p-sortIcon
+                                field="tipo">
+                            </p-sortIcon>
+                        </th>
+                        <th class="p-text-center">Pregunta
+                        </th>
+                        <th style="width: 11rem"></th>
+                    </tr>
+
+                </ng-template>
+                <ng-template pTemplate="body" let-pregunta>
+                    <tr class="p-selectable-row">
+                        <td class="p-text-center">
+                            <span class="p-column-title">Tipo</span>
+                            {{pregunta.fkPregunta.fkTipoPregunta.nombre}}
+                        </td>
+                        <td class="p-text-center">
+                            <span class="p-column-title">Pregunta</span>
+                            <span class="image-text">{{pregunta.fkPregunta.pregunta}}</span>
+                        </td>
+
+                        <td class="p-text-center">
+                            <button type="button" pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-mr-2"
+                                pTooltip="Editar pregunta" routerLink="../../questions/edit"
+                                [queryParams]="{questionId:pregunta._id , origin: 'study', studyId: estudio.fkEstudio._id}"
+                                tooltipPosition="bottom"></button>
+                            <button type="button" pButton pRipple icon="pi pi-trash" class="p-button-rounded"
+                                pTooltip="Eliminar pregunta" tooltipPosition="bottom"
+                                (click)="deleteQuestion(pregunta)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No se encontraron preguntas</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <div class="p-grid p-jc-end p-mt-1 p-mr-4">
+                <div class="p-grid p-formgrid p-fluid">
+                    <div class="p-mb-2 p-col-12 p-mb-lg-0">
+                        <button pButton pRipple type="button" routerLink="../../studies/existing"
+                            label="Listo"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADD QUESTION -->
+        <div *ngIf="display_pool" class="p-mx-5 p-mt-2">
+            <app-add-question-from-pool [category_id]="estudio.fkCategoria._id" (onViewClose)="display_pool = false"
+                (onQuestionSelect)="getSelectedQuestion($event); linkPoolQuestion($event)"></app-add-question-from-pool>
+        </div>
+
+        <div *ngIf="display_new" class="p-mx-5 p-mt-2">
+            <app-add-question-form [category_id]="estudio.fkCategoria._id" [subcategory_id]="estudio.fkSubcategoria._id"
+                (onViewClose)="display_new = false"
+                (onQuestionCreate)="getSelectedQuestion($event); linkCreatedQuestion($event)">
+            </app-add-question-form>
+        </div>
+
+        <p-dialog header="Agregar pregunta" [(visible)]="display">
+            <div>
+                <p-radioButton label="Quiero crear una nueva pregunta" [(ngModel)]="style" value="new" class="p-mb-3">
+                </p-radioButton>
+            </div>
+            <div>
+                <p-radioButton label="Quiero seleccionar una pregunta del pool" value="pool" [(ngModel)]="style"
+                    class="p-mb-3"></p-radioButton>
+            </div>
+
+            <div class="p-grid p-jc-end p-mt-1 p-mr-4">
+                <div class="p-grid p-formgrid p-fluid">
+                    <button pButton pRipple type="submit" label="Continuar" (click)="addQuestion()"></button>
+                </div>
+            </div>
+        </p-dialog>
+
+        <div *ngIf="!estudio && !loading && (studyErrorMessage || requestErrorMessage)">
+            <app-server-disconnected></app-server-disconnected>
+        </div>
+
+        <div>
+            <div class="p-grid p-jc-center">
+                <ngx-spinner></ngx-spinner>
+            </div>
+        </div>
+
+    </p-card>
+    <p-confirmDialog></p-confirmDialog>
+    <p-toast></p-toast>
+
+</div>

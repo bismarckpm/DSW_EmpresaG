@@ -6,7 +6,11 @@ import java.util.Objects;
 @Entity
 @Table(name = "persona_dispositivo", schema = "empresag", catalog = "")
 public class PersonaDispositivoEntity extends BaseEntity{
+    @ManyToOne
+    @JoinColumn(name = "fk_persona")
     private PersonaEntity fkPersona;
+    @ManyToOne
+    @JoinColumn(name = "fk_dispositivo")
     private DispositivoEntity fkDispositivo;
 
     @ManyToOne

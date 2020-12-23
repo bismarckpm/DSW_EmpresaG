@@ -1,0 +1,79 @@
+<app-navigation></app-navigation>
+
+<!-- Add question -->
+<div class="demo-container p-mx-6 p-p-0 p-p-sm-1 p-p-md-2 p-p-lg-6">
+    <p-card>
+        <div *ngIf="!loading && pregunta">
+            <div class="p-grid p-mx-5">
+                <div class="p-col-12">
+                    <h3 class="table-title">VISTA PREVIA DE PREGUNTA</h3>
+                </div>
+            </div>
+            <hr>
+
+            <!-- QUESTION -->
+            <div class="p-mx-6">
+                <p>{{pregunta.fkPregunta.pregunta}}</p>
+                <small *ngIf="pregunta.fkPregunta.fkTipoPregunta._id == 5">Valores permitidos: Desde {{pregunta.fkPregunta.listOpciones[0].rangoInicial}} hasta {{pregunta.listOpciones[0].rangoFinal}}</small>
+            </div>
+
+            <!-- RESPONSES OPEN TEXT -->
+            <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.fkPregunta.fkTipoPregunta._id == 1">
+                <div class="p-col-12 p-lg-6">
+                    <label for="float-input">Respuesta</label>
+                    <input [disabled]="true" class="p-inputtext-lg fill-width" type="text"
+                        pInputText>
+                </div>
+            </div>
+
+            <!-- RESPONSES SIMPLE SELECTION -->
+            <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.fkPregunta.fkTipoPregunta._id == 2">
+                <div class="p-col-12" *ngFor="let opcion of pregunta.fkPregunta.listOpciones">
+                    <p-radioButton [label]="opcion.valor" [disabled]="true" class="p-mb-3"></p-radioButton>
+                </div>
+            </div>
+
+            <!-- RESPONSES MULTIPLE SELECTION -->
+            <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.fkPregunta.fkTipoPregunta._id == 3">
+                <div class="p-col-12" *ngFor="let opcion of pregunta.fkPregunta.listOpciones">
+                    <p-checkbox [label]="opcion.valor" [disabled]="true" class="p-mb-3"></p-checkbox>
+                </div>
+            </div>
+
+            <!-- RESPONSES TRUE/FALSE -->
+            <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.fkPregunta.fkTipoPregunta._id == 4">
+                <div class="p-col-12">
+                    <p-radioButton label="Verdadero" [disabled]="true" class="p-mb-3"></p-radioButton>
+                </div>
+                <div class="p-col-12">
+                    <p-radioButton label="Falso" [disabled]="true" class="p-mb-3"></p-radioButton>
+                </div>
+            </div>
+
+            <!-- RESPONSES RANGE -->
+            <div class="p-grid p-mx-6 p-mt-4" *ngIf="pregunta.fkPregunta.fkTipoPregunta._id == 5">
+                <div class="p-col-12 p-lg-6">
+                    <label for="float-input">Desde</label>
+                    <input [disabled]="true" class="p-inputtext-lg fill-width" type="text"
+                        pInputText>
+                </div>
+                <div class="p-col-12 p-lg-6">
+                    <label for="float-input">Hasta</label>
+                    <input [disabled]="true" class="p-inputtext-lg fill-width" type="text"
+                        pInputText>
+                </div>
+            </div>
+
+        </div>
+
+        <div>
+            <div class="p-grid p-jc-center">
+                <ngx-spinner></ngx-spinner>
+            </div>
+        </div>
+
+        <div *ngIf="!loading && questionErrorMessage">
+            <app-server-disconnected></app-server-disconnected>
+        </div>
+    </p-card>
+</div>

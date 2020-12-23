@@ -76,6 +76,9 @@ public class Dao<T>
         try
         {
             _daoHandler.beginTransaction();
+            if (!_em.contains(entity)) {
+                entity = _em.merge(entity);
+            }
             _em.remove( entity );
             _em.flush();
             _daoHandler.finishTransaction();

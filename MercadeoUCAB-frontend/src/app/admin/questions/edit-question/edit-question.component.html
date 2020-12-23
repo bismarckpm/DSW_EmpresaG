@@ -1,0 +1,146 @@
+<app-navigation></app-navigation>
+
+<!-- Add question -->
+<div class="demo-container p-mx-6 p-p-0 p-p-sm-1 p-p-md-2 p-p-lg-6">
+    <p-card>
+        <div *ngIf="!loading && categorias && categorias.length >= 1">
+            <div class="p-grid p-mx-5">
+                <div class="p-col-12">
+                    <h3 class="table-title">EDITAR PREGUNTA</h3>
+                </div>
+            </div>
+            <hr>
+
+            <!-- PRODUCT FILTER -->
+            <form novalidate *ngIf="pregunta" [formGroup]="questionForm" #qform="ngForm" (ngSubmit)="onSubmit()">
+                <div class="p-grid p-mx-5">
+                    <p class="p-ml-2">Filtros de producto</p>
+                </div>
+
+                <div class="p-grid p-mx-5 p-mb-4">
+                    <div class="p-col-12 p-lg-4">
+                        <p-dropdown [options]="categorias" formControlName="categoria" (onChange)="getSubcategories()"
+                            placeholder="Categoría"></p-dropdown>
+                        <span class="error-msg"
+                            *ngIf="formErrors.categoria"><small>{{formErrors.categoria}}</small></span>
+
+                    </div>
+
+                    <div class="p-col-12 p-lg-4">
+                        <p-dropdown [options]="subcategorias" formControlName="subcategoria" placeholder="Subcategoría">
+                        </p-dropdown>
+                    </div>
+                </div>
+
+                <!-- CREATE QUESTION -->
+                <div class="p-grid p-mx-5">
+                    <div class="p-col-12 p-mt-4">
+                        <span class="p-float-label">
+                            <input id="pregunta" formControlName="pregunta" class="p-inputtext-lg fill-width"
+                                type="text" pInputText>
+                            <label for="float-input">Pregunta</label>
+                        </span>
+                        <span class="error-msg"
+                            *ngIf="formErrors.pregunta"><small>{{formErrors.pregunta}}</small></span>
+
+                    </div>
+
+                    <div class="p-col-12">
+                        <p>Tipo de pregunta</p>
+                        <div *ngFor="let tipo_pregunta of tipos_pregunta">
+                            <p-radioButton name="tipo_de_pregunta" formControlName="tipo_de_pregunta"
+                                [value]="tipo_pregunta.value" (onClick)="clearFormArray()" [label]="tipo_pregunta.label"
+                                class="p-mb-3"></p-radioButton>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MULTIPLE AND SIMPLE SELECTION WIZARD -->
+                <div *ngIf="questionForm.value.tipo_de_pregunta == 2 || questionForm.value.tipo_de_pregunta == 3">
+                    <div class="p-grid p-mx-5">
+                        <p class="p-ml-2">Opciones</p>
+                    </div>
+
+                    <div formArrayName="opciones">
+                        <div *ngFor="let alias of opciones.controls; let i=index" class="p-mb-4">
+                            <div class="p-grid p-mx-5">
+                                <div class="p-col-12 p-sm-10 p-lg-6">
+                                    <input class="p-inputtext-lg full-width" [formControlName]="i" type="text"
+                                        pInputText placeholder="Opcion">
+
+                                </div>
+                                <div class="p-col-12 p-sm-2">
+                                    <button type="button" (click)="deleteItem(i)" pButton pRipple icon="pi pi-trash"
+                                        class="p-button-rounded p-mt-1"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-grid p-mx-5">
+                        <div class="p-col-12">
+                            <u (click)="addItem()">Añadir opción</u>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RANGE -->
+                <div *ngIf="questionForm.value.tipo_de_pregunta == 5">
+                    <div class="p-grid p-mx-5">
+                        <p class="p-ml-2">Rango</p>
+                    </div>
+
+                    <div class="p-grid p-mx-5">
+                        <div class="p-col-12 p-lg-6">
+                            <input class="p-inputtext-lg full-width" formControlName="rango_inicial" type="text"
+                                pInputText placeholder="Inicial">
+                            <span class="error-msg"
+                                *ngIf="formErrors.rango_inicial"><small>{{formErrors.rango_inicial}}</small></span>
+
+                        </div>
+
+                        <div class="p-col-12 p-lg-6">
+                            <input class="p-inputtext-lg full-width" formControlName="rango_final" type="text"
+                                pInputText placeholder="Final">
+                            <span class="error-msg"
+                                *ngIf="formErrors.rango_final"><small>{{formErrors.rango_final}}</small></span>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="p-grid p-jc-end p-mt-6 p-mx-5">
+                    <div class="p-grid p-formgrid p-fluid">
+                        <div class="p-mb-2 p-col-12 p-mb-lg-0">
+                            <button pButton pRipple type="submit" [disabled]="sent_form" label="Guardar"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <p-toast></p-toast>
+
+            </form>
+        </div>
+
+        <div>
+            <div class="p-grid p-jc-center">
+                <ngx-spinner></ngx-spinner>
+            </div>
+        </div>
+
+        <div *ngIf="!loading && categoriesErrorMessage">
+            <app-server-disconnected></app-server-disconnected>
+        </div>
+
+        <div *ngIf="!loading && categorias && categorias.length < 1">
+            <div class="p-text-center">
+                <h2>ERROR :(</h2>
+                <p>No puede modificar ninguna pregunta sin categorías agregadas, click <a routerLink="/categories">aquí</a> para añadir una
+                    categoría</p>
+            </div>
+        </div>
+    </p-card>
+</div>
+
+<p-confirmDialog></p-confirmDialog>
+<p-toast></p-toast>

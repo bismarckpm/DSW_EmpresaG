@@ -1,0 +1,45 @@
+<p-dialog header="AÑADIR TIPO DE PRODUCTO" [(visible)]="display" [style]="{width: '50vw'}" [baseZIndex]="10000" (onHide)="closeModal()">
+    <form novalidate [formGroup]="typeForm" #tform="ngForm" (ngSubmit)="onSubmit()">
+        <div class="p-grid">
+
+            <div class="p-col-12 p-md-6 p-mt-4">
+                <p-dropdown [options]="marcas" formControlName="marca" placeholder="Marca (*)"></p-dropdown>
+                <span class="error-msg" *ngIf="formErrors.marca"><small>{{formErrors.marca}}</small></span>
+            </div>
+
+            <div class="p-col-12 p-md-6 p-mt-4">
+                <span class="p-float-label">
+                    <input id="nombre" formControlName="nombre" class="p-inputtext-lg fill-width" type="text"
+                        pInputText>
+                    <label for="float-input">Nombre (*)</label>
+                </span>
+                <span class="error-msg" *ngIf="formErrors.nombre"><small>{{formErrors.nombre}}</small></span>
+            </div>
+
+            <div class="p-col-12 p-md-6 p-mt-4">
+                <span class="p-float-label">
+                    <input id="descripcion" formControlName="descripcion" class="p-inputtext-lg fill-width" type="text"
+                        pInputText>
+                    <label for="float-input">Descripción</label>
+                </span>
+                <span class="error-msg" *ngIf="formErrors.descripcion"><small>{{formErrors.descripcion}}</small></span>
+            </div>
+        </div>
+
+        <div class="p-grid p-jc-end p-mt-6 p-mx-5">
+            <div class="p-grid p-formgrid p-fluid">
+
+                <div class="p-mb-2 p-col-6 p-mb-lg-0">
+                    <button pButton pRipple type="button" (click)="closeModal()" class="p-button-secondary"
+                        label="Cerrar"></button>
+                </div>
+                <div class="p-mb-2 p-col-6 p-mb-lg-0">
+                    <button pButton pRipple type="submit" [disabled]="sent_form" label="Enviar"></button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</p-dialog>
+
+<p-toast></p-toast>

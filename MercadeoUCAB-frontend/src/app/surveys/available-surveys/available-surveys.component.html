@@ -38,12 +38,7 @@
                                     field="subcategoria">
                                 </p-sortIcon>
                             </th>
-                            <th class="p-text-center">
-                                Preguntas
-                            </th>
-                            <th class="p-text-center">
-                                Tiempo estimado
-                            </th>
+                          <th class="p-text-center">Nombre</th>
                             <th style="width: 11rem"></th>
                         </tr>
 
@@ -53,23 +48,19 @@
                         <tr class="p-selectable-row">
                             <td class="p-text-center">
                                 <span class="p-column-title">Categoría</span>
-                                {{estudio.categoria}}
+                                {{estudio.fkCategoria.nombre}}
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Subcategoría</span>
-                                <span class="image-text">{{estudio.subcategoria}}</span>
+                                <span class="image-text">{{estudio.fkSubcategoria.nombre}}</span>
                             </td>
-                            <td class="p-text-center">
-                                <span class="p-column-title">Número de preguntas</span>
-                                <span class="image-text">{{estudio.n_preguntas}}</span>
-                            </td>
-                            <td class="p-text-center">
-                                <span class="p-column-title">Tiempo estimado</span>
-                                <span class="image-text">{{estudio.tiempo_estimado}} minutos</span>
-                            </td>
+                          <td class="p-text-center">
+                            <span class="p-column-title">Nombre</span>
+                            <span class="image-text">{{estudio.fkEstudio.nombre}}</span>
+                          </td>
 
                             <td class="p-text-center">
-                                <button type="button" routerLink="take" [queryParams]="{surveyId:estudio.id}" pButton
+                                <button type="button" routerLink="take" [queryParams]="{surveyId:estudio.fkEstudio._id}" pButton
                                     pRipple icon="pi pi-file" class="p-button-rounded p-mr-2" pTooltip="Responder esta encuesta"
                                     tooltipPosition="bottom"></button>
                             </td>

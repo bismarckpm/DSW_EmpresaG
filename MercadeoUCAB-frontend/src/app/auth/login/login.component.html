@@ -1,0 +1,52 @@
+<div class="demo-container p-mx-6 p-p-0 p-p-sm-1 p-p-md-2 p-p-lg-6">
+    <p-card>
+        <div class="p-grid">
+            <!-- Imagen decorativa -->
+            <div class="p-col-12 p-lg-5 p-d-none p-d-lg-inline-flex">
+                <img src="../../../assets/img/login.jpg" class="panel-img" width="100%" height="550px" alt="">
+            </div>
+
+            <!-- Formulario de login -->
+            <div class="p-col-12 p-lg-7">
+                <div class="p-grid p-jc-center">
+                    <img src="../../../assets/img/Logo.png" width="150px" height="150px" alt="">
+                </div>
+
+                <div class="demo-container p-p-0 p-p-sm-4 p-p-md-6 p-p-lg-4">
+                    <form novalidate [formGroup]="loginForm" #lform="ngForm" (ngSubmit)="onSubmit()">
+                        <div class="p-grid p-mt-4">
+                            <div class="p-col-12 p-mb-2">
+                                <div class="p-inputgroup">
+                                    <span class="p-inputgroup-addon"><i class="pi pi-envelope"></i></span>
+                                    <input id="correo_electronico" class="p-inputtext-lg" formControlName="correo_electronico" pInputText type="text" placeholder="Correo electrónico">
+                                </div>
+                                <span class="error-msg" *ngIf="formErrors.correo_electronico"><small>{{formErrors.correo_electronico}}</small></span>
+                            </div>
+                        </div>
+
+                        <div class="p-grid p-mt-4">
+                            <div class="p-col-12 p-mb-5">
+                                <div class="p-inputgroup">
+                                    <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
+                                    <input id="clave" class="p-inputtext-lg" formControlName="clave" type="password" placeholder="Contraseña" pInputText>
+                                </div>
+                                <span class="error-msg" *ngIf="formErrors.clave"><small>{{formErrors.clave}}</small></span>
+                            </div>
+                        </div>
+                        <div class="p-grid p-jc-center p-mt-1">
+                            <div class="p-grid p-formgrid p-fluid">
+                                <div class="p-mb-2 p-mb-lg-0">
+                                    <button pButton pRipple type="submit" class="p-button-lg" [disabled]="sent_form" label="Login"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                  <div class="p-text-center p-mt-4"><a routerLink="/recovery">¿Olvidó la contraseña?</a></div>
+                </div>
+
+                <div class="p-text-center p-mt-1">¿No tiene cuenta? <a routerLink="/register">Regístrese</a></div>
+            </div>
+        </div>
+    </p-card>
+    <p-toast></p-toast>
+</div>
