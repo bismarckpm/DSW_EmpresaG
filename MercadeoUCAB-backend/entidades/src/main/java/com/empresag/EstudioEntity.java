@@ -10,6 +10,15 @@ public class EstudioEntity extends BaseEntity{
     @Basic
     @Column(name = "fecha_realizacion")
     private Date fechaRealizacion;
+
+    public EstudioEntity(long id) {
+        super(id);
+    }
+
+
+    public EstudioEntity() {
+    }
+
     public Date getFechaRealizacion() {
         return fechaRealizacion;
     }

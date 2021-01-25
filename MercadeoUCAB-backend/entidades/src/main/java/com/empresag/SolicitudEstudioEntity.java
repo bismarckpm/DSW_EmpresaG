@@ -10,6 +10,13 @@ public class SolicitudEstudioEntity extends BaseEntity{
     @JoinColumn(name = "fk_solicitud")
     private SolicitudEntity fkSolicitud;
 
+    public SolicitudEstudioEntity(long id) {
+        super(id);
+    }
+
+    public SolicitudEstudioEntity() {
+    }
+
     public SolicitudEntity getFkSolicitud() {
         return fkSolicitud;
     }

@@ -8,6 +8,14 @@ import java.util.Objects;
 public class EdoCivilEntity extends BaseEntity{
     private String nombre;
 
+    public EdoCivilEntity(long id) {
+        super(id);
+    }
+
+    public EdoCivilEntity() {
+
+    }
+
     @Basic
     @Column(name = "nombre")
     public String getNombre() {

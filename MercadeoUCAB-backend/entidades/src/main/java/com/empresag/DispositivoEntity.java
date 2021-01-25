@@ -9,6 +9,13 @@ public class DispositivoEntity extends BaseEntity{
 
     private String nombre;
 
+    public DispositivoEntity(long id) {
+        super(id);
+    }
+
+    public DispositivoEntity() {
+
+    }
 
     @Basic
     @Column(name = "nombre")

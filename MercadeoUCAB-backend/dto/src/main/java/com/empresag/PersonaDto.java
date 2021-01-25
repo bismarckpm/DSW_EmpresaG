@@ -14,14 +14,15 @@ public class PersonaDto extends BaseDto {
     private Date fechaNacimiento;
     private GeneroDto fkGenero;
     private EdoCivilDto fkEdoCivil;
-    private PersonaDto fkPersona;
     private LugarDto fkLugar;
     private int numero_personas_encasa;
+    private DisponibilidadDto id_horario_inicial;
+    private DisponibilidadDto id_horario_final;
+    private PersonaDto fkPersona;
+
     private PersonaDto[] hijos;
     private int[] dispositivos;
     private String telefono;
-    private DisponibilidadDto id_horario_inicial;
-    private DisponibilidadDto id_horario_final;
     private long id_nivel_academico;
     private long ocupacion;
 

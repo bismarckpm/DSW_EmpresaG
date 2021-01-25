@@ -6,6 +6,7 @@ public class UsuarioDto extends BaseDto {
     private int estado;
     private String tokenLogin;
     private String tokenRecovery;
+    private String token;
     private PersonaDto fkPersona;
     private RolDto fkRol;
 
@@ -54,6 +55,14 @@ public class UsuarioDto extends BaseDto {
 
     public void setFkRol(RolDto fkRol) {
         this.fkRol = fkRol;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getTokenLogin() {

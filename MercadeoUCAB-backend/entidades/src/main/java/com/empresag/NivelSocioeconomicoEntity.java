@@ -8,6 +8,13 @@ import java.util.Objects;
 public class NivelSocioeconomicoEntity extends BaseEntity{
     private String nombre;
 
+    public NivelSocioeconomicoEntity(long id) {
+        super(id);
+    }
+
+    public NivelSocioeconomicoEntity() {
+    }
+
     @Basic
     @Column(name = "nombre")
     public String getNombre() {

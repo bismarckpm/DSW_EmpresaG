@@ -13,6 +13,12 @@ public class DisponibilidadEntity extends BaseEntity{
     @JsonbDateFormat(value = "HH:mm a")
     private Time hora;
 
+    public DisponibilidadEntity(long id) {
+        super(id);
+    }
+
+    public DisponibilidadEntity() {
+    }
 
     @Basic
     @Column(name = "hora")

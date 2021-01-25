@@ -8,6 +8,13 @@ import java.util.Objects;
 public class OcupacionEntity extends BaseEntity{
     private String nombre;
 
+    public OcupacionEntity(long id) {
+        super(id);
+    }
+
+    public OcupacionEntity() {
+    }
+
     @Basic
     @Column(name = "nombre")
     public String getNombre() {

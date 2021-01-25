@@ -10,6 +10,13 @@ public class SolicitudEntity extends BaseEntity{
     @Column(name = "estado")
     private Integer estado;
 
+    public SolicitudEntity(long id) {
+        super(id);
+    }
+
+    public SolicitudEntity() {
+    }
+
     public Integer getEstado() {
         return estado;
     }
