@@ -1,7 +1,6 @@
 package com.empresag;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "filtro", schema = "empresag")
@@ -9,6 +8,13 @@ public class FiltroEntity extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "fk_estudio")
     private EstudioEntity fkEstudio;
+
+    public FiltroEntity(long id) {
+        super(id);
+    }
+
+    public FiltroEntity() {
+    }
 
     public EstudioEntity getFkEstudio() {
         return fkEstudio;

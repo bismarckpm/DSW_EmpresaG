@@ -1,7 +1,6 @@
 package com.empresag;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "telefono", schema = "empresag", catalog = "")
@@ -10,6 +9,13 @@ public class TelefonoEntity extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "fk_persona")
     private PersonaEntity fkPersona;
+
+    public TelefonoEntity(long id) {
+        super(id);
+    }
+
+    public TelefonoEntity() {
+    }
 
     @Basic
     @Column(name = "numero")

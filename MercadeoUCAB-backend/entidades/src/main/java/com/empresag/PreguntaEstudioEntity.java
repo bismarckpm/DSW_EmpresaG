@@ -1,7 +1,6 @@
 package com.empresag;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "pregunta_estudio", schema = "empresag")
@@ -9,6 +8,13 @@ public class PreguntaEstudioEntity extends BaseEntity{
     @Basic
     @Column(name = "requerido")
     private int requerido;
+
+    public PreguntaEstudioEntity(long id) {
+        super(id);
+    }
+
+    public PreguntaEstudioEntity() {
+    }
 
     public int getRequerido() {
         return requerido;

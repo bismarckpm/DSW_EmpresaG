@@ -1,12 +1,21 @@
 package com.empresag;
 
-import javax.persistence.*;
-import java.util.Objects;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "nivel_socioeconomico", schema = "empresag", catalog = "")
 public class NivelSocioeconomicoEntity extends BaseEntity{
     private String nombre;
+
+    public NivelSocioeconomicoEntity(long id) {
+        super(id);
+    }
+
+    public NivelSocioeconomicoEntity() {
+    }
 
     @Basic
     @Column(name = "nombre")

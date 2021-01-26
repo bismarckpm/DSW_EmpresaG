@@ -1,7 +1,6 @@
 package com.empresag;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "solicitud", schema = "empresag")
@@ -9,6 +8,13 @@ public class SolicitudEntity extends BaseEntity{
     @Basic
     @Column(name = "estado")
     private Integer estado;
+
+    public SolicitudEntity(long id) {
+        super(id);
+    }
+
+    public SolicitudEntity() {
+    }
 
     public Integer getEstado() {
         return estado;

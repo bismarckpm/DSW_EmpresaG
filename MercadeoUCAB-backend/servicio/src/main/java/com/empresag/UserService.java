@@ -40,6 +40,7 @@ public class UserService {
             if (usuarioDto.getFkRol().get_id() == 4)
             {
 
+//                TODO - Realizar clase transformacion
                 PersonaEntity persona = new PersonaEntity();
                 persona.setDocumentoIdentidad(usuarioDto.getFkPersona().getDocumentoIdentidad());
                 persona.setPrimerNombre(usuarioDto.getFkPersona().getPrimerNombre());
@@ -49,6 +50,8 @@ public class UserService {
                 persona.setFechaNacimiento(usuarioDto.getFkPersona().getFechaNacimiento());
                 persona.setNumero_personas_encasa(usuarioDto.getFkPersona().getNumero_personas_encasa());
 
+
+//                TODO - Qutiar FINDs solamente crear objetos con el dato y ya
 //            OBTENER GENERO
                 DaoGenero daoGenero = new DaoGenero();
                 GeneroEntity generoPersona = daoGenero.find(usuarioDto.getFkPersona().getFkGenero().get_id(), GeneroEntity.class);

@@ -2,7 +2,6 @@ package com.empresag;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.Objects;
 
 @Entity
 @Table(name = "estudio", schema = "empresag")
@@ -10,6 +9,15 @@ public class EstudioEntity extends BaseEntity{
     @Basic
     @Column(name = "fecha_realizacion")
     private Date fechaRealizacion;
+
+    public EstudioEntity(long id) {
+        super(id);
+    }
+
+
+    public EstudioEntity() {
+    }
+
     public Date getFechaRealizacion() {
         return fechaRealizacion;
     }

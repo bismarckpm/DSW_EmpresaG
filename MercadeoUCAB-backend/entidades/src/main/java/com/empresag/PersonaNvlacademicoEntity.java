@@ -1,7 +1,9 @@
 package com.empresag;
 
-import javax.persistence.*;
-import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "persona_nvlacademico", schema = "empresag", catalog = "")
@@ -12,6 +14,13 @@ public class PersonaNvlacademicoEntity extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "fk_nivel_academico")
     private NivelAcademicoEntity fkNivelAcademico;
+
+    public PersonaNvlacademicoEntity(long id) {
+        super(id);
+    }
+
+    public PersonaNvlacademicoEntity() {
+    }
 
     @ManyToOne
     @JoinColumn(name = "fk_persona")

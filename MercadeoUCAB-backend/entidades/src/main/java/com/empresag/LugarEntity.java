@@ -1,7 +1,6 @@
 package com.empresag;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "lugar", schema = "empresag", catalog = "")
@@ -9,6 +8,14 @@ public class LugarEntity extends BaseEntity{
     @Basic
     @Column(name = "nombre")
     private String nombre;
+
+    public LugarEntity(long id) {
+        super(id);
+    }
+
+    public LugarEntity() {
+
+    }
 
     public String getNombre() {
         return nombre;

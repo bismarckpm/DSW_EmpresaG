@@ -57,6 +57,9 @@ public class PersonaEntity extends BaseEntity{
 
     }
 
+    public PersonaEntity(long id) {
+        super(id);
+    }
 
     @Basic
     @Column(name = "documento_identidad")

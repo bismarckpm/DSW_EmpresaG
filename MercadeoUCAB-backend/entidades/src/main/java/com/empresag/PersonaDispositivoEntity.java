@@ -1,7 +1,9 @@
 package com.empresag;
 
-import javax.persistence.*;
-import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "persona_dispositivo", schema = "empresag", catalog = "")
@@ -12,6 +14,13 @@ public class PersonaDispositivoEntity extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "fk_dispositivo")
     private DispositivoEntity fkDispositivo;
+
+    public PersonaDispositivoEntity(long id) {
+        super(id);
+    }
+
+    public PersonaDispositivoEntity() {
+    }
 
     @ManyToOne
     @JoinColumn(name = "fk_persona")

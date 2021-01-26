@@ -2,7 +2,6 @@ package com.empresag;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Objects;
 
 @Entity
 @Table(name = "encuesta", schema = "empresag")
@@ -10,6 +9,13 @@ public class EncuestaEntity extends BaseEntity{
     @Basic
     @Column(name = "fecha")
     private Timestamp fecha;
+
+    public EncuestaEntity(long id) {
+        super(id);
+    }
+
+    public EncuestaEntity() {
+    }
 
     public Timestamp getFecha() {
         return fecha;
