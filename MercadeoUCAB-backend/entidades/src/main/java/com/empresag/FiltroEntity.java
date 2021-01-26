@@ -10,13 +10,6 @@ public class FiltroEntity extends BaseEntity{
     @JoinColumn(name = "fk_estudio")
     private EstudioEntity fkEstudio;
 
-    public FiltroEntity(long id) {
-        super(id);
-    }
-
-    public FiltroEntity() {
-    }
-
     public EstudioEntity getFkEstudio() {
         return fkEstudio;
     }

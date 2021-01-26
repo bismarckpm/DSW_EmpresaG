@@ -13,13 +13,6 @@ public class PersonaNvlacademicoEntity extends BaseEntity{
     @JoinColumn(name = "fk_nivel_academico")
     private NivelAcademicoEntity fkNivelAcademico;
 
-    public PersonaNvlacademicoEntity(long id) {
-        super(id);
-    }
-
-    public PersonaNvlacademicoEntity() {
-    }
-
     @ManyToOne
     @JoinColumn(name = "fk_persona")
     public PersonaEntity getFkPersona() {

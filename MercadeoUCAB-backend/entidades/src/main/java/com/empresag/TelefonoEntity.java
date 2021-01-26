@@ -11,13 +11,6 @@ public class TelefonoEntity extends BaseEntity{
     @JoinColumn(name = "fk_persona")
     private PersonaEntity fkPersona;
 
-    public TelefonoEntity(long id) {
-        super(id);
-    }
-
-    public TelefonoEntity() {
-    }
-
     @Basic
     @Column(name = "numero")
     public String getNumero() {

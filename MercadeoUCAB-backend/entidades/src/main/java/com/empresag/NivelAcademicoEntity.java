@@ -8,14 +8,6 @@ import java.util.Objects;
 public class NivelAcademicoEntity extends BaseEntity{
     private String nombre;
 
-    public NivelAcademicoEntity(long id) {
-        super(id);
-    }
-
-    public NivelAcademicoEntity() {
-
-    }
-
     @Basic
     @Column(name = "nombre")
     public String getNombre() {

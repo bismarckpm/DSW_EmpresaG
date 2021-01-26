@@ -10,13 +10,6 @@ public class PreguntaEstudioEntity extends BaseEntity{
     @Column(name = "requerido")
     private int requerido;
 
-    public PreguntaEstudioEntity(long id) {
-        super(id);
-    }
-
-    public PreguntaEstudioEntity() {
-    }
-
     public int getRequerido() {
         return requerido;
     }

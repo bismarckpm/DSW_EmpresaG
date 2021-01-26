@@ -17,13 +17,6 @@ public class UsuarioEntity extends BaseEntity{
     @JoinColumn(name = "fk_rol")
     private RolEntity fk_Rol;
 
-    public UsuarioEntity() {
-    }
-
-    public UsuarioEntity(long id) {
-        super(id);
-    }
-
     @Basic
     @Column(name = "email")
     public String getEmail() {

@@ -13,13 +13,6 @@ public class PersonaDispositivoEntity extends BaseEntity{
     @JoinColumn(name = "fk_dispositivo")
     private DispositivoEntity fkDispositivo;
 
-    public PersonaDispositivoEntity(long id) {
-        super(id);
-    }
-
-    public PersonaDispositivoEntity() {
-    }
-
     @ManyToOne
     @JoinColumn(name = "fk_persona")
     public PersonaEntity getFkPersona() {

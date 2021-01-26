@@ -8,14 +8,6 @@ import java.util.Objects;
 public class GeneroEntity extends BaseEntity{
     private String nombre;
 
-    public GeneroEntity(long id) {
-        super(id);
-    }
-
-    public GeneroEntity() {
-
-    }
-
     @Basic
     @Column(name = "nombre")
     public String getNombre() {

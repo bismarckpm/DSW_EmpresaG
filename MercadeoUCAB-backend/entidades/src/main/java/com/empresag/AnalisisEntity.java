@@ -10,14 +10,6 @@ public class AnalisisEntity extends BaseEntity {
     @Column(name = "conclusiones")
     private String conclusiones;
 
-    public AnalisisEntity(long id) {
-        super(id);
-    }
-
-    public AnalisisEntity() {
-
-    }
-
     public String getConclusiones() {
         return conclusiones;
     }

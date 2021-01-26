@@ -10,14 +10,6 @@ public class LugarEntity extends BaseEntity{
     @Column(name = "nombre")
     private String nombre;
 
-    public LugarEntity(long id) {
-        super(id);
-    }
-
-    public LugarEntity() {
-
-    }
-
     public String getNombre() {
         return nombre;
     }

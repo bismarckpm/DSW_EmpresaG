@@ -9,119 +9,19 @@ public class SessionTest {
     {
         try {
             UsuarioDto user = new UsuarioDto();
-            DirectorioActivo ldap = new DirectorioActivo();
+            user.setEmail("angel99castillo@gmail.com");
+            user.setPassword("Am101199.");
             RolDto rol = new RolDto();
-
-            user.setEmail("hyperschnell11@outlook.sk");
-            user.setPassword("123456789a!");
             rol.set_id(1);
 
             user.setFkRol(rol);
-            ldap.addEntryToLdap(user);
-
-            user.setEmail("eternalwaltz@gmail.ca");
-            user.setPassword("123456789a!");
-            rol.set_id(3);
-
-            user.setFkRol(rol);
-            ldap.addEntryToLdap(user);
-
-            user.setEmail("iamnopsycho@protonmail.com");
-            user.setPassword("123456789a!");
-            rol.set_id(2);
-
-            user.setFkRol(rol);
-            ldap.addEntryToLdap(user);
-
-            user.setEmail("skthereaper@gmail.ca");
-            user.setPassword("123456789a!");
-            rol.set_id(4);
-
-            user.setFkRol(rol);
-            ldap.addEntryToLdap(user);
-
-            user.setEmail("bumpsindanight@gmail.ca");
-            user.setPassword("123456789a!");
-            rol.set_id(4);
-
-            user.setFkRol(rol);
-            ldap.addEntryToLdap(user);
-
-            user.setEmail("itsmeyerz@gmail.com");
-            user.setPassword("123456789a!");
-            rol.set_id(4);
-
-            user.setFkRol(rol);
-            ldap.addEntryToLdap(user);
-
-            user.setEmail("angel99castillo@gmail.com");
-            user.setPassword("123456789a!");
-            rol.set_id(4);
-
-            user.setFkRol(rol);
-            ldap.addEntryToLdap(user);
-
-            user.setEmail("jhwatzke@gmail.ca");
-            user.setPassword("123456789a!");
-            rol.set_id(3);
-
-            user.setFkRol(rol);
-            ldap.addEntryToLdap(user);
-
-            user.setEmail("yungtricky@gmail.ca");
-            user.setPassword("123456789a!");
-            rol.set_id(4);
-
-            user.setFkRol(rol);
-            ldap.addEntryToLdap(user);
-
-            user.setEmail("saintfaline@gmail.ca");
-            user.setPassword("123456789a!");
-            rol.set_id(4);
-
-            user.setFkRol(rol);
-            ldap.addEntryToLdap(user);
-
-            user.setEmail("mbrumbye2i@webnode.com");
-            user.setPassword("123456789a!");
-            rol.set_id(4);
-
-            user.setFkRol(rol);
-            ldap.addEntryToLdap(user);
-
-            user.setEmail("hthorne2h@amazon.de");
-            user.setPassword("123456789a!");
-            rol.set_id(4);
-
-            user.setFkRol(rol);
-            ldap.addEntryToLdap(user);
-
-            user.setEmail("ascriver2f@amazon.co.jp");
-            user.setPassword("123456789a!");
-            rol.set_id(4);
-
-            user.setFkRol(rol);
-            ldap.addEntryToLdap(user);
-
-            user.setEmail("hsamet29@ovh.net");
-            user.setPassword("123456789a!");
-            rol.set_id(4);
-
-            user.setFkRol(rol);
-            ldap.addEntryToLdap(user);
-
-            user.setEmail("cverde22@gmail.com");
-            user.setPassword("Caracas1.");
-            rol.set_id(2);
-
-            user.setFkRol(rol);
+            DirectorioActivo ldap = new DirectorioActivo();
             ldap.addEntryToLdap(user);
         }
         catch (IndexDatabaseException e) {
             e.printStackTrace();
         }
     }
-
 
     @Test
     public void deleteUserLDAP()

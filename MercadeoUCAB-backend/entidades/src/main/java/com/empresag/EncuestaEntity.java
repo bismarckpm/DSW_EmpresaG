@@ -11,13 +11,6 @@ public class EncuestaEntity extends BaseEntity{
     @Column(name = "fecha")
     private Timestamp fecha;
 
-    public EncuestaEntity(long id) {
-        super(id);
-    }
-
-    public EncuestaEntity() {
-    }
-
     public Timestamp getFecha() {
         return fecha;
     }

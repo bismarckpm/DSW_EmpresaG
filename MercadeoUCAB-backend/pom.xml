@@ -16,9 +16,6 @@
         <module>dao</module>
         <module>exceptions</module>
         <module>activedirectory</module>
-        <module>mappers</module>
-        <module>utilidades</module>
-        <module>logica</module>
     </modules>
 
     <dependencies>
