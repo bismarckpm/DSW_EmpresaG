@@ -8,6 +8,7 @@ public class UsuarioDto extends BaseDto {
     private String tokenRecovery;
     private PersonaDto fkPersona;
     private RolDto fkRol;
+    private String token;
 
     public UsuarioDto() {
     }
@@ -70,6 +71,14 @@ public class UsuarioDto extends BaseDto {
 
     public void setTokenRecovery(String tokenRecovery) {
         this.tokenRecovery = tokenRecovery;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     @Override

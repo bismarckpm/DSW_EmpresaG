@@ -7,7 +7,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/sesion")
@@ -169,7 +168,7 @@ public class SesionService {
         System.out.println("DATA: " + usuarioDto.toString());
         System.out.println("PERSONA: " + usuarioDto.getFkPersona().toString());
 
-        UsuarioDto resultado = new UsuarioDto();
+        UsuarioDto resultado;
         RespuestaDto<UsuarioDto> respuesta = new RespuestaDto<>();
 
         try {
@@ -180,7 +179,7 @@ public class SesionService {
 
             UsuarioEntity resul = crearUsuario.getResult();
 
-//            String token = JWT.createToken( String.valueOf( resul.get_id()));
+//            String token = JWT.createToken( String.valueOf( resul.get_id() ) );
             resultado = UsuarioMapper.mapEntityToDto( resul );
 //            resultado.setToken( token );
 
@@ -203,25 +202,25 @@ public class SesionService {
 
     }
 
+//    @POST
+//    @Path("/validRegister")
+//    public Response checkRegistro ( UsuarioDto usuarioDto ) {
+//
+//        DaoUsuario daoUsuario = new DaoUsuario();
+//        List<UsuarioEntity> usuario = daoUsuario.emailExist(usuarioDto.getEmail());
+//
+//
+//        if (usuario.size() == 0)
+//            return Response.status(Response.Status.OK).build();
+//        else
+//            return Response.status(Response.Status.FOUND).build();
+//
+//
+//    }
+
     @POST
     @Path("/validRegister")
-    public Response checkRegistro ( UsuarioDto usuarioDto ) {
-
-        DaoUsuario daoUsuario = new DaoUsuario();
-        List<UsuarioEntity> usuario = daoUsuario.emailExist(usuarioDto.getEmail());
-
-
-        if (usuario.size() == 0)
-            return Response.status(Response.Status.OK).build();
-        else
-            return Response.status(Response.Status.FOUND).build();
-
-
-    }
-
-    @POST
-    @Path("/validRegisterNew")
-    public RespuestaDto checkRegistroNew ( UsuarioDto usuarioDto ) {
+    public RespuestaDto checkRegistro ( UsuarioDto usuarioDto ) {
 
         RespuestaDto respuesta = new RespuestaDto();
 
