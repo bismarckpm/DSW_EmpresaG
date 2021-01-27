@@ -188,10 +188,11 @@ public class SesionService {
             respuesta.setEstado( "OK" );
             respuesta.setObjeto( resultado );
 
-            DirectorioActivo ldap = new DirectorioActivo();
-            ldap.addEntryToLdap(usuarioDto);
+//            DirectorioActivo ldap = new DirectorioActivo();
+//            ldap.addEntryToLdap(usuarioDto);
         }
         catch (Exception e){
+            e.printStackTrace();
             respuesta.setCodigo(-1);
             respuesta.setEstado( "ERROR" );
             respuesta.setMensaje( e.getMessage() );
@@ -218,27 +219,27 @@ public class SesionService {
 
     }
 
-//    @POST
-//    @Path("/validRegister")
-//    public RespuestaDto checkRegistro ( UsuarioDto usuarioDto ) {
-//
-//        RespuestaDto respuesta = new RespuestaDto();
-//
-//        DaoUsuario daoUsuario = FabricaDao.crearDaoUsuario();
-//        List<UsuarioEntity> usuario = daoUsuario.emailExist(usuarioDto.getEmail());
-//
-//        if (usuario.size() == 0) {
-//            respuesta.setCodigo(0);
-//            respuesta.setEstado("OK");
-//        }
-//        else{
-//            respuesta.setCodigo(-1);
-//            respuesta.setEstado( "ERROR" );
-//            respuesta.setMensaje( "El correo introducido ya existe." );
-//        }
-//
-//        return respuesta;
-//
-//    }
+    @POST
+    @Path("/validRegisterNew")
+    public RespuestaDto checkRegistroNew ( UsuarioDto usuarioDto ) {
+
+        RespuestaDto respuesta = new RespuestaDto();
+
+        DaoUsuario daoUsuario = FabricaDao.crearDaoUsuario();
+        List<UsuarioEntity> usuario = daoUsuario.emailExist(usuarioDto.getEmail());
+
+        if (usuario.size() == 0) {
+            respuesta.setCodigo(0);
+            respuesta.setEstado("OK");
+        }
+        else{
+            respuesta.setCodigo(-1);
+            respuesta.setEstado( "ERROR" );
+            respuesta.setMensaje( "El correo introducido ya existe." );
+        }
+
+        return respuesta;
+
+    }
 
 }

@@ -7,7 +7,10 @@ public class PersonaNvlacademicoMapper {
         PersonaNvlacademicoEntity entity = new PersonaNvlacademicoEntity();
 
         entity.setFkPersona(persona);
-        entity.setFkNivelAcademico( NivelAcademicoMapper.mapIntToEntity(NvlAcademico) );
+//        entity.setFkNivelAcademico( NivelAcademicoMapper.mapIntToEntity(NvlAcademico) );
+
+        DaoNivelAcademico daoNivelAcademico = FabricaDao.crearDaoNivelAcademico();
+        entity.setFkNivelAcademico( daoNivelAcademico.find( NvlAcademico, NivelAcademicoEntity.class) );
 
         return entity;
 

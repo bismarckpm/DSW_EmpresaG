@@ -4,11 +4,11 @@ public class DisponibilidadMapper {
 
     public static DisponibilidadEntity mapDtoToEntity(DisponibilidadDto dto){
 
-        DisponibilidadEntity entity = FabricaEntity.crearDisponibilidadEntity(dto.get_id());
+//        DisponibilidadEntity entity = FabricaEntity.crearDisponibilidadEntity(dto.get_id());
+//        entity.setHora(dto.getHora());
 
-        entity.setHora(dto.getHora());
-
-        return entity;
+        DaoDisponibilidad daoDisponibilidad = FabricaDao.crearDaoDisponibilidad();
+        return daoDisponibilidad.find(dto.get_id(), DisponibilidadEntity.class);
     }
 
     public static DisponibilidadDto mapEntityToDto( DisponibilidadEntity entity ) throws IndexDatabaseException {

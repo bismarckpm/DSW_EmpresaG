@@ -16,34 +16,48 @@ public class PersonaMapper {
         entity.setFechaNacimiento(dto.getFechaNacimiento());
         entity.setNumero_personas_encasa(dto.getNumero_personas_encasa());
 
-        if ( Objects.nonNull( dto.getFkGenero() ) )
-        {
-            entity.setFkGenero( GeneroMapper.mapDtoToEntity( dto.getFkGenero() ) );
-        }
+//        if ( Objects.nonNull( dto.getFkGenero() ) )
+//        {
+//            entity.setFkGenero( GeneroMapper.mapDtoToEntity( dto.getFkGenero() ) );
+//        }
 
-        if ( Objects.nonNull( dto.getFkEdoCivil() ) )
-        {
-            entity.setFkEdoCivil( EdoCivilMapper.mapDtoToEntity( dto.getFkEdoCivil() ) );
-        }
+        DaoGenero daoGenero = FabricaDao.crearDaoGenero();
+        entity.setFkGenero( daoGenero.find( dto.getFkGenero().get_id(), GeneroEntity.class ));
 
-        if ( Objects.nonNull( dto.getFkLugar() ) )
-        {
-            entity.setFkLugar( LugarMapper.mapDtoToEntity( dto.getFkLugar() ) );
-        }
+//        if ( Objects.nonNull( dto.getFkEdoCivil() ) )
+//        {
+//            entity.setFkEdoCivil( EdoCivilMapper.mapDtoToEntity( dto.getFkEdoCivil() ) );
+//        }
 
-        if ( Objects.nonNull( dto.getId_horario_inicial() ) )
-        {
-            entity.setFkDisponibilidadInicial( DisponibilidadMapper.mapDtoToEntity( dto.getId_horario_inicial() ) );
-        }
+        DaoEdoCivil daoEdoCivil = FabricaDao.crearDaoEdoCivil();
+        entity.setFkEdoCivil( daoEdoCivil.find( dto.getFkEdoCivil().get_id(), EdoCivilEntity.class));
 
-        if ( Objects.nonNull( dto.getId_horario_final() ) )
-        {
-            entity.setFkDisponibilidadFinal( DisponibilidadMapper.mapDtoToEntity( dto.getId_horario_final() ) );
-        }
+//        if ( Objects.nonNull( dto.getFkLugar() ) )
+//        {
+//            entity.setFkLugar( LugarMapper.mapDtoToEntity( dto.getFkLugar() ) );
+//        }
 
-        if (Objects.nonNull( dto.getFkPersona() )){
-            entity.setFkPersona( PersonaMapper.mapDtoToEntity( dto.getFkPersona() ) );
-        }
+        DaoLugar daoLugar = FabricaDao.crearDaoLugar();
+        entity.setFkLugar( daoLugar.find(dto.getFkLugar().get_id(),LugarEntity.class) );
+
+//        if ( Objects.nonNull( dto.getId_horario_inicial() ) )
+//        {
+//            entity.setFkDisponibilidadInicial( DisponibilidadMapper.mapDtoToEntity( dto.getId_horario_inicial() ) );
+//        }
+
+        DaoDisponibilidad daoDisponibilidad = FabricaDao.crearDaoDisponibilidad();
+        entity.setFkDisponibilidadInicial(daoDisponibilidad.find(dto.getId_horario_inicial().get_id(), DisponibilidadEntity.class));
+
+//        if ( Objects.nonNull( dto.getId_horario_final() ) )
+//        {
+//            entity.setFkDisponibilidadFinal( DisponibilidadMapper.mapDtoToEntity( dto.getId_horario_final() ) );
+//        }
+
+        entity.setFkDisponibilidadFinal(daoDisponibilidad.find(dto.getId_horario_final().get_id(), DisponibilidadEntity.class));
+
+//        if (Objects.nonNull( dto.getFkPersona() )){
+//            entity.setFkPersona( PersonaMapper.mapDtoToEntity( dto.getFkPersona() ) );
+//        }
 
         return entity;
     }
@@ -60,10 +74,13 @@ public class PersonaMapper {
 
         entity.setFkPersona( padre );
 
-        if ( Objects.nonNull( dto.getFkGenero() ) )
-        {
-            entity.setFkGenero( GeneroMapper.mapDtoToEntity( dto.getFkGenero() ) );
-        }
+//        if ( Objects.nonNull( dto.getFkGenero() ) )
+//        {
+//            entity.setFkGenero( GeneroMapper.mapDtoToEntity( dto.getFkGenero() ) );
+//        }
+
+        DaoGenero daoGenero = FabricaDao.crearDaoGenero();
+        entity.setFkGenero( daoGenero.find( dto.getFkGenero().get_id(), GeneroEntity.class ));
 
         return entity;
     }

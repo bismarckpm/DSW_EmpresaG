@@ -1,5 +1,6 @@
 package com.empresag;
 
+import java.util.List;
 import java.util.Objects;
 
 public class UsuarioMapper {
@@ -13,10 +14,13 @@ public class UsuarioMapper {
         entity.setEstado( dto.getEstado() );
 
 
-        if ( Objects.nonNull( dto.getFkRol() ) )
-        {
-            entity.setFk_Rol( RolMapper.mapDtoToEntity( dto.getFkRol() ) );
-        }
+//        if ( Objects.nonNull( dto.getFkRol() ) )
+//        {
+//            entity.setFk_Rol( RolMapper.mapDtoToEntity( dto.getFkRol() ) );
+//        }
+
+        DaoRol daoRol = FabricaDao.crearDaoRol();
+        entity.setFk_Rol(daoRol.getEncuestadoRol().get(0));
 
         if ( Objects.nonNull( dto.getFkPersona() ) )
         {

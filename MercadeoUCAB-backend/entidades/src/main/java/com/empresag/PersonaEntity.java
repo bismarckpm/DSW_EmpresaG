@@ -3,10 +3,12 @@ package com.empresag;
 import javax.json.bind.annotation.JsonbDateFormat;
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "persona", schema = "empresag", catalog = "")
 public class PersonaEntity extends BaseEntity{
+
     @Basic
     @Column(name = "documento_identidad")
     private String documentoIdentidad;
@@ -26,19 +28,21 @@ public class PersonaEntity extends BaseEntity{
     @Column(name = "fecha_nacimiento")
     @JsonbDateFormat(value = "dd/MM/yyyy")
     private Date fechaNacimiento;
-    @ManyToOne
-    @JoinColumn(name = "fk_genero")
-    private GeneroEntity fkGenero;
-    @ManyToOne
-    @JoinColumn(name = "fk_edo_civil")
-    private EdoCivilEntity fkEdoCivil;
-    @ManyToOne
-    @JoinColumn(name = "fk_persona")
-    private PersonaEntity fkPersona;
-
     @Basic
     @Column(name = "numero_personas_encasa")
     private int numero_personas_encasa;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_genero")
+    private GeneroEntity fkGenero;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_edo_civil")
+    private EdoCivilEntity fkEdoCivil;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_persona")
+    private PersonaEntity fkPersona;
 
     @ManyToOne
     @JoinColumn(name = "fk_lugar")
@@ -52,6 +56,8 @@ public class PersonaEntity extends BaseEntity{
     @JoinColumn(name = "fk_disponibilidad_final")
     private DisponibilidadEntity fkDisponibilidadFinal;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "fkPersona")
+    private List<PersonaEntity> hijos;
 
     public PersonaEntity() {
 
@@ -61,8 +67,6 @@ public class PersonaEntity extends BaseEntity{
         super(id);
     }
 
-    @Basic
-    @Column(name = "documento_identidad")
     public String getDocumentoIdentidad() {
         return documentoIdentidad;
     }
@@ -71,8 +75,6 @@ public class PersonaEntity extends BaseEntity{
         this.documentoIdentidad = documentoIdentidad;
     }
 
-    @Basic
-    @Column(name = "primer_nombre")
     public String getPrimerNombre() {
         return primerNombre;
     }
@@ -81,8 +83,6 @@ public class PersonaEntity extends BaseEntity{
         this.primerNombre = primerNombre;
     }
 
-    @Basic
-    @Column(name = "segundo_nombre")
     public String getSegundoNombre() {
         return segundoNombre;
     }
@@ -91,8 +91,6 @@ public class PersonaEntity extends BaseEntity{
         this.segundoNombre = segundoNombre;
     }
 
-    @Basic
-    @Column(name = "primer_apellido")
     public String getPrimerApellido() {
         return primerApellido;
     }
@@ -101,8 +99,6 @@ public class PersonaEntity extends BaseEntity{
         this.primerApellido = primerApellido;
     }
 
-    @Basic
-    @Column(name = "segundo_apellido")
     public String getSegundoApellido() {
         return segundoApellido;
     }
@@ -111,8 +107,6 @@ public class PersonaEntity extends BaseEntity{
         this.segundoApellido = segundoApellido;
     }
 
-    @Basic
-    @Column(name = "fecha_nacimiento")
     public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
@@ -121,8 +115,6 @@ public class PersonaEntity extends BaseEntity{
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "fk_genero")
     public GeneroEntity getFkGenero() {
         return fkGenero;
     }
@@ -131,8 +123,6 @@ public class PersonaEntity extends BaseEntity{
         this.fkGenero = fkGenero;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "fk_edo_civil")
     public EdoCivilEntity getFkEdoCivil() {
         return fkEdoCivil;
     }
@@ -141,8 +131,6 @@ public class PersonaEntity extends BaseEntity{
         this.fkEdoCivil = fkEdoCivil;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "fk_persona")
     public PersonaEntity getFkPersona() {
         return fkPersona;
     }
@@ -151,8 +139,6 @@ public class PersonaEntity extends BaseEntity{
         this.fkPersona = fkPersona;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "fk_lugar")
     public LugarEntity getFkLugar() {
         return fkLugar;
     }
@@ -161,8 +147,6 @@ public class PersonaEntity extends BaseEntity{
         this.fkLugar = fkLugar;
     }
 
-    @Basic
-    @Column(name = "numero_personas_encasa")
     public int getNumero_personas_encasa() {
         return numero_personas_encasa;
     }
@@ -171,8 +155,6 @@ public class PersonaEntity extends BaseEntity{
         this.numero_personas_encasa = numero_personas_encasa;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "fk_disponibilidad_inicial")
     public DisponibilidadEntity getFkDisponibilidadInicial() {
         return fkDisponibilidadInicial;
     }
@@ -181,8 +163,6 @@ public class PersonaEntity extends BaseEntity{
         this.fkDisponibilidadInicial = fkDisponibilidadInicial;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "fk_disponibilidad_final")
     public DisponibilidadEntity getFkDisponibilidadFinal() {
         return fkDisponibilidadFinal;
     }

@@ -6,7 +6,10 @@ public class PersonaOcupacionMapper {
         PersonaOcupacionEntity entity = new PersonaOcupacionEntity();
 
         entity.setFkPersona(persona);
-        entity.setFkOcupacion( OcupacionMapper.mapIntToEntity(ocupacion) );
+//        entity.setFkOcupacion( OcupacionMapper.mapIntToEntity(ocupacion) );
+
+        DaoOcupacion daoOcupacion = FabricaDao.crearDaoOcupacion();
+        entity.setFkOcupacion( daoOcupacion.find( ocupacion, OcupacionEntity.class ) );
 
         return entity;
 

@@ -5,14 +5,21 @@ import javax.persistence.*;
 @Entity
 @Table(name = "usuario", schema = "empresag")
 public class UsuarioEntity extends BaseEntity{
+
+    @Basic
+    @Column(name = "email")
     private String email;
+    @Basic
+    @Column(name = "password")
     private String password;
     @Basic
     @Column(name = "estado")
     private int estado;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "fk_persona")
     private PersonaEntity fk_Persona;
+
     @ManyToOne
     @JoinColumn(name = "fk_rol")
     private RolEntity fk_Rol;
@@ -24,8 +31,6 @@ public class UsuarioEntity extends BaseEntity{
         super(id);
     }
 
-    @Basic
-    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -34,8 +39,6 @@ public class UsuarioEntity extends BaseEntity{
         this.email = email;
     }
 
-    @Basic
-    @Column(name = "password")
     public String getPassword() {
         return password;
     }
@@ -44,8 +47,6 @@ public class UsuarioEntity extends BaseEntity{
         this.password = password;
     }
 
-    @Basic
-    @Column(name = "estado")
     public int getEstado() {
         return estado;
     }
@@ -54,8 +55,6 @@ public class UsuarioEntity extends BaseEntity{
         this.estado = estado;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "fk_persona")
     public PersonaEntity getFk_Persona() {
         return fk_Persona;
     }
@@ -64,8 +63,6 @@ public class UsuarioEntity extends BaseEntity{
         this.fk_Persona = fkPersona;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "fk_rol")
     public RolEntity getFk_Rol() {
         return fk_Rol;
     }

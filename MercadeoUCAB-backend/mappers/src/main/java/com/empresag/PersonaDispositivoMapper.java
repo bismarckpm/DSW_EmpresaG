@@ -6,7 +6,10 @@ public class PersonaDispositivoMapper {
 
         PersonaDispositivoEntity entity = new PersonaDispositivoEntity();
 
-        entity.setFkDispositivo(DispositivoMapper.mapIntToEntity( device ));
+//        entity.setFkDispositivo(DispositivoMapper.mapIntToEntity( device ));
+
+        DaoDispositivo daoDispositivo = FabricaDao.crearDaoDispositivo();
+        entity.setFkDispositivo(daoDispositivo.find( (long) device , DispositivoEntity.class));
         entity.setFkPersona(persona);
 
         return entity;

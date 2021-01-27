@@ -1,6 +1,7 @@
 package com.empresag;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "lugar", schema = "empresag", catalog = "")
@@ -8,6 +9,24 @@ public class LugarEntity extends BaseEntity{
     @Basic
     @Column(name = "nombre")
     private String nombre;
+
+    @Basic
+    @Column(name = "tipo")
+    private int tipo;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "fk_nivel_socioeconomico")
+    private NivelSocioeconomicoEntity fkNivelSocioeconomico;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "fk_lugar")
+    private LugarEntity fkLugar;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "fkLugar")
+    private List<PersonaEntity> personas;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "fkLugar")
+    private List<LugarEntity> superior;
 
     public LugarEntity(long id) {
         super(id);
@@ -25,9 +44,6 @@ public class LugarEntity extends BaseEntity{
         this.nombre = nombre;
     }
 
-    @Basic
-    @Column(name = "tipo")
-    private int tipo;
 
     public int getTipo() {
         return tipo;
@@ -37,9 +53,6 @@ public class LugarEntity extends BaseEntity{
         this.tipo = tipo;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "fk_nivel_socioeconomico")
-    private NivelSocioeconomicoEntity fkNivelSocioeconomico;
 
     public NivelSocioeconomicoEntity getFkNivelSocioeconomico() {
         return fkNivelSocioeconomico;
@@ -48,10 +61,6 @@ public class LugarEntity extends BaseEntity{
     public void setFkNivelSocioeconomico(NivelSocioeconomicoEntity fkNivelSocioeconomico) {
         this.fkNivelSocioeconomico = fkNivelSocioeconomico;
     }
-
-    @ManyToOne
-    @JoinColumn(name = "fk_lugar")
-    private LugarEntity fkLugar;
 
     public LugarEntity getFkLugar() {
         return fkLugar;

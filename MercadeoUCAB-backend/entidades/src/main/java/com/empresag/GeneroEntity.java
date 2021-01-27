@@ -1,14 +1,18 @@
 package com.empresag;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "genero", schema = "empresag", catalog = "")
 public class GeneroEntity extends BaseEntity{
+
+    @Basic
+    @Column(name = "nombre")
     private String nombre;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "fkGenero")
+    private List<PersonaEntity> personas;
 
     public GeneroEntity(long id) {
         super(id);
@@ -18,8 +22,6 @@ public class GeneroEntity extends BaseEntity{
 
     }
 
-    @Basic
-    @Column(name = "nombre")
     public String getNombre() {
         return nombre;
     }

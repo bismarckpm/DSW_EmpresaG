@@ -1,9 +1,7 @@
 package com.empresag;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "rol", schema = "empresag", catalog = "")
@@ -17,6 +15,9 @@ public class RolEntity extends BaseEntity{
     public RolEntity() {
 
     }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "fk_Rol")
+    private List<UsuarioEntity> usuarios;
 
     @Basic
     @Column(name = "nombre")

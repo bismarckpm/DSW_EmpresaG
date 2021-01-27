@@ -1,6 +1,6 @@
 package com.empresag;
 
-public class RespuestaDto<T> extends BaseDto {
+public class RespuestaDto<T> {
     private int codigo;
     private String mensaje;
     private String mensajesoporte;
