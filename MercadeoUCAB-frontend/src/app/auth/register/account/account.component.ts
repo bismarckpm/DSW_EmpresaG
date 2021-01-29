@@ -208,10 +208,19 @@ export class AccountComponent implements OnInit {
     if (this.accountForm.valid){
       console.log('epa, achantate...');
 
-      this.registerService.postValidRegister().subscribe((person) =>{
-        this.nextPage();
+      this.registerService.postValidRegister().subscribe((respuesta) =>{
+
+        console.log(respuesta);
+
+        if (respuesta.codigo == 0){
+          this.nextPage();
+        }
+        else{
+          this.messageService.add({severity:'error', summary: 'Error', detail: respuesta.mensaje});
+        }
+
       }, errorMessage => {
-        this.messageService.add({severity:'error', summary: 'Error', detail: 'El correo utilizado ya se encuentra registrado.'});
+        this.messageService.add({severity:'error', summary: 'Error', detail: 'No se ha podido establecer comunicacion con el servidor'});
       });
 
       // if (this.registerService.postValidRegister()){

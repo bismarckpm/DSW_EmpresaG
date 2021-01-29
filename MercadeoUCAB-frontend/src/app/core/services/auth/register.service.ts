@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Person } from '../../classes/profile/person';
+import { Respuesta } from '../../classes/respuesta';
 import { persondata } from '../../classes/profile/persondata';
 import { Child } from '../../classes/profile/child';
 import { serverURL } from '../../constants/serverURL';
@@ -88,7 +89,19 @@ export class RegisterService {
     private processHTTPMessageService: ProcessHttpMessageService) {
   }
 
-  postRegister(user: Person): Observable<Person>{
+  // postRegister(user: Person): Observable<Person>{
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({
+  //       'Content-Type': 'application/json'
+  //     })
+  //   };
+
+  //   // return this.http.post<Person>(baseURL + 'register', this.user, httpOptions)
+  //   return this.http.post<Person>(serverURL + 'sesion/register', this.user, httpOptions)
+  //     .pipe(catchError(this.processHTTPMessageService.handleError))
+  // }
+
+  postRegister(user: Person): Observable<Respuesta>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -96,18 +109,29 @@ export class RegisterService {
     };
 
     // return this.http.post<Person>(baseURL + 'register', this.user, httpOptions)
-    return this.http.post<Person>(serverURL + 'sesion/register', this.user, httpOptions)
+    return this.http.post<Respuesta>(serverURL + 'sesion/register', this.user, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  postValidRegister(): Observable<Person>{
+  // postValidRegister(): Observable<Person>{
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({
+  //       'Content-Type': 'application/json'
+  //     })
+  //   };
+
+  //   return this.http.post<Person>(serverURL + 'sesion/validRegister', this.user, httpOptions)
+  //     .pipe(catchError(this.processHTTPMessageService.handleError));
+  // }
+
+  postValidRegister(): Observable<Respuesta>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
 
-    return this.http.post<Person>(serverURL + 'sesion/validRegister', this.user, httpOptions)
+    return this.http.post<Respuesta>(serverURL + 'sesion/validRegister', this.user, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 

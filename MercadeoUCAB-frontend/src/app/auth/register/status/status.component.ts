@@ -98,11 +98,16 @@ export class StatusComponent implements OnInit {
 
       /* SUBMIT FORM */
       this.registerService.postRegister(this.registerService.user)
-        .subscribe(person => {
-          console.log(person);
+        .subscribe(respuesta => {
+          console.log(respuesta);
           // console.log("Bien");
-          this.router.navigate(['/login']);
-          this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Registro completado satisfactoriamente.'});
+          
+          if (respuesta.codigo == 0){
+            this.router.navigate(['/login']);
+          }
+          else{
+            this.messageService.add({severity:'error', summary: 'Error', detail: respuesta.mensaje});
+          }
         },
         errorMessage => {
           this.sent_form = false;
