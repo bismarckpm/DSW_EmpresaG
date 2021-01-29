@@ -47,12 +47,12 @@ public class RecoveryService {
         UsuarioEntity user = usuarioDao.find(token.getFkUsuario().get_id(),UsuarioEntity.class);
         user.setPassword(password);
 
-        UsuarioDto dtoUsuario = userservice.getUser(user.get_id());
-        dtoUsuario.setPassword(password);
-
-        DirectorioActivo ldap = new DirectorioActivo();
-
-        ldap.changePassword(dtoUsuario);
+//        UsuarioDto dtoUsuario = userservice.getUser(user.get_id());
+//        dtoUsuario.setPassword(password);
+//
+//        DirectorioActivo ldap = new DirectorioActivo();
+//
+//        ldap.changePassword(dtoUsuario);
 
         usuarioDao.update(user);
 

@@ -1,6 +1,10 @@
 package com.empresag.usuario;
 
 import com.empresag.*;
+import org.eclipse.persistence.exceptions.DatabaseException;
+
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 public class ComandoCrearUsuario extends ComandoBase {
 
@@ -16,9 +20,9 @@ public class ComandoCrearUsuario extends ComandoBase {
     public void execute() throws Exception {
 
         DaoUsuario dao = FabricaDao.crearDaoUsuario();
-        usuarioEntity = dao.insert(usuarioEntity);
 
         try {
+            usuarioEntity = dao.insert(usuarioEntity);
 
 //            INSERTAR HIJOS
             for (int i = 0; i < usuarioDto.getFkPersona().getHijos().length; i++) {
@@ -54,6 +58,13 @@ public class ComandoCrearUsuario extends ComandoBase {
             DaoPersonaNvlacademico daoPersonaNvlacademico = FabricaDao.crearDaoPersonaNvlacademico();
             daoPersonaNvlacademico.insert(personaNvlacademico);
 
+        }
+        catch (DatabaseException e){
+
+            e.printStackTrace();
+            dao.delete(usuarioEntity);
+
+            throw new UsuarioRepetidoException();
         }
         catch (NullPointerException e){
 

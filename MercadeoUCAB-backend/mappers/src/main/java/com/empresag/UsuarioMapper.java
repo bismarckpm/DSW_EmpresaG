@@ -36,14 +36,10 @@ public class UsuarioMapper {
         dto.setEmail( entity.getEmail() );
         dto.setEstado( entity.getEstado() );
         dto.setFkRol( RolMapper.mapEntityToDto( entity.getFk_Rol() ) );
-        dto.setFkPersona( PersonaMapper.mapEntityToDto( entity.getFk_Persona() ) );
 
-//        TODO - agregar a dto:
-//            hijos
-//            dispositivos
-//            telefono
-//            ocupacion
-//            nivel academico
+        if (dto.getFkRol().get_id() == 4)
+            dto.setFkPersona( PersonaMapper.mapEntityToDto( entity.getFk_Persona() ) );
+
 
         return dto;
     }
