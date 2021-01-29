@@ -2,6 +2,7 @@ package com.empresag;
 
 import com.empresag.usuario.ComandoConsultarListaUsuarios;
 import com.empresag.usuario.ComandoCrearUsuario;
+import com.empresag.usuario.ComandoEditarUsuario;
 import com.empresag.usuario.ComandoEliminarUsuaio;
 
 import javax.ws.rs.*;
@@ -278,7 +279,7 @@ public class UserService {
     public RespuestaDto<Boolean> deleteUser(@PathParam("id") long id){
 
         ComandoEliminarUsuaio eliminar = new ComandoEliminarUsuaio(id);
-        RespuestaDto<Boolean> respuesta = new RespuestaDto();
+        RespuestaDto<Boolean> respuesta = new RespuestaDto<>();
 
         try {
 
@@ -306,192 +307,33 @@ public class UserService {
 
     @PUT
     @Path("/edit/{id}")
-    public Response editUser(@PathParam("id") long id, UsuarioDto usuarioDto){
+    public RespuestaDto<Boolean> editUser(@PathParam("id") long id, UsuarioDto usuarioDto){
 
-        DaoUsuario usuarioDao = new DaoUsuario();
-        UsuarioEntity usuarioOld = usuarioDao.find(id, UsuarioEntity.class);
+        ComandoEditarUsuario editar = new ComandoEditarUsuario(id, usuarioDto);
+        RespuestaDto<Boolean> respuesta = new RespuestaDto<>();
 
-        if (usuarioOld != null){
+        try {
 
-            usuarioOld.setEstado(usuarioDto.getEstado());
-            if (!usuarioDto.getPassword().equals("")) {
-                usuarioOld.setPassword(usuarioDto.getPassword());
-                DirectorioActivo ldap = new DirectorioActivo();
-                ldap.changePassword(usuarioDto);
+            editar.execute();
+
+            if (editar.getResult()){
+                respuesta.setCodigo(0);
+                respuesta.setEstado( "OK" );
+                respuesta.setMensaje( "Usuario editado" );
+            }else{
+                respuesta.setCodigo(-1);
+                respuesta.setEstado( "ERROR" );
+                respuesta.setMensaje( "Usuario no editado" );
             }
 
-//            INSERTAR ROL
-            RolEntity rolEntity = new RolEntity();
-            DaoRol daoRol = new DaoRol();
-            rolEntity = daoRol.find(usuarioDto.getFkRol().get_id(), RolEntity.class);
-            usuarioOld.setFk_Rol(rolEntity);
-
-
-            DaoUsuario daoUsuario = new DaoUsuario();
-
-            if (usuarioDto.getFkRol().get_id() == 4){
-
-                DaoPersona daoPersona = new DaoPersona();
-                PersonaEntity persona = daoPersona.find(usuarioDto.getFkPersona().get_id(), PersonaEntity.class);
-                persona.setDocumentoIdentidad(usuarioDto.getFkPersona().getDocumentoIdentidad());
-                persona.setPrimerNombre(usuarioDto.getFkPersona().getPrimerNombre());
-                persona.setSegundoNombre(usuarioDto.getFkPersona().getSegundoNombre());
-                persona.setPrimerApellido(usuarioDto.getFkPersona().getPrimerApellido());
-                persona.setSegundoApellido(usuarioDto.getFkPersona().getSegundoApellido());
-                persona.setFechaNacimiento(usuarioDto.getFkPersona().getFechaNacimiento());
-                persona.setNumero_personas_encasa(usuarioDto.getFkPersona().getNumero_personas_encasa());
-
-//            OBTENER GENERO
-                DaoGenero daoGenero = new DaoGenero();
-                GeneroEntity generoPersona = daoGenero.find(usuarioDto.getFkPersona().getFkGenero().get_id(), GeneroEntity.class);
-                persona.setFkGenero(generoPersona);
-
-//            OBTENER EDO CIVIL
-                DaoEdoCivil daoEdoCivil = new DaoEdoCivil();
-                EdoCivilEntity edoCivilPersona = daoEdoCivil.find(usuarioDto.getFkPersona().getFkEdoCivil().get_id(), EdoCivilEntity.class);
-                persona.setFkEdoCivil(edoCivilPersona);
-
-//            OBTENER LUGAR
-                DaoLugar daoLugar = new DaoLugar();
-                LugarEntity lugarPersona = daoLugar.find(usuarioDto.getFkPersona().getFkLugar().get_id(), LugarEntity.class);
-                persona.setFkLugar(lugarPersona);
-
-
-//            OBTENER DISPONIBILIDAD
-                DisponibilidadDto dispo_inicial = usuarioDto.getFkPersona().getId_horario_inicial();
-                DisponibilidadDto dispo_final = usuarioDto.getFkPersona().getId_horario_final();
-
-                DaoDisponibilidad daoDisponibilidad = new DaoDisponibilidad();
-
-                DisponibilidadEntity disponibilidadEntity_i = daoDisponibilidad.find(dispo_inicial.get_id(), DisponibilidadEntity.class);
-                DisponibilidadEntity disponibilidadEntity_f = daoDisponibilidad.find(dispo_final.get_id(), DisponibilidadEntity.class);
-
-                persona.setFkDisponibilidadInicial(disponibilidadEntity_i);
-                persona.setFkDisponibilidadFinal(disponibilidadEntity_f);
-
-
-//            INSERTAR PERSONA
-                daoPersona.update(persona);
-
-                usuarioOld.setFk_Persona(persona);
-                daoUsuario.update(usuarioOld);
-
-//                BUSCAR LOS HIJOS DE UN ID DE PERSONA
-                List<PersonaEntity> hijos = daoPersona.findSons(persona.get_id());
-//                BORRAR TODOS LOS HIJOS DE UN ID DE PERSONA
-                for (PersonaEntity hijo : hijos) {
-                    daoPersona.delete(hijo);
-                }
-
-//            INSERTAR HIJOS
-                for (int i = 0; i < usuarioDto.getFkPersona().getHijos().length; i++) {
-                    PersonaDto hijoDto = usuarioDto.getFkPersona().getHijos()[i];
-                    PersonaEntity hijo = new PersonaEntity();
-                    hijo.setDocumentoIdentidad(hijoDto.getDocumentoIdentidad());
-                    hijo.setPrimerNombre(hijoDto.getPrimerNombre());
-                    hijo.setSegundoNombre(hijoDto.getSegundoNombre());
-                    hijo.setPrimerApellido(hijoDto.getPrimerApellido());
-                    hijo.setSegundoApellido(hijoDto.getSegundoApellido());
-                    hijo.setFechaNacimiento(hijoDto.getFechaNacimiento());
-                    hijo.setFkPersona(persona);
-
-                    GeneroEntity generoHijo = daoGenero.find(hijoDto.getFkGenero().get_id(), GeneroEntity.class);
-                    hijo.setFkGenero(generoHijo);
-
-                    DaoPersona daoHijo = new DaoPersona();
-                    daoHijo.insert(hijo);
-
-                }
-
-
-//                BUSCAR LOS DISPOSITIVOS DE UN ID DE PERSONA
-                DaoPersonaDispositivo daoPersonaDispositivo = new DaoPersonaDispositivo();
-                List<PersonaDispositivoEntity> dispositivos = daoPersonaDispositivo.findPersonaDispositivos(persona.get_id());
-//                BORRAR TODOS LOS DISPOSITIVOS DE UN ID DE PERSONA
-                for (PersonaDispositivoEntity device :
-                        dispositivos) {
-                    daoPersonaDispositivo.delete(device);
-                }
-//            INSERTAR DISPOSITIVOS USADOS
-                for (int i = 0; i < usuarioDto.getFkPersona().getDispositivos().length; i++) {
-                    DaoDispositivo daoDispositivo = new DaoDispositivo();
-
-                    DispositivoEntity dispositivo = daoDispositivo.find((long) usuarioDto.getFkPersona().getDispositivos()[i], DispositivoEntity.class);
-
-                    PersonaDispositivoEntity personaDispositivo = new PersonaDispositivoEntity();
-                    personaDispositivo.setFkPersona(persona);
-                    personaDispositivo.setFkDispositivo(dispositivo);
-
-                    daoPersonaDispositivo.insert(personaDispositivo);
-
-                }
-
-//                BUSCAR LOS NUMERO DE TELEFONO DE UN ID DE PERSONA
-                DaoTelefono daoTelefono = new DaoTelefono();
-                List<TelefonoEntity> telefonos = daoTelefono.findTelefono(persona.get_id());
-//                BORRAR TODOS LOS NUMERO DE TELEFONO DE UN ID DE PERSONA
-                for (TelefonoEntity phone:
-                     telefonos) {
-                    daoTelefono.delete(phone);
-                }
-//            INSERTAR NUMERO DE TELEFONO
-                TelefonoEntity telefonoPersona = new TelefonoEntity();
-                telefonoPersona.setNumero(usuarioDto.getFkPersona().getTelefono());
-                telefonoPersona.setFkPersona(persona);
-                daoTelefono.insert(telefonoPersona);
-
-//            OBTENER OCUPACION
-                DaoOcupacion daoOcupacion = new DaoOcupacion();
-                OcupacionEntity ocupacion = daoOcupacion.find(usuarioDto.getFkPersona().getOcupacion(), OcupacionEntity.class);
-
-//                BUSCAR LOS PERSONA OCUPACION DE UN ID DE PERSONA
-                DaoPersonaOcupacion daoPersonaOcupacion = new DaoPersonaOcupacion();
-                List<PersonaOcupacionEntity> ocupaciones = daoPersonaOcupacion.findOcupacionPersona(persona.get_id());
-//                BORRAR TODOS LOS PERSONA OCUPACION DE UN ID DE PERSONA
-                for (PersonaOcupacionEntity empleo:
-                     ocupaciones) {
-                    daoPersonaOcupacion.delete(empleo);
-                }
-//            INSERTAR PERSONA OCUPACION
-                PersonaOcupacionEntity personaOcupacion = new PersonaOcupacionEntity();
-                personaOcupacion.setFkOcupacion(ocupacion);
-                personaOcupacion.setFkPersona(persona);
-
-                daoPersonaOcupacion.insert(personaOcupacion);
-
-
-//            OBTENER NIVEL ACADEMICO
-                DaoNivelAcademico daoNivelAcademico = new DaoNivelAcademico();
-                NivelAcademicoEntity nivelAcademicoPersona = daoNivelAcademico.find(usuarioDto.getFkPersona().getId_nivel_academico(), NivelAcademicoEntity.class);
-
-//                BUSCAR LOS NIVEL ACADEMICO DE UN ID DE PERSONA
-                DaoPersonaNvlacademico daoPersonaNvlacademico = new DaoPersonaNvlacademico();
-                List<PersonaNvlacademicoEntity> grados = daoPersonaNvlacademico.findNivAcademicos(persona.get_id());
-//                BORRAR TODOS LOS NIVEL ACADEMICO DE UN ID DE PERSONA
-                for (PersonaNvlacademicoEntity grado:
-                     grados) {
-                    daoPersonaNvlacademico.delete(grado);
-                }
-//            INSERTAR NIVEL ACADEMICO
-                PersonaNvlacademicoEntity personaNvlacademico = new PersonaNvlacademicoEntity();
-                personaNvlacademico.setFkNivelAcademico(nivelAcademicoPersona);
-                personaNvlacademico.setFkPersona(persona);
-
-                daoPersonaNvlacademico.insert(personaNvlacademico);
-
-
-            }
-            else{
-                daoUsuario.update(usuarioOld);
-            }
-
-
-
-            return Response.ok().entity(usuarioOld).build();
-
+        } catch (Exception e) {
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado( "ERROR" );
+            respuesta.setMensaje( "Usuario no editado" );
         }
-        else
-            return Response.status(Response.Status.NOT_FOUND).build();
+        return respuesta;
+
     }
 
 
