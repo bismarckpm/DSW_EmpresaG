@@ -31,8 +31,16 @@ export class AvailableSurveysComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.surveyService.getAvailableSurveys(this.current_user).subscribe((studies) => {
-      this.estudios = studies;
+    this.surveyService.getAvailableSurveys(this.current_user).subscribe((res) => {
+      if (res.codigo == 0){
+        if (res.objeto){
+          this.estudios = res.objeto as StudyWithFilter[] ;
+        }
+      }
+      else{
+        this.loading = false;
+        this.estudiosErrorMessage = res.mensaje;
+      }
     }, errorMessage => {
       this.loading = false;
       this.estudiosErrorMessage = errorMessage;

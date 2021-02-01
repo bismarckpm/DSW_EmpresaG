@@ -89,9 +89,14 @@ export class TakeSurveyUserComponent implements OnInit {
             this.preguntas = questions;
 
             this.analystService.isPersonPartOfAvailablePopulation(this.current_study, this.current_user).subscribe((res) => {
-              this.loading = false;
-              this.spinner.hide();
-              this.createForm();
+              if (res.codigo == 0){
+                this.loading = false;
+                this.spinner.hide();
+                this.createForm();
+              }
+              else{
+                this.router.navigate(['404']);
+              }
             }, errorMessage => {
               this.router.navigate(['404']);
             });
@@ -179,8 +184,14 @@ export class TakeSurveyUserComponent implements OnInit {
   }
 
   postAnswers() {
-    this.userSurveyService.postAnswers(this.current_study, this.current_user, this.respuestas).subscribe((study) => {
-      this.router.navigate(['surveys/available']);
+    this.userSurveyService.postAnswers(this.current_study, this.current_user, this.respuestas).subscribe((res) => {
+      if (res.codigo == 0){
+          this.router.navigate(['surveys/available']);
+      }
+      else{
+        this.sent_form = false;
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: res.mensaje });
+      }
     }, errorMessage => {
       this.sent_form = false;
       this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });

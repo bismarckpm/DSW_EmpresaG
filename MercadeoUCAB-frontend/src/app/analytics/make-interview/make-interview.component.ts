@@ -88,9 +88,14 @@ export class MakeInterviewComponent implements OnInit {
             this.preguntas = questions;
 
             this.analystService.isPersonPartOfAvailablePopulationInterview(this.current_study, this.current_user).subscribe((res) => {
-              this.loading = false;
-              this.spinner.hide();
-              this.createForm();
+              if (res.codigo == 0){
+                this.loading = false;
+                this.spinner.hide();
+                this.createForm();
+              }
+              else{
+                this.router.navigate(['404']);
+              }
             }, errorMessage => {
               this.router.navigate(['404']);
             });
@@ -177,8 +182,14 @@ export class MakeInterviewComponent implements OnInit {
   }
 
   postAnswers() {
-    this.analystService.postAnswers(this.current_study, this.current_user, this.respuestas).subscribe((study) => {
-      this.router.navigate(['/analytics/requests']);
+    this.analystService.postAnswers(this.current_study, this.current_user, this.respuestas).subscribe((res) => {
+      if (res.codigo == 0){
+        this.router.navigate(['/analytics/requests']);
+      }
+      else{
+        this.sent_form = false;
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: res.mensaje });
+      }
     }, errorMessage => {
       this.sent_form = false;
       this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });

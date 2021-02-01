@@ -8,6 +8,7 @@ import { persondata } from '../../classes/profile/persondata';
 import { QuestionWithStats } from '../../classes/analytics/question_with_stats';
 import { Analytics } from '../../classes/analytics/analytics';
 import {Survey} from '../../classes/study/survey';
+import { Respuesta } from '../../classes/respuesta';
 
 @Injectable({
   providedIn: 'root'
@@ -17,21 +18,36 @@ export class AnalystService {
   constructor(private http: HttpClient,
               private processHTTPMessageService: ProcessHttpMessageService) { }
 
-  getAvailablePopulation(study_id): Observable<persondata[]>{
-    return this.http.get<persondata[]>(serverURL + 'survey/available-population/' + study_id)
+  // getAvailablePopulation(study_id): Observable<persondata[]>{
+  //   return this.http.get<persondata[]>(serverURL + 'survey/available-population/' + study_id)
+  //   .pipe(catchError(this.processHTTPMessageService.handleError));
+  // }
+
+  // isPersonPartOfAvailablePopulation(study_id, person_id): Observable<any>{
+  //   return this.http.get<any>(serverURL + 'survey/available-population/' + study_id + '/' + person_id)
+  //     .pipe(catchError(this.processHTTPMessageService.handleError));
+  // }
+
+  // isPersonPartOfAvailablePopulationInterview(study_id, person_id): Observable<any>{
+  //   return this.http.get<any>(serverURL + 'survey/available-population-interview/' + study_id + '/' + person_id)
+  //     .pipe(catchError(this.processHTTPMessageService.handleError));
+  // }
+
+  getAvailablePopulation(study_id): Observable<Respuesta>{
+    return this.http.get<Respuesta>(serverURL + 'survey/available-population/' + study_id)
     .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
-  isPersonPartOfAvailablePopulation(study_id, person_id): Observable<any>{
-    return this.http.get<any>(serverURL + 'survey/available-population/' + study_id + '/' + person_id)
+  isPersonPartOfAvailablePopulation(study_id, person_id): Observable<Respuesta>{
+    return this.http.get<Respuesta>(serverURL + 'survey/available-population/' + study_id + '/' + person_id)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
-  isPersonPartOfAvailablePopulationInterview(study_id, person_id): Observable<any>{
-    return this.http.get<any>(serverURL + 'survey/available-population-interview/' + study_id + '/' + person_id)
+  isPersonPartOfAvailablePopulationInterview(study_id, person_id): Observable<Respuesta>{
+    return this.http.get<Respuesta>(serverURL + 'survey/available-population-interview/' + study_id + '/' + person_id)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
-
+  
   getOpenTextAnswers(study_id): Observable<QuestionWithStats[]>{
     return this.http.get<QuestionWithStats[]>(serverURL + 'analytics/open-text/' + study_id)
       .pipe(catchError(this.processHTTPMessageService.handleError));
@@ -68,14 +84,14 @@ export class AnalystService {
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
-  postAnswers(study_id, person_id, survey): Observable<Survey> {
+  postAnswers(study_id, person_id, survey): Observable<Respuesta> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
     };
 
-    return this.http.post<Survey>(serverURL + 'survey/take-interview/' + study_id + '/' + person_id, survey, httpOptions)
+    return this.http.post<Respuesta>(serverURL + 'survey/take-interview/' + study_id + '/' + person_id, survey, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 }

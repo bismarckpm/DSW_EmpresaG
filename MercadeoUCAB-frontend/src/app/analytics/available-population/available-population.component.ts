@@ -35,11 +35,16 @@ export class AvailablePopulationComponent implements OnInit {
     else {
       this.current_study = parseInt(this.activatedRoute.snapshot.queryParamMap.get('studyId'));
 
-      this.analystService.getAvailablePopulation(this.current_study).subscribe((people) => {
-        if (people){
-          this.people = people;
-          this.loading = false;
-          this.spinner.hide();
+      this.analystService.getAvailablePopulation(this.current_study).subscribe((res) => {
+        if (res.codigo == 0){
+          if (res.objeto){
+            this.people = res.objeto as persondata[];
+            this.loading = false;
+            this.spinner.hide();
+          }
+        }
+        else{
+          this.router.navigate(['404']);
         }
 
       }, errorMessage => {
