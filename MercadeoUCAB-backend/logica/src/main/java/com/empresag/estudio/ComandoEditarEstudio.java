@@ -23,8 +23,6 @@ public class ComandoEditarEstudio extends ComandoBase {
 
         if (estudioOld != null){
 
-//            UsuarioEntity usuarioUpdated = UsuarioMapper.mapDtoToEntity(usuarioDto);
-
             estudioOld.setEstado(estudioDto.getEstado());
             estudioOld.setFechaRealizacion(estudioDto.getFechaRealizacion());
             estudioOld.setFechaCulminacion(estudioDto.getFechaCulminacion());

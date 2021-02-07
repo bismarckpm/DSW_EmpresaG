@@ -118,7 +118,6 @@ public class AnalyticsService {
     @Path("/add/{studyId}")
     public RespuestaDto<AnalisisDto> addConclusion(@PathParam("studyId") long studyId, AnalisisDto analisisDto){
         DaoEstudio daoEstudio = FabricaDao.crearDaoEstudio();
-        DaoAnalisis daoAnalisis = FabricaDao.crearDaoAnalisis();
 
         RespuestaDto<AnalisisDto> respuesta = new RespuestaDto<>();
         try {
