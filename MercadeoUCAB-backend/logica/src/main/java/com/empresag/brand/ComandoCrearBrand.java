@@ -34,7 +34,6 @@ public class ComandoCrearBrand extends ComandoBase {
             daoMarca.delete(marca);
             dao.delete(subcategoriaMarcaEntity);
 
-            throw new UsuarioRepetidoException();
         }
         catch (NullPointerException e){
 

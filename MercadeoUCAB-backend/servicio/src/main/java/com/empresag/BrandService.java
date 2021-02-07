@@ -6,7 +6,6 @@ import com.empresag.brand.ComandoEliminarBrand;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/brands")
@@ -54,8 +53,6 @@ public class BrandService {
     @POST
     @Path("/add")
     public RespuestaDto<SubcategoriaMarcaDto> addBrand(SubcategoriaMarcaDto subcategoriaMarcaDto) {
-        DaoSubcategoriaMarca daoSubcategoriaMarca = FabricaDao.crearDaoSubcategoriaMarca();
-        DaoMarca daoMarca = FabricaDao.crearDaoMarca();
 
         RespuestaDto<SubcategoriaMarcaDto> respuesta = new RespuestaDto<>();
 

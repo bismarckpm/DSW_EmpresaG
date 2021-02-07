@@ -2,11 +2,9 @@ package com.empresag.brand;
 
 import com.empresag.*;
 
-import javax.ws.rs.core.Response;
-
 public class ComandoEliminarBrand extends ComandoBase {
 
-    private long id = 0;
+    private long id;
 
     private boolean eliminado = false;
 
@@ -17,7 +15,7 @@ public class ComandoEliminarBrand extends ComandoBase {
     @Override
     public void execute() throws Exception {
 
-        DaoSubcategoriaMarca daoSubcategoriaMarca = new DaoSubcategoriaMarca();
+        DaoSubcategoriaMarca daoSubcategoriaMarca = FabricaDao.crearDaoSubcategoriaMarca();
         SubcategoriaMarcaEntity sm = daoSubcategoriaMarca.find(id, SubcategoriaMarcaEntity.class);
 
         daoSubcategoriaMarca.delete(sm);
