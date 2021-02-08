@@ -24,8 +24,6 @@ public class ComandoCrearConclusion extends ComandoBase {
 
             e.printStackTrace();
             dao.delete(analisisEntity);
-
-            throw new UsuarioRepetidoException();
         }
         catch (NullPointerException e){
 

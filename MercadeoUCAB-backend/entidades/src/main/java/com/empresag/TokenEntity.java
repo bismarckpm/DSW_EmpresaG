@@ -33,6 +33,13 @@ public class TokenEntity extends BaseEntity {
     @JoinColumn(name = "fk_usuario")
     public UsuarioEntity fkUsuario;
 
+    public TokenEntity() {
+    }
+
+    public TokenEntity(long id) {
+        super(id);
+    }
+
     public UsuarioEntity getFkUsuario() {
         return fkUsuario;
     }
