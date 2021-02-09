@@ -27,6 +27,7 @@ import { Table } from 'primeng/table';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { CivilStatus } from 'src/app/core/classes/profile/civil_status';
+import { CategorySubcategory } from 'src/app/core/classes/products/category_subcategory';
 
 @Component({
   selector: 'app-edit-study',
@@ -246,7 +247,9 @@ export class EditStudyComponent implements OnInit {
   }
 
   getSubcategories(category_id) {
-    this.subcategoryService.getSubcategories(category_id).subscribe((subcategories) => {
+    this.subcategoryService.getSubcategories(category_id).subscribe((respuesta) => {
+      var subcategories = respuesta.objeto as CategorySubcategory[];
+      console.log(subcategories);
       this.subcategorias = [];
       for (let i = 0; i < subcategories.length; i++) {
         this.subcategorias.push({

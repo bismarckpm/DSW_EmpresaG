@@ -121,11 +121,16 @@ export class EditPresentationComponent implements OnInit {
   }
 
   putPresentation(){
-    this.presentationService.putPresentation(this.presentation).subscribe((p)=>{
-      this.presentation = p;
-      this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Presentación actualizada con éxito'});
+    this.presentationService.putPresentation(this.presentation).subscribe((res)=>{
+      if (res.codigo == 0){
+        this.presentation = res.objeto as TypePresentation;
+        this.messageService.add({severity:'success', summary: 'Éxito', detail: res.mensaje});
+        this.editPresentation();
+      }
+      else{
+        this.messageService.add({severity:'error', summary: 'Error', detail: res.mensaje});
+      }
       this.sent_form = false;
-      this.editPresentation();
       this.closeModal();
     }, errorMessage => {
       this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});

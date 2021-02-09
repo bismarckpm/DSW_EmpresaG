@@ -119,11 +119,19 @@ export class AddSubcategoryComponent implements OnInit {
   }
 
   postSubcategory(){
-    this.subcategoryService.postSubcategory(this.subcategory).subscribe((s)=>{
-      this.subcategory = s;
-      this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Subcategoría añadida con éxito'});
-      this.sent_form = false;
-      this.appendSubcategory();
+    this.subcategoryService.postSubcategory(this.subcategory).subscribe((respuesta)=>{
+
+      if (respuesta.codigo == 0){
+        this.subcategory = respuesta.objeto as CategorySubcategory;
+        this.messageService.add({severity:'success', summary: 'Éxito', detail: respuesta.mensaje});
+        this.sent_form = false;
+        this.appendSubcategory();
+      }
+      else{
+        this.messageService.add({severity:'error', summary: 'Error', detail: respuesta.mensaje});
+        this.sent_form = false;
+      }
+      
       this.closeModal();
     }, errorMessage => {
       this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});

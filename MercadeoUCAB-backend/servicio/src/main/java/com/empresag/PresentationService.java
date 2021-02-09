@@ -1,5 +1,7 @@
 package com.empresag;
 
+import com.empresag.presentation.ComandoCrearPresentacion;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -9,80 +11,166 @@ import java.util.List;
 @Produces( MediaType.APPLICATION_JSON )
 @Consumes( MediaType.APPLICATION_JSON )
 public class PresentationService {
+
     @GET
     @Path("/all")
-    public List<TipoPresentacionEntity> allPresentations(){
-        DaoTipoPresentacion daoTipoPresentacion = new DaoTipoPresentacion();
-        return daoTipoPresentacion.findAll(TipoPresentacionEntity.class);
+    public RespuestaDto<List<TipoPresentacionEntity>> allPresentations(){
+        RespuestaDto<List<TipoPresentacionEntity>> respuesta = new RespuestaDto<>();
+
+        try {
+
+            DaoTipoPresentacion daoTipoPresentacion = FabricaDao.crearDaoTipoPresentacion();
+
+            respuesta.setCodigo(0);
+            respuesta.setEstado("OK");
+            respuesta.setObjeto(daoTipoPresentacion.findAll(TipoPresentacionEntity.class));
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado("ERROR");
+            respuesta.setMensaje(e.getMessage());
+        }
+
+        return respuesta;
     }
 
     @POST
     @Path("/add")
-    public TipoPresentacionEntity addPresentation(TipoPresentacionDto tipoPresentacionDto){
-        DaoTipoPresentacion daoTipoPresentacion = new DaoTipoPresentacion();
-        DaoPresentacion daoPresentacion = new DaoPresentacion();
+    public RespuestaDto<TipoPresentacionEntity> addPresentation(TipoPresentacionDto tipoPresentacionDto){
+//        DaoTipoPresentacion daoTipoPresentacion = FabricaDao.crearDaoTipoPresentacion();
+//        DaoPresentacion daoPresentacion = FabricaDao.crearDaoPresentacion();
+//
+//        TipoEntity tipo = FabricaEntity.crearTipoEntity(tipoPresentacionDto.getFkTipo().get_id());
+//        tipo.setNombre(tipoPresentacionDto.getFkTipo().getNombre());
+//
+//        PresentacionEntity presentacion = FabricaEntity.crearPresentacionEntity();
+//        presentacion.setNombre(tipoPresentacionDto.getFkPresentacion().getNombre());
+//        presentacion.setDescripcion(tipoPresentacionDto.getFkPresentacion().getDescripcion());
+//        daoPresentacion.insert(presentacion);
+//
+//        TipoPresentacionEntity tp = FabricaEntity.crearTipoPresentacionEntity();
+//        tp.setFkPresentacion(presentacion);
+//        tp.setFkTipo(tipo);
+//        daoTipoPresentacion.insert(tp);
 
-        TipoEntity tipo = new TipoEntity(tipoPresentacionDto.getFkTipo().get_id());
-        tipo.setNombre(tipoPresentacionDto.getFkTipo().getNombre());
+        RespuestaDto<TipoPresentacionEntity> respuesta = new RespuestaDto<>();
 
-        PresentacionEntity presentacion = new PresentacionEntity();
-        presentacion.setNombre(tipoPresentacionDto.getFkPresentacion().getNombre());
-        presentacion.setDescripcion(tipoPresentacionDto.getFkPresentacion().getDescripcion());
-        daoPresentacion.insert(presentacion);
+        try {
+            ComandoCrearPresentacion comando = new ComandoCrearPresentacion(tipoPresentacionDto);
+            comando.execute();
+            respuesta.setCodigo(0);
+            respuesta.setEstado("OK");
+            respuesta.setMensaje("Presentacion agregada exitosamente.");
+            respuesta.setObjeto(comando.getResult());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado("ERROR");
+            respuesta.setMensaje(e.getMessage());
+        }
 
-        TipoPresentacionEntity tp = new TipoPresentacionEntity();
-        tp.setFkPresentacion(presentacion);
-        tp.setFkTipo(tipo);
-        daoTipoPresentacion.insert(tp);
-
-        return tp;
+        return respuesta;
     }
 
 
     @PUT
     @Path("/update/{id}")
-    public Response updateType(@PathParam("id") long id, TipoPresentacionDto tipoPresentacionDto){
-        DaoTipoPresentacion daoTipoPresentacion = new DaoTipoPresentacion();
-        DaoPresentacion daoPresentacion = new DaoPresentacion();
-        TipoPresentacionEntity tp = daoTipoPresentacion.find(id, TipoPresentacionEntity.class);
+    public RespuestaDto<TipoPresentacionEntity> updateType(@PathParam("id") long id, TipoPresentacionDto tipoPresentacionDto){
+        RespuestaDto<TipoPresentacionEntity> respuesta = new RespuestaDto<>();
 
-        if (tp != null){
-            tp.setFkTipo(new TipoEntity(tipoPresentacionDto.getFkTipo().get_id(),
-                    tipoPresentacionDto.getFkPresentacion().getNombre()));
-            tp.setFkPresentacion(new PresentacionEntity(tipoPresentacionDto.getFkPresentacion().get_id()));
+        try {
+            DaoTipoPresentacion daoTipoPresentacion = new DaoTipoPresentacion();
+            DaoPresentacion daoPresentacion = new DaoPresentacion();
+            TipoPresentacionEntity tp = daoTipoPresentacion.find(id, TipoPresentacionEntity.class);
 
-            PresentacionEntity presentacion = daoPresentacion.find(tipoPresentacionDto.getFkPresentacion().get_id(),
-                    PresentacionEntity.class);
+            if (tp != null) {
+                tp.setFkTipo(new TipoEntity(tipoPresentacionDto.getFkTipo().get_id(),
+                        tipoPresentacionDto.getFkPresentacion().getNombre()));
+                tp.setFkPresentacion(new PresentacionEntity(tipoPresentacionDto.getFkPresentacion().get_id()));
 
-            if (presentacion != null){
-                presentacion.setNombre(tipoPresentacionDto.getFkPresentacion().getNombre());
-                presentacion.setDescripcion(tipoPresentacionDto.getFkPresentacion().getDescripcion());
-                daoPresentacion.update(presentacion);
-                daoTipoPresentacion.update(tp);
-                return Response.ok().entity(tp).build();
-            }
-            else {
-                return Response.status(Response.Status.NOT_FOUND).build();
+                PresentacionEntity presentacion = daoPresentacion.find(tipoPresentacionDto.getFkPresentacion().get_id(),
+                        PresentacionEntity.class);
+
+                if (presentacion != null) {
+                    presentacion.setNombre(tipoPresentacionDto.getFkPresentacion().getNombre());
+                    presentacion.setDescripcion(tipoPresentacionDto.getFkPresentacion().getDescripcion());
+                    daoPresentacion.update(presentacion);
+                    daoTipoPresentacion.update(tp);
+
+                    respuesta.setCodigo(0);
+                    respuesta.setEstado("OK");
+                    respuesta.setMensaje("La presentacion ha sido actualizada");
+                    respuesta.setObjeto(tp);
+                } else {
+                    respuesta.setCodigo(-1);
+                    respuesta.setEstado("ERROR");
+                    respuesta.setMensaje("No existe la presentacion solicitada.");
+                }
+            } else {
+                respuesta.setCodigo(-1);
+                respuesta.setEstado("ERROR");
+                respuesta.setMensaje("No existe la presentacion solicitada.");
             }
         }
-        else {
-            return Response.status(Response.Status.NOT_FOUND).build();
+        catch (NullPointerException e){
+
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado("ERROR");
+            respuesta.setMensaje("No existe la presentacion solicitada.");
         }
+        catch (Exception e){
+
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado("ERROR");
+            respuesta.setMensaje(e.getMessage());
+        }
+
+        return respuesta;
     }
 
 
     @DELETE
     @Path("/delete/{id}")
-    public Response deletePresentation(@PathParam("id") long id){
-        DaoTipoPresentacion daoTipoPresentacion = new DaoTipoPresentacion();
-        TipoPresentacionEntity tp = daoTipoPresentacion.find(id, TipoPresentacionEntity.class);
+    public RespuestaDto<Boolean> deletePresentation(@PathParam("id") long id){
+        RespuestaDto<Boolean> respuesta = new RespuestaDto<>();
+        DaoTipoPresentacion daoTipoPresentacion = FabricaDao.crearDaoTipoPresentacion();
+        try {
+            TipoPresentacionEntity tp = daoTipoPresentacion.find(id, TipoPresentacionEntity.class);
 
-        if (tp != null){
-            daoTipoPresentacion.delete(tp);
-            return Response.ok().entity(tp).build();
+            if (tp != null) {
+                daoTipoPresentacion.delete(tp);
+                respuesta.setCodigo(0);
+                respuesta.setEstado("OK");
+                respuesta.setMensaje("La presentacion ha sido eliminada.");
+                respuesta.setObjeto(true);
+            } else {
+                respuesta.setCodigo(-1);
+                respuesta.setEstado("ERROR");
+                respuesta.setMensaje("No existe la presentacion solicitada.");
+                respuesta.setObjeto(false);
+            }
         }
-        else {
-            return Response.status(Response.Status.NOT_FOUND).build();
+        catch (NullPointerException e){
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado("ERROR");
+            respuesta.setMensaje("No existe la presentacion solicitada.");
+            respuesta.setObjeto(false);
         }
+        catch (Exception e){
+
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado("ERROR");
+            respuesta.setMensaje(e.getMessage());
+            respuesta.setObjeto(false);
+        }
+
+        return respuesta;
     }
 }

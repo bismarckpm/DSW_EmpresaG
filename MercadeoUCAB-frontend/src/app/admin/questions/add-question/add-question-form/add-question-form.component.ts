@@ -18,6 +18,7 @@ import { QuestionCategorySubcategory } from 'src/app/core/classes/study/question
 import { Category } from 'src/app/core/classes/products/category';
 import { Subcategory } from 'src/app/core/classes/products/subcategory';
 import { QuestionType } from 'src/app/core/classes/study/question_type';
+import { CategorySubcategory } from 'src/app/core/classes/products/category_subcategory';
 
 @Component({
   selector: 'app-add-question-form',
@@ -106,8 +107,12 @@ export class AddQuestionFormComponent implements OnInit {
 
     /* If this component is called from edit study */
     if (this.category_id && this.subcategory_id){
-      this.subcategoryService.getSubcategories(this.category_id).subscribe((subcategory) => {
-        this.subcategorias = replaceKeyWithValue(subcategory);
+      this.subcategoryService.getSubcategories(this.category_id).subscribe((respuesta) => {
+
+        var subcategories = respuesta.objeto as CategorySubcategory[];
+        console.log(subcategories);
+
+        this.subcategorias = replaceKeyWithValue(subcategories);
 
         this.questionForm.patchValue({
           categoria: this.category_id,
@@ -171,7 +176,9 @@ export class AddQuestionFormComponent implements OnInit {
   }
 
   getSubcategories(){
-    this.subcategoryService.getSubcategories(this.questionForm.value.categoria).subscribe((subcategories) => {
+    this.subcategoryService.getSubcategories(this.questionForm.value.categoria).subscribe((respuesta) => {
+      var subcategories = respuesta.objeto as CategorySubcategory[];
+      console.log(subcategories);
       this.subcategorias = [];
       for (var i = 0; i<subcategories.length; i++){
         this.subcategorias.push({

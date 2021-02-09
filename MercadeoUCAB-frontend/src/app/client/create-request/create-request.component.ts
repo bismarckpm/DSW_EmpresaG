@@ -27,6 +27,7 @@ import { Category } from 'src/app/core/classes/products/category';
 import { Subcategory } from 'src/app/core/classes/products/subcategory';
 import { Users } from 'src/app/core/classes/auth/users';
 import {SessionService} from '../../core/services/auth/session.service';
+import { CategorySubcategory } from 'src/app/core/classes/products/category_subcategory';
 
 @Component({
   selector: 'app-create-request',
@@ -194,7 +195,9 @@ export class CreateRequestComponent implements OnInit {
   }
 
   getSubcategories(category_id) {
-    this.subcategoryService.getSubcategories(category_id).subscribe((subcategories) => {
+    this.subcategoryService.getSubcategories(category_id).subscribe((respuesta) => {
+      var subcategories = respuesta.objeto as CategorySubcategory[];
+      console.log(subcategories);
       this.subcategorias = [];
       for (let i = 0; i < subcategories.length; i++) {
         this.subcategorias.push({

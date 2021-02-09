@@ -24,9 +24,16 @@ export class PresentationsComponent implements OnInit {
     private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
-    this.presentationService.getPresentations().subscribe((presentations) => {
-      this.presentaciones = presentations;
-      this.loading = false;
+    this.presentationService.getPresentations().subscribe((res) => {
+      if (res.codigo == 0){
+        this.presentaciones = res.objeto as TypePresentation[];
+        this.loading = false;
+      }
+      else{
+        this.loading = false;
+        this.presentationsErrorMessage = res.mensaje;
+      }
+      
     }, errorMessage => {
       this.loading = false;
       this.presentationsErrorMessage = errorMessage;
@@ -39,13 +46,18 @@ export class PresentationsComponent implements OnInit {
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-          this.presentationService.deletePresentation(presentation).subscribe((p) => {
+          this.presentationService.deletePresentation(presentation).subscribe((res) => {
 
-            let index = this.presentaciones.indexOf(presentation)
-            if (index > -1)
-              this.presentaciones.splice(index, 1);
+            if (res.codigo == 0){              
+              let index = this.presentaciones.indexOf(presentation)
+              if (index > -1)
+                this.presentaciones.splice(index, 1);
 
-            this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Presentación eliminada con éxito'});
+              this.messageService.add({severity:'success', summary: 'Éxito', detail: res.mensaje});
+            }
+            else{
+              this.messageService.add({severity:'error', summary: 'Error', detail: res.mensaje});
+            }
 
           }, errorMessage => {
             this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
