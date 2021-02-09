@@ -34,7 +34,9 @@ export class SubcategoriesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.subcategoryService.getALLSubcategories().subscribe((subcategories) => {
+    this.subcategoryService.getALLSubcategories().subscribe((respuesta) => {
+      var subcategories = respuesta.objeto as CategorySubcategory[];
+      console.log(subcategories);
       this.subcategorias = subcategories;
       this.loading = false;
 
@@ -56,14 +58,18 @@ export class SubcategoriesComponent implements OnInit {
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-          this.subcategoryService.deleteSubcategory(subcategoria).subscribe((s) => {
+          this.subcategoryService.deleteSubcategory(subcategoria).subscribe((respuesta) => {
 
-            let index = this.subcategorias.indexOf(subcategoria)
-            if (index > -1)
-              this.subcategorias.splice(index, 1);
+            if (respuesta.codigo == 0){
+              let index = this.subcategorias.indexOf(subcategoria)
+              if (index > -1)
+                this.subcategorias.splice(index, 1);
 
-            this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Subcategoría eliminada con éxito'});
-
+              this.messageService.add({severity:'success', summary: 'Éxito', detail: respuesta.mensaje});
+            }
+            else{
+              this.messageService.add({severity:'error', summary: 'Error', detail: respuesta.mensaje});
+            }
           }, errorMessage => {
             this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
           })

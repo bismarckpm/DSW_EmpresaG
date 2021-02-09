@@ -23,6 +23,7 @@ import { EdocivilService } from 'src/app/core/services/profile/edocivil.service'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import {SessionService} from '../../core/services/auth/session.service';
+import { CategorySubcategory } from 'src/app/core/classes/products/category_subcategory';
 
 
 @Component({
@@ -220,7 +221,9 @@ export class EditRequestComponent implements OnInit {
   }
 
   getSubcategories(category_id) {
-    this.subcategoryService.getSubcategories(category_id).subscribe((subcategories) => {
+    this.subcategoryService.getSubcategories(category_id).subscribe((respuesta) => {
+      var subcategories = respuesta.objeto as CategorySubcategory[];
+      console.log(subcategories);
       this.subcategorias = [];
       for (let i = 0; i < subcategories.length; i++) {
         this.subcategorias.push({

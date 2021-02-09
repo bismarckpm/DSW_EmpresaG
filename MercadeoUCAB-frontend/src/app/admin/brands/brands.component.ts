@@ -5,6 +5,7 @@ import { BrandService } from '../../core/services/admin/products/brand.service';
 import { SubcategoryService } from '../../core/services/admin/products/subcategory.service';
 import { replaceKeyWithValue } from '../../core/functions/common_functions';
 import { SubcategoryBrand } from '../../core/classes/products/subcategory_brand';
+import { CategorySubcategory } from 'src/app/core/classes/products/category_subcategory';
 
 @Component({
   selector: 'app-brands',
@@ -36,7 +37,10 @@ export class BrandsComponent implements OnInit {
       this.marcas = brands;
       this.backup_brands = brands;
       this.subcategorias = [];
-      this.subcategoryService.getALLSubcategories().subscribe((subcategories) => {
+      this.subcategoryService.getALLSubcategories().subscribe((respuesta) => {
+        
+        var subcategories = respuesta.objeto as CategorySubcategory[];
+        console.log(subcategories);
         this.loading = false;
         for (let i = 0; i < subcategories.length; i++){
           this.subcategorias.push({
@@ -112,7 +116,9 @@ export class BrandsComponent implements OnInit {
   }
 
   getSubcategories(category_id){
-    this.subcategoryService.getSubcategories(category_id).subscribe((subcategories) => {
+    this.subcategoryService.getSubcategories(category_id).subscribe((respuesta) => {
+      var subcategories = respuesta.objeto as CategorySubcategory[];
+      console.log(subcategories);
       this.subcategorias = replaceKeyWithValue(subcategories);
     });
   }

@@ -10,6 +10,7 @@ import { SubcategoryBrand } from 'src/app/core/classes/products/subcategory_bran
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Brand } from 'src/app/core/classes/products/brand';
 import { Subcategory } from 'src/app/core/classes/products/subcategory';
+import { CategorySubcategory } from 'src/app/core/classes/products/category_subcategory';
 
 @Component({
   selector: 'app-add-brand',
@@ -57,7 +58,9 @@ export class AddBrandComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.subcategoryService.getALLSubcategories().subscribe((subcategories) => {
+    this.subcategoryService.getALLSubcategories().subscribe((respuesta) => {
+      var subcategories = respuesta.objeto as CategorySubcategory[];
+      console.log(subcategories);
       this.subcategorias = [];
       for (let i = 0; i < subcategories.length; i++){
         this.subcategorias.push({
@@ -132,7 +135,8 @@ export class AddBrandComponent implements OnInit {
   getSubcategories(){
     this.subcategorias = null;
     this.subcategorias = [];
-    this.subcategoryService.getALLSubcategories().subscribe((subcategories) => {
+    this.subcategoryService.getALLSubcategories().subscribe((respuesta) => {
+      var subcategories = respuesta.objeto as CategorySubcategory[];
       for (let i = 0; i < subcategories.length; i++){
         this.subcategorias.push({
           value: subcategories[i].fkSubcategoria._id,

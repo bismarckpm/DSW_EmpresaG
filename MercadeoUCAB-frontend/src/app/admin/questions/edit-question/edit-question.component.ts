@@ -15,6 +15,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { RxwebValidators } from '@rxweb/reactive-form-validators'
 import { QuestionCategorySubcategory } from 'src/app/core/classes/study/question_category_subcategory';
 import { OptionService } from 'src/app/core/services/admin/studies/option.service';
+import { CategorySubcategory } from 'src/app/core/classes/products/category_subcategory';
 
 @Component({
   selector: 'app-edit-question',
@@ -197,7 +198,9 @@ export class EditQuestionComponent implements OnInit {
   }
 
   getSubcategories() {
-    this.subcategoryService.getSubcategories(this.questionForm.value.categoria).subscribe((subcategories) => {
+    this.subcategoryService.getSubcategories(this.questionForm.value.categoria).subscribe((respuesta) => {
+      var subcategories = respuesta.objeto as CategorySubcategory[];
+      console.log(subcategories);
       this.subcategorias = [];
       for (var i = 0; i < subcategories.length; i++) {
         this.subcategorias.push({
