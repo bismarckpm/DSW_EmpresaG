@@ -9,16 +9,16 @@ import java.util.List;
 public class LugarTest {
 
 
-    @Test
-    public void getPaises(){
-
-        LugarService service = new LugarService();
-
-        List<LugarDto> resultado = service.consulta(0);
-
-        System.out.println(resultado.toString());
-
-        Assert.assertNotNull( resultado );
-
-    }
+//    @Test
+//    public void getPaises(){
+//
+//        LugarService service = new LugarService();
+//
+//        List<LugarDto> resultado = service.consulta(0);
+//
+//        System.out.println(resultado.toString());
+//
+//        Assert.assertNotNull( resultado );
+//
+//    }
 }

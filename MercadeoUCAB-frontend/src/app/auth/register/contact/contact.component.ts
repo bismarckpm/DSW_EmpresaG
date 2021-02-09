@@ -8,6 +8,7 @@ import { RegisterService } from '../../../core/services/auth/register.service';
 import { PlaceService } from '../../../core/services/profile/place.service';
 // import { PhoneService } from '../../../core/services/profile/phone.service';
 import { replaceKeyWithValue } from 'src/app/core/functions/common_functions';
+import { Place } from 'src/app/core/classes/profile/place';
 
 @Component({
   selector: 'app-contact',
@@ -49,8 +50,8 @@ export class ContactComponent implements OnInit {
     this.ciudad = true;
     this.parroquia = true;
 
-    this.placeService.getCountries().subscribe((countries) => {
-      this.paises = replaceKeyWithValue(countries);
+    this.placeService.getCountries().subscribe((res) => {
+      this.paises = replaceKeyWithValue(res.objeto as Place[]);
     });
 
     // this.phoneService.getCodes().subscribe((codes) => {

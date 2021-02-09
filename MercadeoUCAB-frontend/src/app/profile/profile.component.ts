@@ -281,8 +281,8 @@ export class ProfileComponent implements OnInit {
           label: 'No',
           value: false
         }];
-      this.placeService.getCountries().subscribe((countries) => {
-        this.paises = replaceKeyWithValue(countries);
+      this.placeService.getCountries().subscribe((res) => {
+        this.paises = replaceKeyWithValue(res.objeto as Place[]);
       });
 
         this.spinner.show();

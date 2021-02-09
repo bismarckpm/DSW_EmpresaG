@@ -1,5 +1,7 @@
 package com.empresag;
 
+import com.empresag.lugar.ComandoConsultarLugar;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
@@ -16,7 +18,9 @@ public class LugarService {
 
         System.out.println("DATA: " + lugarDto.toString());
 
-        LugarDto resultado = new LugarDto();
+        UsuarioDto resultado;
+        LugarDto respuesta = new LugarDto();
+
         try {
 
             DaoLugar daoLugar = new DaoLugar();
@@ -36,46 +40,40 @@ public class LugarService {
             lugar.setFkLugar(lugarPadre);
 
             LugarEntity resul = daoLugar.insert(lugar);
-            resultado.set_id(resul.get_id());
+            respuesta.set_id(resul.get_id());
 
         }
         catch (Exception e){
             e.printStackTrace();
         }
 
-        return resultado;
+        return respuesta;
 
     }
 
     @GET
     @Path( "/consulta/{id}" )
-    public List<LugarDto> consulta(@PathParam("id") long id)
+    public RespuestaDto<List<LugarDto>> consulta(@PathParam("id") long id)
     {
-        List<LugarDto> resultado = new ArrayList<>();
+        RespuestaDto<List<LugarDto>> listaLugar = new RespuestaDto<>();
 
         try {
-            DaoLugar daoLugar = new DaoLugar();
-            List<LugarEntity> lugares = daoLugar.findTop(id);
 
-            for (int i = 0; i < lugares.size(); i++){
-                LugarEntity lugar = lugares.get(i);
+            ComandoConsultarLugar buscarLugar = new ComandoConsultarLugar(id);
+            buscarLugar.execute();
+            listaLugar.setCodigo(0);
+            listaLugar.setEstado( "OK" );
+            listaLugar.setObjeto(buscarLugar.getResult());
 
-                LugarDto resul_dto = new LugarDto();
 
-                resul_dto.set_id(lugar.get_id());
-                resul_dto.setNombre(lugar.getNombre());
-                resul_dto.setTipo(lugar.getTipo());
-
-                resultado.add(resul_dto);
-            }
-
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
+            listaLugar.setCodigo(-1);
+            listaLugar.setEstado( "ERROR" );
+            listaLugar.setMensaje( e.getMessage() );
         }
 
-
-        return resultado;
+        return listaLugar;
     }
 
     @GET

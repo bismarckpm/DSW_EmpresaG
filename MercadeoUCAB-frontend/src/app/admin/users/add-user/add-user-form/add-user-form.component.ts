@@ -22,6 +22,7 @@ import { RolService } from 'src/app/core/services/profile/rol.service';
 import { GeneroService } from 'src/app/core/services/profile/genero.service';
 import { EdocivilService } from 'src/app/core/services/profile/edocivil.service';
 import { Genero } from 'src/app/core/classes/profile/genero';
+import { Place } from 'src/app/core/classes/profile/place';
 
 
 @Component({
@@ -246,8 +247,8 @@ export class AddUserFormComponent implements OnInit {
         value: false
       }];
 
-    this.placeService.getCountries().subscribe((countries) => {
-        this.paises = replaceKeyWithValue(countries);
+    this.placeService.getCountries().subscribe((respuesta) => {
+        this.paises = replaceKeyWithValue(respuesta.objeto as Place[]);
       });
     this.ocupacionService.getOcupaciones().subscribe((ocupations) => {
         this.ocupaciones = replaceKeyWithValue(ocupations);
@@ -283,8 +284,8 @@ export class AddUserFormComponent implements OnInit {
     this.ciudad = true;
     this.parroquia = true;
 
-    this.placeService.getCountries().subscribe((countries) => {
-      this.paises = replaceKeyWithValue(countries);
+    this.placeService.getCountries().subscribe((respuesta) => {
+      this.paises = replaceKeyWithValue(respuesta.objeto as Place[]);
     });
 
 

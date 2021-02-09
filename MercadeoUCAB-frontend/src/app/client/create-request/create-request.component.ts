@@ -125,8 +125,8 @@ export class CreateRequestComponent implements OnInit {
       this.gendersErrorMessage = errorMessage;
     });
 
-    this.placeService.getCountries().subscribe((countries) => {
-      this.paises = replaceKeyWithValue(countries);
+    this.placeService.getCountries().subscribe((res) => {
+      this.paises = replaceKeyWithValue(res.objeto as Place[]);
     }, errorMessage => {
       this.placesErrorMessage = errorMessage;
     });

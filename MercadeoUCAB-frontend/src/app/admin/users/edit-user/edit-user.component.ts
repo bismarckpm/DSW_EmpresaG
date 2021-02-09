@@ -92,8 +92,8 @@ export class EditUserComponent implements OnInit {
           label: 'No',
           value: false
         }];
-      this.placeService.getCountries().subscribe((countries) => {
-        this.paises = replaceKeyWithValue(countries);
+      this.placeService.getCountries().subscribe((respuesta) => {
+        this.paises = replaceKeyWithValue(respuesta.objeto as Place[]);
       });
 
       /* If query is empty return 404 */
