@@ -495,10 +495,17 @@ export class AddUserFormComponent implements OnInit {
       // if(this.userForm.valid){
         /* SUBMIT FORM */
           this.userService.postPerson(this.userService.persona)
-          .subscribe(person => {
+          .subscribe(res => {
+
+            if (res.codigo == 0){
             console.log('REGISTERED');
             this.userForm.reset();
             this.previousPage();
+            }
+            else{
+              this.sent_form = false;
+              this.messageService.add({severity: 'error', summary: 'Error', detail: res.mensaje});
+            }
           },
           errorMessage => {
             console.log('FALLO');
@@ -521,10 +528,16 @@ export class AddUserFormComponent implements OnInit {
 
         /* SUBMIT FORM */
           this.userService.postPerson(this.userService.persona)
-          .subscribe(person => {
+          .subscribe(res => {
+            if(res.codigo == 0){
             console.log('REGISTERED');
             this.userForm.reset(this.userForm.value);
             this.previousPage();
+            }
+            else{
+              this.sent_form = false;
+              this.messageService.add({severity: 'error', summary: 'Error', detail: res.mensaje});
+            }
           },
           errorMessage => {
             console.log('FALLO');
@@ -580,10 +593,10 @@ export class AddUserFormComponent implements OnInit {
   getStates(event){
     this.ciudades = [];
     this.parroquias = [];
-    this.placeService.getStates(event.value).subscribe((states) => {
-      if (states.length){
+    this.placeService.getStates(event.value).subscribe((res) => {
+      if (res){
         this.estado = true;
-        this.estados = replaceKeyWithValue(states);
+        this.estados = replaceKeyWithValue(res.objeto as Place[]);
       }
       else{
         this.estado = false;
@@ -595,10 +608,10 @@ export class AddUserFormComponent implements OnInit {
 
   getCities(event){
     this.parroquias = [];
-    this.placeService.getCities(event.value).subscribe((cities) => {
-      if (cities.length){
+    this.placeService.getCities(event.value).subscribe((res) => {
+      if ((res.objeto as Place[]).length){
         this.ciudad = true;
-        this.ciudades = replaceKeyWithValue(cities);
+        this.ciudades = replaceKeyWithValue(res.objeto as Place[]);
       }
       else{
         this.ciudad = false;
@@ -608,10 +621,10 @@ export class AddUserFormComponent implements OnInit {
   }
 
   getCounties(event){
-    this.placeService.getCounties(event.value).subscribe((counties) => {
-      if (counties.length){
+    this.placeService.getCounties(event.value).subscribe((res) => {
+      if ((res.objeto as Place[]).length){
         this.parroquia = true;
-        this.parroquias = replaceKeyWithValue(counties);
+        this.parroquias = replaceKeyWithValue(res.objeto as Place[]);
       }
       else{
         this.parroquia = false;

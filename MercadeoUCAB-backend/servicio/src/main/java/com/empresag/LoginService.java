@@ -22,7 +22,7 @@ public class LoginService {
 
         DaoUsuario daoUsuario = new DaoUsuario();
         DaoToken daoToken = new DaoToken();
-        DirectorioActivo ldap = new DirectorioActivo();
+//        DirectorioActivo ldap = new DirectorioActivo();
 
         UsuarioEntity usuarioEntity = daoUsuario.findUserByEmail(usuarioDto.getEmail());
         String token = null;
@@ -38,9 +38,9 @@ public class LoginService {
             return null;
         }
 
-        authLDAP = ldap.userAuthentication(usuarioDto);
+//        authLDAP = ldap.userAuthentication(usuarioDto);
 
-        if (authLDAP){
+//        if (authLDAP){
             token = daoToken.getAlphaNumericString(25);
             if (tokenEntity != null){
                 tokenEntity.setToken_login(token);
@@ -58,8 +58,8 @@ public class LoginService {
             authenticatedUser.setTokenLogin(token);
             authenticatedUser.set_id(usuarioEntity.get_id());
             return authenticatedUser;
-        }
-        return null;
+//        }
+//        return null;
     }
 
     @POST
