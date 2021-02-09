@@ -89,13 +89,14 @@ public class PersonaMapper {
     public static PersonaDto mapEntityToDto(PersonaEntity entity) throws IndexDatabaseException {
         final PersonaDto dto = new PersonaDto();
 
-
+        dto.set_id(entity.get_id());
         dto.setPrimerNombre(entity.getPrimerNombre());
         dto.setSegundoNombre(entity.getSegundoNombre());
         dto.setPrimerApellido(entity.getPrimerApellido());
         dto.setSegundoApellido(entity.getSegundoApellido());
         dto.setFechaNacimiento(entity.getFechaNacimiento());
         dto.setNumero_personas_encasa(entity.getNumero_personas_encasa());
+        dto.setDocumentoIdentidad(entity.getDocumentoIdentidad());
 
         if (Objects.nonNull(entity.getFkGenero())) {
             dto.setFkGenero(GeneroMapper.mapEntityToDto(entity.getFkGenero()));
@@ -213,7 +214,7 @@ public class PersonaMapper {
     public static PersonaDto mapEntityHijoToDto(PersonaEntity entity) throws IndexDatabaseException {
         final PersonaDto dto = new PersonaDto();
 
-
+        dto.set_id(entity.get_id());
         dto.setPrimerNombre( entity.getPrimerNombre() );
         dto.setSegundoNombre( entity.getSegundoNombre() );
         dto.setPrimerApellido( entity.getPrimerApellido() );

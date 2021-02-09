@@ -16,6 +16,7 @@ import { telefono } from '../../classes/profile/telefono';
 import { Rol } from '../../classes/profile/rol';
 import { Disponibilidad } from '../../classes/profile/disponibilidad';
 import { serverURL } from '../../constants/serverURL';
+import { Respuesta } from '../../classes/respuesta';
 
 @Injectable({
   providedIn: 'root'
@@ -126,14 +127,14 @@ export class UserService {
   constructor(private http: HttpClient,
               private processHTTPMessageService: ProcessHttpMessageService) { }
 
-  getPerson(pid): Observable<Person>{
-    return this.http.get<Person>(serverURL + 'user/' + pid)
+  getPerson(pid): Observable<Respuesta>{
+    return this.http.get<Respuesta>(serverURL + 'user/' + pid)
       // .pipe(map(persona => persona[0]))
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
-  getPersons(): Observable<Person[]>{
-    return this.http.get<Person[]>(serverURL + 'user')
+  getPersons(): Observable<Respuesta>{
+    return this.http.get<Respuesta>(serverURL + 'user')
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
@@ -145,14 +146,14 @@ export class UserService {
   //     .pipe(catchError(this.processHTTPMessageService.handleError))
   // }
 
-  postPerson(person): Observable<Person>{
+  postPerson(person): Observable<Respuesta>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
 
-    return this.http.post<Person>(serverURL + 'user/add', person, httpOptions)
+    return this.http.post<Respuesta>(serverURL + 'user/add', person, httpOptions)
     .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
@@ -167,18 +168,18 @@ export class UserService {
   //     .pipe(catchError(this.processHTTPMessageService.handleError))
   // }
 
-  deleteUser(user): Observable<Person>{
-    return this.http.delete<Person>(serverURL + 'user/delete/' + user._id)
+  deleteUser(user): Observable<Respuesta>{
+    return this.http.delete<Respuesta>(serverURL + 'user/delete/' + user._id)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
-  putUser(persona: Person): Observable<Person>{
+  putUser(persona: Person): Observable<Respuesta>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-    return this.http.put<Person>(serverURL + 'user/edit/' + persona._id, persona, httpOptions)
+    return this.http.put<Respuesta>(serverURL + 'user/edit/' + persona._id, persona, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 

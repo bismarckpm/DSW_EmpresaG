@@ -122,8 +122,8 @@ export class EditRequestComponent implements OnInit {
             this.gendersErrorMessage = errorMessage;
           });
 
-          this.placeService.getCountries().subscribe((countries) => {
-            this.paises = replaceKeyWithValue(countries);
+          this.placeService.getCountries().subscribe((res) => {
+            this.paises = replaceKeyWithValue(res.objeto as Place[]);
           }, errorMessage => {
             this.placesErrorMessage = errorMessage;
           });
@@ -193,8 +193,8 @@ export class EditRequestComponent implements OnInit {
             }
 
             else if (this.study_request.tipoFiltroLugar === 2) {
-              this.placeService.getStates(this.study_request.fkLugar.fkLugar._id).subscribe((states) => {
-                this.estados = replaceKeyWithValue(states);
+              this.placeService.getStates(this.study_request.fkLugar.fkLugar._id).subscribe((res) => {
+                this.estados = replaceKeyWithValue(res.objeto as Place[]);
               });
 
               this.studyForm.patchValue({
@@ -268,8 +268,8 @@ export class EditRequestComponent implements OnInit {
   }
 
   getStates(country_id) {
-    this.placeService.getStates(country_id).subscribe((states) => {
-      this.estados = replaceKeyWithValue(states);
+    this.placeService.getStates(country_id).subscribe((res) => {
+      this.estados = replaceKeyWithValue(res.objeto as Place[]);
     }, errorMessage => {
       this.placesErrorMessage = errorMessage;
     });
