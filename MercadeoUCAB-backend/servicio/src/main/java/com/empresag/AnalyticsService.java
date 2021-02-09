@@ -18,75 +18,200 @@ public class AnalyticsService {
     String JPQL = null;
     Query q = null;
 
+//    @GET
+//    @Path("/open-text/{studyId}")
+//    public Response getOpenTextResponses(@PathParam("studyId") long studyId){
+//        DaoAnalisis daoAnalisis = FabricaDao.crearDaoAnalisis();
+//        try {
+//            List<PreguntaEstudioDto> encuesta = daoAnalisis.getOpenTextAnswers(studyId);
+//            return Response.ok().entity(encuesta).build();
+//        }
+//        catch (NullPointerException | IndexDatabaseException e){
+//            e.printStackTrace();
+//            return Response.status(Response.Status.NOT_FOUND).build();
+//        }
+//    }
+
     @GET
     @Path("/open-text/{studyId}")
-    public Response getOpenTextResponses(@PathParam("studyId") long studyId){
+    public RespuestaDto<List<PreguntaEstudioDto>> getOpenTextResponses(@PathParam("studyId") long studyId){
         DaoAnalisis daoAnalisis = FabricaDao.crearDaoAnalisis();
+
+        RespuestaDto<List<PreguntaEstudioDto>> respuesta = FabricaDto.crearRespuestaDto();
         try {
             List<PreguntaEstudioDto> encuesta = daoAnalisis.getOpenTextAnswers(studyId);
-            return Response.ok().entity(encuesta).build();
+
+            respuesta.setCodigo(0);
+            respuesta.setEstado( "OK" );
+            respuesta.setObjeto( encuesta );
         }
-        catch (NullPointerException | IndexDatabaseException e){
+        catch (Exception e){
             e.printStackTrace();
-            return Response.status(Response.Status.NOT_FOUND).build();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado( "ERROR" );
+            respuesta.setMensaje( e.getMessage() );
+            respuesta.setMensajesoporte( e.getLocalizedMessage() );
         }
+
+        return respuesta;
     }
+
+//    @GET
+//    @Path("/selection/{studyId}")
+//    public Response getSelectionResponses(@PathParam("studyId") long studyId){
+//        DaoAnalisis daoAnalisis = FabricaDao.crearDaoAnalisis();
+//        try {
+//            List<PreguntaEstudioDto> encuesta = daoAnalisis.getSelectionAnswers(studyId);
+//            return Response.ok().entity(encuesta).build();
+//        }
+//        catch (NullPointerException | IndexDatabaseException e){
+//            e.printStackTrace();
+//            return Response.status(Response.Status.NOT_FOUND).build();
+//        }
+//    }
 
     @GET
     @Path("/selection/{studyId}")
-    public Response getSelectionResponses(@PathParam("studyId") long studyId){
+    public RespuestaDto<List<PreguntaEstudioDto>> getSelectionResponses(@PathParam("studyId") long studyId){
         DaoAnalisis daoAnalisis = FabricaDao.crearDaoAnalisis();
+
+        RespuestaDto<List<PreguntaEstudioDto>> respuesta = FabricaDto.crearRespuestaDto();
+
         try {
             List<PreguntaEstudioDto> encuesta = daoAnalisis.getSelectionAnswers(studyId);
-            return Response.ok().entity(encuesta).build();
+
+            respuesta.setCodigo(0);
+            respuesta.setEstado( "OK" );
+            respuesta.setObjeto( encuesta );
         }
-        catch (NullPointerException | IndexDatabaseException e){
+        catch (Exception e){
             e.printStackTrace();
-            return Response.status(Response.Status.NOT_FOUND).build();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado( "ERROR" );
+            respuesta.setMensaje( e.getMessage() );
+            respuesta.setMensajesoporte( e.getLocalizedMessage() );
         }
+
+        return respuesta;
     }
+
+//    @GET
+//    @Path("/true-false/{studyId}")
+//    public Response getTrueFalseResponses(@PathParam("studyId") long studyId){
+//        DaoAnalisis daoAnalisis = FabricaDao.crearDaoAnalisis();
+//        try {
+//            List<PreguntaEstudioDto> encuesta = daoAnalisis.getTrueFalseAnswers(studyId);
+//            return Response.ok().entity(encuesta).build();
+//        }
+//        catch (NullPointerException | IndexDatabaseException e){
+//            e.printStackTrace();
+//            return Response.status(Response.Status.NOT_FOUND).build();
+//        }
+//    }
 
     @GET
     @Path("/true-false/{studyId}")
-    public Response getTrueFalseResponses(@PathParam("studyId") long studyId){
+    public RespuestaDto<List<PreguntaEstudioDto>> getTrueFalseResponses(@PathParam("studyId") long studyId){
         DaoAnalisis daoAnalisis = FabricaDao.crearDaoAnalisis();
+
+        RespuestaDto<List<PreguntaEstudioDto>> respuesta = FabricaDto.crearRespuestaDto();
+
         try {
             List<PreguntaEstudioDto> encuesta = daoAnalisis.getTrueFalseAnswers(studyId);
-            return Response.ok().entity(encuesta).build();
+
+            respuesta.setCodigo(0);
+            respuesta.setEstado( "OK" );
+            respuesta.setObjeto( encuesta );
         }
-        catch (NullPointerException | IndexDatabaseException e){
+        catch (Exception e){
             e.printStackTrace();
-            return Response.status(Response.Status.NOT_FOUND).build();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado( "ERROR" );
+            respuesta.setMensaje( e.getMessage() );
+            respuesta.setMensajesoporte( e.getLocalizedMessage() );
         }
+
+        return respuesta;
     }
+
+//    @GET
+//    @Path("/range/{studyId}")
+//    public Response getRangeResponses(@PathParam("studyId") long studyId){
+//        DaoAnalisis daoAnalisis = FabricaDao.crearDaoAnalisis();
+//        try {
+//            List<PreguntaEstudioDto> encuesta = daoAnalisis.getRangeAnswers(studyId);
+//            return Response.ok().entity(encuesta).build();
+//        }
+//        catch (NullPointerException | IndexDatabaseException e){
+//            e.printStackTrace();
+//            return Response.status(Response.Status.NOT_FOUND).build();
+//        }
+//    }
 
     @GET
     @Path("/range/{studyId}")
-    public Response getRangeResponses(@PathParam("studyId") long studyId){
+    public RespuestaDto<List<PreguntaEstudioDto>> getRangeResponses(@PathParam("studyId") long studyId){
         DaoAnalisis daoAnalisis = FabricaDao.crearDaoAnalisis();
+
+        RespuestaDto<List<PreguntaEstudioDto>> respuesta = FabricaDto.crearRespuestaDto();
+
         try {
             List<PreguntaEstudioDto> encuesta = daoAnalisis.getRangeAnswers(studyId);
-            return Response.ok().entity(encuesta).build();
+
+            respuesta.setCodigo(0);
+            respuesta.setEstado( "OK" );
+            respuesta.setObjeto( encuesta );
         }
-        catch (NullPointerException | IndexDatabaseException e){
+        catch (Exception e){
             e.printStackTrace();
-            return Response.status(Response.Status.NOT_FOUND).build();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado( "ERROR" );
+            respuesta.setMensaje( e.getMessage() );
+            respuesta.setMensajesoporte( e.getLocalizedMessage() );
         }
+
+        return respuesta;
     }
+
+//    @GET
+//    @Path("/find/{studyId}")
+//    public Response findConclusion(@PathParam("studyId") long id){
+//        DaoAnalisis daoAnalisis = FabricaDao.crearDaoAnalisis();
+//        AnalisisEntity analisis = null;
+//        try {
+//            analisis = daoAnalisis.getAnalisis(id);
+//            return Response.ok().entity(analisis).build();
+//        }
+//        catch (NoResultException | NullPointerException e){
+//            e.printStackTrace();
+//            return Response.status(Response.Status.NOT_FOUND).build();
+//        }
+//    }
 
     @GET
     @Path("/find/{studyId}")
-    public Response findConclusion(@PathParam("studyId") long id){
+    public RespuestaDto<AnalisisEntity> findConclusion(@PathParam("studyId") long id){
         DaoAnalisis daoAnalisis = FabricaDao.crearDaoAnalisis();
-        AnalisisEntity analisis = null;
+        AnalisisEntity analisis;
+
+        RespuestaDto<AnalisisEntity> respuesta = FabricaDto.crearRespuestaDto();
+
         try {
             analisis = daoAnalisis.getAnalisis(id);
-            return Response.ok().entity(analisis).build();
+
+            respuesta.setCodigo(0);
+            respuesta.setEstado( "OK" );
+            respuesta.setObjeto( analisis );
         }
-        catch (NoResultException | NullPointerException e){
+        catch (Exception e){
             e.printStackTrace();
-            return Response.status(Response.Status.NOT_FOUND).build();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado( "ERROR" );
+            respuesta.setMensaje( e.getMessage() );
+            respuesta.setMensajesoporte( e.getLocalizedMessage() );
         }
+
+        return respuesta;
     }
 
 //    @POST
@@ -116,10 +241,10 @@ public class AnalyticsService {
 
     @POST
     @Path("/add/{studyId}")
-    public RespuestaDto<AnalisisDto> addConclusion(@PathParam("studyId") long studyId, AnalisisDto analisisDto){
+    public RespuestaDto<AnalisisEntity> addConclusion(@PathParam("studyId") long studyId, AnalisisDto analisisDto){
         DaoEstudio daoEstudio = FabricaDao.crearDaoEstudio();
 
-        RespuestaDto<AnalisisDto> respuesta = new RespuestaDto<>();
+        RespuestaDto<AnalisisEntity> respuesta = FabricaDto.crearRespuestaDto();
         try {
             EstudioEntity estudio = daoEstudio.find(studyId, EstudioEntity.class);
 
@@ -138,7 +263,7 @@ public class AnalyticsService {
 
             respuesta.setCodigo(0);
             respuesta.setEstado( "OK" );
-            respuesta.setObjeto( analisisDto );
+            respuesta.setObjeto( crearAnalisis.getResult() );
         }
         catch (Exception e){
             e.printStackTrace();

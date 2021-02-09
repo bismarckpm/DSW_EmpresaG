@@ -14,14 +14,14 @@ public class StudyRequestService {
     @GET
     @Path("/all")
     public List<FiltroEntity> getAllRequests(){
-        DaoFiltro daoFiltro = new DaoFiltro();
+        DaoFiltro daoFiltro = FabricaDao.crearDaoFiltro();
         return daoFiltro.getAllRequests();
     }
 
     @GET
     @Path("/find-by-user/{userId}")
     public Response getUserRequests(@PathParam("userId") long id){
-        DaoFiltro daoFiltro = new DaoFiltro();
+        DaoFiltro daoFiltro = FabricaDao.crearDaoFiltro();
         List<FiltroEntity> solicitudes = null;
         try {
             solicitudes = daoFiltro.getUserRequests(id);
@@ -35,7 +35,7 @@ public class StudyRequestService {
     @GET
     @Path("/find-specific-by-user/{userId}/{requestId}")
     public Response getUserRequest(@PathParam("userId") long id, @PathParam("requestId") long requestId){
-        DaoFiltro daoFiltro = new DaoFiltro();
+        DaoFiltro daoFiltro = FabricaDao.crearDaoFiltro();
         FiltroEntity solicitud = null;
         try {
             solicitud = daoFiltro.getUserRequest(id, requestId);
@@ -49,7 +49,7 @@ public class StudyRequestService {
     @GET
     @Path("/find/{id}")
     public Response getRequest(@PathParam("id") long id){
-        DaoFiltro daoFiltro = new DaoFiltro();
+        DaoFiltro daoFiltro = FabricaDao.crearDaoFiltro();
         FiltroEntity solicitud = null;
 
         try{

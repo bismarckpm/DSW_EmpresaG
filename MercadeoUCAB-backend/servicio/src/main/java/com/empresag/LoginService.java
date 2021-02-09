@@ -65,13 +65,13 @@ public class LoginService {
     public UsuarioDto currentUser(UsuarioDto usuarioDto) throws IndexDatabaseException, LoginException {
         boolean authLDAP;
 
-        DaoUsuario daoUsuario = new DaoUsuario();
-        DaoToken daoToken = new DaoToken();
+        DaoUsuario daoUsuario = FabricaDao.crearDaoUsuario();
+        DaoToken daoToken = FabricaDao.crearDaoToken();
         DirectorioActivo ldap = new DirectorioActivo();
 
         UsuarioEntity usuarioEntity = daoUsuario.findUserByEmail(usuarioDto.getEmail());
         String token = null;
-        UsuarioDto authenticatedUser = new UsuarioDto();
+        UsuarioDto authenticatedUser = FabricaDto.crearUsuarioDto();
         TokenEntity tokenEntity = null;
 
         /* If user doesn't exist */
@@ -99,7 +99,7 @@ public class LoginService {
                 }
             } else {
                 try {
-                    tokenEntity = new TokenEntity();
+                    tokenEntity = FabricaEntity.crearTokenEntity();
                     tokenEntity.setFkUsuario(usuarioEntity);
                     tokenEntity.setToken_login(token);
                     ComandoCrearToken crearToken = new ComandoCrearToken(TokenMapper.mapEntityToDto(tokenEntity));
@@ -111,7 +111,7 @@ public class LoginService {
                     throw new LoginException();
                 }
             }
-            RolDto rol = new RolDto();
+            RolDto rol = FabricaDto.crearRolDto();
             rol.set_id(usuarioEntity.getFk_Rol().get_id());
             authenticatedUser.setFkRol(rol);
             authenticatedUser.setTokenLogin(token);
@@ -124,8 +124,7 @@ public class LoginService {
     @POST
     @Path("/logout/{hash}")
     public void logout(@PathParam("hash") String hash) throws LogoutException {
-        DaoUsuario usuarioDao = new DaoUsuario();
-        DaoToken tokenDao = new DaoToken();
+        DaoToken tokenDao = FabricaDao.crearDaoToken();
 
         try {
             TokenEntity currentToken = tokenDao.getTokenByHASH(hash,true);

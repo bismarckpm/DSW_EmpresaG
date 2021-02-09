@@ -56,7 +56,7 @@ public class CategoryService {
     @Path("/add")
     public RespuestaDto<CategoriaDto> addCategory(CategoriaDto categoriaDto){
 
-        RespuestaDto<CategoriaDto> respuesta = new RespuestaDto<>();
+        RespuestaDto<CategoriaDto> respuesta = FabricaDto.crearRespuestaDto();
 
         try{
             ComandoCrearCategoria crearBrand = new ComandoCrearCategoria(categoriaDto);
@@ -81,7 +81,7 @@ public class CategoryService {
     @PUT
     @Path("/update/{id}")
     public RespuestaDto<CategoriaDto> updateCategory(@PathParam("id") long id, CategoriaDto categoriaDto){
-        RespuestaDto<CategoriaDto> respuesta = new RespuestaDto<>();
+        RespuestaDto<CategoriaDto> respuesta = FabricaDto.crearRespuestaDto();
 
         try {
             ComandoEditarCategoria editarCategoria = new ComandoEditarCategoria(id, categoriaDto);
@@ -120,7 +120,7 @@ public class CategoryService {
     @DELETE
     @Path("/delete/{id}")
     public RespuestaDto<CategoriaDto> deleteCategory(@PathParam("id") long id){
-        RespuestaDto<CategoriaDto> respuesta = new RespuestaDto<>();
+        RespuestaDto<CategoriaDto> respuesta = FabricaDto.crearRespuestaDto();
 
         try {
             ComandoEliminarCategoria eliminarCategoria = new ComandoEliminarCategoria(id);

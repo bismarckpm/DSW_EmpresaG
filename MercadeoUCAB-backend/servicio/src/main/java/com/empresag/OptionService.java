@@ -1,5 +1,7 @@
 package com.empresag;
 
+import com.empresag.opcion.ComandoEliminarOpcion;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -12,21 +14,32 @@ public class OptionService {
     @GET
     @Path("/all-by-question/{id}")
     public List<OpcionEntity> allQuestionOptions(@PathParam("id") long id){
-        DaoOpcion daoOpcion = new DaoOpcion();
+        DaoOpcion daoOpcion = FabricaDao.crearDaoOpcion();
         return daoOpcion.getAllOptionsByQuestion(id);
     }
 
     @DELETE
     @Path("/delete/{id}")
-    public Response deleteOption(@PathParam("id") long id){
-        DaoOpcion daoOpcion = new DaoOpcion();
+    public RespuestaDto<OpcionDto> deleteOption(@PathParam("id") long id){
+
+        RespuestaDto<OpcionDto> respuesta = FabricaDto.crearRespuestaDto();
+
         try {
-            OpcionEntity opcion = daoOpcion.find(id, OpcionEntity.class);
-            daoOpcion.delete(opcion);
-            return Response.ok().entity(opcion).build();
+            ComandoEliminarOpcion eliminarOpcion = new ComandoEliminarOpcion(id);
+            eliminarOpcion.execute();
+
+            respuesta.setCodigo(0);
+            respuesta.setEstado( "OK" );
         }
-        catch (NullPointerException e){
-            return Response.status(Response.Status.NOT_FOUND).build();
+        catch (Exception e){
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado( "ERROR" );
+            respuesta.setMensaje( e.getMessage() );
+            respuesta.setMensajesoporte( e.getLocalizedMessage() );
         }
+
+        return respuesta;
+
     }
 }

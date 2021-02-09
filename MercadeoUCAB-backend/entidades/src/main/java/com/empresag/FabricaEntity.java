@@ -438,4 +438,9 @@ public class FabricaEntity {
         return new TokenEntity( id );
     }
 
+    public static TokenEntity crearTokenEntity()
+    {
+        return new TokenEntity();
+    }
+
 }

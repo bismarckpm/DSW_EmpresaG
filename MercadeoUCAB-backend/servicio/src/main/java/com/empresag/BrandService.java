@@ -14,18 +14,67 @@ import java.util.List;
 public class BrandService {
     @QueryParam("subcategory_id") long id;
 
+//    @GET
+//    @Path("/all")
+//    public List<SubcategoriaMarcaEntity> allBrands(){
+//        DaoSubcategoriaMarca daoSubcategoriaMarca = FabricaDao.crearDaoSubcategoriaMarca();
+//        return daoSubcategoriaMarca.findAll(SubcategoriaMarcaEntity.class);
+//    }
+
     @GET
     @Path("/all")
-    public List<SubcategoriaMarcaEntity> allBrands(){
-        DaoSubcategoriaMarca daoSubcategoriaMarca = FabricaDao.crearDaoSubcategoriaMarca();
-        return daoSubcategoriaMarca.findAll(SubcategoriaMarcaEntity.class);
+    public RespuestaDto<List<SubcategoriaMarcaEntity>> allBrands(){
+
+        RespuestaDto<List<SubcategoriaMarcaEntity>> respuesta = FabricaDto.crearRespuestaDto();
+
+        try{
+            DaoSubcategoriaMarca daoSubcategoriaMarca = FabricaDao.crearDaoSubcategoriaMarca();
+
+            respuesta.setCodigo(0);
+            respuesta.setEstado( "OK" );
+            respuesta.setObjeto( daoSubcategoriaMarca.findAll(SubcategoriaMarcaEntity.class) );
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado( "ERROR" );
+            respuesta.setMensaje( e.getMessage() );
+            respuesta.setMensajesoporte( e.getLocalizedMessage() );
+        }
+
+        return respuesta;
+
     }
+
+//    @GET
+//    @Path("/filtered-by-subcategory")
+//    public List<SubcategoriaMarcaEntity> findBySubcategoryID(){
+//        DaoSubcategoriaMarca daoSubcategoriaMarca = FabricaDao.crearDaoSubcategoriaMarca();
+//        return daoSubcategoriaMarca.findBySubcategoryID(id);
+//    }
 
     @GET
     @Path("/filtered-by-subcategory")
-    public List<SubcategoriaMarcaEntity> findBySubcategoryID(){
+    public RespuestaDto<List<SubcategoriaMarcaEntity>> findBySubcategoryID(){
         DaoSubcategoriaMarca daoSubcategoriaMarca = FabricaDao.crearDaoSubcategoriaMarca();
-        return daoSubcategoriaMarca.findBySubcategoryID(id);
+
+        RespuestaDto<List<SubcategoriaMarcaEntity>> respuesta = FabricaDto.crearRespuestaDto();
+
+        try{
+            respuesta.setCodigo(0);
+            respuesta.setEstado( "OK" );
+            respuesta.setObjeto( daoSubcategoriaMarca.findBySubcategoryID(id) );
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado( "ERROR" );
+            respuesta.setMensaje( e.getMessage() );
+            respuesta.setMensajesoporte( e.getLocalizedMessage() );
+        }
+
+        return respuesta;
+
     }
 
 //    @POST
@@ -52,9 +101,9 @@ public class BrandService {
 
     @POST
     @Path("/add")
-    public RespuestaDto<SubcategoriaMarcaDto> addBrand(SubcategoriaMarcaDto subcategoriaMarcaDto) {
+    public RespuestaDto<SubcategoriaMarcaEntity> addBrand(SubcategoriaMarcaDto subcategoriaMarcaDto) {
 
-        RespuestaDto<SubcategoriaMarcaDto> respuesta = new RespuestaDto<>();
+        RespuestaDto<SubcategoriaMarcaEntity> respuesta = FabricaDto.crearRespuestaDto();
 
         try{
             ComandoCrearBrand crearBrand = new ComandoCrearBrand(subcategoriaMarcaDto);
@@ -62,7 +111,7 @@ public class BrandService {
 
             respuesta.setCodigo(0);
             respuesta.setEstado( "OK" );
-            respuesta.setObjeto( subcategoriaMarcaDto );
+            respuesta.setObjeto( crearBrand.getResult() );
         }
         catch (Exception e){
             e.printStackTrace();
@@ -107,16 +156,22 @@ public class BrandService {
 
     @PUT
     @Path("/update/{id}")
-    public RespuestaDto<SubcategoriaMarcaDto> updateBrand(@PathParam("id") long id, SubcategoriaMarcaDto subcategoriaMarcaDto){
-        RespuestaDto<SubcategoriaMarcaDto> respuesta = new RespuestaDto<>();
+    public RespuestaDto<Boolean> updateBrand(@PathParam("id") long id, SubcategoriaMarcaDto subcategoriaMarcaDto){
+        RespuestaDto<Boolean> respuesta = FabricaDto.crearRespuestaDto();
 
         try {
             ComandoEditarBrand editarBrand = new ComandoEditarBrand(subcategoriaMarcaDto);
             editarBrand.execute();
 
-            respuesta.setCodigo(0);
-            respuesta.setEstado( "OK" );
-            respuesta.setObjeto( subcategoriaMarcaDto );
+            if (editarBrand.getResult()){
+                respuesta.setCodigo(0);
+                respuesta.setEstado( "OK" );
+                respuesta.setMensaje( "Marca editada" );
+            }else{
+                respuesta.setCodigo(-1);
+                respuesta.setEstado( "ERROR" );
+                respuesta.setMensaje( "Marca no editada" );
+            }
         }
         catch (Exception e){
             e.printStackTrace();
@@ -145,15 +200,22 @@ public class BrandService {
 
     @DELETE
     @Path("/delete/{id}")
-    public RespuestaDto<SubcategoriaMarcaDto> deleteBrand(@PathParam("id") long id){
-        RespuestaDto<SubcategoriaMarcaDto> respuesta = new RespuestaDto<>();
+    public RespuestaDto<Boolean> deleteBrand(@PathParam("id") long id){
+        RespuestaDto<Boolean> respuesta = FabricaDto.crearRespuestaDto();
 
         try {
             ComandoEliminarBrand eliminarBrand = new ComandoEliminarBrand(id);
             eliminarBrand.execute();
 
-            respuesta.setCodigo(0);
-            respuesta.setEstado( "OK" );
+            if (eliminarBrand.getResult()){
+                respuesta.setCodigo(0);
+                respuesta.setEstado( "OK" );
+                respuesta.setMensaje("Marca eliminada");
+            }else{
+                respuesta.setCodigo(-1);
+                respuesta.setEstado( "ERROR" );
+                respuesta.setMensaje( "Marca no eliminada" );
+            }
         }
         catch (Exception e){
             e.printStackTrace();
