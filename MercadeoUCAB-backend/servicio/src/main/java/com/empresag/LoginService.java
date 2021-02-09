@@ -62,8 +62,10 @@ public class LoginService {
 
     @POST
     @Path("/authenticate")
-    public UsuarioDto currentUser(UsuarioDto usuarioDto) throws IndexDatabaseException, LoginException {
+    public RespuestaDto<UsuarioDto> currentUser(UsuarioDto usuarioDto) throws IndexDatabaseException, LoginException {
         boolean authLDAP;
+
+        RespuestaDto<UsuarioDto> respuesta = FabricaDto.crearRespuestaDto();
 
         DaoUsuario daoUsuario = FabricaDao.crearDaoUsuario();
         DaoToken daoToken = FabricaDao.crearDaoToken();
@@ -80,7 +82,11 @@ public class LoginService {
             tokenEntity = daoToken.getUserToken(usuarioEntity.get_id());
         }
         catch (NullPointerException e){
-            return null;
+            respuesta.setCodigo(-1);
+            respuesta.setEstado("ERROR");
+            respuesta.setMensaje("Data incorrecta.");
+
+            return respuesta;
         }
 
         authLDAP = ldap.userAuthentication(usuarioDto);
@@ -116,9 +122,18 @@ public class LoginService {
             authenticatedUser.setFkRol(rol);
             authenticatedUser.setTokenLogin(token);
             authenticatedUser.set_id(usuarioEntity.get_id());
-            return authenticatedUser;
+
+            respuesta.setCodigo(0);
+            respuesta.setEstado("OK");
+            respuesta.setObjeto(authenticatedUser);
+
+            return  respuesta;
         }
-        return null;
+
+        respuesta.setCodigo(-1);
+        respuesta.setEstado("ERROR");
+        respuesta.setMensaje("Usuario o clave incorrectos.");
+        return respuesta;
     }
 
     @POST

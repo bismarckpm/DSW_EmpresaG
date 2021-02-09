@@ -16,9 +16,28 @@ import java.util.List;
 public class CategoryService {
     @GET
     @Path("/all")
-    public List<CategoriaEntity> allCategories(){
+    public RespuestaDto<List<CategoriaEntity>> allCategories(){
         DaoCategoria categoriaDao = FabricaDao.crearDaoCategoria();
-        return categoriaDao.findAll(CategoriaEntity.class);
+
+        RespuestaDto<List<CategoriaEntity>> respuesta = FabricaDto.crearRespuestaDto();
+
+        try{
+
+
+            respuesta.setCodigo(0);
+            respuesta.setEstado( "OK" );
+            respuesta.setObjeto( categoriaDao.findAll(CategoriaEntity.class) );
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado( "ERROR" );
+            respuesta.setMensaje( e.getMessage() );
+            respuesta.setMensajesoporte( e.getLocalizedMessage() );
+        }
+
+        return respuesta;
+
     }
 
 //    @POST
@@ -54,9 +73,9 @@ public class CategoryService {
 
     @POST
     @Path("/add")
-    public RespuestaDto<CategoriaDto> addCategory(CategoriaDto categoriaDto){
+    public RespuestaDto<CategoriaEntity> addCategory(CategoriaDto categoriaDto){
 
-        RespuestaDto<CategoriaDto> respuesta = FabricaDto.crearRespuestaDto();
+        RespuestaDto<CategoriaEntity> respuesta = FabricaDto.crearRespuestaDto();
 
         try{
             ComandoCrearCategoria crearBrand = new ComandoCrearCategoria(categoriaDto);
@@ -64,7 +83,7 @@ public class CategoryService {
 
             respuesta.setCodigo(0);
             respuesta.setEstado( "OK" );
-            respuesta.setObjeto( categoriaDto );
+            respuesta.setObjeto( crearBrand.getResult() );
         }
         catch (Exception e){
             e.printStackTrace();
@@ -80,16 +99,23 @@ public class CategoryService {
 
     @PUT
     @Path("/update/{id}")
-    public RespuestaDto<CategoriaDto> updateCategory(@PathParam("id") long id, CategoriaDto categoriaDto){
-        RespuestaDto<CategoriaDto> respuesta = FabricaDto.crearRespuestaDto();
+    public RespuestaDto<Boolean> updateCategory(@PathParam("id") long id, CategoriaDto categoriaDto){
+        RespuestaDto<Boolean> respuesta = FabricaDto.crearRespuestaDto();
 
         try {
             ComandoEditarCategoria editarCategoria = new ComandoEditarCategoria(id, categoriaDto);
             editarCategoria.execute();
 
-            respuesta.setCodigo(0);
-            respuesta.setEstado( "OK" );
-            respuesta.setObjeto( categoriaDto );
+            if (editarCategoria.getResult()){
+                respuesta.setCodigo(0);
+                respuesta.setEstado( "OK" );
+                respuesta.setMensaje( "Categoria editada" );
+            }else{
+                respuesta.setCodigo(-1);
+                respuesta.setEstado( "ERROR" );
+                respuesta.setMensaje("Categoria no editada");
+            }
+
         }
         catch (Exception e){
             e.printStackTrace();
@@ -119,15 +145,22 @@ public class CategoryService {
 
     @DELETE
     @Path("/delete/{id}")
-    public RespuestaDto<CategoriaDto> deleteCategory(@PathParam("id") long id){
-        RespuestaDto<CategoriaDto> respuesta = FabricaDto.crearRespuestaDto();
+    public RespuestaDto<Boolean> deleteCategory(@PathParam("id") long id){
+        RespuestaDto<Boolean> respuesta = FabricaDto.crearRespuestaDto();
 
         try {
             ComandoEliminarCategoria eliminarCategoria = new ComandoEliminarCategoria(id);
             eliminarCategoria.execute();
 
-            respuesta.setCodigo(0);
-            respuesta.setEstado( "OK" );
+            if (eliminarCategoria.getResult()){
+                respuesta.setCodigo(0);
+                respuesta.setEstado( "OK" );
+                respuesta.setMensaje("Categoria eliminada");
+            }else{
+                respuesta.setCodigo(-1);
+                respuesta.setEstado( "OK" );
+                respuesta.setMensaje("Categoria no eliminada");
+            }
         }
         catch (Exception e){
             e.printStackTrace();

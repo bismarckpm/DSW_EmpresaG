@@ -18,7 +18,7 @@ public class SubcategoriaMarcaMapper {
     }
 
     public static SubcategoriaMarcaDto mapEntityToDto( SubcategoriaMarcaEntity entity ) throws IndexDatabaseException {
-        final SubcategoriaMarcaDto dto = new SubcategoriaMarcaDto();
+        final SubcategoriaMarcaDto dto = FabricaDto.crearSubcategoriaMarcaDto();
 
         if (Objects.nonNull(entity.getFkSubcategoria())) {
             dto.setFkSubcategoria(SubcategoriaMapper.mapEntityToDto(entity.getFkSubcategoria()));

@@ -20,7 +20,7 @@ public class TokenMapper {
     }
 
     public static TokenDto mapEntityToDto( TokenEntity entity ) throws IndexDatabaseException {
-        final TokenDto dto = new TokenDto();
+        final TokenDto dto = FabricaDto.crearTokenDto();
 
         dto.setToken_login(entity.getToken_login());
         dto.setToken_reset(entity.getToken_reset());

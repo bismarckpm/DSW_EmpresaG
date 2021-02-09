@@ -8,13 +8,19 @@ public class LoginTest {
         LoginService login = new LoginService();
         DaoUsuario usuarioDao = new DaoUsuario();
 
-        String userString = "";
-        UsuarioDto usuarioDto = new UsuarioDto();
-        usuarioDto.setEmail("hyperschnell11@outlook.sk");
-        usuarioDto.setPassword("123456789");
-        UsuarioDto user = login.currentUser(usuarioDto);
-        if (user != null)
-            userString = user.toString();
+        try{
+            String userString = "";
+            UsuarioDto usuarioDto = new UsuarioDto();
+            usuarioDto.setEmail("hyperschnell11@outlook.sk");
+            usuarioDto.setPassword("123456789");
+            UsuarioDto user = login.currentUser(usuarioDto).getObjeto();
+
+            if (user != null)
+                userString = user.toString();
+        }
+        catch(Exception e){
+
+        }
 
         UsuarioEntity userPrueba = usuarioDao.find((long) 92, UsuarioEntity.class);
     }
