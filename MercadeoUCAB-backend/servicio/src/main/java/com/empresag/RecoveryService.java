@@ -52,7 +52,6 @@ public class RecoveryService {
         ComandoChangePassword changePassword = new ComandoChangePassword(hash, password);
 
         try {
-
             changePassword.execute();
             res.setCodigo(0);
             res.setObjeto(changePassword.getResult());

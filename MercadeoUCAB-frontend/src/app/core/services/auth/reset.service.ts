@@ -5,6 +5,7 @@ import { ProcessHttpMessageService } from '../process-http-message.service';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import {serverURL} from '../../constants/serverURL';
+import { Respuesta } from '../../classes/respuesta';
 
 @Injectable({
   providedIn: 'root'
@@ -16,23 +17,23 @@ export class ResetService {
   constructor(private http: HttpClient,
     private processHTTPMessageService: ProcessHttpMessageService) { }
 
-  postReset(reset): Observable<Reset>{
+  postReset(reset): Observable<Respuesta>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-    return this.http.post<Reset>(serverURL + 'recovery/' + reset.token + '/pass/' + reset.clave, reset, httpOptions)
+    return this.http.post<Respuesta>(serverURL + 'recovery/' + reset.token + '/pass/' + reset.clave, reset, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
-  postVerificar(reset): Observable<Reset>{
+  postVerificar(reset): Observable<Respuesta>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-    return this.http.post<Reset>(serverURL + 'recovery/' + reset.token, reset, httpOptions)
+    return this.http.post<Respuesta>(serverURL + 'recovery/' + reset.token, reset, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 }
