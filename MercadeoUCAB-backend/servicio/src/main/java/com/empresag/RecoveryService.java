@@ -1,5 +1,8 @@
 package com.empresag;
 
+import com.empresag.recovery.ComandoChangePassword;
+import com.empresag.recovery.ComandoRecovery;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -10,60 +13,81 @@ import java.util.List;
 public class RecoveryService {
     @POST
     @Path("/{email}")
-    public String correoRecuperar(@PathParam("email") String email){
-        DaoToken tokenDao = new DaoToken();
-        DaoUsuario usuarioDao = new DaoUsuario();
-        long id_user;
+    public RespuestaDto<String> correoRecuperar(@PathParam("email") String email){
 
-        String hash = tokenDao.getHASH();
+        RespuestaDto<String> res = new RespuestaDto<>();
 
-        List<UsuarioEntity> users = usuarioDao.emailExist(email);
-        if (!users.isEmpty()){
-            id_user = users.get(0).get_id();
+        ComandoRecovery recovery = new ComandoRecovery(email);
+        try {
 
-            TokenEntity token = tokenDao.findToken(id_user);
-
-            token.setToken_reset(hash);
-
-            tokenDao.update(token);
-
-            Email em = new Email(email,hash);
-
-            return em.sendEmail();
+            recovery.execute();
+            if (recovery.getResult().equals("notfound")){
+                res.setCodigo(-1);
+                res.setObjeto(recovery.getResult());
+                res.setEstado("ERROR");
+                res.setMensaje("Email no enviado");
+            }else {
+                res.setCodigo(0);
+                res.setObjeto(recovery.getResult());
+                res.setEstado("OK");
+                res.setMensaje("Email enviado");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            res.setCodigo(-1);
+            res.setEstado("ERROR");
+            res.setMensaje(e.getMessage());
         }
-        else
-            return "notfound";
+
+        return res;
+
     }
 
     @POST
     @Path("/{hash}/pass/{newPassword}")
-    public void changePassword(@PathParam("hash") String hash,@PathParam("newPassword") String password){
-        DaoUsuario usuarioDao = new DaoUsuario();
-        DaoToken tokenDao = new DaoToken();
-        UserService userservice = new UserService();
+    public RespuestaDto<String> changePassword(@PathParam("hash") String hash,@PathParam("newPassword") String password){
 
-        TokenEntity token = tokenDao.getTokenByHASH(hash,false);
+        RespuestaDto<String> res = new RespuestaDto<>();
 
-        UsuarioEntity user = usuarioDao.find(token.getFkUsuario().get_id(),UsuarioEntity.class);
-        user.setPassword(password);
+        ComandoChangePassword changePassword = new ComandoChangePassword(hash, password);
 
-//        UsuarioDto dtoUsuario = userservice.getUser(user.get_id());
-//        dtoUsuario.setPassword(password);
-//
-//        DirectorioActivo ldap = new DirectorioActivo();
-//
-//        ldap.changePassword(dtoUsuario);
+        try {
 
-        usuarioDao.update(user);
+            changePassword.execute();
+            res.setCodigo(0);
+            res.setObjeto(changePassword.getResult());
+            res.setEstado("OK");
+            res.setMensaje("Password updated");
 
-        tokenDao.deleteTokenReset(user.get_id());
+        } catch (Exception e) {
+            e.printStackTrace();
+            res.setCodigo(-1);
+            res.setEstado("ERROR");
+            res.setMensaje(e.getMessage());
+        }
+
+        return res;
     }
 
     @POST
     @Path("/{hash}")
-    public TokenEntity existeHASH(@PathParam("hash") String hash){
-        DaoToken tokenDao = new DaoToken();
+    public RespuestaDto<TokenEntity> existeHASH(@PathParam("hash") String hash){
+        DaoToken tokenDao = FabricaDao.crearDaoToken();
 
-        return tokenDao.getTokenByHASH(hash,false);
+        RespuestaDto<TokenEntity> res = new RespuestaDto<>();
+
+        try {
+            res.setCodigo(0);
+            res.setEstado("OK");
+            res.setObjeto(tokenDao.getTokenByHASH(hash,false));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            res.setCodigo(-1);
+            res.setEstado("ERROR");
+            res.setMensaje(e.getMessage());
+        }
+
+        return res;
     }
 }
