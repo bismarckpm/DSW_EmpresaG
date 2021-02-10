@@ -11,8 +11,10 @@ public class SubcategoriaMarcaMapper {
         DaoSubcategoria daoSubcategoria = FabricaDao.crearDaoSubcategoria();
         entity.setFkSubcategoria(daoSubcategoria.find(dto.getFkSubcategoria().get_id(), SubcategoriaEntity.class));
 
-        DaoMarca daoMarca = FabricaDao.crearDaoMarca();
-        entity.setFkMarca(daoMarca.find(dto.getFkMarca().get_id(), MarcaEntity.class));
+        if (Objects.nonNull(dto.getFkMarca())) {
+            DaoMarca daoMarca = FabricaDao.crearDaoMarca();
+            entity.setFkMarca(daoMarca.find(dto.getFkMarca().get_id(), MarcaEntity.class));
+        }
 
         return entity;
     }

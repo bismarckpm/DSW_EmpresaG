@@ -37,7 +37,7 @@ public class AnalyticsService {
     public RespuestaDto<List<PreguntaEstudioDto>> getOpenTextResponses(@PathParam("studyId") long studyId){
         DaoAnalisis daoAnalisis = FabricaDao.crearDaoAnalisis();
 
-        RespuestaDto<List<PreguntaEstudioDto>> respuesta = FabricaDto.crearRespuestaDto();
+        RespuestaDto<List<PreguntaEstudioDto>> respuesta = new RespuestaDto<>();
         try {
             List<PreguntaEstudioDto> encuesta = daoAnalisis.getOpenTextAnswers(studyId);
 
@@ -75,7 +75,7 @@ public class AnalyticsService {
     public RespuestaDto<List<PreguntaEstudioDto>> getSelectionResponses(@PathParam("studyId") long studyId){
         DaoAnalisis daoAnalisis = FabricaDao.crearDaoAnalisis();
 
-        RespuestaDto<List<PreguntaEstudioDto>> respuesta = FabricaDto.crearRespuestaDto();
+        RespuestaDto<List<PreguntaEstudioDto>> respuesta = new RespuestaDto<>();
 
         try {
             List<PreguntaEstudioDto> encuesta = daoAnalisis.getSelectionAnswers(studyId);
@@ -114,7 +114,7 @@ public class AnalyticsService {
     public RespuestaDto<List<PreguntaEstudioDto>> getTrueFalseResponses(@PathParam("studyId") long studyId){
         DaoAnalisis daoAnalisis = FabricaDao.crearDaoAnalisis();
 
-        RespuestaDto<List<PreguntaEstudioDto>> respuesta = FabricaDto.crearRespuestaDto();
+        RespuestaDto<List<PreguntaEstudioDto>> respuesta = new RespuestaDto<>();
 
         try {
             List<PreguntaEstudioDto> encuesta = daoAnalisis.getTrueFalseAnswers(studyId);
@@ -153,7 +153,7 @@ public class AnalyticsService {
     public RespuestaDto<List<PreguntaEstudioDto>> getRangeResponses(@PathParam("studyId") long studyId){
         DaoAnalisis daoAnalisis = FabricaDao.crearDaoAnalisis();
 
-        RespuestaDto<List<PreguntaEstudioDto>> respuesta = FabricaDto.crearRespuestaDto();
+        RespuestaDto<List<PreguntaEstudioDto>> respuesta = new RespuestaDto<>();
 
         try {
             List<PreguntaEstudioDto> encuesta = daoAnalisis.getRangeAnswers(studyId);
@@ -194,7 +194,7 @@ public class AnalyticsService {
         DaoAnalisis daoAnalisis = FabricaDao.crearDaoAnalisis();
         AnalisisEntity analisis;
 
-        RespuestaDto<AnalisisEntity> respuesta = FabricaDto.crearRespuestaDto();
+        RespuestaDto<AnalisisEntity> respuesta = new RespuestaDto<>();
 
         try {
             analisis = daoAnalisis.getAnalisis(id);
@@ -244,22 +244,22 @@ public class AnalyticsService {
     public RespuestaDto<AnalisisEntity> addConclusion(@PathParam("studyId") long studyId, AnalisisDto analisisDto){
         DaoEstudio daoEstudio = FabricaDao.crearDaoEstudio();
 
-        RespuestaDto<AnalisisEntity> respuesta = FabricaDto.crearRespuestaDto();
+        RespuestaDto<AnalisisEntity> respuesta = new RespuestaDto<>();
         try {
             EstudioEntity estudio = daoEstudio.find(studyId, EstudioEntity.class);
 
             ComandoCrearConclusion crearAnalisis = new ComandoCrearConclusion(analisisDto);
             crearAnalisis.execute();
 
-            AnalisisEntity analisis = AnalisisMapper.mapDtoToEntity(analisisDto);
-
             estudio.setEstado(2);
-            estudio.setFkAnalisis(analisis);
+            estudio.setFkAnalisis(crearAnalisis.getResult());
             estudio.setFechaCulminacion(new Date(System.currentTimeMillis()));
-            EstudioDto estudioDto = EstudioMapper.mapEntityToDto(estudio);
 
-            ComandoEditarEstudio editarEstudio = new ComandoEditarEstudio(studyId,estudioDto);
+            EstudioDto estudioDto = EstudioMapper.mapEntityToDto(estudio);
+            ComandoEditarEstudio editarEstudio = new ComandoEditarEstudio(studyId, estudioDto);
             editarEstudio.execute();
+
+//            daoEstudio.update(estudio);
 
             respuesta.setCodigo(0);
             respuesta.setEstado( "OK" );

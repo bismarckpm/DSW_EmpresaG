@@ -17,6 +17,7 @@ public class AnalisisMapper {
     public static AnalisisDto mapEntityToDto( AnalisisEntity entity ) throws IndexDatabaseException {
         final AnalisisDto dto = FabricaDto.crearAnalisisDto();
 
+        dto.set_id(entity.get_id());
         dto.setConclusiones(entity.getConclusiones());
 
         return dto;

@@ -21,6 +21,7 @@ public class EstudioMapper {
     public static EstudioDto mapEntityToDto( EstudioEntity entity ) throws IndexDatabaseException {
         final EstudioDto dto = FabricaDto.crearEstudioDto();
 
+        dto.set_id(entity.get_id());
         dto.setFechaRealizacion(entity.getFechaRealizacion());
         dto.setFechaCulminacion(entity.getFechaCulminacion());
         dto.setEstado(entity.getEstado());

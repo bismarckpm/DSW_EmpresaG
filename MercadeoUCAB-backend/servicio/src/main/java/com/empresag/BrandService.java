@@ -25,7 +25,7 @@ public class BrandService {
     @Path("/all")
     public RespuestaDto<List<SubcategoriaMarcaEntity>> allBrands(){
 
-        RespuestaDto<List<SubcategoriaMarcaEntity>> respuesta = FabricaDto.crearRespuestaDto();
+        RespuestaDto<List<SubcategoriaMarcaEntity>> respuesta = new RespuestaDto<>();
 
         try{
             DaoSubcategoriaMarca daoSubcategoriaMarca = FabricaDao.crearDaoSubcategoriaMarca();
@@ -58,7 +58,7 @@ public class BrandService {
     public RespuestaDto<List<SubcategoriaMarcaEntity>> findBySubcategoryID(){
         DaoSubcategoriaMarca daoSubcategoriaMarca = FabricaDao.crearDaoSubcategoriaMarca();
 
-        RespuestaDto<List<SubcategoriaMarcaEntity>> respuesta = FabricaDto.crearRespuestaDto();
+        RespuestaDto<List<SubcategoriaMarcaEntity>> respuesta = new RespuestaDto<>();
 
         try{
             respuesta.setCodigo(0);
@@ -103,7 +103,7 @@ public class BrandService {
     @Path("/add")
     public RespuestaDto<SubcategoriaMarcaEntity> addBrand(SubcategoriaMarcaDto subcategoriaMarcaDto) {
 
-        RespuestaDto<SubcategoriaMarcaEntity> respuesta = FabricaDto.crearRespuestaDto();
+        RespuestaDto<SubcategoriaMarcaEntity> respuesta = new RespuestaDto<>();
 
         try{
             ComandoCrearBrand crearBrand = new ComandoCrearBrand(subcategoriaMarcaDto);
@@ -157,7 +157,7 @@ public class BrandService {
     @PUT
     @Path("/update/{id}")
     public RespuestaDto<Boolean> updateBrand(@PathParam("id") long id, SubcategoriaMarcaDto subcategoriaMarcaDto){
-        RespuestaDto<Boolean> respuesta = FabricaDto.crearRespuestaDto();
+        RespuestaDto<Boolean> respuesta = new RespuestaDto<>();
 
         try {
             ComandoEditarBrand editarBrand = new ComandoEditarBrand(subcategoriaMarcaDto);
@@ -201,7 +201,7 @@ public class BrandService {
     @DELETE
     @Path("/delete/{id}")
     public RespuestaDto<Boolean> deleteBrand(@PathParam("id") long id){
-        RespuestaDto<Boolean> respuesta = FabricaDto.crearRespuestaDto();
+        RespuestaDto<Boolean> respuesta = new RespuestaDto<>();
 
         try {
             ComandoEliminarBrand eliminarBrand = new ComandoEliminarBrand(id);

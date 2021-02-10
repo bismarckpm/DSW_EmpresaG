@@ -216,6 +216,4 @@ public class FabricaDto {
         return new UsuarioDto();
     }
 
-    public static RespuestaDto crearRespuestaDto() { return new RespuestaDto<>(); }
-
 }

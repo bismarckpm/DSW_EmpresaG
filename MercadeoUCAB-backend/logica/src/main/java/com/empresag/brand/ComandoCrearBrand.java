@@ -10,7 +10,6 @@ public class ComandoCrearBrand extends ComandoBase {
 
     public ComandoCrearBrand(SubcategoriaMarcaDto _subcategoriaMarca) {
         subcategoriaMarcaDto = _subcategoriaMarca;
-        subcategoriaMarcaEntity = SubcategoriaMarcaMapper.mapDtoToEntity( _subcategoriaMarca );
     }
 
     @Override
@@ -24,8 +23,10 @@ public class ComandoCrearBrand extends ComandoBase {
         marca.setDescripcion(subcategoriaMarcaDto.getFkMarca().getDescripcion());
 
         try {
-            daoMarca.insert(marca);
+            marca = daoMarca.insert(marca);
 
+            subcategoriaMarcaDto.getFkMarca().set_id(marca.get_id());
+            subcategoriaMarcaEntity = SubcategoriaMarcaMapper.mapDtoToEntity( subcategoriaMarcaDto );
             subcategoriaMarcaEntity = dao.insert(subcategoriaMarcaEntity);
         }
         catch (DatabaseException e){

@@ -65,7 +65,7 @@ public class LoginService {
     public RespuestaDto<UsuarioDto> currentUser(UsuarioDto usuarioDto) throws IndexDatabaseException, LoginException {
         boolean authLDAP;
 
-        RespuestaDto<UsuarioDto> respuesta = FabricaDto.crearRespuestaDto();
+        RespuestaDto<UsuarioDto> respuesta = new RespuestaDto<>();
 
         DaoUsuario daoUsuario = FabricaDao.crearDaoUsuario();
         DaoToken daoToken = FabricaDao.crearDaoToken();

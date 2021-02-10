@@ -19,7 +19,7 @@ public class CategoryService {
     public RespuestaDto<List<CategoriaEntity>> allCategories(){
         DaoCategoria categoriaDao = FabricaDao.crearDaoCategoria();
 
-        RespuestaDto<List<CategoriaEntity>> respuesta = FabricaDto.crearRespuestaDto();
+        RespuestaDto<List<CategoriaEntity>> respuesta = new RespuestaDto<>();
 
         try{
 
@@ -75,7 +75,7 @@ public class CategoryService {
     @Path("/add")
     public RespuestaDto<CategoriaEntity> addCategory(CategoriaDto categoriaDto){
 
-        RespuestaDto<CategoriaEntity> respuesta = FabricaDto.crearRespuestaDto();
+        RespuestaDto<CategoriaEntity> respuesta = new RespuestaDto<>();
 
         try{
             ComandoCrearCategoria crearBrand = new ComandoCrearCategoria(categoriaDto);
@@ -100,7 +100,7 @@ public class CategoryService {
     @PUT
     @Path("/update/{id}")
     public RespuestaDto<Boolean> updateCategory(@PathParam("id") long id, CategoriaDto categoriaDto){
-        RespuestaDto<Boolean> respuesta = FabricaDto.crearRespuestaDto();
+        RespuestaDto<Boolean> respuesta = new RespuestaDto<>();
 
         try {
             ComandoEditarCategoria editarCategoria = new ComandoEditarCategoria(id, categoriaDto);
@@ -146,7 +146,7 @@ public class CategoryService {
     @DELETE
     @Path("/delete/{id}")
     public RespuestaDto<Boolean> deleteCategory(@PathParam("id") long id){
-        RespuestaDto<Boolean> respuesta = FabricaDto.crearRespuestaDto();
+        RespuestaDto<Boolean> respuesta = new RespuestaDto<>();
 
         try {
             ComandoEliminarCategoria eliminarCategoria = new ComandoEliminarCategoria(id);

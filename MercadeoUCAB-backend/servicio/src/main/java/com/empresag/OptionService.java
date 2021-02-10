@@ -24,7 +24,7 @@ public class OptionService {
     public RespuestaDto<List<OpcionEntity>> allQuestionOptions(@PathParam("id") long id){
         DaoOpcion daoOpcion = FabricaDao.crearDaoOpcion();
 
-        RespuestaDto<List<OpcionEntity>> respuesta = FabricaDto.crearRespuestaDto();
+        RespuestaDto<List<OpcionEntity>> respuesta = new RespuestaDto<>();
 
         try{
             respuesta.setCodigo(0);
@@ -46,7 +46,7 @@ public class OptionService {
     @Path("/delete/{id}")
     public RespuestaDto<Boolean> deleteOption(@PathParam("id") long id){
 
-        RespuestaDto<Boolean> respuesta = FabricaDto.crearRespuestaDto();
+        RespuestaDto<Boolean> respuesta = new RespuestaDto<>();
 
         try {
             ComandoEliminarOpcion eliminarOpcion = new ComandoEliminarOpcion(id);
