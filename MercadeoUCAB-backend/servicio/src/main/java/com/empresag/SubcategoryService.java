@@ -1,5 +1,7 @@
 package com.empresag;
 
+import com.empresag.subcategory.ComandoCrearSubcategory;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -13,81 +15,179 @@ public class SubcategoryService {
 
     @GET
     @Path("/all")
-    public List<CategoriaSubcategoriaEntity> allSubcategories(){
-        DaoCategoriaSubcategoria daoCategoriaSubcategoria = new DaoCategoriaSubcategoria();
-        return daoCategoriaSubcategoria.findAll(CategoriaSubcategoriaEntity.class);
+    public RespuestaDto<List<CategoriaSubcategoriaEntity>> allSubcategories(){
+        DaoCategoriaSubcategoria daoCategoriaSubcategoria = FabricaDao.crearDaoCategoriaSubcategoria();
+
+        RespuestaDto<List<CategoriaSubcategoriaEntity>> respuesta = new RespuestaDto();
+
+        try {
+            respuesta.setCodigo(0);
+            respuesta.setEstado("OK");
+            respuesta.setObjeto(daoCategoriaSubcategoria.findAll(CategoriaSubcategoriaEntity.class));
+
+        }
+        catch (Exception e){
+
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado( "ERROR" );
+            respuesta.setMensaje( e.getMessage() );
+            respuesta.setMensajesoporte( e.getLocalizedMessage() );
+
+        }
+
+        return respuesta;
     }
 
     @GET
     @Path("/filtered-by-category")
-    public List<CategoriaSubcategoriaEntity> findByCategoryID(){
+    public RespuestaDto<List<CategoriaSubcategoriaEntity>> findByCategoryID(){
         DaoCategoriaSubcategoria daoCategoriaSubcategoria = new DaoCategoriaSubcategoria();
-        return daoCategoriaSubcategoria.findByCategoryID(id);
+
+        RespuestaDto<List<CategoriaSubcategoriaEntity>> respuesta = new RespuestaDto();
+
+        try {
+            respuesta.setCodigo(0);
+            respuesta.setEstado("OK");
+            respuesta.setObjeto(daoCategoriaSubcategoria.findByCategoryID(id));
+
+        }
+        catch (Exception e){
+
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado( "ERROR" );
+            respuesta.setMensaje( e.getMessage() );
+            respuesta.setMensajesoporte( e.getLocalizedMessage() );
+
+        }
+
+        return respuesta;
     }
 
     @POST
     @Path("/add")
-    public CategoriaSubcategoriaEntity addSubcategoria(CategoriaSubcategoriaDto categoriaSubcategoriaDto){
-        DaoSubcategoria daoSubcategoria = new DaoSubcategoria();
-        SubcategoriaEntity subcategoria = new SubcategoriaEntity();
-        subcategoria.setNombre(categoriaSubcategoriaDto.getFkSubcategoria().getNombre());
-        subcategoria.setDescripcion(categoriaSubcategoriaDto.getFkSubcategoria().getDescripcion());
+    public RespuestaDto<CategoriaSubcategoriaDto> addSubcategoria(CategoriaSubcategoriaDto categoriaSubcategoriaDto){
 
-        daoSubcategoria.insert(subcategoria);
+        RespuestaDto<CategoriaSubcategoriaDto> respuesta = new RespuestaDto();
+        try {
+            ComandoCrearSubcategory comando = new ComandoCrearSubcategory(categoriaSubcategoriaDto);
+            comando.execute();
 
-        DaoCategoriaSubcategoria daoCategoriaSubcategoria = new DaoCategoriaSubcategoria();
-        CategoriaEntity categoria = new CategoriaEntity(categoriaSubcategoriaDto.getFkCategoria().get_id());
-        categoria.setNombre(categoriaSubcategoriaDto.getFkCategoria().getNombre());
-        CategoriaSubcategoriaEntity cs = new CategoriaSubcategoriaEntity();
-        cs.setFkCategoria(categoria);
-        cs.setFkSubcategoria(subcategoria);
-        daoCategoriaSubcategoria.insert(cs);
+            respuesta.setCodigo(0);
+            respuesta.setEstado("OK");
+            respuesta.setMensaje("Subcategoria agregada exitosamente.");
+            respuesta.setObjeto(comando.getResult());
 
-        return cs;
+        } catch (Exception e) {
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado( "ERROR" );
+            respuesta.setMensaje( e.getMessage() );
+            respuesta.setMensajesoporte( e.getLocalizedMessage() );
+        }
+
+        return respuesta;
     }
 
     @PUT
     @Path("/update/{id}")
-    public Response updateSubcategoria(@PathParam("id") long id, CategoriaSubcategoriaDto categoriaSubcategoriaDto){
-        DaoSubcategoria daoSubcategoria = new DaoSubcategoria();
-        DaoCategoriaSubcategoria daoCategoriaSubcategoria = new DaoCategoriaSubcategoria();
-        CategoriaSubcategoriaEntity cs = daoCategoriaSubcategoria.find(id, CategoriaSubcategoriaEntity.class);
+    public RespuestaDto<Boolean> updateSubcategoria(@PathParam("id") long id, CategoriaSubcategoriaDto categoriaSubcategoriaDto){
+        RespuestaDto<Boolean> respuesta = new RespuestaDto();
 
-        if (cs != null){
-            cs.setFkCategoria(new CategoriaEntity(categoriaSubcategoriaDto.getFkCategoria().get_id(),
-                    categoriaSubcategoriaDto.getFkCategoria().getNombre()));
-            cs.setFkSubcategoria(new SubcategoriaEntity(categoriaSubcategoriaDto.getFkSubcategoria().get_id()));
-            SubcategoriaEntity subcategoria = daoSubcategoria.find(categoriaSubcategoriaDto.getFkSubcategoria().get_id(),
-                    SubcategoriaEntity.class);
+        try {
+            DaoSubcategoria daoSubcategoria = FabricaDao.crearDaoSubcategoria();
+            DaoCategoriaSubcategoria daoCategoriaSubcategoria = FabricaDao.crearDaoCategoriaSubcategoria();
+            CategoriaSubcategoriaEntity cs = daoCategoriaSubcategoria.find(id, CategoriaSubcategoriaEntity.class);
 
-            if (subcategoria != null){
-                subcategoria.setNombre(categoriaSubcategoriaDto.getFkSubcategoria().getNombre());
-                subcategoria.setDescripcion(categoriaSubcategoriaDto.getFkSubcategoria().getDescripcion());
-                daoSubcategoria.update(subcategoria);
-                daoCategoriaSubcategoria.update(cs);
-                return Response.ok().entity(cs).build();
-            }
-            else {
-                return Response.status(Response.Status.NOT_FOUND).build();
+            if (cs != null) {
+                cs.setFkCategoria(new CategoriaEntity(
+                        categoriaSubcategoriaDto.getFkCategoria().get_id(),
+                        categoriaSubcategoriaDto.getFkCategoria().getNombre()
+                ));
+                cs.setFkSubcategoria(new SubcategoriaEntity(
+                        categoriaSubcategoriaDto.getFkSubcategoria().get_id()));
+
+                SubcategoriaEntity subcategoria = daoSubcategoria.find(
+                        categoriaSubcategoriaDto.getFkSubcategoria().get_id(),
+                        SubcategoriaEntity.class);
+
+                if (subcategoria != null) {
+                    subcategoria.setNombre(categoriaSubcategoriaDto.getFkSubcategoria().getNombre());
+                    subcategoria.setDescripcion(categoriaSubcategoriaDto.getFkSubcategoria().getDescripcion());
+
+                    daoSubcategoria.update(subcategoria);
+                    daoCategoriaSubcategoria.update(cs);
+
+                    respuesta.setCodigo(0);
+                    respuesta.setEstado("OK");
+                    respuesta.setMensaje("Subcategoria actualizada exitosamente.");
+
+                } else {
+                    respuesta.setCodigo(-1);
+                    respuesta.setEstado("ERROR");
+                    respuesta.setMensaje("Subcategoria no encontrada");
+                }
+            } else {
+                respuesta.setCodigo(-1);
+                respuesta.setEstado("ERROR");
+                respuesta.setMensaje("Subcategoria no encontrada");
             }
         }
-        else {
-            return Response.status(Response.Status.NOT_FOUND).build();
+        catch (NullPointerException e){
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado( "ERROR" );
+            respuesta.setMensaje( "Subcategoria no encontrada" );
+            respuesta.setMensajesoporte( e.getLocalizedMessage() );
         }
+        catch (Exception e){
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado( "ERROR" );
+            respuesta.setMensaje( e.getMessage() );
+            respuesta.setMensajesoporte( e.getLocalizedMessage() );
+        }
+        return respuesta;
     }
 
     @DELETE
     @Path("/delete/{id}")
-    public Response deleteSubcategoria(@PathParam("id") long id){
-        DaoCategoriaSubcategoria daoCategoriaSubcategoria = new DaoCategoriaSubcategoria();
-        CategoriaSubcategoriaEntity cs = daoCategoriaSubcategoria.find(id, CategoriaSubcategoriaEntity.class);
+    public RespuestaDto<Boolean> deleteSubcategoria(@PathParam("id") long id){
+        DaoCategoriaSubcategoria daoCategoriaSubcategoria = FabricaDao.crearDaoCategoriaSubcategoria();
 
-        if (cs != null){
-            daoCategoriaSubcategoria.delete(cs);
-            return Response.ok().entity(cs).build();
+        RespuestaDto<Boolean> respuesta = new RespuestaDto();
+        try {
+
+            CategoriaSubcategoriaEntity cs = daoCategoriaSubcategoria.find(id, CategoriaSubcategoriaEntity.class);
+
+            if (cs != null) {
+                daoCategoriaSubcategoria.delete(cs);
+
+                respuesta.setCodigo(0);
+                respuesta.setEstado( "OK" );
+                respuesta.setMensaje("Subcategoria eliminada exitosamente.");
+
+            } else {
+                respuesta.setCodigo(-1);
+                respuesta.setEstado( "ERROR" );
+                respuesta.setMensaje( "Subcategoria no encontrada" );
+            }
         }
-        else {
-            return Response.status(Response.Status.NOT_FOUND).build();
+        catch (NullPointerException e){
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado( "ERROR" );
+            respuesta.setMensaje( "Subcategoria no encontrada" );
+            respuesta.setMensajesoporte( e.getLocalizedMessage() );
         }
+        catch (Exception e){
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado( "ERROR" );
+            respuesta.setMensaje( e.getMessage() );
+            respuesta.setMensajesoporte( e.getLocalizedMessage() );
+        }
+        return respuesta;
     }
 }

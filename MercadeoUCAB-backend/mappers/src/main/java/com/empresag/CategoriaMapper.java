@@ -15,10 +15,12 @@ public class CategoriaMapper {
     public static CategoriaDto mapEntityToDto( CategoriaEntity entity ) throws IndexDatabaseException {
         final CategoriaDto dto = FabricaDto.crearCategoriaDto();
 
+        dto.set_id(entity.get_id());
         dto.setNombre(entity.getNombre());
-        dto.setDescripcion(entity.getDescripcion());
+        dto.setNombre(entity.getNombre());
 
         return dto;
+
     }
 
 }

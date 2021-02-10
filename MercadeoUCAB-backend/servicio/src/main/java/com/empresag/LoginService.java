@@ -89,9 +89,9 @@ public class LoginService {
             return respuesta;
         }
 
-        authLDAP = ldap.userAuthentication(usuarioDto);
+//        authLDAP = ldap.userAuthentication(usuarioDto);
 
-        if (authLDAP){
+//        if (authLDAP){
             token = daoToken.getAlphaNumericString(25);
 
             if (tokenEntity != null) {

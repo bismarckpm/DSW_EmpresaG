@@ -27,6 +27,7 @@ import { Table } from 'primeng/table';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { CivilStatus } from 'src/app/core/classes/profile/civil_status';
+import { CategorySubcategory } from 'src/app/core/classes/products/category_subcategory';
 
 @Component({
   selector: 'app-edit-study',
@@ -141,8 +142,8 @@ export class EditStudyComponent implements OnInit {
             this.gendersErrorMessage = errorMessage;
           });
 
-          this.placeService.getCountries().subscribe((countries) => {
-            this.paises = replaceKeyWithValue(countries);
+          this.placeService.getCountries().subscribe((respuesta) => {
+            this.paises = replaceKeyWithValue(respuesta.objeto as Place[]);
           }, errorMessage => {
             this.placesErrorMessage = errorMessage;
           });
@@ -214,8 +215,8 @@ export class EditStudyComponent implements OnInit {
               }
 
               else if (this.estudio.tipoFiltroLugar === 2) {
-                this.placeService.getStates(this.estudio.fkLugar.fkLugar._id).subscribe((states) => {
-                  this.estados = replaceKeyWithValue(states);
+                this.placeService.getStates(this.estudio.fkLugar.fkLugar._id).subscribe((res) => {
+                  this.estados = replaceKeyWithValue(res.objeto as Place[]);
                 });
 
                 this.studyForm.patchValue({
@@ -246,7 +247,9 @@ export class EditStudyComponent implements OnInit {
   }
 
   getSubcategories(category_id) {
-    this.subcategoryService.getSubcategories(category_id).subscribe((subcategories) => {
+    this.subcategoryService.getSubcategories(category_id).subscribe((respuesta) => {
+      var subcategories = respuesta.objeto as CategorySubcategory[];
+      console.log(subcategories);
       this.subcategorias = [];
       for (let i = 0; i < subcategories.length; i++) {
         this.subcategorias.push({
@@ -294,8 +297,8 @@ export class EditStudyComponent implements OnInit {
   }
 
   getStates(country_id) {
-    this.placeService.getStates(country_id).subscribe((states) => {
-      this.estados = replaceKeyWithValue(states);
+    this.placeService.getStates(country_id).subscribe((res) => {
+      this.estados = replaceKeyWithValue(res.objeto as Place[]);
     }, errorMessage => {
       this.placesErrorMessage = errorMessage;
     });

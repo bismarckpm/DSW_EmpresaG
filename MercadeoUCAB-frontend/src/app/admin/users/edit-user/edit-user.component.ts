@@ -92,8 +92,8 @@ export class EditUserComponent implements OnInit {
           label: 'No',
           value: false
         }];
-      this.placeService.getCountries().subscribe((countries) => {
-        this.paises = replaceKeyWithValue(countries);
+      this.placeService.getCountries().subscribe((respuesta) => {
+        this.paises = replaceKeyWithValue(respuesta.objeto as Place[]);
       });
 
       /* If query is empty return 404 */
@@ -106,8 +106,8 @@ export class EditUserComponent implements OnInit {
         this.spinner.show();
         this.loading = true;
         this.current_user = parseInt(this.Activatedroute.snapshot.queryParamMap.get('pid'), 10);
-        this.userService.getPerson(this.current_user).subscribe((persona) => {
-            this.persona = persona;
+        this.userService.getPerson(this.current_user).subscribe((per) => {
+            this.persona = per.objeto as Person;
 
             if (this.persona){
               this.loading = false;
@@ -117,10 +117,10 @@ export class EditUserComponent implements OnInit {
                 this.persona.fkPersona.id_estado = new Place();
                 this.persona.fkPersona.id_ciudad = new Place();
                 this.persona.fkPersona.id_parroquia = new Place();
-                this.manageLugar(persona.fkPersona.fkLugar);
+                this.manageLugar(this.persona.fkPersona.fkLugar);
                 this.selectedDevices = this.persona.fkPersona.dispositivos;
-                this.fecha_nacimiento = new Date(persona.fkPersona.fechaNacimiento);
-                this.hijos = persona.fkPersona.hijos;
+                this.fecha_nacimiento = new Date(this.persona.fkPersona.fechaNacimiento);
+                this.hijos = this.persona.fkPersona.hijos;
                 if (this.hijos.length > 0){
                   this.hasKids = true;
                   this.persona.fkPersona.tiene_hijos = true;
@@ -494,12 +494,20 @@ export class EditUserComponent implements OnInit {
   }
 
   putUser(){
-    this.userService.putUser(this.userService.persona).subscribe((p) => {
-      this.persona = p;
-      this.messageService.add({severity: 'success', summary: 'Éxito', detail: 'Usuario actualizado con éxito'});
+    this.userService.putUser(this.userService.persona).subscribe((per) => {
+      // this.persona = per.objeto as Person;
+
+      if (per.codigo == 0){
+        this.messageService.add({severity: 'success', summary: 'Éxito', detail: per.mensaje});
+      }else{
+        this.messageService.add({severity: 'error', summary: 'Error', detail: per.mensaje});
+
+      }
+      
       this.sent_form = false;
       // this.editUser();
       // this.closeModal();
+      
     }, errorMessage => {
       this.messageService.add({severity: 'error', summary: 'Error', detail: errorMessage});
       this.sent_form = false;
@@ -507,7 +515,7 @@ export class EditUserComponent implements OnInit {
   }
 
   checkRol(event){
-    if (event.value === 1){
+    if (event.value === 4){
       this.rol = true;
     }
     else{
@@ -587,6 +595,9 @@ export class EditUserComponent implements OnInit {
       this.putUser();
         // }
       }
+
+
+      
     }
     // USUARIO DE TIPO NO ENCUESTADO
     else{
@@ -642,10 +653,10 @@ export class EditUserComponent implements OnInit {
   getStates(event){
     this.ciudades = [];
     this.parroquias = [];
-    this.placeService.getStates(event.value).subscribe((states) => {
-      if (states.length){
+    this.placeService.getStates(event.value).subscribe((res) => {
+      if ((res.objeto as Place[]).length){
         this.estado = true;
-        this.estados = replaceKeyWithValue(states);
+        this.estados = replaceKeyWithValue(res.objeto as Place[]);
       }
       else{
         this.estado = false;
@@ -657,10 +668,10 @@ export class EditUserComponent implements OnInit {
 
   getCities(event){
     this.parroquias = [];
-    this.placeService.getCities(event.value).subscribe((cities) => {
-      if (cities.length){
+    this.placeService.getCities(event.value).subscribe((res) => {
+      if ((res.objeto as Place[]).length){
         this.ciudad = true;
-        this.ciudades = replaceKeyWithValue(cities);
+        this.ciudades = replaceKeyWithValue(res.objeto as Place[]);
       }
       else{
         this.ciudad = false;
@@ -670,10 +681,10 @@ export class EditUserComponent implements OnInit {
   }
 
   getCounties(event){
-    this.placeService.getCounties(event.value).subscribe((counties) => {
-      if (counties.length){
+    this.placeService.getCounties(event.value).subscribe((res) => {
+      if ((res.objeto as Place[]).length){
         this.parroquia = true;
-        this.parroquias = replaceKeyWithValue(counties);
+        this.parroquias = replaceKeyWithValue(res.objeto as Place[]);
       }
       else{
         this.parroquia = false;
@@ -695,10 +706,11 @@ export class EditUserComponent implements OnInit {
     if (lugar.tipo === 0){
 
       this.persona.fkPersona.id_pais = lugar;
-      this.placeService.getStates(this.persona.fkPersona.id_pais._id).subscribe((states) => {
-        if (states.length){
+      this.placeService.getStates(this.persona.fkPersona.id_pais._id).subscribe((res) => {
+        
+        if ((res.objeto as Place[]).length){
           this.estado = true;
-          this.estados = replaceKeyWithValue(states);
+          this.estados = replaceKeyWithValue(res.objeto as Place[]);
         }
         else{
           this.estado = false;
@@ -714,10 +726,10 @@ export class EditUserComponent implements OnInit {
         case 1:
           this.persona.fkPersona.id_estado = lugar;
           this.estado = true;
-          this.placeService.getCities(this.persona.fkPersona.id_estado._id).subscribe((cities) => {
-            if (cities.length){
+          this.placeService.getCities(this.persona.fkPersona.id_estado._id).subscribe((res) => {
+            if ((res.objeto as Place[]).length){
               this.ciudad = true;
-              this.ciudades = replaceKeyWithValue(cities);
+              this.ciudades = replaceKeyWithValue(res.objeto as Place[]);
             }
             else{
               this.ciudad = false;
@@ -728,10 +740,10 @@ export class EditUserComponent implements OnInit {
         case 2:
           this.persona.fkPersona.id_ciudad = lugar;
           this.ciudad = true;
-          this.placeService.getCounties(this.persona.fkPersona.id_ciudad._id).subscribe((counties) => {
-            if (counties.length){
+          this.placeService.getCounties(this.persona.fkPersona.id_ciudad._id).subscribe((res) => {
+            if ((res.objeto as Place[]).length){
               this.parroquia = true;
-              this.parroquias = replaceKeyWithValue(counties);
+              this.parroquias = replaceKeyWithValue(res.objeto as Place[]);
             }
             else{
               this.parroquia = false;

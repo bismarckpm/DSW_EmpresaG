@@ -32,9 +32,9 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
 
     this.loading = true;
-    this.userService.getPersons().subscribe((person) => {
-      this.usuarios = person;
-      console.log(person);
+    this.userService.getPersons().subscribe((per) => {
+      this.usuarios = per.objeto as Person[];
+      console.log(per);
       this.loading = false;
     },
     errorMessage => {
@@ -53,13 +53,17 @@ export class UsersComponent implements OnInit {
       accept: () => {
           this.userService.deleteUser(person).subscribe((q) => {
 
-            let index = this.usuarios.indexOf(person);
-            if (index > -1) {
-              this.usuarios.splice(index, 1);
+            if (q.codigo == 0){
+              let index = this.usuarios.indexOf(person);
+              if (index > -1) {
+                this.usuarios.splice(index, 1);
+              }
+
+              this.messageService.add({severity: 'success', summary: 'Éxito', detail: 'Usuario eliminado con éxito'});
+            }else{
+              this.messageService.add({severity: 'error', summary: 'Error', detail: q.mensaje});
+
             }
-
-            this.messageService.add({severity: 'success', summary: 'Éxito', detail: 'Usuario eliminado con éxito'});
-
           }, errorMessage => {
             this.messageService.add({severity: 'error', summary: 'Error', detail: errorMessage});
           });

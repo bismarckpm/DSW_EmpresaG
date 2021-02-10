@@ -4,6 +4,7 @@ import { QUESTION_TYPES } from '../../../core/constants/question_types';
 import { QuestionService } from '../../../core/services/admin/studies/question.service';
 import { SubcategoryService } from '../../../core/services/admin/products/subcategory.service';
 import { QuestionCategorySubcategory } from 'src/app/core/classes/study/question_category_subcategory';
+import { CategorySubcategory } from 'src/app/core/classes/products/category_subcategory';
 
 @Component({
   selector: 'app-add-question-from-pool',
@@ -43,7 +44,9 @@ export class AddQuestionFromPoolComponent implements OnInit {
         this.questionsErrorMessage = errorMessage;
       });
 
-    this.subcategoryService.getSubcategories(this.category_id).subscribe((subcategories) => {
+    this.subcategoryService.getSubcategories(this.category_id).subscribe((respuesta) => {
+      var subcategories = respuesta.objeto as CategorySubcategory[];
+      console.log(subcategories);
       this.subcategorias = [];
       for (let i = 0; i < subcategories.length; i++) {
         this.subcategorias.push({

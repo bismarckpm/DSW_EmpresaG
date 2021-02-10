@@ -281,16 +281,16 @@ export class ProfileComponent implements OnInit {
           label: 'No',
           value: false
         }];
-      this.placeService.getCountries().subscribe((countries) => {
-        this.paises = replaceKeyWithValue(countries);
+      this.placeService.getCountries().subscribe((res) => {
+        this.paises = replaceKeyWithValue(res.objeto as Place[]);
       });
 
         this.spinner.show();
         this.loading = true;
         // this.current_user = parseInt(this.Activatedroute.snapshot.queryParamMap.get('pid'));
-        this.userService.getPerson(this.sessionService.getCurrentSession()._id).subscribe((persona) => {
+        this.userService.getPerson(this.sessionService.getCurrentSession()._id).subscribe((per) => {
         // this.userService.getPerson(this.current_user).subscribe((persona) => {
-            this.persona = persona;
+            this.persona = per.objeto as Person;
 
             console.log(this.persona);
             if (this.persona){
@@ -301,7 +301,7 @@ export class ProfileComponent implements OnInit {
                 this.persona.fkPersona.id_estado = new Place();
                 this.persona.fkPersona.id_ciudad = new Place();
                 this.persona.fkPersona.id_parroquia = new Place();
-                this.manageLugar(persona.fkPersona.fkLugar);
+                this.manageLugar(this.persona.fkPersona.fkLugar);
                 this.selectedDevices = this.persona.fkPersona.dispositivos;
               // this.selectedGenreValue = persona.fkPersona.fkGenero.value;
               // this.selectedEdoCivilValue = persona.fkPersona.fkEdoCivil.value;
@@ -309,9 +309,9 @@ export class ProfileComponent implements OnInit {
                 this.ocupacion = this.ocupaciones[parseInt(this.persona.fkPersona.ocupacion)-1].label;
                 this.lvlAcademico = this.niveles_academicos[this.persona.fkPersona.id_nivel_academico-1].label;
                 this.parseDireccion(this.persona.fkPersona.fkLugar);
-                this.fecha_nacimiento = new Date(persona.fkPersona.fechaNacimiento);
+                this.fecha_nacimiento = new Date(this.persona.fkPersona.fechaNacimiento);
                 // this.hasKids = persona.fkPersona.tiene_hijos;
-                this.hijos = persona.fkPersona.hijos;
+                this.hijos = this.persona.fkPersona.hijos;
                 if (this.hijos.length > 0){
                   this.hasKids = true;
                   this.persona.fkPersona.tiene_hijos = true;
@@ -562,10 +562,10 @@ export class ProfileComponent implements OnInit {
   getStates(event){
     this.ciudades = [];
     this.parroquias = [];
-    this.placeService.getStates(event.value).subscribe((states) => {
-      if (states.length){
+    this.placeService.getStates(event.value).subscribe((res) => {
+      if ((res.objeto as Place[]).length){
         this.estado = true;
-        this.estados = replaceKeyWithValue(states);
+        this.estados = replaceKeyWithValue(res.objeto as Place[]);
       }
       else{
         this.estado = false;
@@ -577,10 +577,10 @@ export class ProfileComponent implements OnInit {
 
   getCities(event){
     this.parroquias = [];
-    this.placeService.getCities(event.value).subscribe((cities) => {
-      if (cities.length){
+    this.placeService.getCities(event.value).subscribe((res) => {
+      if ((res.objeto as Place[]).length){
         this.ciudad = true;
-        this.ciudades = replaceKeyWithValue(cities);
+        this.ciudades = replaceKeyWithValue(res.objeto as Place[]);
       }
       else{
         this.ciudad = false;
@@ -590,10 +590,10 @@ export class ProfileComponent implements OnInit {
   }
 
   getCounties(event){
-    this.placeService.getCounties(event.value).subscribe((counties) => {
-      if (counties.length){
+    this.placeService.getCounties(event.value).subscribe((res) => {
+      if ((res.objeto as Place[]).length){
         this.parroquia = true;
-        this.parroquias = replaceKeyWithValue(counties);
+        this.parroquias = replaceKeyWithValue(res.objeto as Place[]);
       }
       else{
         this.parroquia = false;
@@ -610,10 +610,10 @@ export class ProfileComponent implements OnInit {
     if (lugar.tipo == 0){
 
       this.persona.fkPersona.id_pais = lugar;
-      this.placeService.getStates(this.persona.fkPersona.id_pais._id).subscribe((states) => {
-        if (states.length){
+      this.placeService.getStates(this.persona.fkPersona.id_pais._id).subscribe((res) => {
+        if ((res.objeto as Place[]).length){
           this.estado = true;
-          this.estados = replaceKeyWithValue(states);
+          this.estados = replaceKeyWithValue(res.objeto as Place[]);
         }
         else{
           this.estado = false;
@@ -629,10 +629,10 @@ export class ProfileComponent implements OnInit {
         case 1:
           this.persona.fkPersona.id_estado = lugar;
           this.estado = true;
-          this.placeService.getCities(this.persona.fkPersona.id_estado._id).subscribe((cities) => {
-            if (cities.length){
+          this.placeService.getCities(this.persona.fkPersona.id_estado._id).subscribe((res) => {
+            if ((res.objeto as Place[]).length){
               this.ciudad = true;
-              this.ciudades = replaceKeyWithValue(cities);
+              this.ciudades = replaceKeyWithValue(res.objeto as Place[]);
             }
             else{
               this.ciudad = false;
@@ -643,10 +643,10 @@ export class ProfileComponent implements OnInit {
         case 2:
           this.persona.fkPersona.id_ciudad = lugar;
           this.ciudad = true;
-          this.placeService.getCounties(this.persona.fkPersona.id_ciudad._id).subscribe((counties) => {
-            if (counties.length){
+          this.placeService.getCounties(this.persona.fkPersona.id_ciudad._id).subscribe((res) => {
+            if ((res.objeto as Place[]).length){
               this.parroquia = true;
-              this.parroquias = replaceKeyWithValue(counties);
+              this.parroquias = replaceKeyWithValue(res.objeto as Place[]);
             }
             else{
               this.parroquia = false;
@@ -698,9 +698,14 @@ export class ProfileComponent implements OnInit {
   }
 
   putUser(){
-    this.userService.putUser(this.userService.persona).subscribe((p)=>{
-      this.persona = p;
-      this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Usuario actualizado con éxito'});
+    this.userService.putUser(this.userService.persona).subscribe((per)=>{
+      this.persona = per.objeto as Person;
+      if (per.codigo == 0){
+        this.messageService.add({severity:'success', summary: 'Éxito', detail: per.mensaje});
+      }else{
+        this.messageService.add({severity:'error', summary: 'Error', detail: per.mensaje});
+      }
+
       this.sent_form = false;
       // this.router.navigate(['/profile']);
       // this.editUser();
@@ -778,7 +783,6 @@ export class ProfileComponent implements OnInit {
         && this.userService.persona.fkPersona.id_nivel_academico && this.userService.persona.fkRol._id
         && this.userService.persona.fkPersona.id_pais  && this.userService.persona.fkPersona.telefono
         && this.userService.persona.fkPersona.numero_personas_encasa){
-
 
         /* SUBMIT FORM */
         this.sent_form = true;

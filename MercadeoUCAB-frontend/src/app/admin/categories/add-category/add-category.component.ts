@@ -7,6 +7,7 @@ import { replaceKeyWithValue } from '../../../core/functions/common_functions';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BrandType } from 'src/app/core/classes/products/brand_type';
 
 @Component({
   selector: 'app-add-category',
@@ -47,8 +48,8 @@ export class AddCategoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.typesService.getALLTypes().subscribe((types)=>{
-      this.tipos = replaceKeyWithValue(types)
+    this.typesService.getALLTypes().subscribe((res)=>{
+      this.tipos = replaceKeyWithValue(res.objeto as BrandType[])
     })
     this.createForm();
   }

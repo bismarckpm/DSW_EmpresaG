@@ -9,6 +9,7 @@ import { BrandService } from 'src/app/core/services/admin/products/brand.service
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SubcategoryBrand } from 'src/app/core/classes/products/subcategory_brand';
 import { Subcategory } from 'src/app/core/classes/products/subcategory';
+import { CategorySubcategory } from 'src/app/core/classes/products/category_subcategory';
 
 @Component({
   selector: 'app-edit-brand',
@@ -119,7 +120,10 @@ export class EditBrandComponent implements OnInit {
   getSubcategories(){
     this.subcategorias = null;
     this.subcategorias = [];
-    this.subcategoryService.getALLSubcategories().subscribe((subcategories) => {
+    this.subcategoryService.getALLSubcategories().subscribe((respuesta) => {
+      
+      var subcategories = respuesta.objeto as CategorySubcategory[];
+      console.log(subcategories);
       for (let i = 0; i < subcategories.length; i++){
         this.subcategorias.push({
           _id: subcategories[i].fkSubcategoria._id,

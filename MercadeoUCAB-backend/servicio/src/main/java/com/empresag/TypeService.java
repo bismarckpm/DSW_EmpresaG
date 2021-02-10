@@ -1,5 +1,9 @@
 package com.empresag;
 
+import com.empresag.type.ComandoAddType;
+import com.empresag.type.ComandoDeleteType;
+import com.empresag.type.ComandoUpdateType;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -11,78 +15,97 @@ import java.util.List;
 public class TypeService {
     @GET
     @Path("/all")
-    public List<MarcaTipoEntity> allTypes(){
-        DaoMarcaTipo daoMarcaTipo = new DaoMarcaTipo();
-        return daoMarcaTipo.findAll(MarcaTipoEntity.class);
+    public RespuestaDto<List<MarcaTipoEntity>> allTypes(){
+
+        DaoMarcaTipo marcaTipo = FabricaDao.crearDaoMarcaTipo();
+
+        RespuestaDto<List<MarcaTipoEntity>> res = new RespuestaDto<>();
+
+        try {
+            res.setCodigo(0);
+            res.setEstado("OK");
+            res.setObjeto(marcaTipo.findAll(MarcaTipoEntity.class));
+
+        }catch (Exception e){
+            e.printStackTrace();
+            res.setCodigo(-1);
+            res.setEstado("ERROR");
+            res.setMensaje(e.getMessage());
+        }
+
+        return res;
+
     }
 
     @POST
     @Path("/add")
-    public MarcaTipoEntity addType(MarcaTipoDto marcaTipoDto) {
-        DaoMarcaTipo daoMarcaTipo = new DaoMarcaTipo();
-        DaoTipo daoTipo = new DaoTipo();
-        DaoMarca daoMarca = new DaoMarca();
+    public RespuestaDto<MarcaTipoEntity> addType(MarcaTipoDto marcaTipoDto) {
 
-        MarcaEntity marca = daoMarca.find(marcaTipoDto.getFkMarca().get_id(), MarcaEntity.class);
-        marca.setNombre(marcaTipoDto.getFkMarca().getNombre());
+        RespuestaDto<MarcaTipoEntity> res = new RespuestaDto<>();
 
-        TipoEntity tipo = new TipoEntity();
-        tipo.setNombre(marcaTipoDto.getFkTipo().getNombre());
-        tipo.setDescripcion(marcaTipoDto.getFkTipo().getDescripcion());
-        daoTipo.insert(tipo);
+        ComandoAddType addType = new ComandoAddType(marcaTipoDto);
 
-        MarcaTipoEntity mt = new MarcaTipoEntity();
-        mt.setFkTipo(tipo);
-        mt.setFkMarca(marca);
-        daoMarcaTipo.insert(mt);
+        try {
+            addType.execute();
+            res.setCodigo(0);
+            res.setEstado("OK");
+            res.setObjeto(addType.getResult());
+        } catch (Exception e) {
+            e.printStackTrace();
+            res.setCodigo(-1);
+            res.setEstado("ERROR");
+            res.setMensaje(e.getMessage());
+        }
 
-        return mt;
+        return res;
     }
 
     @PUT
     @Path("/update/{id}")
-    public Response updateType(@PathParam("id") long id, MarcaTipoDto marcaTipoDto){
-        DaoMarcaTipo daoMarcaTipo = new DaoMarcaTipo();
-        DaoTipo daoTipo = new DaoTipo();
-        MarcaTipoEntity mt = daoMarcaTipo.find(id, MarcaTipoEntity.class);
+    public RespuestaDto<String> updateType(@PathParam("id") long id, MarcaTipoDto marcaTipoDto){
 
-        if (mt != null){
-            mt.setFkMarca(new MarcaEntity(marcaTipoDto.getFkMarca().get_id(),
-                    marcaTipoDto.getFkMarca().getNombre()));
+       RespuestaDto<String> res = new RespuestaDto<>();
+       ComandoUpdateType updateType = new ComandoUpdateType(id, marcaTipoDto);
 
-            mt.setFkTipo(new TipoEntity(marcaTipoDto.getFkTipo().get_id()));
+        try{
+            updateType.execute();
+            res.setCodigo(0);
+            res.setEstado("OK");
+            res.setObjeto(updateType.getResult());
 
-            TipoEntity tipo = daoTipo.find(marcaTipoDto.getFkTipo().get_id(), TipoEntity.class);
-
-            if (tipo != null){
-                tipo.setNombre(marcaTipoDto.getFkTipo().getNombre());
-                tipo.setDescripcion(marcaTipoDto.getFkTipo().getDescripcion());
-                daoTipo.update(tipo);
-                daoMarcaTipo.update(mt);
-                return Response.ok().entity(mt).build();
-            }
-            else {
-                return Response.status(Response.Status.NOT_FOUND).build();
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            res.setCodigo(-1);
+            res.setEstado("ERROR");
+            res.setMensaje(e.getMessage());
         }
-        else {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+
+        return  res;
+
     }
 
     @DELETE
     @Path("/delete/{id}")
-    public Response deleteType(@PathParam("id") long id){
-        DaoMarcaTipo daoMarcaTipo = new DaoMarcaTipo();
-        MarcaTipoEntity mt = daoMarcaTipo.find(id, MarcaTipoEntity.class);
+    public RespuestaDto<String> deleteType(@PathParam("id") long id){
 
-        if (mt != null){
-            daoMarcaTipo.delete(mt);
-            return Response.ok().entity(mt).build();
+        RespuestaDto<String> res = new RespuestaDto<>();
+        ComandoDeleteType deleteType = new ComandoDeleteType(id);
+
+        try {
+            deleteType.execute();
+            res.setCodigo(0);
+            res.setEstado("OK");
+            res.setObjeto(deleteType.getResult());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            res.setCodigo(-1);
+            res.setEstado("ERROR");
+            res.setMensaje(e.getMessage());
         }
-        else {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+
+        return res;
+
     }
 }
 

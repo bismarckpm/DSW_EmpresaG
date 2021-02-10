@@ -33,6 +33,8 @@ public class UsuarioMapper {
     public static UsuarioDto mapEntityToDto( UsuarioEntity entity ) throws IndexDatabaseException {
         final UsuarioDto dto = new UsuarioDto();
 
+
+        dto.set_id(entity.get_id());
         dto.setEmail( entity.getEmail() );
         dto.setEstado( entity.getEstado() );
         dto.setFkRol( RolMapper.mapEntityToDto( entity.getFk_Rol() ) );

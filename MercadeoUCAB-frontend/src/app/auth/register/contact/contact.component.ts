@@ -8,6 +8,7 @@ import { RegisterService } from '../../../core/services/auth/register.service';
 import { PlaceService } from '../../../core/services/profile/place.service';
 // import { PhoneService } from '../../../core/services/profile/phone.service';
 import { replaceKeyWithValue } from 'src/app/core/functions/common_functions';
+import { Place } from 'src/app/core/classes/profile/place';
 
 @Component({
   selector: 'app-contact',
@@ -49,8 +50,8 @@ export class ContactComponent implements OnInit {
     this.ciudad = true;
     this.parroquia = true;
 
-    this.placeService.getCountries().subscribe((countries) => {
-      this.paises = replaceKeyWithValue(countries);
+    this.placeService.getCountries().subscribe((res) => {
+      this.paises = replaceKeyWithValue(res.objeto as Place[]);
     });
 
     // this.phoneService.getCodes().subscribe((codes) => {
@@ -87,10 +88,10 @@ export class ContactComponent implements OnInit {
   getStates(event){
     this.ciudades = [];
     this.parroquias = [];
-    this.placeService.getStates(event.value).subscribe((states) => {
-      if (states.length){
+    this.placeService.getStates(event.value).subscribe((res) => {
+      if ((res.objeto as Place[]).length){
         this.estado = true;
-        this.estados = replaceKeyWithValue(states);
+        this.estados = replaceKeyWithValue(res.objeto as Place[]);
       }
       else{
         this.estado = false;
@@ -102,10 +103,10 @@ export class ContactComponent implements OnInit {
 
   getCities(event){
     this.parroquias = [];
-    this.placeService.getCities(event.value).subscribe((cities) => {
-      if (cities.length){
+    this.placeService.getCities(event.value).subscribe((res) => {
+      if ((res.objeto as Place[]).length){
         this.ciudad = true;
-        this.ciudades = replaceKeyWithValue(cities);
+        this.ciudades = replaceKeyWithValue(res.objeto as Place[]);
       }
       else{
         this.ciudad = false;
@@ -115,10 +116,10 @@ export class ContactComponent implements OnInit {
   }
 
   getCounties(event){
-    this.placeService.getCounties(event.value).subscribe((counties) => {
-      if (counties.length){
+    this.placeService.getCounties(event.value).subscribe((res) => {
+      if ((res.objeto as Place[]).length){
         this.parroquia = true;
-        this.parroquias = replaceKeyWithValue(counties);
+        this.parroquias = replaceKeyWithValue(res.objeto as Place[]);
       }
       else{
         this.parroquia = false;

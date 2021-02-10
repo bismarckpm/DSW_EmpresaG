@@ -32,9 +32,9 @@ export class ProductTypesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.typesService.getALLTypes().subscribe((types) => {
-      this.tipos = types;
-      this.backup_types = types;
+    this.typesService.getALLTypes().subscribe((res) => {
+      this.tipos = res.objeto as BrandType[];
+      this.backup_types = res.objeto as BrandType[];
       this.marcas = [];
       this.brandService.getALLBrands().subscribe((brands) => {
         for (let i = 0; i < brands.length; i++){
@@ -63,13 +63,16 @@ export class ProductTypesComponent implements OnInit {
       accept: () => {
         this.typesService.deleteType(tipo).subscribe((t) => {
 
-          const index = this.tipos.indexOf(tipo);
-          if (index > -1) {
-            this.tipos.splice(index, 1);
+          if (t.codigo == 0){
+              const index = this.tipos.indexOf(tipo);
+              if (index > -1) {
+                this.tipos.splice(index, 1);
+              }
+
+              this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Tipo de producto eliminado con éxito' });
+          }else{
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: t.mensaje });
           }
-
-          this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Tipo de producto eliminado con éxito' });
-
         }, errorMessage => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
         });

@@ -9,6 +9,7 @@ import { replaceKeyWithValue } from '../../../core/functions/common_functions';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TypePresentation } from 'src/app/core/classes/products/type_presentation';
 import { Product_type } from 'src/app/core/classes/products/product_type';
+import { BrandType } from 'src/app/core/classes/products/brand_type';
 
 @Component({
   selector: 'app-add-presentation',
@@ -51,12 +52,12 @@ export class AddPresentationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.typesService.getALLTypes().subscribe((types) => {
+    this.typesService.getALLTypes().subscribe((res) => {
       this.tipos = [];
-      for (var i = 0; i<types.length; i++){
+      for (var i = 0; i<(res.objeto as BrandType[]).length; i++){
         this.tipos.push({
-          value: types[i].fkTipo._id,
-          label: types[i].fkTipo.nombre
+          value: (res.objeto as BrandType[])[i].fkTipo._id,
+          label: (res.objeto as BrandType[])[i].fkTipo.nombre
         })
       }
     }, errorMessage => {
@@ -119,11 +120,16 @@ export class AddPresentationComponent implements OnInit {
   }
 
   postPresentation(){
-    this.presentationService.postPresentation(this.presentation).subscribe((p)=>{
-      this.presentation = p;
-      this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Presentación añadida con éxito'});
+    this.presentationService.postPresentation(this.presentation).subscribe((res)=>{
+      if (res.codigo == 0){
+        this.presentation = res.objeto as TypePresentation;
+        this.messageService.add({severity:'success', summary: 'Éxito', detail: res.mensaje});
+        this.appendPresentation();
+      }
+      else{
+        this.messageService.add({severity:'error', summary: 'Error', detail: res.mensaje});
+      }
       this.sent_form = false;
-      this.appendPresentation();
       this.closeModal();
     }, errorMessage => {
       this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});

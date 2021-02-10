@@ -23,6 +23,7 @@ import { EdocivilService } from 'src/app/core/services/profile/edocivil.service'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import {SessionService} from '../../core/services/auth/session.service';
+import { CategorySubcategory } from 'src/app/core/classes/products/category_subcategory';
 
 
 @Component({
@@ -122,8 +123,8 @@ export class EditRequestComponent implements OnInit {
             this.gendersErrorMessage = errorMessage;
           });
 
-          this.placeService.getCountries().subscribe((countries) => {
-            this.paises = replaceKeyWithValue(countries);
+          this.placeService.getCountries().subscribe((res) => {
+            this.paises = replaceKeyWithValue(res.objeto as Place[]);
           }, errorMessage => {
             this.placesErrorMessage = errorMessage;
           });
@@ -193,8 +194,8 @@ export class EditRequestComponent implements OnInit {
             }
 
             else if (this.study_request.tipoFiltroLugar === 2) {
-              this.placeService.getStates(this.study_request.fkLugar.fkLugar._id).subscribe((states) => {
-                this.estados = replaceKeyWithValue(states);
+              this.placeService.getStates(this.study_request.fkLugar.fkLugar._id).subscribe((res) => {
+                this.estados = replaceKeyWithValue(res.objeto as Place[]);
               });
 
               this.studyForm.patchValue({
@@ -220,7 +221,9 @@ export class EditRequestComponent implements OnInit {
   }
 
   getSubcategories(category_id) {
-    this.subcategoryService.getSubcategories(category_id).subscribe((subcategories) => {
+    this.subcategoryService.getSubcategories(category_id).subscribe((respuesta) => {
+      var subcategories = respuesta.objeto as CategorySubcategory[];
+      console.log(subcategories);
       this.subcategorias = [];
       for (let i = 0; i < subcategories.length; i++) {
         this.subcategorias.push({
@@ -268,8 +271,8 @@ export class EditRequestComponent implements OnInit {
   }
 
   getStates(country_id) {
-    this.placeService.getStates(country_id).subscribe((states) => {
-      this.estados = replaceKeyWithValue(states);
+    this.placeService.getStates(country_id).subscribe((res) => {
+      this.estados = replaceKeyWithValue(res.objeto as Place[]);
     }, errorMessage => {
       this.placesErrorMessage = errorMessage;
     });

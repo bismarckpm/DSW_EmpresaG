@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { ProcessHttpMessageService } from '../../process-http-message.service';
 import { Subcategory } from '../../../classes/products/subcategory';
 import { CategorySubcategory } from '../../../classes/products/category_subcategory';
+import { Respuesta } from 'src/app/core/classes/respuesta';
 
 @Injectable({
   providedIn: 'root'
@@ -15,41 +16,43 @@ export class SubcategoryService {
   constructor(private http: HttpClient,
     private processHTTPMessageService: ProcessHttpMessageService) { }
 
-  getALLSubcategories(): Observable<CategorySubcategory[]> {
-    return this.http.get<CategorySubcategory[]>(serverURL + 'subcategories/all')
+  // getALLSubcategories(): Observable<CategorySubcategory[]> {
+  getALLSubcategories(): Observable<Respuesta> {
+    return this.http.get<Respuesta>(serverURL + 'subcategories/all')
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  getSubcategories(category_id): Observable<CategorySubcategory[]> {
-    return this.http.get<CategorySubcategory[]>(serverURL + 'subcategories/filtered-by-category', {
+  // getSubcategories(category_id): Observable<CategorySubcategory[]> {
+    getSubcategories(category_id): Observable<Respuesta> {
+    return this.http.get<Respuesta>(serverURL + 'subcategories/filtered-by-category', {
       params: {
         category_id: category_id
       }}).pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  postSubcategory(subcategory): Observable<CategorySubcategory>{
+  postSubcategory(subcategory): Observable<Respuesta>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
     };
 
-    return this.http.post<CategorySubcategory>(serverURL + 'subcategories/add', subcategory, httpOptions)
+    return this.http.post<Respuesta>(serverURL + 'subcategories/add', subcategory, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  putSubcategory(subcategory): Observable<CategorySubcategory>{
+  putSubcategory(subcategory): Observable<Respuesta>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
     };
 
-    return this.http.put<CategorySubcategory>(serverURL + 'subcategories/update/' + subcategory._id, subcategory, httpOptions)
+    return this.http.put<Respuesta>(serverURL + 'subcategories/update/' + subcategory._id, subcategory, httpOptions)
   }
 
-  deleteSubcategory(subcategory): Observable<CategorySubcategory>{
-    return this.http.delete<CategorySubcategory>(serverURL + 'subcategories/delete/' + subcategory._id)
+  deleteSubcategory(subcategory): Observable<Respuesta>{
+    return this.http.delete<Respuesta>(serverURL + 'subcategories/delete/' + subcategory._id)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 }

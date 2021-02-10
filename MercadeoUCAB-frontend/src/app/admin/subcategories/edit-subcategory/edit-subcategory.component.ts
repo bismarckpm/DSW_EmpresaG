@@ -7,7 +7,6 @@ import { SubcategoryService } from 'src/app/core/services/admin/products/subcate
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subcategory } from 'src/app/core/classes/products/subcategory';
 import { Category } from 'src/app/core/classes/products/category';
 
 @Component({
@@ -118,11 +117,18 @@ export class EditSubcategoryComponent implements OnInit {
   }
 
   putSubcategory(){
-    this.subcategoryService.putSubcategory(this.subcategory).subscribe((s)=>{
-      this.subcategory = s;
-      this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Subcategoría modificada con éxito'});
-      this.sent_form = false;
-      this.editSubcategory();
+    this.subcategoryService.putSubcategory(this.subcategory).subscribe((respuesta)=>{
+
+      if (respuesta.codigo == 0){
+        this.subcategory = respuesta.objeto as CategorySubcategory;
+        this.messageService.add({severity:'success', summary: 'Éxito', detail: respuesta.mensaje});
+        this.sent_form = false;
+        this.editSubcategory();
+      }
+      else{
+        this.messageService.add({severity:'error', summary: 'Error', detail: respuesta.mensaje});
+        this.sent_form = false;
+      }
       this.closeModal();
     }, errorMessage => {
       this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});

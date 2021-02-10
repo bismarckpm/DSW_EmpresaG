@@ -27,6 +27,7 @@ import { Category } from 'src/app/core/classes/products/category';
 import { Subcategory } from 'src/app/core/classes/products/subcategory';
 import { Users } from 'src/app/core/classes/auth/users';
 import {SessionService} from '../../core/services/auth/session.service';
+import { CategorySubcategory } from 'src/app/core/classes/products/category_subcategory';
 
 @Component({
   selector: 'app-create-request',
@@ -125,8 +126,8 @@ export class CreateRequestComponent implements OnInit {
       this.gendersErrorMessage = errorMessage;
     });
 
-    this.placeService.getCountries().subscribe((countries) => {
-      this.paises = replaceKeyWithValue(countries);
+    this.placeService.getCountries().subscribe((res) => {
+      this.paises = replaceKeyWithValue(res.objeto as Place[]);
     }, errorMessage => {
       this.placesErrorMessage = errorMessage;
     });
@@ -179,8 +180,8 @@ export class CreateRequestComponent implements OnInit {
   }
 
   getStates(country_id) {
-    this.placeService.getStates(country_id).subscribe((states) => {
-      this.estados = replaceKeyWithValue(states);
+    this.placeService.getStates(country_id).subscribe((res) => {
+      this.estados = replaceKeyWithValue(res.objeto as Place[]);
     }, errorMessage => {
       this.placesErrorMessage = errorMessage;
     });
@@ -194,7 +195,9 @@ export class CreateRequestComponent implements OnInit {
   }
 
   getSubcategories(category_id) {
-    this.subcategoryService.getSubcategories(category_id).subscribe((subcategories) => {
+    this.subcategoryService.getSubcategories(category_id).subscribe((respuesta) => {
+      var subcategories = respuesta.objeto as CategorySubcategory[];
+      console.log(subcategories);
       this.subcategorias = [];
       for (let i = 0; i < subcategories.length; i++) {
         this.subcategorias.push({
