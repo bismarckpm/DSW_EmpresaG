@@ -7,9 +7,7 @@ import { SubcategoryService } from 'src/app/core/services/admin/products/subcate
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subcategory } from 'src/app/core/classes/products/subcategory';
 import { Category } from 'src/app/core/classes/products/category';
-import { resolve } from 'dns';
 
 @Component({
   selector: 'app-edit-subcategory',

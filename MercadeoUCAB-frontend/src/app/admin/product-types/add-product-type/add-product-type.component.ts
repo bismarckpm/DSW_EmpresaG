@@ -143,7 +143,7 @@ export class AddProductTypeComponent implements OnInit {
 
   postType(){
     this.typeService.postType(this.product_type).subscribe((t) => {
-      this.product_type = t;
+      this.product_type = t.objeto as BrandType;
       this.messageService.add({severity: 'success', summary: 'Éxito', detail: 'Marca añadida con éxito'});
       this.sent_form = false;
       this.appendType();

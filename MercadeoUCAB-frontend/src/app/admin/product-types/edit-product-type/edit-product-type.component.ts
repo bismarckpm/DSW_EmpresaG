@@ -137,7 +137,7 @@ export class EditProductTypeComponent implements OnInit {
 
   putType(){
     this.typeService.putType(this.product_type).subscribe((t) => {
-      this.product_type = t;
+      this.product_type = t.objeto as BrandType;
       this.messageService.add({severity: 'success', summary: 'Éxito', detail: 'Subcategoría modificada con éxito'});
       this.sent_form = false;
       this.editType();

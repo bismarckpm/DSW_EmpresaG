@@ -9,6 +9,7 @@ import { replaceKeyWithValue } from '../../../core/functions/common_functions';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TypePresentation } from 'src/app/core/classes/products/type_presentation';
 import { Product_type } from 'src/app/core/classes/products/product_type';
+import { BrandType } from 'src/app/core/classes/products/brand_type';
 
 @Component({
   selector: 'app-add-presentation',
@@ -51,12 +52,12 @@ export class AddPresentationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.typesService.getALLTypes().subscribe((types) => {
+    this.typesService.getALLTypes().subscribe((res) => {
       this.tipos = [];
-      for (var i = 0; i<types.length; i++){
+      for (var i = 0; i<(res.objeto as BrandType[]).length; i++){
         this.tipos.push({
-          value: types[i].fkTipo._id,
-          label: types[i].fkTipo.nombre
+          value: (res.objeto as BrandType[])[i].fkTipo._id,
+          label: (res.objeto as BrandType[])[i].fkTipo.nombre
         })
       }
     }, errorMessage => {

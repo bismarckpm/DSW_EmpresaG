@@ -131,7 +131,11 @@ export class ChangeComponent implements OnInit {
   postReset(): void {
 
     this.resetService.postReset(this.reset).subscribe((res)=>{
+      if (res.codigo == 0){
       this.messageService.add({severity:'success', summary: 'Success', detail: "Clave cambiada correctamente."});
+      }else{
+        this.messageService.add({severity:'error', summary: 'Error', detail: res.mensaje});
+      }
     }, errorMessage => {
       this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
     });
@@ -140,7 +144,7 @@ export class ChangeComponent implements OnInit {
   postVerificar(): void {
     this.resetService.postVerificar(this.reset).subscribe((res)=>{
       if (res == null)
-      this.router.navigate(['404']);
+        this.router.navigate(['404']);
     }, errorMessage => {
       this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
     });
