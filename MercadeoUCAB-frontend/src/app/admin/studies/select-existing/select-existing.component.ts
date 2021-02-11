@@ -75,9 +75,13 @@ export class SelectExistingComponent implements OnInit {
         else {
           /* Get similar studies */
           this.studiesService.getSimilarStudies(this.solicitud.fkCategoria._id).subscribe((studies) => {
-            this.estudios = studies;
-            this.loading = false;
-
+            if(studies.codigo == 0){
+              this.estudios = studies.objeto as StudyWithFilter[];
+              this.loading = false;
+            }else{
+              this.loading = false;
+              this.studyErrorMessage = studies.mensaje;
+            }
           }, errorMessage => {
             this.studyErrorMessage = errorMessage;
           });

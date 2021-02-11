@@ -27,7 +27,12 @@ export class AnalysisRequestsComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.studiesService.getStudies().subscribe((studies) => {
-      this.estudios = studies;
+      if (studies.codigo == 0){
+        this.estudios = studies.objeto as StudyWithFilter[];
+      }else{
+        this.loading = false;
+        this.estudiosErrorMessage = studies.mensaje;
+      }
     }, errorMessage => {
       this.loading = false;
       this.estudiosErrorMessage = errorMessage;
