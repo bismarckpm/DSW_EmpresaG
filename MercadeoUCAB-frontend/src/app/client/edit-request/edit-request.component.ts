@@ -102,7 +102,7 @@ export class EditRequestComponent implements OnInit {
 
 
       this.requestsService.getUserRequest(this.current_user, this.current_request).subscribe((study) => {
-        this.study_request = study;
+        this.study_request = study.objeto as RequestWithFilter;
         // IF REQUEST EXISTS
         if (this.study_request) {
           this.categoryService.getCategories().subscribe((categories) => {
@@ -318,7 +318,12 @@ export class EditRequestComponent implements OnInit {
   putRequest() {
     this.requestsService.putRequest(this.study_request).subscribe((req) => {
       this.sent_form = false;
-      this.router.navigate(['my-requests']);
+      if (req.codigo == 0){
+        this.router.navigate(['my-requests']);
+      }
+      else{
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: req.mensaje });
+      }
     }, errorMessage => {
       this.sent_form = false;
       this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });

@@ -13,78 +13,151 @@ import java.util.List;
 public class StudyRequestService {
     @GET
     @Path("/all")
-    public List<FiltroEntity> getAllRequests(){
-        DaoFiltro daoFiltro = new DaoFiltro();
-        return daoFiltro.getAllRequests();
+    public RespuestaDto<List<FiltroEntity>> getAllRequests(){
+        RespuestaDto<List<FiltroEntity>> respuesta = new RespuestaDto<>();
+
+        try{
+            DaoFiltro daoFiltro = FabricaDao.crearDaoFiltro();
+            respuesta.setCodigo(0);
+            respuesta.setEstado("OK");
+            respuesta.setObjeto(daoFiltro.getAllRequests());
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado("ERROR");
+            respuesta.setMensaje("No existen filtros creados");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado("ERROR");
+            respuesta.setMensaje(e.getMessage());
+        }
+
+        return respuesta;
     }
 
     @GET
     @Path("/find-by-user/{userId}")
-    public Response getUserRequests(@PathParam("userId") long id){
-        DaoFiltro daoFiltro = new DaoFiltro();
-        List<FiltroEntity> solicitudes = null;
+    public RespuestaDto<List<FiltroEntity>> getUserRequests(@PathParam("userId") long id){
+        RespuestaDto<List<FiltroEntity>> respuesta = new RespuestaDto<>();
         try {
-            solicitudes = daoFiltro.getUserRequests(id);
-            return Response.ok().entity(solicitudes).build();
+            DaoFiltro daoFiltro = FabricaDao.crearDaoFiltro();
+            respuesta.setCodigo(0);
+            respuesta.setEstado("OK");
+            respuesta.setObjeto(daoFiltro.getUserRequests(id));
         }
         catch (NullPointerException e){
-            return Response.status(Response.Status.NOT_FOUND).build();
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado("ERROR");
+            respuesta.setMensaje("No se encontro filtro disponible");
         }
+        catch (Exception e){
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado("ERROR");
+            respuesta.setMensaje(e.getMessage());
+
+        }
+
+        return respuesta;
     }
 
     @GET
     @Path("/find-specific-by-user/{userId}/{requestId}")
-    public Response getUserRequest(@PathParam("userId") long id, @PathParam("requestId") long requestId){
-        DaoFiltro daoFiltro = new DaoFiltro();
-        FiltroEntity solicitud = null;
+    public RespuestaDto<FiltroEntity> getUserRequest(@PathParam("userId") long id, @PathParam("requestId") long requestId){
+        RespuestaDto<FiltroEntity> respuesta = new RespuestaDto<>();
         try {
-            solicitud = daoFiltro.getUserRequest(id, requestId);
-            return Response.ok().entity(solicitud).build();
+            DaoFiltro daoFiltro = FabricaDao.crearDaoFiltro();
+            respuesta.setCodigo(0);
+            respuesta.setEstado("OK");
+            respuesta.setObjeto(daoFiltro.getUserRequest(id, requestId));
         }
-        catch (NullPointerException | NoResultException e){
-            return Response.status(Response.Status.NOT_FOUND).build();
+        catch (NullPointerException e){
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado("ERROR");
+            respuesta.setMensaje("No se encontro filtro disponible");
         }
+        catch (Exception e){
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado("ERROR");
+            respuesta.setMensaje(e.getMessage());
+
+        }
+
+        return respuesta;
     }
 
     @GET
     @Path("/find/{id}")
-    public Response getRequest(@PathParam("id") long id){
-        DaoFiltro daoFiltro = new DaoFiltro();
-        FiltroEntity solicitud = null;
-
+    public RespuestaDto<FiltroEntity> getRequest(@PathParam("id") long id){
+        RespuestaDto<FiltroEntity> respuesta = new RespuestaDto<>();
         try{
-            solicitud = daoFiltro.getCurrentRequest(id);
-            return Response.ok().entity(solicitud).build();
+            DaoFiltro daoFiltro = FabricaDao.crearDaoFiltro();
+            respuesta.setCodigo(0);
+            respuesta.setEstado("OK");
+            respuesta.setObjeto(daoFiltro.getCurrentRequest(id));
         }
         catch (NullPointerException e){
-            return Response.status(Response.Status.NOT_FOUND).build();
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado("ERROR");
+            respuesta.setMensaje("No se encontro filtro disponible");
         }
+        catch (Exception e){
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado("ERROR");
+            respuesta.setMensaje(e.getMessage());
+
+        }
+
+        return respuesta;
     }
 
     @POST
     @Path("/add")
-    public Response addRequest(FiltroDto filtroDto){
-        DaoFiltro daoFiltro = new DaoFiltro();
-        DaoSolicitud daoSolicitud = new DaoSolicitud();
-        DaoUsuario daoUsuario = new DaoUsuario();
-        DaoCategoria daoCategoria = new DaoCategoria();
-        DaoSubcategoria daoSubcategoria = new DaoSubcategoria();
-        DaoEdoCivil daoEdoCivil = new DaoEdoCivil();
-        DaoNivelAcademico daoNivelAcademico = new DaoNivelAcademico();
-        DaoNivelSocioeconomico daoNivelSocioeconomico = new DaoNivelSocioeconomico();
-        DaoGenero daoGenero = new DaoGenero();
-        DaoLugar daoLugar = new DaoLugar();
+    public RespuestaDto<Boolean> addRequest(FiltroDto filtroDto){
+        RespuestaDto<Boolean> respuesta = new RespuestaDto<>();
 
-        FiltroEntity filtro = new FiltroEntity();
-        UsuarioEntity usuario = new UsuarioEntity();
-        SolicitudEntity solicitud = new SolicitudEntity();
+        DaoFiltro daoFiltro = FabricaDao.crearDaoFiltro();
+        DaoSolicitud daoSolicitud = FabricaDao.crearDaoSolicitud();
+        DaoUsuario daoUsuario = FabricaDao.crearDaoUsuario();
+        DaoCategoria daoCategoria = FabricaDao.crearDaoCategoria();
+        DaoSubcategoria daoSubcategoria = FabricaDao.crearDaoSubcategoria();
+        DaoEdoCivil daoEdoCivil = FabricaDao.crearDaoEdoCivil();
+        DaoNivelAcademico daoNivelAcademico = FabricaDao.crearDaoNivelAcademico();
+        DaoNivelSocioeconomico daoNivelSocioeconomico = FabricaDao.crearDaoNivelSocioeconomico();
+        DaoGenero daoGenero = FabricaDao.crearDaoGenero();
+        DaoLugar daoLugar = FabricaDao.crearDaoLugar();
+
+        FiltroEntity filtro = FabricaEntity.crearFiltroEntity();
+        UsuarioEntity usuario = FabricaEntity.crearUsuarioEntity();
+        SolicitudEntity solicitud = FabricaEntity.crearSolicitudEntity();
 
         try {
             usuario = daoUsuario.find(filtroDto.getFkSolicitud().getFkUsuario().get_id(), UsuarioEntity.class);
         }
         catch (NullPointerException e){
             e.printStackTrace();
-            return Response.status(Response.Status.NOT_FOUND).build();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado("ERROR");
+            respuesta.setMensaje("No se encontraron datos para la informacion suministrada");
+
+            return respuesta;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado("ERROR");
+            respuesta.setMensaje(e.getMessage());
+
+            return respuesta;
+
         }
 
         CategoriaEntity categoria = daoCategoria.find(filtroDto.getFkCategoria().get_id(), CategoriaEntity.class);
@@ -138,26 +211,34 @@ public class StudyRequestService {
         filtro.setFkLugar(lugar);
         daoFiltro.update(filtro);
 
-        return Response.ok().entity(filtro).build();
+
+        respuesta.setCodigo(0);
+        respuesta.setEstado("OK");
+        respuesta.setMensaje("Filtro creado exitosamente.");
+        respuesta.setObjeto(true);
+
+        return respuesta;
     }
 
     @PUT
     @Path("/update/{id}")
-    public Response updateRequest(@PathParam("id") long id, FiltroDto filtroDto){
-        DaoFiltro daoFiltro = new DaoFiltro();
-        DaoSolicitud daoSolicitud = new DaoSolicitud();
-        DaoUsuario daoUsuario = new DaoUsuario();
-        DaoCategoria daoCategoria = new DaoCategoria();
-        DaoSubcategoria daoSubcategoria = new DaoSubcategoria();
-        DaoEdoCivil daoEdoCivil = new DaoEdoCivil();
-        DaoNivelAcademico daoNivelAcademico = new DaoNivelAcademico();
-        DaoNivelSocioeconomico daoNivelSocioeconomico = new DaoNivelSocioeconomico();
-        DaoGenero daoGenero = new DaoGenero();
-        DaoLugar daoLugar = new DaoLugar();
+    public RespuestaDto<FiltroEntity> updateRequest(@PathParam("id") long id, FiltroDto filtroDto){
+        RespuestaDto<FiltroEntity> respuesta = new RespuestaDto<>();
 
-        FiltroEntity filtro = null;
-        UsuarioEntity usuario = null;
-        SolicitudEntity solicitud = null;
+        DaoFiltro daoFiltro = FabricaDao.crearDaoFiltro();
+        DaoSolicitud daoSolicitud = FabricaDao.crearDaoSolicitud();
+        DaoUsuario daoUsuario = FabricaDao.crearDaoUsuario();
+        DaoCategoria daoCategoria = FabricaDao.crearDaoCategoria();
+        DaoSubcategoria daoSubcategoria = FabricaDao.crearDaoSubcategoria();
+        DaoEdoCivil daoEdoCivil = FabricaDao.crearDaoEdoCivil();
+        DaoNivelAcademico daoNivelAcademico = FabricaDao.crearDaoNivelAcademico();
+        DaoNivelSocioeconomico daoNivelSocioeconomico = FabricaDao.crearDaoNivelSocioeconomico();
+        DaoGenero daoGenero = FabricaDao.crearDaoGenero();
+        DaoLugar daoLugar = FabricaDao.crearDaoLugar();
+
+        FiltroEntity filtro = FabricaEntity.crearFiltroEntity();
+        UsuarioEntity usuario = FabricaEntity.crearUsuarioEntity();
+        SolicitudEntity solicitud = FabricaEntity.crearSolicitudEntity();
 
         try {
             solicitud = daoSolicitud.find(filtroDto.getFkSolicitud().get_id(), SolicitudEntity.class);
@@ -166,7 +247,20 @@ public class StudyRequestService {
         }
         catch (NullPointerException e){
             e.printStackTrace();
-            return Response.status(Response.Status.NOT_FOUND).build();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado("ERROR");
+            respuesta.setMensaje("No se encontraron datos para la informacion suministrada");
+
+            return respuesta;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado("ERROR");
+            respuesta.setMensaje(e.getMessage());
+
+            return respuesta;
+
         }
 
         CategoriaEntity categoria = daoCategoria.find(filtroDto.getFkCategoria().get_id(), CategoriaEntity.class);
@@ -219,16 +313,24 @@ public class StudyRequestService {
         filtro.setFkLugar(lugar);
         daoFiltro.update(filtro);
 
-        return Response.ok().entity(filtro).build();
+
+        respuesta.setCodigo(0);
+        respuesta.setEstado("OK");
+        respuesta.setMensaje("Filtro actualizado exitosamente.");
+        respuesta.setObjeto(filtro);
+
+        return respuesta;
     }
 
     @PUT
     @Path("/update-status/{id}")
-    public Response updateStatus(@PathParam("id") long id){
-        DaoSolicitud daoSolicitud = new DaoSolicitud();
-        DaoFiltro daoFiltro = new DaoFiltro();
-        DaoEstudio daoEstudio = new DaoEstudio();
-        DaoSolicitudEstudio daoSolicitudEstudio = new DaoSolicitudEstudio();
+    public RespuestaDto<FiltroEntity> updateStatus(@PathParam("id") long id){
+        RespuestaDto<FiltroEntity> respuesta = new RespuestaDto<>();
+
+        DaoSolicitud daoSolicitud = FabricaDao.crearDaoSolicitud();
+        DaoFiltro daoFiltro = FabricaDao.crearDaoFiltro();
+        DaoEstudio daoEstudio = FabricaDao.crearDaoEstudio();
+        DaoSolicitudEstudio daoSolicitudEstudio = FabricaDao.crearDaoSolicitudEstudio();
 
         FiltroEntity solicitudWithFilter = null;
         SolicitudEntity solicitud = null;
@@ -255,28 +357,58 @@ public class StudyRequestService {
             solicitudEstudio.setFkSolicitud(solicitud);
             daoSolicitudEstudio.insert(solicitudEstudio);
 
-            return Response.ok().entity(solicitudWithFilter).build();
+            respuesta.setCodigo(0);
+            respuesta.setEstado("OK");
+            respuesta.setMensaje("Filtro actualizado exitosamente.");
+            respuesta.setObjeto(solicitudWithFilter);
         }
         catch (NullPointerException e){
             e.printStackTrace();
-            return Response.status(Response.Status.NOT_FOUND).build();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado("ERROR");
+            respuesta.setMensaje("No se encontraron datos para la informacion suministrada");
+
         }
+        catch (Exception e){
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado("ERROR");
+            respuesta.setMensaje(e.getMessage());
+
+        }
+
+        return respuesta;
     }
 
     @DELETE
     @Path("/delete/{id}")
-    public Response deleteRequest(@PathParam("id") long id){
-        DaoSolicitud daoSolicitud = new DaoSolicitud();
-        SolicitudEntity solicitud = null;
+    public RespuestaDto<Boolean> deleteRequest(@PathParam("id") long id){
+        RespuestaDto<Boolean> respuesta = new RespuestaDto<>();
 
         try {
-            solicitud = daoSolicitud.find(id, SolicitudEntity.class);
+            DaoSolicitud daoSolicitud = FabricaDao.crearDaoSolicitud();
+            SolicitudEntity solicitud = daoSolicitud.find(id, SolicitudEntity.class);
             daoSolicitud.delete(solicitud);
-            return Response.ok().entity(solicitud).build();
+            respuesta.setCodigo(0);
+            respuesta.setEstado("OK");
+            respuesta.setObjeto(true);
         }
         catch (NullPointerException e){
             e.printStackTrace();
-            return Response.status(Response.Status.NOT_FOUND).build();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado("ERROR");
+            respuesta.setMensaje("No se encontro filtro disponible");
+            respuesta.setObjeto(false);
         }
+        catch (Exception e){
+            e.printStackTrace();
+            respuesta.setCodigo(-1);
+            respuesta.setEstado("ERROR");
+            respuesta.setMensaje(e.getMessage());
+            respuesta.setObjeto(false);
+
+        }
+
+        return respuesta;
     }
 }

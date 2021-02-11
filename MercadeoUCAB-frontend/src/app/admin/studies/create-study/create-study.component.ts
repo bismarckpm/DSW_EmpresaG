@@ -74,7 +74,7 @@ export class CreateStudyComponent implements OnInit {
 
       /* Create study based on request */
       this.requestsService.getRequest(this.current_request).subscribe((request) => {
-        this.solicitud = request;
+        this.solicitud = request.objeto as RequestWithFilter;
 
         if (this.solicitud.fkSolicitud.estado === 1){
           this.router.navigate(['404']);
@@ -82,9 +82,17 @@ export class CreateStudyComponent implements OnInit {
         else {
           this.solicitud.fkSolicitud.estado = 1;
           this.requestsService.updateStatus(this.solicitud.fkSolicitud).subscribe((study) => {
-            this.estudio = study;
-            this.loading = false;
-            this.spinner.hide();
+            if (study.codigo == 0){
+              
+              this.estudio = study.objeto as StudyWithFilter;
+              this.loading = false;
+              this.spinner.hide();
+            }
+            else{
+              this.loading = false;
+              this.spinner.hide();
+              this.requestErrorMessage = study.mensaje;
+            }
 
           }, errorMessage => {
             this.loading = false;

@@ -66,7 +66,7 @@ export class SelectExistingComponent implements OnInit {
 
       /* Create study based on request */
       this.requestsService.getRequest(this.current_request).subscribe((request) => {
-        this.solicitud = request;
+        this.solicitud = request.objeto as RequestWithFilter;
 
         if (this.solicitud.fkSolicitud.estado === 1) {
           this.router.navigate(['404']);
