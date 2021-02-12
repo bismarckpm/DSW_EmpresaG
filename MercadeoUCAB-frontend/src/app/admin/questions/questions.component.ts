@@ -38,7 +38,7 @@ export class QuestionsComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.questionService.getQuestions().subscribe((questions) => {
-        this.preguntas = questions;
+        this.preguntas = questions.objeto as QuestionCategorySubcategory[];
         this.loading = false;
       },
       errorMessage => {

@@ -92,7 +92,7 @@ export class EditQuestionComponent implements OnInit {
       this.spinner.show();
       this.current_question = parseInt(this.Activatedroute.snapshot.queryParamMap.get('questionId'));
       this.questionService.getQuestion(this.current_question).subscribe((question) => {
-        this.pregunta = question;
+        this.pregunta = question.objeto as QuestionCategorySubcategory;
         if (this.pregunta) {
           this.createForm();
 

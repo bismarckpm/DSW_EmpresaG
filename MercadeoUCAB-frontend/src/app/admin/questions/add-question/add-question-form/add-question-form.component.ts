@@ -273,8 +273,8 @@ export class AddQuestionFormComponent implements OnInit {
 
 
     this.questionService.postQuestion(this.pregunta).subscribe((res)=>{
-      this.pregunta._id = res._id
-      this.pregunta.fkPregunta._id = res.fkPregunta._id
+      this.pregunta._id = res.objeto._id
+      this.pregunta.fkPregunta._id = res.objeto.fkPregunta._id
       this.nextForm()
     }, errorMessage => {
       this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});

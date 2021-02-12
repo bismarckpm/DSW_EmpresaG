@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { serverURL } from '../../../constants/serverURL';
 import { catchError } from 'rxjs/operators';
 import { ProcessHttpMessageService } from '../../process-http-message.service';
-import { QuestionCategorySubcategory } from '../../../classes/study/question_category_subcategory';
+import { Respuesta } from 'src/app/core/classes/respuesta';
 
 @Injectable({
   providedIn: 'root'
@@ -14,58 +14,58 @@ export class QuestionService {
   constructor(private http: HttpClient,
               private processHTTPMessageService: ProcessHttpMessageService) { }
 
-  getQuestions(): Observable<QuestionCategorySubcategory[]>{
-    return this.http.get<QuestionCategorySubcategory[]>(serverURL + 'questions/all')
+  getQuestions(): Observable<Respuesta>{
+    return this.http.get<Respuesta>(serverURL + 'questions/all')
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
-  getQuestionsByCategory(category_id): Observable<QuestionCategorySubcategory[]>{
-    return this.http.get<QuestionCategorySubcategory[]>(serverURL + 'questions/all-by-category/' + category_id)
+  getQuestionsByCategory(category_id): Observable<Respuesta>{
+    return this.http.get<Respuesta>(serverURL + 'questions/all-by-category/' + category_id)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
-  getQuestion(qid): Observable<QuestionCategorySubcategory>{
-    return this.http.get<QuestionCategorySubcategory>(serverURL + 'questions/find/' + qid)
+  getQuestion(qid): Observable<Respuesta>{
+    return this.http.get<Respuesta>(serverURL + 'questions/find/' + qid)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
-  postQuestion(question): Observable<QuestionCategorySubcategory>{
+  postQuestion(question): Observable<Respuesta>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
 
-    return this.http.post<QuestionCategorySubcategory>(serverURL + 'questions/add', question, httpOptions);
+    return this.http.post<Respuesta>(serverURL + 'questions/add', question, httpOptions);
   }
 
-  cloneQuestion(question): Observable<QuestionCategorySubcategory>{
+  cloneQuestion(question): Observable<Respuesta>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
 
-    return this.http.post<QuestionCategorySubcategory>(serverURL + 'questions/clone/' + question._id , question, httpOptions);
+    return this.http.post<Respuesta>(serverURL + 'questions/clone/' + question._id , question, httpOptions);
   }
 
-  putQuestion(question): Observable<QuestionCategorySubcategory>{
+  putQuestion(question): Observable<Respuesta>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
     };
 
-    return this.http.put<QuestionCategorySubcategory>(serverURL + 'questions/update/' + question._id, question, httpOptions);
+    return this.http.put<Respuesta>(serverURL + 'questions/update/' + question._id, question, httpOptions);
   }
 
-  deleteQuestion(question): Observable<QuestionCategorySubcategory>{
+  deleteQuestion(question): Observable<Respuesta>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
     };
 
-    return this.http.put<QuestionCategorySubcategory>(serverURL + 'questions/delete/' + question._id, question, httpOptions);
+    return this.http.put<Respuesta>(serverURL + 'questions/delete/' + question._id, question, httpOptions);
   }
 }

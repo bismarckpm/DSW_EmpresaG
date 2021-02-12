@@ -36,7 +36,7 @@ export class AddQuestionFromPoolComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.questionService.getQuestionsByCategory(this.category_id).subscribe((questions) => {
-      this.preguntas = questions;
+      this.preguntas = questions.objeto as QuestionCategorySubcategory[];
       this.loading = false;
     },
       errorMessage => {
@@ -76,8 +76,8 @@ export class AddQuestionFromPoolComponent implements OnInit {
     /* STATUS = 2: Cloned question
     Clone question so the modification doesn't affect other studies */
     this.questionService.cloneQuestion(question).subscribe((q) => {
-      question._id = q._id;
-      question.fkPregunta._id = q.fkPregunta._id;
+      question._id = q.objeto._id;
+      question.fkPregunta._id = q.objeto.fkPregunta._id;
       this.onQuestionSelect.emit(question);
     });
   }
