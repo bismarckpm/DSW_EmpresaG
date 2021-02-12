@@ -16,6 +16,7 @@ public class OpcionMapper {
     public static OpcionDto mapEntityToDto( OpcionEntity entity ) throws IndexDatabaseException {
         final OpcionDto dto = FabricaDto.crearOpcionDto();
 
+        dto.set_id(entity.get_id());
         dto.setRangoFinal(entity.getRangoFinal());
         dto.setRangoInicial(entity.getRangoInicial());
         dto.setValor(entity.getValor());

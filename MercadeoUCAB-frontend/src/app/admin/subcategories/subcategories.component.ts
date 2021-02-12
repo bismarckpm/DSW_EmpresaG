@@ -41,7 +41,7 @@ export class SubcategoriesComponent implements OnInit {
       this.loading = false;
 
       this.categoryService.getCategories().subscribe((categorias) => {
-        this.categorias = replaceKeyWithValue(categorias);
+        this.categorias = replaceKeyWithValue(categorias.objeto);
       }, errorMessage => {
         this.loading = false;
         this.categoriasErrorMessage = errorMessage;

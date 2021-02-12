@@ -22,6 +22,7 @@ public class PreguntaMapper {
     public static PreguntaDto mapEntityToDto( PreguntaEntity entity ) throws IndexDatabaseException {
         final PreguntaDto dto = FabricaDto.crearPreguntaDto();
 
+        dto.set_id(entity.get_id());
         dto.setPregunta(entity.getPregunta());
         dto.setStatus(entity.getStatus());
 

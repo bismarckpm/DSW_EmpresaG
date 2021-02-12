@@ -23,6 +23,7 @@ public class PosibleRespuestaMapper {
     public static PosibleRespuestaDto mapEntityToDto( PosibleRespuestaEntity entity ) throws IndexDatabaseException {
         final PosibleRespuestaDto dto = FabricaDto.crearPosibleRespuestaDto();
 
+        dto.set_id(entity.get_id());
         dto.setFkOpcion(OpcionMapper.mapEntityToDto(entity.getFkOpcion()));
         dto.setFkPregunta(PreguntaMapper.mapEntityToDto(entity.getFkPregunta()));
 

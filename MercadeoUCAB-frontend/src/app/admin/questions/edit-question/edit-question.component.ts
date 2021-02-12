@@ -132,7 +132,7 @@ export class EditQuestionComponent implements OnInit {
   ngOnInit(): void {
     this.categoryService.getCategories().subscribe((categories) => {
       this.loading = false;
-      this.categorias = replaceKeyWithValue(categories);
+      this.categorias = replaceKeyWithValue(categories.objeto);
       this.spinner.hide();
     }, errorMessage => {
       this.loading = false;

@@ -52,7 +52,6 @@ export class CreateStudyComponent implements OnInit {
               private router: Router,
               private fb: FormBuilder,
               private placeService: PlaceService,
-              private categoryService: CategoryService,
               private subcategoryService: SubcategoryService,
               private questionService: QuestionService,
               private messageService: MessageService,

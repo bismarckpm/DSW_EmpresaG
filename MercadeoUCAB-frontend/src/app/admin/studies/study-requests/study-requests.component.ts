@@ -32,7 +32,7 @@ export class StudyRequestsComponent implements OnInit {
     })
 
     this.categoryService.getCategories().subscribe((categories) => {
-      this.categorias = replaceKeyWithValue(categories);
+      this.categorias = replaceKeyWithValue(categories.objeto);
     }, errorMessage => {
       this.categoriasErrorMessage = errorMessage;
     })

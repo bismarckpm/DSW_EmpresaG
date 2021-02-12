@@ -108,7 +108,7 @@ export class AddCategoryComponent implements OnInit {
 
   postCategory(){
     this.categoryService.postCategory(this.category).subscribe((p)=>{
-      this.category = p;
+      this.category = p.objeto as Category;
       this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Categoría añadida con éxito'});
       this.sent_form = false;
       this.appendCategory();

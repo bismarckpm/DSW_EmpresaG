@@ -108,7 +108,7 @@ export class EditCategoryComponent implements OnInit {
 
   putCategory(){
     this.categoryService.putCategory(this.category).subscribe((p)=>{
-      this.category = p;
+      this.category = p.objeto as Category;
       this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Categoría actualizada con éxito'});
       this.sent_form = false;
       this.editCategory();

@@ -85,19 +85,19 @@ export class StatisticsComponent implements OnInit {
       this.current_study = parseInt(this.activatedRoute.snapshot.queryParamMap.get('studyId'));
 
       this.analystService.getOpenTextAnswers(this.current_study).subscribe((open_text_questions) => {
-        this.open_text_questions = open_text_questions;
+        this.open_text_questions = open_text_questions.objeto as QuestionWithStats[];
 
         this.analystService.getSelectionAnswers(this.current_study).subscribe((selection_questions) => {
-          this.selection_questions = selection_questions;
+          this.selection_questions = selection_questions.objeto as QuestionWithStats[];
           this.selectionDataset();
 
           this.analystService.getTrueFalseAnswers(this.current_study).subscribe((true_false) => {
-            this.true_false_questions = true_false;
+            this.true_false_questions = true_false.objeto as QuestionWithStats[];
             this.trueFalseDataset();
 
 
             this.analystService.getRangeAnswers(this.current_study).subscribe((range) => {
-              this.range_questions = range;
+              this.range_questions = range.objeto as QuestionWithStats[];
               this.rangeDataset();
 
               this.studiesService.getStudy(this.current_study).subscribe((study) => {
@@ -109,7 +109,7 @@ export class StatisticsComponent implements OnInit {
                 else {
                   this.conclusion = new Analytics();
                   this.analystService.getAnalysis(this.current_study).subscribe((conclusion) => {
-                    this.conclusion = conclusion;
+                    this.conclusion = conclusion.objeto as Analytics;
                   });
                 }
 

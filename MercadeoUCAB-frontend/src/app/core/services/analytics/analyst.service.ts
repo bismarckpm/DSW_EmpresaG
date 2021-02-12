@@ -48,39 +48,39 @@ export class AnalystService {
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
   
-  getOpenTextAnswers(study_id): Observable<QuestionWithStats[]>{
-    return this.http.get<QuestionWithStats[]>(serverURL + 'analytics/open-text/' + study_id)
+  getOpenTextAnswers(study_id): Observable<Respuesta>{
+    return this.http.get<Respuesta>(serverURL + 'analytics/open-text/' + study_id)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
-  getSelectionAnswers(study_id): Observable<QuestionWithStats[]>{
-    return this.http.get<QuestionWithStats[]>(serverURL + 'analytics/selection/' + study_id)
+  getSelectionAnswers(study_id): Observable<Respuesta>{
+    return this.http.get<Respuesta>(serverURL + 'analytics/selection/' + study_id)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
-  getTrueFalseAnswers(study_id): Observable<QuestionWithStats[]>{
-    return this.http.get<QuestionWithStats[]>(serverURL + 'analytics/true-false/' + study_id)
+  getTrueFalseAnswers(study_id): Observable<Respuesta>{
+    return this.http.get<Respuesta>(serverURL + 'analytics/true-false/' + study_id)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
-  getRangeAnswers(study_id): Observable<QuestionWithStats[]>{
-    return this.http.get<QuestionWithStats[]>(serverURL + 'analytics/range/' + study_id)
+  getRangeAnswers(study_id): Observable<Respuesta>{
+    return this.http.get<Respuesta>(serverURL + 'analytics/range/' + study_id)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
-  postConclusion(study_id, conclusion): Observable<Analytics>{
+  postConclusion(study_id, conclusion): Observable<Respuesta>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
     };
 
-    return this.http.post<Analytics>(serverURL + 'analytics/add/' + study_id, conclusion, httpOptions)
+    return this.http.post<Respuesta>(serverURL + 'analytics/add/' + study_id, conclusion, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
-  getAnalysis(study_id): Observable<Analytics>{
-    return this.http.get<Analytics>(serverURL + 'analytics/find/' + study_id)
+  getAnalysis(study_id): Observable<Respuesta>{
+    return this.http.get<Respuesta>(serverURL + 'analytics/find/' + study_id)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 

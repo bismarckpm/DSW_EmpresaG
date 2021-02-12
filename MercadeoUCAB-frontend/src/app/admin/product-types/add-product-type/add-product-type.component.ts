@@ -24,6 +24,7 @@ export class AddProductTypeComponent implements OnInit {
   @Output() onModalClose = new EventEmitter<any>();
   @Output() onTypeAdded = new EventEmitter<any>();
   marcas: any[];
+  //auxbrands: any[];
   product_type: BrandType;
   sent_form = false;
 
@@ -36,7 +37,6 @@ export class AddProductTypeComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private messageService: MessageService,
-              private categoryService: CategoryService,
               private subcategoryService: SubcategoryService,
               private brandService: BrandService,
               private typeService: TypesService) { }
@@ -70,11 +70,12 @@ export class AddProductTypeComponent implements OnInit {
 
   ngOnInit(): void {
     this.brandService.getALLBrands().subscribe((brands) => {
+      //this.auxbrands = brands.objeto as any[];
       this.marcas = [];
-      for (let i = 0; i < brands.length; i++){
+      for (let i = 0; i < brands.objeto.length; i++){
         this.marcas.push({
-          value: brands[i].fkMarca._id,
-          label: brands[i].fkMarca.nombre
+          value: brands.objeto[i].fkMarca._id,
+          label: brands.objeto[i].fkMarca.nombre
         });
       }
     }, errorMessage => {

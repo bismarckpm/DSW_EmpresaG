@@ -17,6 +17,7 @@ public class TipoPreguntaMapper {
     public static TipoPreguntaDto mapEntityToDto( TipoPreguntaEntity entity ) throws IndexDatabaseException {
         final TipoPreguntaDto dto = FabricaDto.crearTipoPreguntaDto();
 
+        dto.set_id(entity.get_id());
         dto.setNombre(entity.getNombre());
         dto.setDescripcion(entity.getDescripcion());
 

@@ -67,27 +67,27 @@ public class LoginService {
 
         RespuestaDto<UsuarioDto> respuesta = new RespuestaDto<>();
 
-        DaoUsuario daoUsuario = FabricaDao.crearDaoUsuario();
-        DaoToken daoToken = FabricaDao.crearDaoToken();
-        DirectorioActivo ldap = new DirectorioActivo();
-
-        UsuarioEntity usuarioEntity = daoUsuario.findUserByEmail(usuarioDto.getEmail());
-        String token = null;
-        UsuarioDto authenticatedUser = FabricaDto.crearUsuarioDto();
-        TokenEntity tokenEntity = null;
-
-        /* If user doesn't exist */
-
         try {
-            tokenEntity = daoToken.getUserToken(usuarioEntity.get_id());
-        }
-        catch (NullPointerException e){
-            respuesta.setCodigo(-1);
-            respuesta.setEstado("ERROR");
-            respuesta.setMensaje("Data incorrecta.");
+            DaoUsuario daoUsuario = FabricaDao.crearDaoUsuario();
+            DaoToken daoToken = FabricaDao.crearDaoToken();
+            DirectorioActivo ldap = new DirectorioActivo();
 
-            return respuesta;
-        }
+            UsuarioEntity usuarioEntity = daoUsuario.findUserByEmail(usuarioDto.getEmail());
+            String token = null;
+            UsuarioDto authenticatedUser = FabricaDto.crearUsuarioDto();
+            TokenEntity tokenEntity = null;
+
+            /* If user doesn't exist */
+
+            try {
+                tokenEntity = daoToken.getUserToken(usuarioEntity.get_id());
+            } catch (NullPointerException e) {
+                respuesta.setCodigo(-1);
+                respuesta.setEstado("ERROR");
+                respuesta.setMensaje("Data incorrecta.");
+
+                return respuesta;
+            }
 
 //        authLDAP = ldap.userAuthentication(usuarioDto);
 
@@ -95,12 +95,11 @@ public class LoginService {
             token = daoToken.getAlphaNumericString(25);
 
             if (tokenEntity != null) {
-                try{
+                try {
                     tokenEntity.setToken_login(token);
                     ComandoEditarToken editarToken = new ComandoEditarToken(tokenEntity.get_id(), TokenMapper.mapEntityToDto(tokenEntity));
                     editarToken.execute();
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             } else {
@@ -110,8 +109,7 @@ public class LoginService {
                     tokenEntity.setToken_login(token);
                     ComandoCrearToken crearToken = new ComandoCrearToken(TokenMapper.mapEntityToDto(tokenEntity));
                     crearToken.execute();
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
 
                     throw new LoginException();
@@ -127,13 +125,15 @@ public class LoginService {
             respuesta.setEstado("OK");
             respuesta.setObjeto(authenticatedUser);
 
-            return  respuesta;
+            return respuesta;
+        }
+        catch(Exception e){
+            respuesta.setCodigo(-1);
+            respuesta.setEstado("ERROR");
+            respuesta.setMensaje("Usuario o clave incorrectos.");
+            return respuesta;
         }
 
-        respuesta.setCodigo(-1);
-        respuesta.setEstado("ERROR");
-        respuesta.setMensaje("Usuario o clave incorrectos.");
-        return respuesta;
     }
 
     @POST

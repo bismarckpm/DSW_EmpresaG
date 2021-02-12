@@ -17,7 +17,7 @@ public class CategoriaMapper {
 
         dto.set_id(entity.get_id());
         dto.setNombre(entity.getNombre());
-        dto.setNombre(entity.getNombre());
+        dto.setDescripcion(entity.getDescripcion());
 
         return dto;
 

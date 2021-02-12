@@ -138,7 +138,7 @@ export class EditBrandComponent implements OnInit {
   putBrand(){
     this.brandService.putBrand(this.brand).subscribe((b) => {
       this.messageService.add({severity: 'success', summary: 'Éxito', detail: 'Subcategoría modificada con éxito'});
-      this.brand = b;
+      this.brand = b.objeto as SubcategoryBrand;
       this.sent_form = false;
       this.editSubcategory();
       this.closeModal();

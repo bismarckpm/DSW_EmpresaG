@@ -34,7 +34,6 @@ export class AddBrandComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private messageService: MessageService,
-              private categoryService: CategoryService,
               private subcategoryService: SubcategoryService,
               private brandService: BrandService) { }
 
@@ -148,7 +147,7 @@ export class AddBrandComponent implements OnInit {
 
   postBrand(){
     this.brandService.postBrand(this.brand).subscribe((b) => {
-      this.brand = b;
+      this.brand = b.objeto as SubcategoryBrand;
       this.messageService.add({severity: 'success', summary: 'Éxito', detail: 'Marca añadida con éxito'});
       this.sent_form = false;
       this.appendBrand();

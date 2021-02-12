@@ -34,8 +34,8 @@ export class BrandsComponent implements OnInit {
 
   ngOnInit(): void {
     this.brandService.getALLBrands().subscribe((brands) => {
-      this.marcas = brands;
-      this.backup_brands = brands;
+      this.marcas = brands.objeto as SubcategoryBrand[];
+      this.backup_brands = brands.objeto as SubcategoryBrand[];
       this.subcategorias = [];
       this.subcategoryService.getALLSubcategories().subscribe((respuesta) => {
         

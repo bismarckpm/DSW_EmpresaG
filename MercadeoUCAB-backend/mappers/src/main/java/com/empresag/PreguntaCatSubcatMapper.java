@@ -27,6 +27,7 @@ public class PreguntaCatSubcatMapper {
     public static PreguntaCatSubcatDto mapEntityToDto( PreguntaCatSubcatEntity entity ) throws IndexDatabaseException {
         final PreguntaCatSubcatDto dto = FabricaDto.crearPreguntaCatSubcatDto();
 
+        dto.set_id(entity.get_id());
         dto.setFkPregunta(PreguntaMapper.mapEntityToDto(entity.getFkPregunta()));
         dto.setFkSubcategoria(SubcategoriaMapper.mapEntityToDto(entity.getFkSubcategoria()));
         dto.setFkCategoria(CategoriaMapper.mapEntityToDto(entity.getFkCategoria()));

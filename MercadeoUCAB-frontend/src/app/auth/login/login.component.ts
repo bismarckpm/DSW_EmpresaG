@@ -109,11 +109,11 @@ export class LoginComponent implements OnInit {
 
     this.loginService.validateLogin(this.user)
       .subscribe(person => {
-      if (person == null){
+      if (person.objeto == null){
         this.messageService.add({severity: 'error', summary: 'Error', detail: 'Usuario o clave incorrectos.'});
       }
       else{
-        this.sessionService.setCurrentSession(person);
+        this.sessionService.setCurrentSession(person.objeto);
         this.messageService.add({severity: 'success', summary: 'Exito', detail: 'Usuario validado correctamente.'});
         this.nextPage();
       }

@@ -55,7 +55,7 @@ export class AddSubcategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoryService.getCategories().subscribe((category) => {
-      this.categorias = replaceKeyWithValue(category)
+      this.categorias = replaceKeyWithValue(category.objeto)
     })
     this.createForm();
   }

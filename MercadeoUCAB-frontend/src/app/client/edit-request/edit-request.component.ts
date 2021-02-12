@@ -106,7 +106,7 @@ export class EditRequestComponent implements OnInit {
         // IF REQUEST EXISTS
         if (this.study_request) {
           this.categoryService.getCategories().subscribe((categories) => {
-            this.categorias = replaceKeyWithValue(categories);
+            this.categorias = replaceKeyWithValue(categories.objeto);
           }, errorMessage => {
             this.categoriesErrorMessage = errorMessage;
           });

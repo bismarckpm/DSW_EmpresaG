@@ -6,6 +6,7 @@ import { serverURL } from '../../constants/serverURL';
 import { catchError } from 'rxjs/operators';
 import { ProcessHttpMessageService } from '../process-http-message.service';
 import {Session} from '../../classes/auth/session';
+import { Respuesta } from '../../classes/respuesta';
 
 @Injectable({
   providedIn: 'root'
@@ -15,14 +16,14 @@ export class LoginService {
   constructor(private http: HttpClient,
               private processHTTPMessageService: ProcessHttpMessageService) { }
 
-  validateLogin(user: Users): Observable<Session> {
+  validateLogin(user: Users): Observable<Respuesta> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
 
-    return this.http.post<Session>(serverURL + 'login/authenticate', user, httpOptions)
+    return this.http.post<Respuesta>(serverURL + 'login/authenticate', user, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 

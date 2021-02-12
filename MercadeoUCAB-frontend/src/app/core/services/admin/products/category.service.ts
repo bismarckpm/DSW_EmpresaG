@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { serverURL } from '../../../constants/serverURL';
 import { catchError } from 'rxjs/operators';
 import { ProcessHttpMessageService } from '../../process-http-message.service';
-import { Category } from '../../../classes/products/category';
+import { Respuesta } from '../../../classes/respuesta';
 
 @Injectable({
   providedIn: 'root'
@@ -14,35 +14,35 @@ export class CategoryService {
   constructor(private http: HttpClient,
     private processHTTPMessageService: ProcessHttpMessageService) { }
 
-  getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(serverURL + 'categories/all')
+  getCategories(): Observable<Respuesta> {
+    return this.http.get<Respuesta>(serverURL + 'categories/all')
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  postCategory(category): Observable<Category>{
+  postCategory(category): Observable<Respuesta>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
 
-    return this.http.post<Category>(serverURL + 'categories/add', category, httpOptions)
+    return this.http.post<Respuesta>(serverURL + 'categories/add', category, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  putCategory(category): Observable<Category>{
+  putCategory(category): Observable<Respuesta>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
 
-    return this.http.put<Category>(serverURL + 'categories/update/' + category._id, category, httpOptions)
+    return this.http.put<Respuesta>(serverURL + 'categories/update/' + category._id, category, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 
-  deleteCategory(category): Observable<Category>{
-    return this.http.delete<Category>(serverURL + 'categories/delete/' + category._id)
+  deleteCategory(category): Observable<Respuesta>{
+    return this.http.delete<Respuesta>(serverURL + 'categories/delete/' + category._id)
       .pipe(catchError(this.processHTTPMessageService.handleError))
   }
 }

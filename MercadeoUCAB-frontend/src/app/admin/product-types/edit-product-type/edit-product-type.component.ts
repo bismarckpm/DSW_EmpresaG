@@ -63,10 +63,10 @@ export class EditProductTypeComponent implements OnInit {
 
   ngOnInit(): void {
     this.brandService.getALLBrands().subscribe((brands) => {
-      for (let i = 0; i < brands.length; i++){
+      for (let i = 0; i < brands.objeto.length; i++){
         this.marcas.push({
-          value: brands[i].fkMarca._id,
-          label: brands[i].fkMarca.nombre
+          value: brands.objeto[i].fkMarca._id,
+          label: brands.objeto[i].fkMarca.nombre
         });
       }
 

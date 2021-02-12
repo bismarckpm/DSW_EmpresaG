@@ -56,7 +56,7 @@ export class SelectExistingComponent implements OnInit {
     else {
 
       this.categoryService.getCategories().subscribe((categories) => {
-        this.categorias = replaceKeyWithValue(categories);
+        this.categorias = replaceKeyWithValue(categories.objeto);
       }, errorMessage => {
         this.categoriasErrorMessage = errorMessage;
       });
