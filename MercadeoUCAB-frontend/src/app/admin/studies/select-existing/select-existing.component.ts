@@ -66,7 +66,7 @@ export class SelectExistingComponent implements OnInit {
 
       /* Create study based on request */
       this.requestsService.getRequest(this.current_request).subscribe((request) => {
-        this.solicitud = request;
+        this.solicitud = request.objeto as RequestWithFilter;
 
         if (this.solicitud.fkSolicitud.estado === 1) {
           this.router.navigate(['404']);
@@ -75,9 +75,13 @@ export class SelectExistingComponent implements OnInit {
         else {
           /* Get similar studies */
           this.studiesService.getSimilarStudies(this.solicitud.fkCategoria._id).subscribe((studies) => {
-            this.estudios = studies;
-            this.loading = false;
-
+            if(studies.codigo == 0){
+              this.estudios = studies.objeto as StudyWithFilter[];
+              this.loading = false;
+            }else{
+              this.loading = false;
+              this.studyErrorMessage = studies.mensaje;
+            }
           }, errorMessage => {
             this.studyErrorMessage = errorMessage;
           });

@@ -39,18 +39,18 @@ export class ViewStudyComponent implements OnInit {
         if (!study) {
           this.router.navigate(['404']);
         }
+        if (study.codigo == 0){
+          this.estudio = study.objeto as StudyWithFilter;
 
-        this.estudio = study;
+          this.spinner.hide();
+          this.loading = false;
 
-        this.spinner.hide();
-        this.loading = false;
-
-        this.studiesService.getStudyQuestions(this.current_study).subscribe((questions) => {
-          this.preguntas = questions;
-        }, errorMessage => {
-          this.questionsErrorMessage = errorMessage;
-        })
-
+          this.studiesService.getStudyQuestions(this.current_study).subscribe((questions) => {
+            this.preguntas = questions.objeto as QuestionCategorySubcategory[];
+          }, errorMessage => {
+            this.questionsErrorMessage = errorMessage;
+          })
+        }
       }, errorMessage => {
         this.loading = false;
         this.spinner.hide();

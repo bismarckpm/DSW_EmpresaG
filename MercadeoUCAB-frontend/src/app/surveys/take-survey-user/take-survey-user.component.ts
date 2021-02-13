@@ -13,6 +13,7 @@ import { Survey } from 'src/app/core/classes/study/survey';
 import { AnalystService } from 'src/app/core/services/analytics/analyst.service';
 import { Option } from 'src/app/core/classes/study/options';
 import {SessionService} from '../../core/services/auth/session.service';
+import { StudyWithFilter } from 'src/app/core/classes/study/study_with_filter';
 
 @Component({
   selector: 'app-take-survey-user',
@@ -81,26 +82,30 @@ export class TakeSurveyUserComponent implements OnInit {
 
       this.studiesService.getStudy(this.current_study).subscribe((study) => {
         /* FINISHED STUDIES DO NOT ALLOW NEW ANSWERS */
-        if (study.fkEstudio.estado === 2){
+        if ((study.objeto as StudyWithFilter).fkEstudio.estado === 2){
           this.router.navigate(['404']);
         }
         else {
           this.studiesService.getStudyQuestionsWithOptions(this.current_study).subscribe((questions) => {
-            this.preguntas = questions;
+            if(questions.codigo == 0){
+              this.preguntas = questions.objeto as StudyQuestion[];
 
-            this.analystService.isPersonPartOfAvailablePopulation(this.current_study, this.current_user).subscribe((res) => {
-              if (res.codigo == 0){
-                this.loading = false;
-                this.spinner.hide();
-                this.createForm();
-              }
-              else{
+              this.analystService.isPersonPartOfAvailablePopulation(this.current_study, this.current_user).subscribe((res) => {
+                if (res.codigo == 0){
+                  this.loading = false;
+                  this.spinner.hide();
+                  this.createForm();
+                }
+                else{
+                  this.router.navigate(['404']);
+                }
+              }, errorMessage => {
                 this.router.navigate(['404']);
-              }
-            }, errorMessage => {
-              this.router.navigate(['404']);
-            });
-
+              });
+          }else{
+            this.questionsErrorMessage = questions.mensaje;
+            this.loading = false;
+          }
           }, errorMessage => {
             this.questionsErrorMessage = errorMessage;
             this.loading = false;

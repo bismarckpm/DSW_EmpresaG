@@ -23,9 +23,15 @@ export class StudyRequestsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.requestsService.getRequests().subscribe((requests) => {
-      this.solicitudes = requests;
-      this.loading = false;
+    this.requestsService.getRequests().subscribe((res) => {
+      if (res.codigo == 0){
+        this.solicitudes = res.objeto as RequestWithFilter[];
+        this.loading = false;
+      }
+      else{
+        this.loading = false;
+        this.solicitudesErrorMessage = res.mensaje;
+      }
     }, errorMessage => {
       this.loading = false;
       this.solicitudesErrorMessage = errorMessage;

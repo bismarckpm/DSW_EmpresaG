@@ -9,6 +9,7 @@ import { StudyWithFilter } from '../../../classes/study/study_with_filter';
 import { QuestionCategorySubcategory } from '../../../classes/study/question_category_subcategory';
 import { Question } from '../../../classes/study/question';
 import { StudyQuestion } from '../../../classes/study/study_question';
+import { Respuesta } from 'src/app/core/classes/respuesta';
 
 @Injectable({
   providedIn: 'root'
@@ -18,55 +19,55 @@ export class StudiesService {
   constructor(private http: HttpClient,
               private processHTTPMessageService: ProcessHttpMessageService) { }
 
-  getStudies(): Observable<StudyWithFilter[]> {
-    return this.http.get<StudyWithFilter[]>(serverURL + 'studies/existing')
+  getStudies(): Observable<Respuesta> {
+    return this.http.get<Respuesta>(serverURL + 'studies/existing')
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
-  getStudy(study_id): Observable<StudyWithFilter>{
-    return this.http.get<StudyWithFilter>(serverURL + 'studies/filters/' + study_id)
+  getStudy(study_id): Observable<Respuesta>{
+    return this.http.get<Respuesta>(serverURL + 'studies/filters/' + study_id)
     .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
-  getStudyQuestions(study_id): Observable<QuestionCategorySubcategory[]>{
-    return this.http.get<QuestionCategorySubcategory[]>(serverURL + 'studies/questions/' + study_id)
+  getStudyQuestions(study_id): Observable<Respuesta>{
+    return this.http.get<Respuesta>(serverURL + 'studies/questions/' + study_id)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
-  getStudyQuestionsWithOptions(study_id): Observable<StudyQuestion[]>{
-    return this.http.get<StudyQuestion[]>(serverURL + 'studies/questions-with-options/' + study_id)
+  getStudyQuestionsWithOptions(study_id): Observable<Respuesta>{
+    return this.http.get<Respuesta>(serverURL + 'studies/questions-with-options/' + study_id)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
-  putStudy(study): Observable<StudyWithFilter>{
+  putStudy(study): Observable<Respuesta>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
     };
 
-    return this.http.put<StudyWithFilter>(serverURL + 'studies/update/' + study._id, study, httpOptions)
+    return this.http.put<Respuesta>(serverURL + 'studies/update/' + study._id, study, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
-  linkCreatedQuestionToStudy(study_id, question_id): Observable<Question>{
+  linkCreatedQuestionToStudy(study_id, question_id): Observable<Respuesta>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
     };
 
-    return this.http.post<Question>(serverURL + 'studies/questions/' + study_id + '/link/' + question_id, httpOptions)
+    return this.http.post<Respuesta>(serverURL + 'studies/questions/' + study_id + '/link/' + question_id, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
-  getSimilarStudies(category_id): Observable<StudyWithFilter[]>{
-    return this.http.get<StudyWithFilter[]>(serverURL + 'studies/similar/' + category_id)
+  getSimilarStudies(category_id): Observable<Respuesta>{
+    return this.http.get<Respuesta>(serverURL + 'studies/similar/' + category_id)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 
-  cloneStudy(cloned_id, request_id): Observable<StudyWithFilter>{
-    return this.http.post<StudyWithFilter>(serverURL + 'studies/assign/' + cloned_id + '/' + request_id, 0)
+  cloneStudy(cloned_id, request_id): Observable<Respuesta>{
+    return this.http.post<Respuesta>(serverURL + 'studies/assign/' + cloned_id + '/' + request_id, 0)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
 }

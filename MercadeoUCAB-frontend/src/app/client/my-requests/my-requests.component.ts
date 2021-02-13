@@ -56,8 +56,8 @@ export class MyRequestsComponent implements OnInit {
   getRequests(){
     this.requestsService.getUserRequests(this.current_user).subscribe((requests) => {
       this.loading = false;
-      this.solicitudes = requests;
-      this.solicitudes_backup = requests;
+      this.solicitudes = requests.objeto as RequestWithFilter[];
+      this.solicitudes_backup = requests.objeto as RequestWithFilter[];
       this.solicitudes = this.solicitudes.filter(req => req.fkSolicitud.estado === 0);
     }, errorMessage => {
       this.loading = false;
@@ -73,15 +73,20 @@ export class MyRequestsComponent implements OnInit {
       accept: () => {
           this.requestsService.deleteRequest(study.fkSolicitud).subscribe((s) => {
 
-            const index = this.solicitudes.indexOf(study);
-            if (index > -1) {
-              this.solicitudes.splice(index, 1);
+            if (s.codigo == 0){
+
+              const index = this.solicitudes.indexOf(study);
+              if (index > -1) {
+                this.solicitudes.splice(index, 1);
+              }
+  
+              this.messageService.add({severity: 'success', summary: 'Éxito', detail: s.mensaje});
+  
             }
-
-            this.messageService.add({severity: 'success', summary: 'Éxito', detail: 'Solicitud eliminada con éxito'});
-
+            else{
+              this.messageService.add({severity: 'error', summary: 'Error', detail: s.mensaje});
+            }
           }, errorMessage => {
-            this.messageService.add({severity: 'error', summary: 'Error', detail: errorMessage});
           });
       },
       reject: () => {

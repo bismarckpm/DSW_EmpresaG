@@ -40,13 +40,18 @@ export class StudyPreviewComponent implements OnInit {
           this.router.navigate(['404']);
         }
 
-        this.estudio = study;
+        this.estudio = study.objeto as StudyWithFilter;
 
         this.spinner.hide();
         this.loading = false;
 
         this.studiesService.getStudyQuestions(this.current_study).subscribe((questions) => {
-          this.preguntas = questions;
+          if(questions.codigo == 0){
+          this.preguntas = questions.objeto as QuestionCategorySubcategory[];
+          }else{
+            this.loading = false;
+            this.questionsErrorMessage = questions.mensaje;
+          }
         }, errorMessage => {
           this.questionsErrorMessage = errorMessage;
         })

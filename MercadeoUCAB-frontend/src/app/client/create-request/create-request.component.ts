@@ -242,7 +242,12 @@ export class CreateRequestComponent implements OnInit {
   postRequest() {
     this.requestsService.postRequest(this.study_request).subscribe((req) => {
       this.sent_form = false;
-      this.router.navigate(['my-requests']);
+      if (req.codigo == 0){
+        this.router.navigate(['my-requests']);
+      }
+      else{
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: req.mensaje });
+      }
       // this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Solicitud enviada con éxito' });
     }, errorMessage => {
       this.sent_form = false;

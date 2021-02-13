@@ -28,6 +28,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { CivilStatus } from 'src/app/core/classes/profile/civil_status';
 import { CategorySubcategory } from 'src/app/core/classes/products/category_subcategory';
+import { Category } from 'src/app/core/classes/products/category';
 
 @Component({
   selector: 'app-edit-study',
@@ -121,117 +122,126 @@ export class EditStudyComponent implements OnInit {
 
 
       this.studiesService.getStudy(this.current_study).subscribe((study) => {
-        this.estudio = study;
-        // IF STUDY EXISTS
-        if (this.estudio) {
-          this.categoryService.getCategories().subscribe((categories) => {
-            this.categorias = replaceKeyWithValue(categories.objeto);
-          }, errorMessage => {
-            this.categoriesErrorMessage = errorMessage;
-          });
+        if (study.codigo == 0){
+          this.estudio = study.objeto as StudyWithFilter;
+          // IF STUDY EXISTS
+          if (this.estudio) {
+            this.categoryService.getCategories().subscribe((categories) => {
+              this.categorias = replaceKeyWithValue(categories.objeto as Category[]);
+              
+            }, errorMessage => {
+              this.categoriesErrorMessage = errorMessage;
+            });
 
-          this.academicLevelService.getNivelesAcademicos().subscribe((levels) => {
-            this.niveles_academicos = replaceKeyWithValue(levels);
-          }, errorMessage => {
-            this.academicLevelsErrorMessage = errorMessage;
-          });
+            this.academicLevelService.getNivelesAcademicos().subscribe((levels) => {
+              this.niveles_academicos = replaceKeyWithValue(levels);
+            }, errorMessage => {
+              this.academicLevelsErrorMessage = errorMessage;
+            });
 
-          this.genderService.getGeneros().subscribe((genders) => {
-            this.generos = replaceKeyWithValue(genders);
-          }, errorMessage => {
-            this.gendersErrorMessage = errorMessage;
-          });
+            this.genderService.getGeneros().subscribe((genders) => {
+              this.generos = replaceKeyWithValue(genders);
+            }, errorMessage => {
+              this.gendersErrorMessage = errorMessage;
+            });
 
-          this.placeService.getCountries().subscribe((respuesta) => {
-            this.paises = replaceKeyWithValue(respuesta.objeto as Place[]);
-          }, errorMessage => {
-            this.placesErrorMessage = errorMessage;
-          });
+            this.placeService.getCountries().subscribe((respuesta) => {
+              this.paises = replaceKeyWithValue(respuesta.objeto as Place[]);
+            }, errorMessage => {
+              this.placesErrorMessage = errorMessage;
+            });
 
-          this.civilStatusService.getEdosCiviles().subscribe((statuses) => {
-            this.estados_civiles = replaceKeyWithValue(statuses);
-          }, errorMessage => {
-            this.civilStatusErrorMessage = errorMessage;
-          });
+            this.civilStatusService.getEdosCiviles().subscribe((statuses) => {
+              this.estados_civiles = replaceKeyWithValue(statuses);
+            }, errorMessage => {
+              this.civilStatusErrorMessage = errorMessage;
+            });
 
 
-          this.studiesService.getStudyQuestions(this.current_study).subscribe((questions) => {
-            this.preguntas = questions;
-            /* If study is finished it cannot be modified */
-            if (this.estudio.fkEstudio.estado === 2) {
-              this.router.navigate(['404']);
+            this.studiesService.getStudyQuestions(this.current_study).subscribe((questions) => {
+              if (questions.codigo == 0){
+                this.preguntas = questions.objeto as QuestionCategorySubcategory[];
+                /* If study is finished it cannot be modified */
+                if (this.estudio.fkEstudio.estado === 2) {
+                  this.router.navigate(['404']);
+                }
+
+                /* Get current subcategory */
+                this.getSubcategories(this.estudio.fkCategoria._id);
+
+                this.createForm();
+
+                /* Age type filter */
+                if (this.estudio.edadMinima && this.estudio.edadMaxima) {
+                  this.studyForm.patchValue({
+                    edad_minima: this.estudio.edadMinima,
+                    edad_maxima: this.estudio.edadMaxima
+                  });
+                }
+
+                /* Academic status filter */
+                if (this.estudio.fkNivelAcademico) {
+                  this.studyForm.patchValue({
+                    nivel_academico: this.estudio.fkNivelAcademico._id
+                  });
+                }
+
+                /* Socioeconomic status filter */
+                if (this.estudio.fkNivelSocioeconomico) {
+                  this.studyForm.patchValue({
+                    nivel_socioeconomico: this.estudio.fkNivelSocioeconomico._id
+                  });
+                }
+
+                /* Gender filter */
+
+                if (this.estudio.fkGenero) {
+                  this.studyForm.patchValue({
+                    genero: this.estudio.fkGenero._id
+                  });
+                }
+
+                /* Civil status filter */
+
+                if (this.estudio.fkEdoCivil) {
+                  this.studyForm.patchValue({
+                    estado_civil: this.estudio.fkEdoCivil._id
+                  });
+                }
+
+                if (this.estudio.tipoFiltroLugar) {
+                  /* Place type filter */
+                  if (this.estudio.tipoFiltroLugar === 1) {
+                    this.studyForm.patchValue({
+                      tipo_de_filtro: this.estudio.tipoFiltroLugar,
+                      pais: this.estudio.fkLugar._id
+                    });
+                  }
+
+                  else if (this.estudio.tipoFiltroLugar === 2) {
+                    this.placeService.getStates(this.estudio.fkLugar.fkLugar._id).subscribe((res) => {
+                      this.estados = replaceKeyWithValue(res.objeto as Place[]);
+                    });
+
+                    this.studyForm.patchValue({
+                      tipo_de_filtro: this.estudio.tipoFiltroLugar,
+                      pais: this.estudio.fkLugar.fkLugar._id,
+                      estado: this.estudio.fkLugar._id
+                    });
+                  }
+                }
+                this.spinner.hide();
+                this.loading = false;
+
             }
 
-            /* Get current subcategory */
-            this.getSubcategories(this.estudio.fkCategoria._id);
+            });
+          } // END IF STUDY EXISTS
 
-            this.createForm();
-
-            /* Age type filter */
-            if (this.estudio.edadMinima && this.estudio.edadMaxima) {
-              this.studyForm.patchValue({
-                edad_minima: this.estudio.edadMinima,
-                edad_maxima: this.estudio.edadMaxima
-              });
-            }
-
-            /* Academic status filter */
-            if (this.estudio.fkNivelAcademico) {
-              this.studyForm.patchValue({
-                nivel_academico: this.estudio.fkNivelAcademico._id
-              });
-            }
-
-            /* Socioeconomic status filter */
-            if (this.estudio.fkNivelSocioeconomico) {
-              this.studyForm.patchValue({
-                nivel_socioeconomico: this.estudio.fkNivelSocioeconomico._id
-              });
-            }
-
-            /* Gender filter */
-
-            if (this.estudio.fkGenero) {
-              this.studyForm.patchValue({
-                genero: this.estudio.fkGenero._id
-              });
-            }
-
-            /* Civil status filter */
-
-            if (this.estudio.fkEdoCivil) {
-              this.studyForm.patchValue({
-                estado_civil: this.estudio.fkEdoCivil._id
-              });
-            }
-
-            if (this.estudio.tipoFiltroLugar) {
-              /* Place type filter */
-              if (this.estudio.tipoFiltroLugar === 1) {
-                this.studyForm.patchValue({
-                  tipo_de_filtro: this.estudio.tipoFiltroLugar,
-                  pais: this.estudio.fkLugar._id
-                });
-              }
-
-              else if (this.estudio.tipoFiltroLugar === 2) {
-                this.placeService.getStates(this.estudio.fkLugar.fkLugar._id).subscribe((res) => {
-                  this.estados = replaceKeyWithValue(res.objeto as Place[]);
-                });
-
-                this.studyForm.patchValue({
-                  tipo_de_filtro: this.estudio.tipoFiltroLugar,
-                  pais: this.estudio.fkLugar.fkLugar._id,
-                  estado: this.estudio.fkLugar._id
-                });
-              }
-            }
-            this.spinner.hide();
-            this.loading = false;
-          });
-        } // END IF STUDY EXISTS
-
-        else {
+          else {
+          }
+        }else{
+          this.router.navigate(['404']);
         }
       }, errorMessage => {
         this.router.navigate(['404']);

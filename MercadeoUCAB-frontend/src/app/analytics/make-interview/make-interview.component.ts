@@ -13,6 +13,7 @@ import { PossibleAnswer } from 'src/app/core/classes/study/possible_answers';
 import { Option } from 'src/app/core/classes/study/options';
 import { AnalystService } from 'src/app/core/services/analytics/analyst.service';
 import { catchError } from 'rxjs/operators';
+import { StudyWithFilter } from 'src/app/core/classes/study/study_with_filter';
 
 @Component({
   selector: 'app-make-interview',
@@ -78,14 +79,14 @@ export class MakeInterviewComponent implements OnInit {
       this.current_study = parseInt(this.activatedRoute.snapshot.queryParamMap.get('surveyId'), 10);
       this.current_user = parseInt(this.activatedRoute.snapshot.queryParamMap.get('personId'), 10);
 
-      this.studiesService.getStudy(this.current_study).subscribe((study) => {
+      this.studiesService.getStudy(this.current_study).subscribe((res) => {
         /* FINISHED STUDIES DO NOT ALLOW NEW ANSWERS */
-        if (study.fkEstudio.estado === 2){
+        if ((res.objeto as StudyWithFilter).fkEstudio.estado === 2){
           this.router.navigate(['404']);
         }
         else {
           this.studiesService.getStudyQuestionsWithOptions(this.current_study).subscribe((questions) => {
-            this.preguntas = questions;
+            this.preguntas = questions.objeto as StudyQuestion[];
 
             this.analystService.isPersonPartOfAvailablePopulationInterview(this.current_study, this.current_user).subscribe((res) => {
               if (res.codigo == 0){

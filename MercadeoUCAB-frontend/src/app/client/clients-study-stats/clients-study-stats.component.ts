@@ -96,20 +96,25 @@ export class ClientsStudyStatsComponent implements OnInit {
               this.rangeDataset();
 
               this.studiesService.getStudy(this.current_study).subscribe((study) => {
-                this.study = study;
+                if (study.codigo == 0){
+                  this.study = study.objeto as StudyWithFilter;
 
-                if (this.study.fkEstudio.estado === 1){
-                  this.createForm();
-                }
-                else {
-                  this.conclusion = new Analytics();
-                  this.analystService.getAnalysis(this.current_study).subscribe((conclusion) => {
-                    this.conclusion = conclusion.objeto as Analytics;
-                  });
-                }
+                  if (this.study.fkEstudio.estado === 1){
+                    this.createForm();
+                  }
+                  else {
+                    this.conclusion = new Analytics();
+                    this.analystService.getAnalysis(this.current_study).subscribe((conclusion) => {
+                      this.conclusion = conclusion.objeto as Analytics;
+                    });
+                  }
 
+                  this.loading = false;
+                  this.spinner.hide();
+              }else{
                 this.loading = false;
-                this.spinner.hide();
+                this.estudioErrorMessage = study.mensaje;
+              }
               }, errorMessage => {
                 this.estudioErrorMessage = errorMessage;
               });
