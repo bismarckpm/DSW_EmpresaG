@@ -84,7 +84,7 @@ export class UserService {
     documentoIdentidad: '',
     fkGenero: this.genero,
     fkEdoCivil: this.edoCivil,
-    fechaNacimiento: '01/01/1900',
+    fechaNacimiento: '1990-01-01',
     id_pais: this.pais,
     id_ciudad: this.ciudad,
     id_parroquia: this.Parroquia,
