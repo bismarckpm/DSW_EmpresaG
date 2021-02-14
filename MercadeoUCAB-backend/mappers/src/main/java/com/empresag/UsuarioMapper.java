@@ -19,14 +19,16 @@ public class UsuarioMapper {
 //            entity.setFk_Rol( RolMapper.mapDtoToEntity( dto.getFkRol() ) );
 //        }
 
-        DaoRol daoRol = FabricaDao.crearDaoRol();
-        entity.setFk_Rol(daoRol.getEncuestadoRol().get(0));
+        if (dto.getFkRol().get_id() == 4) {
+            DaoRol daoRol = FabricaDao.crearDaoRol();
+            entity.setFk_Rol(daoRol.getEncuestadoRol().get(0));
 
-        if ( Objects.nonNull( dto.getFkPersona() ) )
-        {
-            entity.setFk_Persona( PersonaMapper.mapDtoToEntity( dto.getFkPersona() ) );
+
+            if (Objects.nonNull(dto.getFkPersona())) {
+                entity.setFk_Persona(PersonaMapper.mapDtoToEntity(dto.getFkPersona()));
+            }
         }
-
+        
         return entity;
     }
 
