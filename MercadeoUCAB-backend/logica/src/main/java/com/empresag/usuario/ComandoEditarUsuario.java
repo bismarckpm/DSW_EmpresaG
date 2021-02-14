@@ -135,7 +135,7 @@ public class ComandoEditarUsuario extends ComandoBase {
 
 //            INSERTAR NUMERO DE TELEFONO
                 TelefonoEntity telefonoPersona = TelefonoMapper
-                        .mapStringToEntity(usuarioDto.getFkPersona().getTelefono(), usuarioOld.getFk_Persona());
+                        .mapDtoToEntity(usuarioDto.getFkPersona().getTelefono(), usuarioOld.getFk_Persona());
 //                DaoTelefono daoTelefono = FabricaDao.crearDaoTelefono();
                 daoTelefono.insert(telefonoPersona);
 

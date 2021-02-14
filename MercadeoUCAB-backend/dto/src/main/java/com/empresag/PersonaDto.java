@@ -3,14 +3,18 @@ package com.empresag;
 import javax.json.bind.annotation.JsonbDateFormat;
 import java.sql.Date;
 import java.util.Arrays;
-
+//import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+//
+//@JsonIgnoreProperties(ignoreUnknown = true)
 public class PersonaDto extends BaseDto {
+
     private String documentoIdentidad;
     private String primerNombre;
     private String segundoNombre;
     private String primerApellido;
     private String segundoApellido;
-    @JsonbDateFormat(value = "dd/MM/yyyy")
+//    @JsonbDateFormat(value = "dd/MM/yyyy")
+    @JsonbDateFormat(value = "yyyy-MM-dd")
     private Date fechaNacimiento;
     private GeneroDto fkGenero;
     private EdoCivilDto fkEdoCivil;
@@ -19,7 +23,7 @@ public class PersonaDto extends BaseDto {
     private int numero_personas_encasa;
     private PersonaDto[] hijos;
     private int[] dispositivos;
-    private String telefono;
+    private TelefonoDto telefono;
     private DisponibilidadDto id_horario_inicial;
     private DisponibilidadDto id_horario_final;
     private long id_nivel_academico;
@@ -121,11 +125,11 @@ public class PersonaDto extends BaseDto {
         this.hijos = hijos;
     }
 
-    public String getTelefono() {
+    public TelefonoDto getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
+    public void setTelefono(TelefonoDto telefono) {
         this.telefono = telefono;
     }
 

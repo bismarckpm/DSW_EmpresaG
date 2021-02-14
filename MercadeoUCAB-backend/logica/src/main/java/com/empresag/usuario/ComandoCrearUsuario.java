@@ -42,7 +42,7 @@ public class ComandoCrearUsuario extends ComandoBase {
 
 //            INSERTAR NUMERO DE TELEFONO
             TelefonoEntity telefonoPersona = TelefonoMapper
-                    .mapStringToEntity(usuarioDto.getFkPersona().getTelefono(), usuarioEntity.getFk_Persona());
+                    .mapDtoToEntity(usuarioDto.getFkPersona().getTelefono(), usuarioEntity.getFk_Persona());
             DaoTelefono daoTelefono = FabricaDao.crearDaoTelefono();
             daoTelefono.insert(telefonoPersona);
 

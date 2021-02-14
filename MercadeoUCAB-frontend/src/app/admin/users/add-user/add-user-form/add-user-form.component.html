@@ -94,7 +94,7 @@
                         <span class="p-float-label">
                             <p-calendar placeholder="Fecha de Nacimiento *" [locale]="es" [yearNavigator]="true"
                                         yearRange="1900:2030" formControlName="fecha_de_nacimiento" dataType="string"
-                                        dateFormat="dd/mm/yy" class="p-inputtext-lg"></p-calendar>
+                                        dateFormat="yy-mm-dd" class="p-inputtext-lg"></p-calendar>
                         </span>
         </div>
       </div>
@@ -256,7 +256,7 @@
 
             <div class="p-col-12 p-md-6 p-mb-5">
               <p-calendar placeholder="Fecha de Nacimiento *" [locale]="es" [yearNavigator]="true"
-                          yearRange="1900:2030" dataType="string" dateFormat="dd/mm/yy"
+                          yearRange="1900:2030" dataType="string" dateFormat="yy-mm-dd"
                           formControlName="fecha_de_nacimiento_hijo" class="p-inputtext-lg"></p-calendar>
               <span class="error-msg"
                     *ngIf="formErrors.fecha_de_nacimiento_hijo"><small>{{formErrors.fecha_de_nacimiento_hijo}}</small></span>

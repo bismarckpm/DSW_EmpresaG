@@ -450,7 +450,7 @@ export class EditUserComponent implements OnInit {
       ocupacion: this.persona.fkPersona.ocupacion,
       rol: this.persona.fkRol._id,
       telefono: [
-        this.persona.fkPersona.telefono,
+        this.persona.fkPersona.telefono.numero,
         [
           Validators.pattern('^[0-9]*$')
         ]
@@ -556,7 +556,7 @@ export class EditUserComponent implements OnInit {
       this.userService.persona.fkPersona.hijos = this.hijos;
   // Informacion de contacto
       this.userService.persona.fkPersona.codigo_pais = this.userForm.value.codigo_pais;
-      this.userService.persona.fkPersona.telefono = this.userForm.value.telefono;
+      this.userService.persona.fkPersona.telefono.numero = this.userForm.value.telefono;
   // Informacion de tiempo disponible
       this.userService.persona.fkPersona.id_horario_inicial._id = this.userForm.value.horario_inicial;
       this.userService.persona.fkPersona.id_horario_final._id = this.userForm.value.horario_final;

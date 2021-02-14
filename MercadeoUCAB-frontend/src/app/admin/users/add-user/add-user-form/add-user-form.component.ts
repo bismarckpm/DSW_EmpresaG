@@ -463,7 +463,7 @@ export class AddUserFormComponent implements OnInit {
     this.userService.persona.fkPersona.hijos = this.hijos;
 // Informacion de contacto
     this.userService.persona.fkPersona.codigo_pais = this.userForm.value.codigo_pais;
-    this.userService.persona.fkPersona.telefono = this.userForm.value.telefono;
+    this.userService.persona.fkPersona.telefono.numero = this.userForm.value.telefono;
 // Informacion de tiempo disponible
     this.userService.persona.fkPersona.id_horario_inicial._id = this.userForm.value.horario_inicial;
     this.userService.persona.fkPersona.id_horario_final._id = this.userForm.value.horario_final;

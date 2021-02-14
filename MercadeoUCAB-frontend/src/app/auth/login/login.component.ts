@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../core/services/auth/login.service';
 import { Users } from '../../core/classes/auth/users';
 import {SessionService} from '../../core/services/auth/session.service';
+import { Person } from 'src/app/core/classes/profile/person';
+import { Session } from 'src/app/core/classes/auth/session';
 
 @Component({
   selector: 'app-login',
@@ -113,7 +115,7 @@ export class LoginComponent implements OnInit {
         this.messageService.add({severity: 'error', summary: 'Error', detail: 'Usuario o clave incorrectos.'});
       }
       else{
-        this.sessionService.setCurrentSession(person.objeto);
+        this.sessionService.setCurrentSession(person.objeto as Session);
         this.messageService.add({severity: 'success', summary: 'Exito', detail: 'Usuario validado correctamente.'});
         this.nextPage();
       }

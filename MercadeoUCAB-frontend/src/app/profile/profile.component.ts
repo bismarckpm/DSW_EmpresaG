@@ -471,7 +471,7 @@ export class ProfileComponent implements OnInit {
       ocupacion: this.persona.fkPersona.ocupacion,
       // rol: this.persona.fkRol._id,
       telefono: [
-        this.persona.fkPersona.telefono,
+        this.persona.fkPersona.telefono.numero,
         [
           Validators.pattern('^[0-9]*$')
         ]
@@ -760,7 +760,7 @@ export class ProfileComponent implements OnInit {
       this.userService.persona.fkPersona.hijos = this.hijos;
   // Informacion de contacto
       this.userService.persona.fkPersona.codigo_pais = this.profileForm.value.codigo_pais;
-      this.userService.persona.fkPersona.telefono = this.profileForm.value.telefono;
+      this.userService.persona.fkPersona.telefono.numero = this.profileForm.value.telefono;
   // Informacion de tiempo disponible
       this.userService.persona.fkPersona.id_horario_inicial._id = this.profileForm.value.horario_inicial;
       this.userService.persona.fkPersona.id_horario_final._id = this.profileForm.value.horario_final;

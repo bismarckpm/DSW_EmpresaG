@@ -11,6 +11,7 @@ export class Person {
     confirmar_clave?: string;
     fkPersona?: persondata;
     fkRol?: Rol;
+    token ?: string;
     // primer_nombre?: string;
     // primer_apellido?: string;
     // documento_de_identificacion?: string;

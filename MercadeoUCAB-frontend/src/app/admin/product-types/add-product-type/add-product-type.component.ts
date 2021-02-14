@@ -72,10 +72,10 @@ export class AddProductTypeComponent implements OnInit {
     this.brandService.getALLBrands().subscribe((brands) => {
       //this.auxbrands = brands.objeto as any[];
       this.marcas = [];
-      for (let i = 0; i < brands.objeto.length; i++){
+      for (let i = 0; i < (brands.objeto as BrandType[]).length; i++){
         this.marcas.push({
-          value: brands.objeto[i].fkMarca._id,
-          label: brands.objeto[i].fkMarca.nombre
+          value: (brands.objeto as BrandType[])[i].fkMarca._id,
+          label: (brands.objeto as BrandType[])[i].fkMarca.nombre
         });
       }
     }, errorMessage => {

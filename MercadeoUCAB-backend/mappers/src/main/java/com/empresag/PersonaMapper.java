@@ -1,5 +1,7 @@
 package com.empresag;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Objects;
 
@@ -181,7 +183,7 @@ public class PersonaMapper {
         List<TelefonoEntity> telefonoPersona = daoTelefonoPersona
                 .findTelefono(entity.get_id());
         if (telefonoPersona.size() > 0) {
-            dto.setTelefono(telefonoPersona.get(0).getNumero());
+            dto.setTelefono(TelefonoMapper.mapEntityToDto(telefonoPersona.get(0)));
         }
 
 //          Busqueda de ocupacion de Persona

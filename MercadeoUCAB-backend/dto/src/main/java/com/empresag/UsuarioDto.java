@@ -1,5 +1,8 @@
 package com.empresag;
 
+//import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+//
+//@JsonIgnoreProperties(ignoreUnknown = true)
 public class UsuarioDto extends BaseDto {
     private String email;
     private String password;

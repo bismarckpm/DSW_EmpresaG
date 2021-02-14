@@ -176,7 +176,7 @@ export class ContactComponent implements OnInit {
     
 
     // this.registerService.user.fkPersona.codigo_pais = this.contactForm.value.codigo_pais;
-    this.registerService.user.fkPersona.telefono = this.contactForm.value.telefono;
+    this.registerService.user.fkPersona.telefono.numero = this.contactForm.value.telefono;
 
     if (this.contactForm.valid)
       this.nextPage();

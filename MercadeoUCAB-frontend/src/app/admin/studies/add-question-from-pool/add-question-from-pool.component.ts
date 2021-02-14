@@ -76,8 +76,8 @@ export class AddQuestionFromPoolComponent implements OnInit {
     /* STATUS = 2: Cloned question
     Clone question so the modification doesn't affect other studies */
     this.questionService.cloneQuestion(question).subscribe((q) => {
-      question._id = q.objeto._id;
-      question.fkPregunta._id = q.objeto.fkPregunta._id;
+      question._id = (q.objeto as QuestionCategorySubcategory)._id;
+      question.fkPregunta._id = (q.objeto as QuestionCategorySubcategory).fkPregunta._id;
       this.onQuestionSelect.emit(question);
     });
   }
