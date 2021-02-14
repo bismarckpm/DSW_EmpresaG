@@ -80,47 +80,64 @@ export class ClientsStudyStatsComponent implements OnInit {
       this.current_study = parseInt(this.activatedRoute.snapshot.queryParamMap.get('studyId'));
 
       this.analystService.getOpenTextAnswers(this.current_study).subscribe((open_text_questions) => {
+        if (open_text_questions.codigo == 0){
         this.open_text_questions = open_text_questions.objeto as QuestionWithStats[];
 
         this.analystService.getSelectionAnswers(this.current_study).subscribe((selection_questions) => {
-          this.selection_questions = selection_questions.objeto as QuestionWithStats[];
-          this.selectionDataset();
+            if (selection_questions.codigo == 0){
+              this.selection_questions = selection_questions.objeto as QuestionWithStats[];
+              this.selectionDataset();
 
-          this.analystService.getTrueFalseAnswers(this.current_study).subscribe((true_false) => {
-            this.true_false_questions = true_false.objeto as QuestionWithStats[];
-            this.trueFalseDataset();
+              this.analystService.getTrueFalseAnswers(this.current_study).subscribe((true_false) => {
+                if (true_false.codigo == 0){
+                  this.true_false_questions = true_false.objeto as QuestionWithStats[];
+                  this.trueFalseDataset();
 
 
-            this.analystService.getRangeAnswers(this.current_study).subscribe((range) => {
-              this.range_questions = range.objeto as QuestionWithStats[];
-              this.rangeDataset();
+                  this.analystService.getRangeAnswers(this.current_study).subscribe((range) => {
+                    if (range.codigo == 0){
+                      this.range_questions = range.objeto as QuestionWithStats[];
+                      this.rangeDataset();
 
-              this.studiesService.getStudy(this.current_study).subscribe((study) => {
-                if (study.codigo == 0){
-                  this.study = study.objeto as StudyWithFilter;
+                      this.studiesService.getStudy(this.current_study).subscribe((study) => {
+                        if(study.codigo == 0){
+                          this.study = study.objeto as StudyWithFilter;
 
-                  if (this.study.fkEstudio.estado === 1){
-                    this.createForm();
-                  }
-                  else {
-                    this.conclusion = new Analytics();
-                    this.analystService.getAnalysis(this.current_study).subscribe((conclusion) => {
-                      this.conclusion = conclusion.objeto as Analytics;
-                    });
-                  }
+                          if (this.study.fkEstudio.estado === 1){
+                            this.createForm();
+                          }
+                          else {
+                            this.conclusion = new Analytics();
+                            this.analystService.getAnalysis(this.current_study).subscribe((conclusion) => {
+                              this.conclusion = conclusion.objeto as Analytics;
+                            });
+                          }
 
-                  this.loading = false;
-                  this.spinner.hide();
-              }else{
-                this.loading = false;
-                this.estudioErrorMessage = study.mensaje;
-              }
-              }, errorMessage => {
-                this.estudioErrorMessage = errorMessage;
-              });
-            }, e => this.analisisErrorMessage = e);
+                          this.loading = false;
+                          this.spinner.hide();
+                      }else{
+                        this.estudioErrorMessage = study.mensaje;
+                      }
+                      }, errorMessage => {
+                        this.estudioErrorMessage = errorMessage;
+                      });
+                    }
+                    else{
+                      this.analisisErrorMessage = range.mensaje;
+                    }
+                  }, e => this.analisisErrorMessage = e);
+                }
+                else{
+                  this.analisisErrorMessage = true_false.mensaje;
+                }
+              }, e => this.analisisErrorMessage = e);
+            }else{
+              this.analisisErrorMessage = selection_questions.mensaje;
+            }
           }, e => this.analisisErrorMessage = e);
-        }, e => this.analisisErrorMessage = e);
+        }else{
+          this.analisisErrorMessage = open_text_questions.mensaje;
+        }
       }, e => this.analisisErrorMessage = e);
     }
   }

@@ -6,6 +6,7 @@ import { SubcategoryService } from '../../core/services/admin/products/subcatego
 import { CategoryService } from '../../core/services/admin/products/category.service';
 import { replaceKeyWithValue } from '../../core/functions/common_functions';
 import { CategorySubcategory } from '../../core/classes/products/category_subcategory';
+import { Category } from '../../core/classes/products/category';
 
 @Component({
   selector: 'app-subcategories',
@@ -41,7 +42,12 @@ export class SubcategoriesComponent implements OnInit {
       this.loading = false;
 
       this.categoryService.getCategories().subscribe((categorias) => {
-        this.categorias = replaceKeyWithValue(categorias.objeto);
+        if (categorias.codigo == 0){
+          this.categorias = replaceKeyWithValue(categorias.objeto as Category[]);
+        }else{
+          this.loading = false;
+          this.categoriasErrorMessage = categorias.mensaje;
+        }
       }, errorMessage => {
         this.loading = false;
         this.categoriasErrorMessage = errorMessage;

@@ -111,16 +111,21 @@ export class LoginComponent implements OnInit {
 
     this.loginService.validateLogin(this.user)
       .subscribe(person => {
-      if (person.objeto == null){
-        this.messageService.add({severity: 'error', summary: 'Error', detail: 'Usuario o clave incorrectos.'});
-      }
-      else{
-        this.sessionService.setCurrentSession(person.objeto as Session);
-        this.messageService.add({severity: 'success', summary: 'Exito', detail: 'Usuario validado correctamente.'});
-        this.nextPage();
-      }
+        if (person.codigo == 0){
+          if (person.objeto == null){
+            this.messageService.add({severity: 'error', summary: 'Error', detail: 'Usuario o clave incorrectos.'});
+          }
+          else{
+            this.sessionService.setCurrentSession(person.objeto as Session);
+            this.messageService.add({severity: 'success', summary: 'Exito', detail: 'Usuario validado correctamente.'});
+            this.nextPage();
+          }
 
-      this.sent_form = false;
+          this.sent_form = false;
+        }else{
+          this.sent_form = false;
+          this.messageService.add({severity: 'error', summary: 'Error', detail: person.mensaje});
+        }
       },
       errorMessage => {
         this.sent_form = false;

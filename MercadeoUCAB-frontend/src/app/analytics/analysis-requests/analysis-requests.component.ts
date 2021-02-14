@@ -6,6 +6,7 @@ import { StudiesService } from '../../core/services/admin/studies/studies.servic
 import { replaceKeyWithValue } from '../../core/functions/common_functions';
 import { STUDY_STATES } from '../../core/constants/study_states';
 import { StudyWithFilter } from 'src/app/core/classes/study/study_with_filter';
+import { Category } from 'src/app/core/classes/products/category';
 
 @Component({
   selector: 'app-analysis-requests',
@@ -39,8 +40,13 @@ export class AnalysisRequestsComponent implements OnInit {
     });
 
     this.categoryService.getCategories().subscribe((categories) => {
-      this.categorias = replaceKeyWithValue(categories.objeto);
-      this.loading = false;
+      if (categories.codigo == 0){
+        this.categorias = replaceKeyWithValue(categories.objeto as Category[]);
+        this.loading = false;
+      }else{
+        this.loading = false;
+        this.categoriasErrorMessage = categories.mensaje;
+      }
     }, errorMessage => {
       this.loading = false;
       this.categoriasErrorMessage = errorMessage;

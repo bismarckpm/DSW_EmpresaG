@@ -38,8 +38,13 @@ export class QuestionsComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.questionService.getQuestions().subscribe((questions) => {
-        this.preguntas = questions.objeto as QuestionCategorySubcategory[];
-        this.loading = false;
+        if (questions.codigo == 0){
+            this.preguntas = questions.objeto as QuestionCategorySubcategory[];
+            this.loading = false;
+        }else{
+          this.loading = false;
+          this.questionsErrorMessage = questions.mensaje;
+        }
       },
       errorMessage => {
         this.loading = false;
@@ -47,7 +52,11 @@ export class QuestionsComponent implements OnInit {
       });
 
     this.categoryService.getCategories().subscribe((categories) => {
-      this.categorias = replaceKeyWithValue(categories.objeto);
+      if (categories.codigo == 0){
+        this.categorias = replaceKeyWithValue(categories.objeto);
+      }else{
+        this.categoryErrorMessage = categories.mensaje;
+      }
     },
     errorMessage => {
       this.categoryErrorMessage = errorMessage;
@@ -69,14 +78,16 @@ export class QuestionsComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
           this.questionService.deleteQuestion(question).subscribe((q) => {
+            if (q.codigo == 0){
+              const index = this.preguntas.indexOf(question);
+              if (index > -1) {
+                this.preguntas.splice(index, 1);
+              }
 
-            const index = this.preguntas.indexOf(question);
-            if (index > -1) {
-              this.preguntas.splice(index, 1);
+              this.messageService.add({severity: 'success', summary: 'Éxito', detail: 'Pregunta eliminada con éxito'});
+            }else{
+              this.messageService.add({severity: 'error', summary: 'Error', detail: q.mensaje});
             }
-
-            this.messageService.add({severity: 'success', summary: 'Éxito', detail: 'Pregunta eliminada con éxito'});
-
           }, errorMessage => {
             this.messageService.add({severity: 'error', summary: 'Error', detail: errorMessage});
           });

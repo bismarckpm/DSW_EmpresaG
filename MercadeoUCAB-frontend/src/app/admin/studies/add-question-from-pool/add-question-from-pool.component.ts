@@ -1,10 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table';
+import { MessageService } from 'primeng/api';
 import { QUESTION_TYPES } from '../../../core/constants/question_types';
 import { QuestionService } from '../../../core/services/admin/studies/question.service';
 import { SubcategoryService } from '../../../core/services/admin/products/subcategory.service';
 import { QuestionCategorySubcategory } from 'src/app/core/classes/study/question_category_subcategory';
 import { CategorySubcategory } from 'src/app/core/classes/products/category_subcategory';
+import { ProcessHttpMessageService } from 'src/app/core/services/process-http-message.service';
 
 @Component({
   selector: 'app-add-question-from-pool',
@@ -30,14 +32,20 @@ export class AddQuestionFromPoolComponent implements OnInit {
   @Input() category_id: number;
 
   constructor(
+    private messageService: MessageService,
     private questionService: QuestionService,
     private subcategoryService: SubcategoryService) { }
 
   ngOnInit(): void {
     this.loading = true;
     this.questionService.getQuestionsByCategory(this.category_id).subscribe((questions) => {
-      this.preguntas = questions.objeto as QuestionCategorySubcategory[];
-      this.loading = false;
+      if (questions.codigo == 0){
+        this.preguntas = questions.objeto as QuestionCategorySubcategory[];
+        this.loading = false;
+      }else{
+        this.loading = false;
+        this.questionsErrorMessage = questions.mensaje;
+      }
     },
       errorMessage => {
         this.loading = false;
@@ -76,9 +84,13 @@ export class AddQuestionFromPoolComponent implements OnInit {
     /* STATUS = 2: Cloned question
     Clone question so the modification doesn't affect other studies */
     this.questionService.cloneQuestion(question).subscribe((q) => {
-      question._id = (q.objeto as QuestionCategorySubcategory)._id;
-      question.fkPregunta._id = (q.objeto as QuestionCategorySubcategory).fkPregunta._id;
-      this.onQuestionSelect.emit(question);
+      if (q.codigo == 0){
+        question._id = (q.objeto as QuestionCategorySubcategory)._id;
+        question.fkPregunta._id = (q.objeto as QuestionCategorySubcategory).fkPregunta._id;
+        this.onQuestionSelect.emit(question);
+      }else{
+        this.messageService.add({severity: 'error', summary: 'Error', detail: q.mensaje});
+      }
     });
   }
 

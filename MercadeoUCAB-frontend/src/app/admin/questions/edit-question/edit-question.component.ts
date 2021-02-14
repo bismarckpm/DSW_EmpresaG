@@ -92,38 +92,42 @@ export class EditQuestionComponent implements OnInit {
       this.spinner.show();
       this.current_question = parseInt(this.Activatedroute.snapshot.queryParamMap.get('questionId'));
       this.questionService.getQuestion(this.current_question).subscribe((question) => {
-        this.pregunta = question.objeto as QuestionCategorySubcategory;
-        if (this.pregunta) {
-          this.createForm();
+        if (question.codigo == 0){
+          this.pregunta = question.objeto as QuestionCategorySubcategory;
+          if (this.pregunta) {
+            this.createForm();
 
-          /* Patch value of subcategory only if it's linked to one */
-          if (this.pregunta.fkSubcategoria) {
-            this.questionForm.patchValue({
-              subcategoria: this.pregunta.fkSubcategoria._id
-            })
+            /* Patch value of subcategory only if it's linked to one */
+            if (this.pregunta.fkSubcategoria) {
+              this.questionForm.patchValue({
+                subcategoria: this.pregunta.fkSubcategoria._id
+              })
+            }
+
+            // Only add to form array if there are options
+            if (this.pregunta.fkPregunta.listOpciones && this.pregunta.fkPregunta.listOpciones.length > 0
+              && (this.pregunta.fkPregunta.fkTipoPregunta._id == 2
+                || this.pregunta.fkPregunta.fkTipoPregunta._id == 3))
+
+              this.setFormArray();
+
+            // Add range
+            if (this.pregunta.fkPregunta.listOpciones && this.pregunta.fkPregunta.listOpciones.length > 0
+              && this.pregunta.fkPregunta.fkTipoPregunta._id == 5) {
+              this.questionForm.patchValue({
+                rango_inicial: this.pregunta.fkPregunta.listOpciones[0].rangoInicial,
+                rango_final: this.pregunta.fkPregunta.listOpciones[0].rangoFinal
+              })
+            }
+
+            this.getSubcategories(); // Get subcategories according to the category selected
           }
 
-          // Only add to form array if there are options
-          if (this.pregunta.fkPregunta.listOpciones && this.pregunta.fkPregunta.listOpciones.length > 0
-            && (this.pregunta.fkPregunta.fkTipoPregunta._id == 2
-              || this.pregunta.fkPregunta.fkTipoPregunta._id == 3))
-
-            this.setFormArray();
-
-          // Add range
-          if (this.pregunta.fkPregunta.listOpciones && this.pregunta.fkPregunta.listOpciones.length > 0
-            && this.pregunta.fkPregunta.fkTipoPregunta._id == 5) {
-            this.questionForm.patchValue({
-              rango_inicial: this.pregunta.fkPregunta.listOpciones[0].rangoInicial,
-              rango_final: this.pregunta.fkPregunta.listOpciones[0].rangoFinal
-            })
+          else {
+            this.router.navigate(['404']);
           }
-
-          this.getSubcategories(); // Get subcategories according to the category selected
-        }
-
-        else {
-          this.router.navigate(['404']);
+        }else{
+          this.messageService.add({severity:'error', summary: 'Error', detail: question.mensaje});
         }
       });
     }
@@ -131,9 +135,15 @@ export class EditQuestionComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoryService.getCategories().subscribe((categories) => {
-      this.loading = false;
-      this.categorias = replaceKeyWithValue(categories.objeto);
-      this.spinner.hide();
+      if (categories.codigo == 0){
+        this.loading = false;
+        this.categorias = replaceKeyWithValue(categories.objeto);
+        this.spinner.hide();
+      }else{
+        this.loading = false;
+        this.categoriesErrorMessage = categories.mensaje;
+        this.spinner.hide();
+      }
     }, errorMessage => {
       this.loading = false;
       this.categoriesErrorMessage = errorMessage;
@@ -275,8 +285,12 @@ export class EditQuestionComponent implements OnInit {
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
           this.optionService.deleteOption(this.pregunta.fkPregunta.listOpciones[index]).subscribe((op) => {
-            this.opciones.removeAt(index);
-            this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Opción eliminada con éxito' });
+            if (op.codigo == 0){
+              this.opciones.removeAt(index);
+              this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Opción eliminada con éxito' });
+            }else{
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: op.mensaje });
+            }
           }, errorMessage => {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
           })
@@ -336,16 +350,21 @@ export class EditQuestionComponent implements OnInit {
 
     /* 3 = No es ninguno de los anteriores */
     this.questionService.putQuestion(this.pregunta).subscribe((res) => {
-      let redirect_to = this.Activatedroute.snapshot.queryParamMap.get('origin') || 0
-      let study_origin = this.Activatedroute.snapshot.queryParamMap.get('studyId') || 0
-      /* If it comes from questions go to questions table */
-      if (redirect_to == 'questions' || redirect_to == 0) {
-        this.router.navigate(['questions'])
-      }
+      if (res.codigo == 0){
+        let redirect_to = this.Activatedroute.snapshot.queryParamMap.get('origin') || 0
+        let study_origin = this.Activatedroute.snapshot.queryParamMap.get('studyId') || 0
+        /* If it comes from questions go to questions table */
+        if (redirect_to == 'questions' || redirect_to == 0) {
+          this.router.navigate(['questions'])
+        }
 
-      /* If it comes from a study edit, go back to editing the study */
-      if (redirect_to == 'study') {
-        this.router.navigate(['studies/edit'], { queryParams: { studyId: study_origin } })
+        /* If it comes from a study edit, go back to editing the study */
+        if (redirect_to == 'study') {
+          this.router.navigate(['studies/edit'], { queryParams: { studyId: study_origin } })
+        }
+      }else{
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: res.mensaje });
+        this.sent_form = false;
       }
     }, errorMessage => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });

@@ -5,6 +5,7 @@ import { CategoryService } from '../../../core/services/admin/products/category.
 import { RequestsService } from '../../../core/services/client/requests.service';
 import { replaceKeyWithValue } from '../../../core/functions/common_functions';
 import { RequestWithFilter } from 'src/app/core/classes/study/request_with_filter';
+import { Category } from 'src/app/core/classes/products/category';
 
 @Component({
   selector: 'app-study-requests',
@@ -38,7 +39,11 @@ export class StudyRequestsComponent implements OnInit {
     })
 
     this.categoryService.getCategories().subscribe((categories) => {
-      this.categorias = replaceKeyWithValue(categories.objeto);
+      if (categories.codigo == 0){
+        this.categorias = replaceKeyWithValue(categories.objeto as Category[]);
+      }else{
+        this.categoriasErrorMessage = categories.mensaje;
+      }
     }, errorMessage => {
       this.categoriasErrorMessage = errorMessage;
     })

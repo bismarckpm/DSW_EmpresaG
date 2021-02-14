@@ -140,7 +140,11 @@ export class NavigationComponent implements OnInit {
 
     this.loginService.logout(this.token)
       .subscribe(person => {
-        this.sessionService.logout();
+        if (person.codigo == 0){
+          this.sessionService.logout();
+        }else{
+          this.messageService.add({severity: 'error', summary: 'Error', detail: person.mensaje});
+        }
       },
       errorMessage => {
         this.messageService.add({severity: 'error', summary: 'Error', detail: errorMessage});

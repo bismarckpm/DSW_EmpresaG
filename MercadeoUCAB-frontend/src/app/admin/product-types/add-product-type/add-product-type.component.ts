@@ -70,13 +70,17 @@ export class AddProductTypeComponent implements OnInit {
 
   ngOnInit(): void {
     this.brandService.getALLBrands().subscribe((brands) => {
-      //this.auxbrands = brands.objeto as any[];
-      this.marcas = [];
-      for (let i = 0; i < (brands.objeto as BrandType[]).length; i++){
-        this.marcas.push({
-          value: (brands.objeto as BrandType[])[i].fkMarca._id,
-          label: (brands.objeto as BrandType[])[i].fkMarca.nombre
-        });
+      if (brands.codigo == 0){
+        //this.auxbrands = brands.objeto as any[];
+        this.marcas = [];
+        for (let i = 0; i < (brands.objeto as BrandType[]).length; i++){
+          this.marcas.push({
+            value: (brands.objeto as BrandType[])[i].fkMarca._id,
+            label: (brands.objeto as BrandType[])[i].fkMarca.nombre
+          });
+        }
+      }else{
+        this.marcasErrorMessage = brands.mensaje;
       }
     }, errorMessage => {
       this.marcasErrorMessage = errorMessage;

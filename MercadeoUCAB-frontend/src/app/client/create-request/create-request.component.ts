@@ -109,7 +109,11 @@ export class CreateRequestComponent implements OnInit {
     this.loading = true;
     this.spinner.show();
     this.categoryService.getCategories().subscribe((categories) => {
-      this.categorias = replaceKeyWithValue(categories.objeto);
+      if (categories.codigo == 0){
+        this.categorias = replaceKeyWithValue(categories.objeto as Category[]);
+      }else{
+        this.categoriesErrorMessage = categories.mensaje;
+      }
     }, errorMessage => {
       this.categoriesErrorMessage = errorMessage;
     });

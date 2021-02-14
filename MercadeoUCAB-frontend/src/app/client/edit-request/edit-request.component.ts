@@ -18,6 +18,7 @@ import { RequestWithFilter } from 'src/app/core/classes/study/request_with_filte
 import { NivelAcademicoService } from 'src/app/core/services/profile/nivel-academico.service';
 import { GeneroService } from 'src/app/core/services/profile/genero.service';
 import { EdocivilService } from 'src/app/core/services/profile/edocivil.service';
+import { Category } from 'src/app/core/classes/products/category';
 
 /* Form */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -106,7 +107,11 @@ export class EditRequestComponent implements OnInit {
         // IF REQUEST EXISTS
         if (this.study_request) {
           this.categoryService.getCategories().subscribe((categories) => {
-            this.categorias = replaceKeyWithValue(categories.objeto);
+            if (categories.codigo == 0){
+              this.categorias = replaceKeyWithValue(categories.objeto as Category[]);
+            }else{
+              this.categoriesErrorMessage = categories.mensaje;
+            }
           }, errorMessage => {
             this.categoriesErrorMessage = errorMessage;
           });

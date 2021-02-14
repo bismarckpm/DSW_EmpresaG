@@ -27,8 +27,13 @@ export class CategoriesComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoryService.getCategories().subscribe((Ecategories) => {
-      this.categories = Ecategories.objeto as Category[];
-      this.loading = false;
+      if (Ecategories.codigo == 0){
+        this.categories = Ecategories.objeto as Category[];
+        this.loading = false;
+      }else{
+        this.loading = false;
+        this.categoriesErrorMessage = Ecategories.mensaje;
+      }
     }, errorMessage => {
       this.loading = false;
       this.categoriesErrorMessage = errorMessage;
@@ -42,13 +47,15 @@ export class CategoriesComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
           this.categoryService.deleteCategory(category).subscribe((p) => {
+            if (p.codigo == 0){
+              let index = this.categories.indexOf(category)
+              if (index > -1)
+                this.categories.splice(index, 1);
 
-            let index = this.categories.indexOf(category)
-            if (index > -1)
-              this.categories.splice(index, 1);
-
-            this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Categoría eliminada con éxito'});
-
+              this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Categoría eliminada con éxito'});
+            }else{
+              this.messageService.add({severity:'error', summary: 'Error', detail: p.mensaje});
+            }
           }, errorMessage => {
             this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
           })

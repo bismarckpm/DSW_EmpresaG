@@ -39,8 +39,13 @@ export class ExistingStudiesComponent implements OnInit {
     });
 
     this.categoryService.getCategories().subscribe((categories) => {
-      this.categorias = replaceKeyWithValue(categories.objeto);
-      this.loading = false;
+      if (categories.codigo == 0){
+        this.categorias = replaceKeyWithValue(categories.objeto);
+        this.loading = false;
+      }else{
+        this.loading = false;
+        this.categoriasErrorMessage = categories.mensaje;
+      }
     }, errorMessage => {
       this.loading = false;
       this.categoriasErrorMessage = errorMessage;

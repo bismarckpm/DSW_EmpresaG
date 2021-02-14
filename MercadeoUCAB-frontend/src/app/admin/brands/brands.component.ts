@@ -34,25 +34,29 @@ export class BrandsComponent implements OnInit {
 
   ngOnInit(): void {
     this.brandService.getALLBrands().subscribe((brands) => {
-      this.marcas = brands.objeto as SubcategoryBrand[];
-      this.backup_brands = brands.objeto as SubcategoryBrand[];
-      this.subcategorias = [];
-      this.subcategoryService.getALLSubcategories().subscribe((respuesta) => {
-        
-        var subcategories = respuesta.objeto as CategorySubcategory[];
-        console.log(subcategories);
+      if (brands.codigo == 0){
+        this.marcas = brands.objeto as SubcategoryBrand[];
+        this.backup_brands = brands.objeto as SubcategoryBrand[];
+        this.subcategorias = [];
+        this.subcategoryService.getALLSubcategories().subscribe((respuesta) => {
+          
+          var subcategories = respuesta.objeto as CategorySubcategory[];
+          console.log(subcategories);
+          this.loading = false;
+          for (let i = 0; i < subcategories.length; i++){
+            this.subcategorias.push({
+              value: subcategories[i].fkSubcategoria._id,
+              label: subcategories[i].fkSubcategoria.nombre
+            });
+          }
+        }, errorMessage => {
+          this.loading = false;
+          this.subcategoriasErrorMessage = errorMessage;
+        });
+      }else{
         this.loading = false;
-        for (let i = 0; i < subcategories.length; i++){
-          this.subcategorias.push({
-            value: subcategories[i].fkSubcategoria._id,
-            label: subcategories[i].fkSubcategoria.nombre
-          });
-        }
-      }, errorMessage => {
-        this.loading = false;
-        this.subcategoriasErrorMessage = errorMessage;
-      });
-
+        this.marcasErrorMessage = brands.mensaje;
+      }
     }, errorMessage => {
       this.loading = false;
       this.marcasErrorMessage = errorMessage;
@@ -66,14 +70,16 @@ export class BrandsComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.brandService.deleteBrand(marca).subscribe((b) => {
+          if (b.codigo == 0){
+            const index = this.marcas.indexOf(marca);
+            if (index > -1) {
+              this.marcas.splice(index, 1);
+            }
 
-          const index = this.marcas.indexOf(marca);
-          if (index > -1) {
-            this.marcas.splice(index, 1);
+            this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Marca eliminada con éxito' });
+          }else{
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: b.mensaje });
           }
-
-          this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Marca eliminada con éxito' });
-
         }, errorMessage => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
         });

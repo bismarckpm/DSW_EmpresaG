@@ -127,8 +127,11 @@ export class EditStudyComponent implements OnInit {
           // IF STUDY EXISTS
           if (this.estudio) {
             this.categoryService.getCategories().subscribe((categories) => {
-              this.categorias = replaceKeyWithValue(categories.objeto as Category[]);
-              
+              if (categories.codigo == 0){
+                this.categorias = replaceKeyWithValue(categories.objeto as Category[]);
+              }else{
+                this.categoriesErrorMessage = categories.mensaje;
+              }
             }, errorMessage => {
               this.categoriesErrorMessage = errorMessage;
             });
@@ -328,14 +331,16 @@ export class EditStudyComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.questionService.deleteQuestion(question).subscribe((q) => {
+          if (q.codigo == 0){
+            const index = this.preguntas.indexOf(question);
+            if (index > -1) {
+              this.preguntas.splice(index, 1);
+            }
 
-          const index = this.preguntas.indexOf(question);
-          if (index > -1) {
-            this.preguntas.splice(index, 1);
+            this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Pregunta eliminada con éxito' });
+          }else{
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: q.mensaje });
           }
-
-          this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Pregunta eliminada con éxito' });
-
         }, errorMessage => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
         });

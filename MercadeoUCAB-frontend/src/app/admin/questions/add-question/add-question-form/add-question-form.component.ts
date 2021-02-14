@@ -96,9 +96,15 @@ export class AddQuestionFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoryService.getCategories().subscribe((categories) => {
-      this.loading = false;
-      this.categorias = replaceKeyWithValue(categories.objeto);
-      this.spinner.hide();
+      if (categories.codigo == 0){
+        this.loading = false;
+        this.categorias = replaceKeyWithValue(categories.objeto);
+        this.spinner.hide();
+      }else{
+        this.loading = false;
+        this.categoriesErrorMessage = categories.mensaje;
+        this.spinner.hide();
+      }
     }, errorMessage => {
       this.loading = false;
       this.categoriesErrorMessage = errorMessage;
@@ -273,9 +279,14 @@ export class AddQuestionFormComponent implements OnInit {
 
 
     this.questionService.postQuestion(this.pregunta).subscribe((res)=>{
-      this.pregunta._id = (res.objeto as QuestionCategorySubcategory)._id
-      this.pregunta.fkPregunta._id = (res.objeto as QuestionCategorySubcategory).fkPregunta._id
-      this.nextForm()
+      if (res.codigo == 0){
+        this.pregunta._id = (res.objeto as QuestionCategorySubcategory)._id
+        this.pregunta.fkPregunta._id = (res.objeto as QuestionCategorySubcategory).fkPregunta._id
+        this.nextForm()
+      }else{
+        this.messageService.add({severity:'error', summary: 'Error', detail: res.mensaje});
+        this.sent_form = false;
+      }
     }, errorMessage => {
       this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
       this.sent_form = false;

@@ -37,13 +37,18 @@ export class ProductTypesComponent implements OnInit {
       this.backup_types = res.objeto as BrandType[];
       this.marcas = [];
       this.brandService.getALLBrands().subscribe((brands) => {
-        for (let i = 0; i < (brands.objeto as BrandType[]).length; i++){
-          this.marcas.push({
-            value: (brands.objeto as BrandType[])[i].fkMarca._id,
-            label: (brands.objeto as BrandType[])[i].fkMarca.nombre
-          });
+        if (brands.codigo == 0){
+          for (let i = 0; i < (brands.objeto as BrandType[]).length; i++){
+            this.marcas.push({
+              value: (brands.objeto as BrandType[])[i].fkMarca._id,
+              label: (brands.objeto as BrandType[])[i].fkMarca.nombre
+            });
+          }
+          this.loading = false;
+        }else{
+          this.loading = false;
+          this.marcasErrorMessage = brands.mensaje;
         }
-        this.loading = false;
       }, errorMessage => {
         this.loading = false;
         this.marcasErrorMessage = errorMessage;

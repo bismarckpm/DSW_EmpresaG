@@ -6,6 +6,7 @@ import { RequestsService } from '../../core/services/client/requests.service';
 import { replaceKeyWithValue } from '../../core/functions/common_functions';
 import { REQUEST_STATES } from 'src/app/core/constants/request_status';
 import { RequestWithFilter } from 'src/app/core/classes/study/request_with_filter';
+import { Category } from 'src/app/core/classes/products/category';
 import {SessionService} from '../../core/services/auth/session.service';
 
 @Component({
@@ -41,8 +42,13 @@ export class MyRequestsComponent implements OnInit {
     this.getRequests();
 
     this.categoryService.getCategories().subscribe((categories) => {
-      this.categorias = replaceKeyWithValue(categories.objeto);
-      this.loading = false;
+      if (categories.codigo == 0){
+        this.categorias = replaceKeyWithValue(categories.objeto as Category[]);
+        this.loading = false;
+      }else{
+        this.loading = false;
+        this.categoriasErrorMessage = categories.mensaje;
+      }
     }, errorMessage => {
       this.loading = false;
       this.categoriasErrorMessage = errorMessage;

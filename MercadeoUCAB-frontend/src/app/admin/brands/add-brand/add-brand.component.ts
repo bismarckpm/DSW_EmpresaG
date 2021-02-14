@@ -147,11 +147,16 @@ export class AddBrandComponent implements OnInit {
 
   postBrand(){
     this.brandService.postBrand(this.brand).subscribe((b) => {
-      this.brand = b.objeto as SubcategoryBrand;
-      this.messageService.add({severity: 'success', summary: 'Éxito', detail: 'Marca añadida con éxito'});
-      this.sent_form = false;
-      this.appendBrand();
-      this.closeModal();
+      if (b.codigo == 0){
+        this.brand = b.objeto as SubcategoryBrand;
+        this.messageService.add({severity: 'success', summary: 'Éxito', detail: 'Marca añadida con éxito'});
+        this.sent_form = false;
+        this.appendBrand();
+        this.closeModal();
+      }else{
+        this.messageService.add({severity: 'error', summary: 'Error', detail: b.mensaje});
+        this.sent_form = false;
+      }
     }, errorMessage => {
       this.messageService.add({severity: 'error', summary: 'Error', detail: errorMessage});
       this.sent_form = false;

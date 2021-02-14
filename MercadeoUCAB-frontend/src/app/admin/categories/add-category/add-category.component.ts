@@ -108,11 +108,16 @@ export class AddCategoryComponent implements OnInit {
 
   postCategory(){
     this.categoryService.postCategory(this.category).subscribe((p)=>{
-      this.category = p.objeto as Category;
-      this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Categoría añadida con éxito'});
-      this.sent_form = false;
-      this.appendCategory();
-      this.closeView();
+      if (p.codigo == 0){
+        this.category = p.objeto as Category;
+        this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Categoría añadida con éxito'});
+        this.sent_form = false;
+        this.appendCategory();
+        this.closeView();
+      }else{
+        this.messageService.add({severity:'error', summary: 'Error', detail: p.mensaje});
+        this.sent_form = false;
+      }
     }, errorMessage => {
       this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
       this.sent_form = false;

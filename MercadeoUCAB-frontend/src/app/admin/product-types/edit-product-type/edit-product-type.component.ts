@@ -63,14 +63,17 @@ export class EditProductTypeComponent implements OnInit {
 
   ngOnInit(): void {
     this.brandService.getALLBrands().subscribe((brands) => {
-      for (let i = 0; i < (brands.objeto as BrandType[]).length; i++){
-        this.marcas.push({
-          value: (brands.objeto as BrandType[])[i].fkMarca._id,
-          label: (brands.objeto as BrandType[])[i].fkMarca.nombre
-        });
+      if (brands.codigo == 0){
+        for (let i = 0; i < (brands.objeto as BrandType[]).length; i++){
+          this.marcas.push({
+            value: (brands.objeto as BrandType[])[i].fkMarca._id,
+            label: (brands.objeto as BrandType[])[i].fkMarca.nombre
+          });
+        }
+        this.marcas = replaceKeyWithValue(this.marcas);
+      }else{
+        this.marcasErrorMessage = brands.mensaje;
       }
-
-      this.marcas = replaceKeyWithValue(this.marcas);
     }, errorMessage => {
       this.marcasErrorMessage = errorMessage;
     });
