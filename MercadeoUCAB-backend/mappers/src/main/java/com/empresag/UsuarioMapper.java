@@ -20,7 +20,7 @@ public class UsuarioMapper {
 //        }
 
         DaoRol daoRol = FabricaDao.crearDaoRol();
-        entity.setFk_Rol(daoRol.getEncuestadoRol().get(0));
+        entity.setFk_Rol(daoRol.find(dto.getFkRol().get_id(), RolEntity.class));
 
         if (dto.getFkRol().get_id() == 4) {
 
