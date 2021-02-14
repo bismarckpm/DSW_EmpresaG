@@ -24,40 +24,41 @@ public class ComandoCrearUsuario extends ComandoBase {
         try {
             usuarioEntity = dao.insert(usuarioEntity);
 
+            if (usuarioEntity.getFk_Rol().get_id() == 4) {
 //            INSERTAR HIJOS
-            for (int i = 0; i < usuarioDto.getFkPersona().getHijos().length; i++) {
-                PersonaEntity hijo = PersonaMapper
-                        .mapDtoToEntity(usuarioDto.getFkPersona().getHijos()[i], usuarioEntity.getFk_Persona());
-                DaoPersona daoHijo = FabricaDao.crearDaoPersona();
-                daoHijo.insert(hijo);
-            }
+                for (int i = 0; i < usuarioDto.getFkPersona().getHijos().length; i++) {
+                    PersonaEntity hijo = PersonaMapper
+                            .mapDtoToEntity(usuarioDto.getFkPersona().getHijos()[i], usuarioEntity.getFk_Persona());
+                    DaoPersona daoHijo = FabricaDao.crearDaoPersona();
+                    daoHijo.insert(hijo);
+                }
 
 //            INSERTAR DISPOSITIVOS USADOS
-            for (int i = 0; i < usuarioDto.getFkPersona().getDispositivos().length; i++) {
-                PersonaDispositivoEntity personaDispositivo = PersonaDispositivoMapper
-                        .mapDtoToEntity(usuarioDto.getFkPersona().getDispositivos()[i], usuarioEntity.getFk_Persona());
-                DaoPersonaDispositivo daoPersonaDispositivo = FabricaDao.crearDaoPersonaDispositivo();
-                daoPersonaDispositivo.insert(personaDispositivo);
-            }
+                for (int i = 0; i < usuarioDto.getFkPersona().getDispositivos().length; i++) {
+                    PersonaDispositivoEntity personaDispositivo = PersonaDispositivoMapper
+                            .mapDtoToEntity(usuarioDto.getFkPersona().getDispositivos()[i], usuarioEntity.getFk_Persona());
+                    DaoPersonaDispositivo daoPersonaDispositivo = FabricaDao.crearDaoPersonaDispositivo();
+                    daoPersonaDispositivo.insert(personaDispositivo);
+                }
 
 //            INSERTAR NUMERO DE TELEFONO
-            TelefonoEntity telefonoPersona = TelefonoMapper
-                    .mapDtoToEntity(usuarioDto.getFkPersona().getTelefono(), usuarioEntity.getFk_Persona());
-            DaoTelefono daoTelefono = FabricaDao.crearDaoTelefono();
-            daoTelefono.insert(telefonoPersona);
+                TelefonoEntity telefonoPersona = TelefonoMapper
+                        .mapDtoToEntity(usuarioDto.getFkPersona().getTelefono(), usuarioEntity.getFk_Persona());
+                DaoTelefono daoTelefono = FabricaDao.crearDaoTelefono();
+                daoTelefono.insert(telefonoPersona);
 
 //            INSERTAR PERSONA OCUPACION
-            PersonaOcupacionEntity personaOcupacion = PersonaOcupacionMapper
-                    .mapIntToEntity(usuarioDto.getFkPersona().getOcupacion(), usuarioEntity.getFk_Persona());
-            DaoPersonaOcupacion daoPersonaOcupacion = FabricaDao.crearDaoPersonaOcupacion();
-            daoPersonaOcupacion.insert(personaOcupacion);
+                PersonaOcupacionEntity personaOcupacion = PersonaOcupacionMapper
+                        .mapIntToEntity(usuarioDto.getFkPersona().getOcupacion(), usuarioEntity.getFk_Persona());
+                DaoPersonaOcupacion daoPersonaOcupacion = FabricaDao.crearDaoPersonaOcupacion();
+                daoPersonaOcupacion.insert(personaOcupacion);
 
 //            INSERTAR NIVEL ACADEMICO
-            PersonaNvlacademicoEntity personaNvlacademico = PersonaNvlacademicoMapper
-                    .mapIntToEntity(usuarioDto.getFkPersona().getId_nivel_academico(), usuarioEntity.getFk_Persona());
-            DaoPersonaNvlacademico daoPersonaNvlacademico = FabricaDao.crearDaoPersonaNvlacademico();
-            daoPersonaNvlacademico.insert(personaNvlacademico);
-
+                PersonaNvlacademicoEntity personaNvlacademico = PersonaNvlacademicoMapper
+                        .mapIntToEntity(usuarioDto.getFkPersona().getId_nivel_academico(), usuarioEntity.getFk_Persona());
+                DaoPersonaNvlacademico daoPersonaNvlacademico = FabricaDao.crearDaoPersonaNvlacademico();
+                daoPersonaNvlacademico.insert(personaNvlacademico);
+            }
         }
         catch (DatabaseException e){
 
