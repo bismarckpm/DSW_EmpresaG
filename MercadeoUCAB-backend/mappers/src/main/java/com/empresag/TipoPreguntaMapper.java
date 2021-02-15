@@ -6,10 +6,11 @@ public class TipoPreguntaMapper {
 
     public static TipoPreguntaEntity mapDtoToEntity( TipoPreguntaDto dto )
     {
-        TipoPreguntaEntity entity = FabricaEntity.crearTipoPreguntaEntity(dto.get_id());
+//        TipoPreguntaEntity entity = FabricaEntity.crearTipoPreguntaEntity(dto.get_id());
+        TipoPreguntaEntity entity = FabricaDao.crearDaoTipoPregunta().find(dto.get_id(), TipoPreguntaEntity.class);
 
-        entity.setNombre(dto.getNombre());
-        entity.setDescripcion(dto.getDescripcion());
+//        entity.setNombre(dto.getNombre());
+//        entity.setDescripcion(dto.getDescripcion());
 
         return entity;
     }

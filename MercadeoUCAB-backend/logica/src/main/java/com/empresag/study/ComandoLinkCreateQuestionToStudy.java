@@ -10,7 +10,7 @@ public class ComandoLinkCreateQuestionToStudy extends ComandoBase {
     private long studyId;
     private PreguntaEstudioEntity res;
 
-    public ComandoLinkCreateQuestionToStudy(long questionId, long studyId) {
+    public ComandoLinkCreateQuestionToStudy(long studyId , long questionId) {
         this.questionId = questionId;
         this.studyId = studyId;
     }

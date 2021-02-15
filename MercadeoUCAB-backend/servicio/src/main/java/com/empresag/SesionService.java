@@ -187,8 +187,8 @@ public class SesionService {
             respuesta.setEstado( "OK" );
             respuesta.setObjeto( resultado );
 
-//            DirectorioActivo ldap = new DirectorioActivo();
-//            ldap.addEntryToLdap(usuarioDto);
+            DirectorioActivo ldap = new DirectorioActivo();
+            ldap.addEntryToLdap(usuarioDto);
         }
         catch (Exception e){
             e.printStackTrace();
