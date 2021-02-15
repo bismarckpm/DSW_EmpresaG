@@ -21,15 +21,24 @@ public class SurveyService {
         return comando.getResult();
     }
 
-    @GET
-    @Path("/available-population/{id}")
-    public RespuestaDto<List<PersonaEntity>> getAvailablePopulation(@PathParam("id") long id)
-    {
-        ComandoGetAvailablePopulation comando = new ComandoGetAvailablePopulation(id);
-        comando.execute();
+   @GET
+   @Path("/available-population/{id}")
+   public RespuestaDto<List<PersonaEntity>> getAvailablePopulation(@PathParam("id") long id)
+   {
+       ComandoGetAvailablePopulation comando = new ComandoGetAvailablePopulation(id);
+       comando.execute();
 
-        return comando.getResult();
-    }
+       return comando.getResult();
+   }
+
+    // @GET
+    // @Path("/available-population/{id}")
+    // public List<PersonaEntity> getAvailablePopulation(@PathParam("id") long id)
+    // {
+    //     DaoEncuesta daoEncuesta = new DaoEncuesta();
+
+    //     return daoEncuesta.getAvailablePopulation(id);
+    // }
 
     @GET
     @Path("/available-population/{studyId}/{userId}")

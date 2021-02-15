@@ -15,6 +15,7 @@ export class AvailablePopulationComponent implements OnInit {
   people: persondata[];
   estudio: Study;
   current_study: number;
+  i: number;
   loading: boolean = false;
   peopleErrorMessage: boolean = false;
   @ViewChild('dt') table: Table;
@@ -38,7 +39,12 @@ export class AvailablePopulationComponent implements OnInit {
       this.analystService.getAvailablePopulation(this.current_study).subscribe((res) => {
         if (res.codigo == 0){
           if (res.objeto){
-            this.people = res.objeto as persondata[];
+            this.i = 0
+            for (this.i = 0; this.i < res.objeto.length; this.i++){
+              this.people[this.i] = res.objeto[this.i][0] as persondata;
+              this.people[this.i].telefono = res.objeto[this.i][1];
+              this.people[this.i].ocupacion = res.objeto[this.i][2];
+            }
             this.loading = false;
             this.spinner.hide();
           }

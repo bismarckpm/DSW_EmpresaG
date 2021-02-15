@@ -19,8 +19,8 @@ public class DaoEncuesta extends Dao<EncuestaEntity> {
         DaoEstudio daoEstudio = new DaoEstudio();
         EstudioEntity estudio = daoEstudio.find(id, EstudioEntity.class);
 
-        JPQL = "SELECT DISTINCT p FROM PersonaEntity p, FiltroEntity f, PersonaNvlacademicoEntity pna, " +
-                "UsuarioEntity u, RolEntity r " +
+        JPQL = "SELECT DISTINCT p, t.numero, o.nombre FROM PersonaEntity p, FiltroEntity f, PersonaNvlacademicoEntity pna, " +
+                "UsuarioEntity u, RolEntity r, TelefonoEntity t, OcupacionEntity o, PersonaOcupacionEntity po " +
                 "WHERE f.fkEstudio = :estudio " +
                 "AND (pna.fkPersona = p OR NOT EXISTS " +
                 "(SELECT aux FROM PersonaNvlacademicoEntity aux WHERE aux.fkPersona = p)) " +
@@ -28,7 +28,8 @@ public class DaoEncuesta extends Dao<EncuestaEntity> {
                 "AND (f.fkEdoCivil = p.fkEdoCivil OR f.fkEdoCivil IS NULL) " +
                 "AND (f.fkGenero = p.fkGenero OR f.fkGenero IS NULL) " +
                 "AND (f.fkNivelAcademico = pna.fkNivelAcademico OR f.fkNivelAcademico IS NULL) " +
-                "AND NOT EXISTS (SELECT e FROM EncuestaEntity e WHERE e.fkEstudio = :estudio AND e.fkPersona = p)";
+                "AND NOT EXISTS (SELECT e FROM EncuestaEntity e WHERE e.fkEstudio = :estudio AND e.fkPersona = p)" +
+                "AND t.fkPersona = p AND po.fkOcupacion = o AND po.fkPersona = p";
 
         q = em.createQuery(JPQL);
         q.setParameter("estudio", estudio);
