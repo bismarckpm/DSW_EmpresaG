@@ -260,5 +260,72 @@ export class MakeInterviewComponent implements OnInit {
     }
   }
 
+  
+  sendSomeAnser(){
+    this.respuestas = [];
 
+    for (let index = 0; index < this.answers.controls.length; index++) {
+      let currentAnswer: Survey;
+      if (this.answers.controls[index].value.respuesta_texto) {
+        currentAnswer = new Survey();
+        currentAnswer.respuestaTexto = this.answers.controls[index].value.respuesta_texto;
+        currentAnswer.fkPregunta = this.preguntas[index].fkPregunta;
+        currentAnswer.id_persona = this.current_user;
+        currentAnswer.id_estudio = this.current_study;
+        this.respuestas.push(currentAnswer);
+      }
+      // SIMPLE SELECTION
+      else if (this.answers.controls[index].value.opcion_seleccionada != null && !Array.isArray(this.answers.controls[index].value.opcion_seleccionada)) {
+        currentAnswer = new Survey();
+        currentAnswer.fkPregunta = this.preguntas[index].fkPregunta;
+        currentAnswer.fkPosibleRespuesta = new PossibleAnswer();
+        currentAnswer.fkPosibleRespuesta.fkOpcion = new Option();
+        currentAnswer.fkPosibleRespuesta.fkOpcion._id = this.answers.controls[index].value.opcion_seleccionada;
+        currentAnswer.fkPosibleRespuesta._id = this.preguntas[index].fkPregunta.listPosibleRespuestas.find(val => val.fkOpcion._id === this.answers.controls[index].value.opcion_seleccionada)._id;
+        currentAnswer.id_persona = this.current_user;
+        currentAnswer.id_estudio = this.current_study;
+        this.respuestas.push(currentAnswer);
+      }
+      // MULTIPLE SELECTION
+      else if (this.answers.controls[index].value.opcion_seleccionada && Array.isArray(this.answers.controls[index].value.opcion_seleccionada)) {
+        for (let j = 0; j < this.answers.controls[index].value.opcion_seleccionada.length; j++) {
+          currentAnswer = new Survey();
+          currentAnswer.fkPregunta = this.preguntas[index].fkPregunta;
+          currentAnswer.fkPosibleRespuesta = new PossibleAnswer();
+          currentAnswer.fkPosibleRespuesta.fkOpcion = new Option();
+          currentAnswer.fkPosibleRespuesta.fkOpcion._id = this.answers.controls[index].value.opcion_seleccionada[j];
+          currentAnswer.fkPosibleRespuesta._id = this.preguntas[index].fkPregunta.listPosibleRespuestas.find(val => val.fkOpcion._id === this.answers.controls[index].value.opcion_seleccionada[j])._id;
+          currentAnswer.id_persona = this.current_user;
+          this.respuestas.push(currentAnswer);
+        }
+      }
+      // RANGE
+      else if (this.answers.controls[index].value.rango_inicial && this.answers.controls[index].value.rango_final) {
+        currentAnswer = new Survey();
+        currentAnswer.fkPregunta = this.preguntas[index].fkPregunta;
+        currentAnswer.fkPosibleRespuesta = new PossibleAnswer();
+        currentAnswer.respuestaRangoInicial = parseInt(this.answers.controls[index].value.rango_inicial, 10);
+        currentAnswer.respuestaRangoFinal = parseInt(this.answers.controls[index].value.rango_final, 10);
+        currentAnswer.fkPosibleRespuesta._id = this.preguntas[index].fkPregunta.listPosibleRespuestas[0]._id;
+        currentAnswer.id_persona = this.current_user;
+        currentAnswer.id_estudio = this.current_study;
+        this.respuestas.push(currentAnswer);
+      }
+    }
+    
+    console.log(this.respuestas);
+
+    if (this.respuestas.length > 0){
+      this.analystService.postAnswers(this.current_study, this.current_user, this.respuestas).subscribe((res) => {
+        if (res.codigo == 0){
+          this.messageService.add({ severity: 'success', summary: 'Éxito', detail: res.mensaje });
+        }
+        else{
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: res.mensaje });
+        }
+      }, errorMessage => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
+      });
+    }
+  }
 }

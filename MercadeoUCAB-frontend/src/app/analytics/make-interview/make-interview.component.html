@@ -31,6 +31,12 @@
                                 <span class="error-msg"
                                     *ngIf="answers.controls[i].get('respuesta_texto').touched && answers.controls[i].get('respuesta_texto').errors?.required"><small>{{validationMessages.respuesta_texto.required}}</small></span>
                             </div>
+                            <div class="p-col-12 p-lg-2">
+                                <button type="button" pButton pRipple icon="pi pi-check"
+                                class="p-button-rounded p-mr-2" pTooltip="Almacenar respuesta"
+                                (click)="sendSomeAnser();"
+                                tooltipPosition="bottom"></button>
+                            </div>
                         </div>
 
                         <!-- RESPONSES SIMPLE SELECTION -->
@@ -40,6 +46,12 @@
                                     [label]="opcion.fkOpcion.valor" class="p-mb-3"></p-radioButton>
                                 <span class="error-msg"
                                     *ngIf="answers.controls[i].get('opcion_seleccionada').touched && answers.controls[i].get('opcion_seleccionada').errors?.required"><small>{{validationMessages.opcion_seleccionada.required}}</small></span>
+                            </div>
+                            <div class="p-col-12 p-lg-2">
+                                <button type="button" pButton pRipple icon="pi pi-check"
+                                class="p-button-rounded p-mr-2" pTooltip="Almacenar respuesta"
+                                (click)="sendSomeAnser();"
+                                tooltipPosition="bottom"></button>
                             </div>
                         </div>
 
@@ -53,6 +65,12 @@
                                 <span class="error-msg"
                                     *ngIf="answers.controls[i].get('opcion_seleccionada').touched && answers.controls[i].get('opcion_seleccionada').errors?.required"><small>{{validationMessages.opcion_seleccionada.required}}</small></span>
                             </div>
+                            <div class="p-col-12 p-lg-2">
+                                <button type="button" pButton pRipple icon="pi pi-check"
+                                class="p-button-rounded p-mr-2" pTooltip="Almacenar respuesta"
+                                (click)="sendSomeAnser();"
+                                tooltipPosition="bottom"></button>
+                            </div>
                         </div>
 
                         <!-- RESPONSES TRUE/FALSE -->
@@ -64,6 +82,12 @@
                             <div class="p-col-12">
                                 <span class="error-msg"
                                     *ngIf="answers.controls[i].get('opcion_seleccionada').touched && answers.controls[i].get('opcion_seleccionada').errors?.required"><small>{{validationMessages.opcion_seleccionada.required}}</small></span>
+                            </div>
+                            <div class="p-col-12 p-lg-2">
+                                <button type="button" pButton pRipple icon="pi pi-check"
+                                class="p-button-rounded p-mr-2" pTooltip="Almacenar respuesta"
+                                (click)="sendSomeAnser();"
+                                tooltipPosition="bottom"></button>
                             </div>
                         </div>
 
@@ -97,6 +121,12 @@
                                 <span class="error-msg"
                                 *ngIf="answers.controls[i].get('rango_final').touched && answers.controls[i].get('rango_final').errors?.max"><small>{{validationMessages.rango_final.max}}</small></span>
                             </div>
+                            <div class="p-col-12 p-lg-2">
+                                <button type="button" pButton pRipple icon="pi pi-check"
+                                class="p-button-rounded p-mr-2" pTooltip="Almacenar respuesta"
+                                (click)="sendSomeAnser();"
+                                tooltipPosition="bottom"></button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -104,7 +134,7 @@
                 <div class="p-grid p-jc-end p-mt-6 p-mx-5">
                     <div class="p-grid p-formgrid p-fluid">
                         <div class="p-mb-2 p-col-12 p-mb-lg-0">
-                            <button pButton pRipple type="submit" [disabled]="sent_form" label="Guardar"></button>
+                            <button pButton pRipple type="submit" [disabled]="sent_form" label="Finalizar"></button>
                         </div>
                     </div>
                 </div>
