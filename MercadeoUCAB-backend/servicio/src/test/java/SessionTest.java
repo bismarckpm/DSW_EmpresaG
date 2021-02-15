@@ -9,8 +9,8 @@ public class SessionTest {
     {
         try {
             UsuarioDto user = new UsuarioDto();
-            user.setEmail("angel99castillo@gmail.com");
-            user.setPassword("Am101199.");
+            user.setEmail("hyperschnell11@outlook.sk");
+            user.setPassword("123456789a!");
             RolDto rol = new RolDto();
             rol.set_id(1);
 
@@ -45,8 +45,8 @@ public class SessionTest {
     public void changePassword()
     {
         UsuarioDto user = new UsuarioDto();
-        user.setEmail( "cverde22@gmail.com" );
-        user.setPassword( "Caracas1." );
+        user.setEmail( "hyperschnell11@outlook.sk" );
+        user.setPassword( "123456789a!" );
         DirectorioActivo ldap = new DirectorioActivo();
         ldap.changePassword( user );
     }
@@ -62,10 +62,10 @@ public class SessionTest {
         String token = null;
 
         TokenEntity tokenEntity = null;
-        tokenEntity = daoToken.getUserToken(94);
-        UsuarioEntity usuarioEntity = daoUsuario.find(94L, UsuarioEntity.class);
+        tokenEntity = daoToken.getUserToken(1);
+        UsuarioEntity usuarioEntity = daoUsuario.find(1L, UsuarioEntity.class);
         user.setEmail("hyperschnell11@outlook.sk");
-        user.setPassword("123456789");
+        user.setPassword("123456789a!");
         DirectorioActivo ldap = new DirectorioActivo();
 
         if (ldap.userAuthentication( user )){

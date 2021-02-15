@@ -10,12 +10,15 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/*
+* Esta clase está diseñada para enviar el correo electrónico de recuperación de clave en caso de
+* esta ser olvidada
+*/
+
 public class Email {
     private final Properties properties = new Properties();
-
     private String _correo;
     private String _hash;
-
     private Session session;
 
     public Email(){}
@@ -24,6 +27,10 @@ public class Email {
         this._correo = correo;
         this._hash = hash;
     }
+
+    /*
+    * Configuración para el envio del correo electrónico
+    */
 
     private void init() {
 
@@ -37,6 +44,11 @@ public class Email {
 
         session = Session.getDefaultInstance(properties);
     }
+
+    /*
+    * Método para enviar el correo electrónico
+    * Se especifica el asunto, el contenido del mensaje y el protocolo que se utilizará (SMTP)
+    */
 
     public String sendEmail(){
 

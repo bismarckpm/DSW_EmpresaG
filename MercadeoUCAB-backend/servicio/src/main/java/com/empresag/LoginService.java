@@ -13,58 +13,19 @@ import javax.ws.rs.Path;
 @Consumes( MediaType.APPLICATION_JSON )
 public class LoginService {
 
-//    @POST
-//    @Path("/authenticate")
-//    public UsuarioDto currentUser(UsuarioDto usuarioDto) throws IndexDatabaseException {
-//        boolean authLDAP;
-//
-//        DaoUsuario daoUsuario = new DaoUsuario();
-//        DaoToken daoToken = new DaoToken();
-//        DirectorioActivo ldap = new DirectorioActivo();
-//
-//        UsuarioEntity usuarioEntity = daoUsuario.findUserByEmail(usuarioDto.getEmail());
-//        String token = null;
-//        UsuarioDto authenticatedUser = new UsuarioDto();
-//        TokenEntity tokenEntity = null;
-//
-//        /* If user doesn't exist */
-//
-//        try {
-//            tokenEntity = daoToken.getUserToken(usuarioEntity.get_id());
-//        }
-//        catch (NullPointerException e){
-//            return null;
-//        }
-//
-//        authLDAP = ldap.userAuthentication(usuarioDto);
-//
-//        if (authLDAP){
-//            token = daoToken.getAlphaNumericString(25);
-//            if (tokenEntity != null){
-//                tokenEntity.setToken_login(token);
-//                daoToken.update(tokenEntity);
-//            }
-//            else {
-//                tokenEntity = new TokenEntity();
-//                tokenEntity.setFkUsuario(usuarioEntity);
-//                tokenEntity.setToken_login(token);
-//                daoToken.insert(tokenEntity);
-//            }
-//            RolDto rol = new RolDto();
-//            rol.set_id(usuarioEntity.getFk_Rol().get_id());
-//            authenticatedUser.setFkRol(rol);
-//            authenticatedUser.setTokenLogin(token);
-//            authenticatedUser.set_id(usuarioEntity.get_id());
-//            return authenticatedUser;
-//        }
-//        return null;
-//    }
+    /*
+    * Método para iniciar sesión en el sistema:
+    * Recibe como parámetro el usuario y la contraseña proporcionada por el usuario
+    * Verificará si el email proporcionado existe en el sistema
+    * Verificará si existe un token de inicio de sesión en la base de datos y si ese es el caso lo modificará
+    * en caso de que no exista dicho registro se creará en la base de datos
+    * Ejecutará la autenticación con LDAP
+     */
 
     @POST
     @Path("/authenticate")
     public RespuestaDto<UsuarioDto> currentUser(UsuarioDto usuarioDto) throws IndexDatabaseException, LoginException {
         boolean authLDAP;
-
         RespuestaDto<UsuarioDto> respuesta = new RespuestaDto<>();
 
         try {
@@ -144,6 +105,11 @@ public class LoginService {
         }
 
     }
+
+    /*
+    * Método para cerrar sesión:
+    * Limpia el token de inicio de sesión de la base de datos
+    * */
 
     @POST
     @Path("/logout/{hash}")

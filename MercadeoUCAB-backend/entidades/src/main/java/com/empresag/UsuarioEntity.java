@@ -15,9 +15,6 @@ public class UsuarioEntity extends BaseEntity{
     @Basic
     @Column(name = "estado")
     private int estado;
-    @Basic
-    @Column(name = "token")
-    private String token;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "fk_persona")
@@ -72,14 +69,6 @@ public class UsuarioEntity extends BaseEntity{
 
     public void setFk_Rol(RolEntity fkRol) {
         this.fk_Rol = fkRol;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 
     @Override
