@@ -138,6 +138,16 @@ export class MakeInterviewComponent implements OnInit {
     for (let i = 0; i < this.preguntas.length; i++) {
       // OPEN TEXT
       if (this.preguntas[i].fkPregunta.fkTipoPregunta._id === 1) {
+
+        this.analystService.getAnswers(this.current_study, this.current_user, this.preguntas[i].fkPregunta._id)
+        .subscribe((res) => {
+
+          console.log(res);
+          
+        }, errorMessage => {
+          console.log(errorMessage);
+        });
+
         this.answers.push(new FormGroup({
           respuesta_texto: new FormControl('', Validators.required)
         }));
@@ -146,6 +156,16 @@ export class MakeInterviewComponent implements OnInit {
       // SIMPLE SELECTION, MULTIPLE SELECTION, TRUE/FALSE
 
       else if (this.preguntas[i].fkPregunta.fkTipoPregunta._id === 2 || this.preguntas[i].fkPregunta.fkTipoPregunta._id === 3 || this.preguntas[i].fkPregunta.fkTipoPregunta._id === 4) {
+
+        this.analystService.getAnswers(this.current_study, this.current_user, this.preguntas[i].fkPregunta._id)
+        .subscribe((res) => {
+
+          console.log(res);
+          
+        }, errorMessage => {
+          console.log(errorMessage);
+        });
+        
         this.answers.push(new FormGroup({
           opcion_seleccionada: new FormControl(null, Validators.required)
         }));
@@ -154,6 +174,16 @@ export class MakeInterviewComponent implements OnInit {
       // RANGE
 
       else {
+        
+        this.analystService.getAnswers(this.current_study, this.current_user, this.preguntas[i].fkPregunta._id)
+        .subscribe((res) => {
+
+          console.log(res);
+          
+        }, errorMessage => {
+          console.log(errorMessage);
+        });
+
         this.answers.push(new FormGroup({
           rango_inicial: new FormControl(
             '',

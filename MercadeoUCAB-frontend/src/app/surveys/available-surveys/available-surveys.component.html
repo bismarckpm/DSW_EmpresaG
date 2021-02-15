@@ -38,6 +38,7 @@
                                     field="subcategoria">
                                 </p-sortIcon>
                             </th>
+                            <th class="p-text-center">Estado</th>
                           <th class="p-text-center">Nombre</th>
                             <th style="width: 11rem"></th>
                         </tr>
@@ -48,21 +49,42 @@
                         <tr class="p-selectable-row">
                             <td class="p-text-center">
                                 <span class="p-column-title">Categoría</span>
-                                {{estudio.fkCategoria.nombre}}
+                                {{estudio.filtros.fkCategoria.nombre}}
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Subcategoría</span>
-                                <span class="image-text">{{estudio.fkSubcategoria.nombre}}</span>
+                                <span class="image-text">{{estudio.filtros.fkSubcategoria.nombre}}</span>
                             </td>
                           <td class="p-text-center">
                             <span class="p-column-title">Nombre</span>
-                            <span class="image-text">{{estudio.fkEstudio.nombre}}</span>
+                            <span class="image-text">{{estudio.filtros.fkEstudio.nombre}}</span>
                           </td>
 
+                          <td class="p-text-center">
+                            <div *ngIf="estudio.status == 0">
+                                <span class="image-text">Sin responder</span>
+                            </div>
+                            <div *ngIf="estudio.status == 1">
+                                <span class="image-text">En progreso</span>
+                            </div>
+                            <div *ngIf="estudio.status == 2">
+                                <span class="image-text">Terminada</span>
+                            </div>
+                        </td>
+
                             <td class="p-text-center">
-                                <button type="button" routerLink="take" [queryParams]="{surveyId:estudio.fkEstudio._id}" pButton
-                                    pRipple icon="pi pi-file" class="p-button-rounded p-mr-2" pTooltip="Responder esta encuesta"
-                                    tooltipPosition="bottom"></button>
+                                <div *ngIf="estudio.status == 0">
+                                    <button type="button" routerLink="take" [queryParams]="{surveyId:estudio.filtros.fkEstudio._id}" pButton
+                                        pRipple icon="pi pi-file" class="p-button-rounded p-mr-2" pTooltip="Responder esta encuesta"
+                                        tooltipPosition="bottom"></button>
+                                </div>
+                                <div *ngIf="estudio.status == 1">
+                                    <button type="button" routerLink="take" [queryParams]="{surveyId:estudio.filtros.fkEstudio._id}" pButton
+                                        pRipple icon="pi pi-file" class="p-button-rounded p-mr-2" pTooltip="Responder esta encuesta"
+                                        tooltipPosition="bottom"></button>
+                                </div>
+                                <div *ngIf="estudio.status == 2">
+                                </div>
                             </td>
                         </tr>
                     </ng-template>

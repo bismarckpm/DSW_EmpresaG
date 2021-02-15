@@ -1,12 +1,14 @@
 package com.empresag.survey;
 
 import com.empresag.*;
+import com.empresag.Extras.TmpAvailablePopulation;
 
 import java.util.List;
 
 public class ComandoGetAvailablePopulation extends ComandoBase {
     private long id;
-    private RespuestaDto<List<PersonaEntity>> respuesta;
+//    private RespuestaDto<List<PersonaEntity>> respuesta;
+    private RespuestaDto<List<TmpAvailablePopulation>> respuesta;
 
     public ComandoGetAvailablePopulation(long id) {
         this.id = id;
@@ -18,7 +20,8 @@ public class ComandoGetAvailablePopulation extends ComandoBase {
         DaoEncuesta daoEncuesta = FabricaDao.crearDaoEncuesta();
 
         try {
-            List<PersonaEntity> personas = daoEncuesta.getAvailablePopulation(id);
+//            List<PersonaEntity> personas = daoEncuesta.getAvailablePopulation(id);
+            List<TmpAvailablePopulation> personas = daoEncuesta.getAvailablePopulation(id);
 
             respuesta.setCodigo(0);
             respuesta.setEstado("OK");
@@ -44,7 +47,7 @@ public class ComandoGetAvailablePopulation extends ComandoBase {
     }
 
     @Override
-    public RespuestaDto<List<PersonaEntity>> getResult() {
+    public RespuestaDto<List<TmpAvailablePopulation>> getResult() {
         return respuesta;
     }
 }

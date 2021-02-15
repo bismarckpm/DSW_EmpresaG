@@ -41,6 +41,7 @@ public class MyApplication extends Application {
         h.add( StudyRequestService.class );
         h.add( AnalyticsService.class );
         h.add( SurveyService.class );
+        h.add( AnswerService.class );
         return h;
     }
 }

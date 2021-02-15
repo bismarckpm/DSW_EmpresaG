@@ -94,4 +94,11 @@ export class AnalystService {
     return this.http.post<Respuesta>(serverURL + 'survey/take-interview/' + study_id + '/' + person_id, survey, httpOptions)
       .pipe(catchError(this.processHTTPMessageService.handleError));
   }
+
+
+  getAnswers(study_id, person_id, pregunta_id):Observable<Respuesta> {
+    return this.http.get<Respuesta>(serverURL + 'answers/' + study_id + "/" + person_id + "/" + pregunta_id)
+      .pipe(catchError(this.processHTTPMessageService.handleError));
+  }
+
 }

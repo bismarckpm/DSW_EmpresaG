@@ -1,5 +1,7 @@
 package com.empresag;
 
+import com.empresag.Extras.TmpAvailablePopulation;
+import com.empresag.Extras.TmpAvailableSurveys;
 import com.empresag.survey.*;
 
 import javax.ws.rs.*;
@@ -13,7 +15,7 @@ public class SurveyService {
 
     @GET
     @Path("/available/{userId}")
-    public RespuestaDto<List<FiltroEntity>> getAvailableSurveys(@PathParam("userId") long userId)
+    public RespuestaDto<List<TmpAvailableSurveys>> getAvailableSurveys(@PathParam("userId") long userId)
     {
         ComandoGetAvailableSurveys comando = new ComandoGetAvailableSurveys(userId);
         comando.execute();
@@ -23,7 +25,7 @@ public class SurveyService {
 
     @GET
     @Path("/available-population/{id}")
-    public RespuestaDto<List<PersonaEntity>> getAvailablePopulation(@PathParam("id") long id)
+    public RespuestaDto<List<TmpAvailablePopulation>> getAvailablePopulation(@PathParam("id") long id)
     {
         ComandoGetAvailablePopulation comando = new ComandoGetAvailablePopulation(id);
         comando.execute();

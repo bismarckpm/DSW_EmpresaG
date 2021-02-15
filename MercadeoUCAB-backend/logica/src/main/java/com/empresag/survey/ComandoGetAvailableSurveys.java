@@ -1,13 +1,15 @@
 package com.empresag.survey;
 
 import com.empresag.*;
+import com.empresag.Extras.TmpAvailableSurveys;
 
 import java.util.List;
 
 public class ComandoGetAvailableSurveys extends ComandoBase {
 
     private long userId;
-    private RespuestaDto<List<FiltroEntity>> respuesta;
+//    private RespuestaDto<List<FiltroEntity>> respuesta;
+    private RespuestaDto<List<TmpAvailableSurveys>> respuesta;
 
     public ComandoGetAvailableSurveys(long userId) {
         this.userId = userId;
@@ -19,7 +21,8 @@ public class ComandoGetAvailableSurveys extends ComandoBase {
         DaoEncuesta daoEncuesta = FabricaDao.crearDaoEncuesta();
 
         try {
-            List<FiltroEntity> encuestas = daoEncuesta.getAvailableSurveys(userId);
+//            List<FiltroEntity> encuestas = daoEncuesta.getAvailableSurveys(userId);
+            List<TmpAvailableSurveys> encuestas = daoEncuesta.getAvailableSurveys(userId);
 
             respuesta.setCodigo(0);
             respuesta.setEstado("OK");
@@ -45,7 +48,7 @@ public class ComandoGetAvailableSurveys extends ComandoBase {
     }
 
     @Override
-    public RespuestaDto<List<FiltroEntity>> getResult() {
+    public RespuestaDto<List<TmpAvailableSurveys>> getResult() {
         return respuesta;
     }
 }

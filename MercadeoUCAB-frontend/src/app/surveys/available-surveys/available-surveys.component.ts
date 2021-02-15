@@ -7,6 +7,7 @@ import { STUDY_STATES } from '../../core/constants/study_states';
 import { UserSurveyService } from 'src/app/core/services/surveys/user-survey.service';
 import { StudyWithFilter } from 'src/app/core/classes/study/study_with_filter';
 import {SessionService} from '../../core/services/auth/session.service';
+import { AvailableSurvey } from 'src/app/core/classes/availablesurvey';
 
 @Component({
   selector: 'app-available-surveys',
@@ -15,7 +16,8 @@ import {SessionService} from '../../core/services/auth/session.service';
 })
 export class AvailableSurveysComponent implements OnInit {
   current_user: number;
-  estudios: StudyWithFilter[];
+  // estudios: StudyWithFilter[];
+  estudios: AvailableSurvey[];
   estudiosErrorMessage: string;
   categorias: MenuItem[];
   categoriasErrorMessage: string;
@@ -33,8 +35,9 @@ export class AvailableSurveysComponent implements OnInit {
     this.loading = true;
     this.surveyService.getAvailableSurveys(this.current_user).subscribe((res) => {
       if (res.codigo == 0){
-        if (res.objeto){
-          this.estudios = res.objeto as StudyWithFilter[] ;
+        if (res.objeto){ 
+          console.log(res.objeto);
+          this.estudios = res.objeto as AvailableSurvey[] ;
         }
       }
       else{
