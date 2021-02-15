@@ -31,9 +31,8 @@
                                     field="primer_nombre">
                                 </p-sortIcon>
                             </th>
-                            <th class="p-text-center">Fecha de Nacimiento
-                            </th>
                             <th class="p-text-center">Documento de Identificación</th>
+                            <th class="p-text-center">Estado</th>
                             <th style="width: 11rem"></th>
                         </tr>
 
@@ -45,17 +44,33 @@
                                 {{person.persona.primerNombre}} {{person.persona.primerApellido}}
                             </td>
                             <td class="p-text-center">
-                                <span class="p-column-title">Fecha de Nacimiento</span>
-                                <span class="image-text">{{person.persona.fechaNacimiento}}</span>
-                            </td>
-                            <td class="p-text-center">
-                                <span class="p-column-title">Documento De Identificación</span>
+                                <span class="p-column-title">Documento de Identificación</span>
                                 <span class="image-text">{{person.persona.documentoIdentidad}}</span>
                             </td>
 
                             <td class="p-text-center">
-                                <button type="button" pButton pRipple icon="pi pi-comments" class="p-button-rounded" routerLink="../make-interview" [queryParams]="{surveyId: current_study, personId: person.persona._id}"
-                                    pTooltip="Realizar entrevista" tooltipPosition="bottom"></button>
+                                <div *ngIf="person.status == 0">
+                                    <span class="image-text">Sin responder</span>
+                                </div>
+                                <div *ngIf="person.status == 1">
+                                    <span class="image-text">En progreso</span>
+                                </div>
+                                <div *ngIf="person.status == 2">
+                                    <span class="image-text">Terminada</span>
+                                </div>
+                            </td>
+                            
+                            <td class="p-text-center">
+                                <div *ngIf="person.status == 0">
+                                    <button type="button" pButton pRipple icon="pi pi-comments" class="p-button-rounded" routerLink="../make-interview" [queryParams]="{surveyId: current_study, personId: person.persona._id, status: person.status}"
+                                        pTooltip="Realizar entrevista" tooltipPosition="bottom"></button>
+                                </div>
+                                <div *ngIf="person.status == 1">
+                                    <button type="button" pButton pRipple icon="pi pi-comments" class="p-button-rounded" routerLink="../make-interview" [queryParams]="{surveyId: current_study, personId: person.persona._id, status: person.status}"
+                                        pTooltip="Realizar entrevista" tooltipPosition="bottom"></button>
+                                </div>
+                                <div *ngIf="person.status == 2">
+                                </div>
                             </td>
                         </tr>
                     </ng-template>
