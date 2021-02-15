@@ -89,41 +89,50 @@ public class LoginService {
                 return respuesta;
             }
 
-//        authLDAP = ldap.userAuthentication(usuarioDto);
+            authLDAP = ldap.userAuthentication(usuarioDto);
 
-//        if (authLDAP){
-            token = daoToken.getAlphaNumericString(25);
+            if (authLDAP) {
+                token = daoToken.getAlphaNumericString(25);
 
-            if (tokenEntity != null) {
-                try {
-                    tokenEntity.setToken_login(token);
-                    ComandoEditarToken editarToken = new ComandoEditarToken(tokenEntity.get_id(), TokenMapper.mapEntityToDto(tokenEntity));
-                    editarToken.execute();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (tokenEntity != null) {
+                    try {
+                        tokenEntity.setToken_login(token);
+                        ComandoEditarToken editarToken = new ComandoEditarToken(tokenEntity.get_id(), TokenMapper.mapEntityToDto(tokenEntity));
+                        editarToken.execute();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        tokenEntity = FabricaEntity.crearTokenEntity();
+                        tokenEntity.setFkUsuario(usuarioEntity);
+                        tokenEntity.setToken_login(token);
+                        ComandoCrearToken crearToken = new ComandoCrearToken(TokenMapper.mapEntityToDto(tokenEntity));
+                        crearToken.execute();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+
+                        respuesta.setCodigo(-1);
+                        respuesta.setEstado("ERROR");
+                        respuesta.setMensaje("Usuario o clave incorrectos.");
+                        return respuesta;
+                    }
                 }
-            } else {
-                try {
-                    tokenEntity = FabricaEntity.crearTokenEntity();
-                    tokenEntity.setFkUsuario(usuarioEntity);
-                    tokenEntity.setToken_login(token);
-                    ComandoCrearToken crearToken = new ComandoCrearToken(TokenMapper.mapEntityToDto(tokenEntity));
-                    crearToken.execute();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                RolDto rol = FabricaDto.crearRolDto();
+                rol.set_id(usuarioEntity.getFk_Rol().get_id());
+                authenticatedUser.setFkRol(rol);
+                authenticatedUser.setTokenLogin(token);
+                authenticatedUser.set_id(usuarioEntity.get_id());
 
-                    throw new LoginException();
-                }
+                respuesta.setCodigo(0);
+                respuesta.setEstado("OK");
+                respuesta.setObjeto(authenticatedUser);
             }
-            RolDto rol = FabricaDto.crearRolDto();
-            rol.set_id(usuarioEntity.getFk_Rol().get_id());
-            authenticatedUser.setFkRol(rol);
-            authenticatedUser.setTokenLogin(token);
-            authenticatedUser.set_id(usuarioEntity.get_id());
-
-            respuesta.setCodigo(0);
-            respuesta.setEstado("OK");
-            respuesta.setObjeto(authenticatedUser);
+            else{
+                respuesta.setCodigo(-1);
+                respuesta.setEstado("ERROR");
+                respuesta.setMensaje("Usuario o clave incorrectos.");
+            }
 
             return respuesta;
         }

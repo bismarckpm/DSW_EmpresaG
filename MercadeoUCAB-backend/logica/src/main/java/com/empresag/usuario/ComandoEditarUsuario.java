@@ -29,8 +29,8 @@ public class ComandoEditarUsuario extends ComandoBase {
             usuarioOld.setEstado(usuarioDto.getEstado());
             if (!usuarioDto.getPassword().equals("")) {
                 usuarioOld.setPassword(usuarioDto.getPassword());
-//                DirectorioActivo ldap = new DirectorioActivo();
-//                ldap.changePassword(usuarioDto);
+                DirectorioActivo ldap = new DirectorioActivo();
+                ldap.changePassword(usuarioDto);
             }
             else {
                 usuarioOld.setPassword(usuarioOld.getPassword());

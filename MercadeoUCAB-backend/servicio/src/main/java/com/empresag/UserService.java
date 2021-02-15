@@ -289,6 +289,7 @@ public class UserService {
                 respuesta.setCodigo(0);
                 respuesta.setEstado( "OK" );
                 respuesta.setMensaje( "Usuario eliminado" );
+
             }else{
                 respuesta.setCodigo(-1);
                 respuesta.setEstado( "ERROR" );
