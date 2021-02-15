@@ -9,10 +9,10 @@ public class SessionTest {
     {
         try {
             UsuarioDto user = new UsuarioDto();
-            user.setEmail("hyperschnell11@outlook.sk");
+            user.setEmail("hsamet29@ovh.net");
             user.setPassword("123456789a!");
             RolDto rol = new RolDto();
-            rol.set_id(1);
+            rol.set_id(4);
 
             user.setFkRol(rol);
             DirectorioActivo ldap = new DirectorioActivo();

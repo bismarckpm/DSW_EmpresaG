@@ -49,35 +49,24 @@
         </div>
 
         <!-- Formulario de cammbio de perfil -->
-        <div class="p-col-12 p-lg-8  p-as-start" style="margin-left: 2em;">
+        <div class="p-col-12 p-as-start" [ngClass]="persona.fkRol._id === 1 ? 'p-lg-12' : 'p-lg-8'"  style="margin-left: 2em;">
             <p-card>
                 <form novalidate [formGroup]="profileForm" #pform="ngForm" (ngSubmit)="onSubmit()">
                     <!-- INFORMACION DE LA CUENTA -->
                     <div class="p-grid p-jc-start p-mx-5">
-                        <div class="p-col-12">
+                        <div class="p-col-12 p-mb-4">
                             <h3>INFORMACIÓN DE LA CUENTA</h3>
                         </div>
-                        <div class="p-col-12 p-lg-6">
+                        <div class="p-col-12" [ngClass]="persona.fkRol._id === 1 ? 'p-lg-10' : 'p-lg-6'">
                             <span class="p-float-label">
                                 <input class="p-inputtext-lg fill-width" formControlName="correo_electronico" type="text" pInputText disabled>
-                                <label for="float-input">Correo Electrónico</label>
+                                <label class="float-input">Correo Electrónico</label>
                             </span>
                         </div>
-                        <!-- <div class="p-col-12 p-lg-6" *ngIf="!dataPersona">
-                            <span class="p-float-label">
-                                <input class="p-inputtext-lg fill-width" type="text" pInputText disabled>
-                                <label for="float-input">Rol</label>
-                            </span>
-                        </div> -->
+
                         <div class="p-col-12">
                             <a (click)="showChangeClaveForm()">Cambiar contraseña</a>
                         </div>
-                        <!-- <div class="p-grid p-formgrid p-fluid">
-                            <div class="p-mb-2 p-col-12 p-mb-lg-0 p-mr-3">
-                              <button pButton type="button" (click)="showChangeClaveForm()" 
-                                      label="Cambiar contraseña"></button>
-                            </div>
-                          </div> -->
 
                         <div *ngIf="showClaveForm">
                             <div class="p-grid">
@@ -86,7 +75,6 @@
                                 </div>
                             </div>
                             <div class="p-grid">
-                                
                                 <div class="p-col-12 p-lg-6 p-mb-6">
                                     <span class="p-float-label">
                                         <input id="clave" class="p-inputtext-lg fill-width" formControlName="clave" type="password"

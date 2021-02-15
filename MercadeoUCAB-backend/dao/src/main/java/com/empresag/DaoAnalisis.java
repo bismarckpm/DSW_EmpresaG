@@ -17,6 +17,13 @@ public class DaoAnalisis extends Dao<AnalisisEntity> {
         super(_handler);
     }
 
+    /*
+    * Obtener la conclusión de un estudio
+    * Este método toma como parámetro el ID de un estudio, buscará el estudio en la base de datos
+    * y buscará si existe un análisis relacionado a dicho estudio, en caso de ser así retornará
+    * el registro
+    */
+
     public AnalisisEntity getAnalisis(long studyId){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
         EntityManager em = emf.createEntityManager();
@@ -31,6 +38,12 @@ public class DaoAnalisis extends Dao<AnalisisEntity> {
 
         return analisis;
     }
+
+    /*
+    * Obtener las respuestas a preguntas de tipo texto abierto en un estudio
+    * Este método toma como parámetro el ID de un estudio, devolverá una lista con las respuestas a las preguntas
+    * de tipo texto abierto en un estudio
+     */
 
     public List<PreguntaEstudioDto> getOpenTextAnswers(long studyId) throws IndexDatabaseException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
@@ -71,6 +84,12 @@ public class DaoAnalisis extends Dao<AnalisisEntity> {
         }
         return resultSet;
     }
+
+    /*
+     * Obtener las respuestas a preguntas de tipo selección
+     * Este método toma como parámetro el ID de un estudio, devolverá una lista con las respuestas a las preguntas
+     * de tipo selección en un estudio, esto incluye selección múltiple
+     */
 
     public List<PreguntaEstudioDto> getSelectionAnswers(long studyId) throws IndexDatabaseException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
@@ -119,6 +138,12 @@ public class DaoAnalisis extends Dao<AnalisisEntity> {
         return resultSet;
     }
 
+    /*
+     * Obtener las respuestas a preguntas de tipo verdadero y falso en un estudio
+     * Este método toma como parámetro el ID de un estudio, devolverá una lista con las respuestas a las preguntas
+     * de tipo verdadero y falso en un estudio
+     */
+
     public List<PreguntaEstudioDto> getTrueFalseAnswers(long studyId) throws IndexDatabaseException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
         EntityManager em = emf.createEntityManager();
@@ -163,6 +188,12 @@ public class DaoAnalisis extends Dao<AnalisisEntity> {
         }
         return resultSet;
     }
+
+    /*
+     * Obtener las respuestas a preguntas de tipo texto abierto en un estudio
+     * Este método toma como parámetro el ID de un estudio, devolverá una lista con las respuestas a las preguntas
+     * de rango en un estudio
+     */
 
     public List<PreguntaEstudioDto> getRangeAnswers(long studyId) throws IndexDatabaseException {
         Object [] tuple = null;
