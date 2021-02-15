@@ -31,9 +31,9 @@
                                     field="primer_nombre">
                                 </p-sortIcon>
                             </th>
-                            <th class="p-text-center">Fecha de Nacimiento
-                            </th>
                             <th class="p-text-center">Documento de Identificación</th>
+                            <th class="p-text-center">Ocupación</th>
+                            <th class="p-text-center">Número de Telefono</th>
                             <th style="width: 11rem"></th>
                         </tr>
 
@@ -45,12 +45,16 @@
                                 {{person.primerNombre}} {{person.primerApellido}}
                             </td>
                             <td class="p-text-center">
-                                <span class="p-column-title">Fecha de Nacimiento</span>
-                                <span class="image-text">{{person.fechaNacimiento}}</span>
+                                <span class="p-column-title">Documento de Identificación</span>
+                                <span class="image-text">{{person.documentoIdentidad}}</span>
                             </td>
                             <td class="p-text-center">
-                                <span class="p-column-title">Documento De Identificación</span>
-                                <span class="image-text">{{person.documentoIdentidad}}</span>
+                                <span class="p-column-title">Ocupación</span>
+                                <span class="image-text">{{person.ocupacion}}</span>
+                            </td>
+                            <td class="p-text-center">
+                                <span class="p-column-title">Número de Telefono</span>
+                                <span class="image-text">{{person.telefono}}</span>
                             </td>
 
                             <td class="p-text-center">
