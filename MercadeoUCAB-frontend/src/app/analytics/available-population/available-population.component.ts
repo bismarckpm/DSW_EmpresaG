@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Table } from 'primeng/table';
+import { AvailablePopulation } from 'src/app/core/classes/availablepopulation';
 import { persondata } from 'src/app/core/classes/profile/persondata';
 import { Study } from 'src/app/core/classes/study/study';
 import { AnalystService } from 'src/app/core/services/analytics/analyst.service';
@@ -12,7 +13,7 @@ import { AnalystService } from 'src/app/core/services/analytics/analyst.service'
   styleUrls: ['./available-population.component.scss']
 })
 export class AvailablePopulationComponent implements OnInit {
-  people: persondata[];
+  people: AvailablePopulation[];
   estudio: Study;
   current_study: number;
   loading: boolean = false;
@@ -38,7 +39,7 @@ export class AvailablePopulationComponent implements OnInit {
       this.analystService.getAvailablePopulation(this.current_study).subscribe((res) => {
         if (res.codigo == 0){
           if (res.objeto){
-            this.people = res.objeto as persondata[];
+            this.people = (res.objeto as AvailablePopulation[]);
             this.loading = false;
             this.spinner.hide();
           }
