@@ -42,19 +42,19 @@
                         <tr class="p-selectable-row">
                             <td class="p-text-center">
                                 <span class="p-column-title">Nombre</span>
-                                {{person.primerNombre}} {{person.primerApellido}}
+                                {{person.persona.primerNombre}} {{person.persona.primerApellido}}
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Fecha de Nacimiento</span>
-                                <span class="image-text">{{person.fechaNacimiento}}</span>
+                                <span class="image-text">{{person.persona.fechaNacimiento}}</span>
                             </td>
                             <td class="p-text-center">
                                 <span class="p-column-title">Documento De Identificación</span>
-                                <span class="image-text">{{person.documentoIdentidad}}</span>
+                                <span class="image-text">{{person.persona.documentoIdentidad}}</span>
                             </td>
 
                             <td class="p-text-center">
-                                <button type="button" pButton pRipple icon="pi pi-comments" class="p-button-rounded" routerLink="../make-interview" [queryParams]="{surveyId: current_study, personId: person._id}"
+                                <button type="button" pButton pRipple icon="pi pi-comments" class="p-button-rounded" routerLink="../make-interview" [queryParams]="{surveyId: current_study, personId: person.persona._id}"
                                     pTooltip="Realizar entrevista" tooltipPosition="bottom"></button>
                             </td>
                         </tr>

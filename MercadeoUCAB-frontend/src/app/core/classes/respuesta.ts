@@ -4,4 +4,4 @@ export class Respuesta{
     mensajesoporte?: string;
     estado?: string;
     objeto?: object;
-}
+} 
