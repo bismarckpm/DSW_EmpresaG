@@ -9,7 +9,11 @@ public class ComandoTakeSurveyInterview extends ComandoBase {
     private List<EncuestaEntity> listaEncuesta;
     private RespuestaDto<Boolean> respuesta;
 
+    private long studyId, personId;
+
     public ComandoTakeSurveyInterview(long studyId, long personId, List<EncuestaDto> listaEncuestaDto) {
+        this.studyId = studyId;
+        this.personId = personId;
         this.listaEncuesta = EncuestaMapper.mapListDtoToEntity(studyId, personId, listaEncuestaDto, true);
         respuesta = new RespuestaDto<>();
     }
@@ -65,6 +69,21 @@ public class ComandoTakeSurveyInterview extends ComandoBase {
 
         try {
             DaoEncuesta daoEncuesta = FabricaDao.crearDaoEncuesta();
+            boolean update = false;
+
+            try {
+                List<EncuestaEntity> oldAnswers = daoEncuesta.getOldAnswers(studyId,personId);
+                for (EncuestaEntity encuesta : oldAnswers) {
+                    daoEncuesta.delete(encuesta);
+                }
+                update = true;
+            }
+            catch (NullPointerException e){
+//                NO TIENE RESPUESTAS VIEJAS
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
 
             for (EncuestaEntity encuesta : listaEncuesta) {
                 daoEncuesta.insert(encuesta);
@@ -72,7 +91,12 @@ public class ComandoTakeSurveyInterview extends ComandoBase {
 
             respuesta.setCodigo(0);
             respuesta.setEstado("OK");
-            respuesta.setMensaje( "Encuesta almacenada exitosamente." );
+            if (update){
+                respuesta.setMensaje("Encuesta actualizada exitosamente.");
+            }
+            else {
+                respuesta.setMensaje("Encuesta almacenada exitosamente.");
+            }
             respuesta.setObjeto(true);
         }
         catch (Exception e){

@@ -9,7 +9,11 @@ public class ComandoTakeSurvey extends ComandoBase {
     private List<EncuestaEntity> listaEncuesta;
     private RespuestaDto<Boolean> respuesta;
 
+    private long studyId, personId;
+
     public ComandoTakeSurvey(long studyId, long personId, List<EncuestaDto> listaEncuestaDto) {
+        this.studyId = studyId;
+        this.personId = personId;
         this.listaEncuesta = EncuestaMapper.mapListDtoToEntity(studyId, personId, listaEncuestaDto, false);
         respuesta = new RespuestaDto<>();
     }
@@ -65,6 +69,21 @@ public class ComandoTakeSurvey extends ComandoBase {
 
         try {
             DaoEncuesta daoEncuesta = FabricaDao.crearDaoEncuesta();
+            boolean update = false;
+
+            try {
+                List<EncuestaEntity> oldAnswers = daoEncuesta.getOldAnswers(studyId,personId);
+                for (EncuestaEntity encuesta : oldAnswers) {
+                    daoEncuesta.delete(encuesta);
+                }
+                update = true;
+            }
+            catch (NullPointerException e){
+//                NO TIENE RESPUESTAS VIEJAS
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
 
             for (EncuestaEntity encuesta : listaEncuesta) {
                 daoEncuesta.insert(encuesta);

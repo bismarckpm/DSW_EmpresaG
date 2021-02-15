@@ -28,6 +28,7 @@ public class DaoEncuesta extends Dao<EncuestaEntity> {
                 "AND (f.fkEdoCivil = p.fkEdoCivil OR f.fkEdoCivil IS NULL) " +
                 "AND (f.fkGenero = p.fkGenero OR f.fkGenero IS NULL) " +
                 "AND (f.fkNivelAcademico = pna.fkNivelAcademico OR f.fkNivelAcademico IS NULL) " +
+
                 "AND NOT EXISTS (SELECT e FROM EncuestaEntity e WHERE e.fkEstudio = :estudio AND e.fkPersona = p)";
 
         q = em.createQuery(JPQL);
@@ -98,5 +99,19 @@ public class DaoEncuesta extends Dao<EncuestaEntity> {
         }
 
         return found;
+    }
+
+    public List<EncuestaEntity> getOldAnswers (long studyId, long personId){
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresag");
+        EntityManager em = emf.createEntityManager();
+
+        JPQL = "SELECT e FROM EncuestaEntity e WHERE e.fkEstudio._id = :estudio AND e.fkPersona._id = :persona ";
+
+        q = em.createQuery(JPQL);
+        q.setParameter("estudio", studyId);
+        q.setParameter("persona", personId);
+
+        return q.getResultList();
     }
 }
